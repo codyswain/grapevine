@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +10,62 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bM3-xL-j1b">
+                                <rect key="frame" x="20" y="83.5" width="20" height="19"/>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Within 5 miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zs9-Q2-naz">
+                                <rect key="frame" x="42" y="80" width="116" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kes-07-CUv">
+                                <rect key="frame" x="300" y="76" width="66" height="30"/>
+                                <state key="normal" title="New Post">
+                                    <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Posts Near You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                                <rect key="frame" x="20" y="44" width="324" height="35"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="plus.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DMS-vR-4cS">
+                                <rect key="frame" x="367" y="81.5" width="20" height="19"/>
+                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Kes-07-CUv" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="-3" id="4eE-HD-iS8"/>
+                            <constraint firstItem="zs9-Q2-naz" firstAttribute="leading" secondItem="bM3-xL-j1b" secondAttribute="trailing" constant="2" id="M3v-pN-xcu"/>
+                            <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="SLb-zt-ZK4"/>
+                            <constraint firstItem="bM3-xL-j1b" firstAttribute="firstBaseline" secondItem="Rbx-yL-B51" secondAttribute="baseline" constant="22" id="Uqt-5l-gFu"/>
+                            <constraint firstItem="DMS-vR-4cS" firstAttribute="leading" secondItem="Kes-07-CUv" secondAttribute="trailing" constant="1" id="Wuq-ag-Ec6"/>
+                            <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fai-pg-hdx"/>
+                            <constraint firstItem="zs9-Q2-naz" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="1" id="kIT-GG-5ou"/>
+                            <constraint firstItem="DMS-vR-4cS" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="2" id="qfZ-eA-wmC"/>
+                            <constraint firstItem="bM3-xL-j1b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rVY-Jt-f8v"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DMS-vR-4cS" secondAttribute="trailing" constant="20" id="tax-ac-NWr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DMS-vR-4cS" secondAttribute="trailing" constant="20" id="uhY-YB-rDP"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-57.971014492753625" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="location.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
 </document>
