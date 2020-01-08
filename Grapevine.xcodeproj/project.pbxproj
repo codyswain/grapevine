@@ -13,6 +13,7 @@
 		83BE4CFF23C675930028AEC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83BE4CFD23C675930028AEC4 /* Main.storyboard */; };
 		83BE4D0123C675940028AEC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83BE4D0023C675940028AEC4 /* Assets.xcassets */; };
 		83BE4D0423C675940028AEC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83BE4D0223C675940028AEC4 /* LaunchScreen.storyboard */; };
+		8640F55A23C6907400D29F80 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640F55923C6907400D29F80 /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		83BE4D0023C675940028AEC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83BE4D0323C675940028AEC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83BE4D0523C675940028AEC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8640F55923C6907400D29F80 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,40 @@
 		83BE4CF623C675930028AEC4 /* Grapevine */ = {
 			isa = PBXGroup;
 			children = (
+				8640F55823C68FC300D29F80 /* Model */,
+				8640F55723C68FC000D29F80 /* View */,
+				8640F55623C68FBC00D29F80 /* Controller */,
 				83BE4CF723C675930028AEC4 /* AppDelegate.swift */,
 				83BE4CF923C675930028AEC4 /* SceneDelegate.swift */,
-				83BE4CFB23C675930028AEC4 /* ViewController.swift */,
-				83BE4CFD23C675930028AEC4 /* Main.storyboard */,
 				83BE4D0023C675940028AEC4 /* Assets.xcassets */,
-				83BE4D0223C675940028AEC4 /* LaunchScreen.storyboard */,
 				83BE4D0523C675940028AEC4 /* Info.plist */,
 			);
 			path = Grapevine;
+			sourceTree = "<group>";
+		};
+		8640F55623C68FBC00D29F80 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				83BE4CFB23C675930028AEC4 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8640F55723C68FC000D29F80 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				83BE4CFD23C675930028AEC4 /* Main.storyboard */,
+				83BE4D0223C675940028AEC4 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8640F55823C68FC300D29F80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8640F55923C6907400D29F80 /* Post.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +168,7 @@
 				83BE4CFC23C675930028AEC4 /* ViewController.swift in Sources */,
 				83BE4CF823C675930028AEC4 /* AppDelegate.swift in Sources */,
 				83BE4CFA23C675930028AEC4 /* SceneDelegate.swift in Sources */,
+				8640F55A23C6907400D29F80 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
