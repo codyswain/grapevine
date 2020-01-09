@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseFirestore
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -19,9 +21,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        loadPosts()
+        let db = Firestore.firestore()
     }
-
+    
+    func loadPosts(){
+            
+    }
 
 }
 
