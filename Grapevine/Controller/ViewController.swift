@@ -14,8 +14,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var posts: [Post] = [
-        Post(content:"Hi Cody", upvotes:5, downvotes:0),
-        Post(content:"Jason is a tank", upvotes:3, downvotes:0)
+        Post(content:"God, North Campus is so much nicer than South Campus it’s crazy. Should’ve been an English major.", upvotes:5, downvotes:0),
+        Post(content:"If you’re sitting near me, I am so sorry. Shrimp burrito is doing me dirty, Rubio’s had a special", upvotes:3, downvotes:0),
+        Post(content:"Why does this school not have any pencil sharpeners? It’s actually kinda impressive", upvotes:3, downvotes:0),
+        Post(content:"Best libraries: Rosenfeld > YRL > Powell > PAB > Engineering. Fight me. ", upvotes:3, downvotes:0),
+        Post(content:"The Lakers are not the real deal. Clippers gonna be champs of the west mark my words baby", upvotes:3, downvotes:0)
+        
     ]
 
     override func viewDidLoad() {
@@ -26,6 +30,11 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 160
         tableView.backgroundColor = UIColor.white
+    }
+    
+    // Make top information (time, battery, signal) dark
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
     }
     
     func loadPosts(){
