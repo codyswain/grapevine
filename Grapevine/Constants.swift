@@ -11,6 +11,7 @@ import Foundation
 struct Constants {
     static let appName = "Grapevine"
     static let cellIdentifier = "ReusableCell"
+    static let cellNibName = "PostTableViewCell"
 
 //    struct BrandColors {
 //        static let purple = "BrandPurple"

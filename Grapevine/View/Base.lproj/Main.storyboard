@@ -41,28 +41,21 @@
                                 <rect key="frame" x="376" y="81.5" width="20" height="19"/>
                                 <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-vy-wu6">
-                                <rect key="frame" x="20" y="124" width="380" height="587"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableCell" id="H5H-9i-Rqg">
-                                        <rect key="frame" x="0.0" y="28" width="380" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="H5H-9i-Rqg" id="y0X-aB-Zyx">
-                                            <rect key="frame" x="0.0" y="0.0" width="380" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-vy-wu6">
+                                <rect key="frame" x="0.0" y="121" width="414" height="775"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Kes-07-CUv" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="-3" id="4eE-HD-iS8"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AKw-6J-Ol6"/>
                             <constraint firstItem="zs9-Q2-naz" firstAttribute="leading" secondItem="bM3-xL-j1b" secondAttribute="trailing" constant="2" id="M3v-pN-xcu"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="77" id="Nl4-Mj-zrt"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="SLb-zt-ZK4"/>
+                            <constraint firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="Sc6-LX-fUD"/>
                             <constraint firstItem="bM3-xL-j1b" firstAttribute="firstBaseline" secondItem="Rbx-yL-B51" secondAttribute="baseline" constant="22" id="Uqt-5l-gFu"/>
                             <constraint firstItem="DMS-vR-4cS" firstAttribute="leading" secondItem="Kes-07-CUv" secondAttribute="trailing" constant="1" id="Wuq-ag-Ec6"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fai-pg-hdx"/>
@@ -71,6 +64,7 @@
                             <constraint firstItem="bM3-xL-j1b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rVY-Jt-f8v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DMS-vR-4cS" secondAttribute="trailing" constant="20" id="tax-ac-NWr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DMS-vR-4cS" secondAttribute="trailing" constant="20" id="uhY-YB-rDP"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZ5-dy-vHo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

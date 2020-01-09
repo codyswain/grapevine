@@ -22,7 +22,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         loadPosts()
-        let db = Firestore.firestore()
+//        let db = Firestore.firestore()
+        tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.rowHeight = 160
+        tableView.backgroundColor = UIColor.white
     }
     
     func loadPosts(){
@@ -38,8 +41,10 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath)
-        cell.textLabel?.text = posts[indexPath.row].content
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+        cell.label.text = posts[indexPath.row].content
+        cell.label.textColor = UIColor.black // Set the color of the text
+        cell.backgroundColor = UIColor.white
 
         return cell
     }
