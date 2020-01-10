@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         loadPosts()
 //        let db = Firestore.firestore()
+        
+        // TableView setup
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 160
         tableView.backgroundColor = UIColor.white
@@ -51,8 +53,15 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+        cell.backgroundColor = UIColor.white
+        
+        // Set main body of post cell
         cell.label.text = posts[indexPath.row].content
         cell.label.textColor = UIColor.black // Set the color of the text
+        
+        // Set vote count of post cell
+        cell.voteCountLabel.text = String(posts[indexPath.row].upvotes)
+        cell.voteCountLabel.textColor = UIColor.black
         cell.backgroundColor = UIColor.white
 
         return cell
