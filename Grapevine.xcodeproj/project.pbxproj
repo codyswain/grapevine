@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,9 @@
 		8640F55C23C695DB00D29F80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640F55B23C695DB00D29F80 /* Constants.swift */; };
 		8640F56323C69C8A00D29F80 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640F56123C69C8A00D29F80 /* PostTableViewCell.swift */; };
 		8640F56423C69C8A00D29F80 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8640F56223C69C8A00D29F80 /* PostTableViewCell.xib */; };
+		8640F56623C7FB1900D29F80 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8640F56523C7FB1900D29F80 /* GoogleService-Info.plist */; };
+		8640F56923C8014B00D29F80 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640F56823C8014B00D29F80 /* Comment.swift */; };
+		8640F56B23C801BF00D29F80 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8640F56A23C801BF00D29F80 /* User.swift */; };
 		BED655D97CAB61AF75889E36 /* Pods_Grapevine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E8464076896B5B8536D700C /* Pods_Grapevine.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +38,9 @@
 		8640F55B23C695DB00D29F80 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8640F56123C69C8A00D29F80 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		8640F56223C69C8A00D29F80 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		8640F56523C7FB1900D29F80 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8640F56823C8014B00D29F80 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		8640F56A23C801BF00D29F80 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A751E2D35BA2EA99A03B3679 /* Pods-Grapevine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine.release.xcconfig"; path = "Target Support Files/Pods-Grapevine/Pods-Grapevine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +77,7 @@
 		83BE4CF623C675930028AEC4 /* Grapevine */ = {
 			isa = PBXGroup;
 			children = (
+				8640F56523C7FB1900D29F80 /* GoogleService-Info.plist */,
 				8640F55823C68FC300D29F80 /* Model */,
 				8640F55723C68FC000D29F80 /* View */,
 				8640F55623C68FBC00D29F80 /* Controller */,
@@ -106,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				8640F55923C6907400D29F80 /* Post.swift */,
+				8640F56823C8014B00D29F80 /* Comment.swift */,
+				8640F56A23C801BF00D29F80 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,7 +125,6 @@
 				5E9B5D6A5AF097709D744802 /* Pods-Grapevine.debug.xcconfig */,
 				A751E2D35BA2EA99A03B3679 /* Pods-Grapevine.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -190,6 +198,7 @@
 			files = (
 				83BE4D0423C675940028AEC4 /* LaunchScreen.storyboard in Resources */,
 				83BE4D0123C675940028AEC4 /* Assets.xcassets in Resources */,
+				8640F56623C7FB1900D29F80 /* GoogleService-Info.plist in Resources */,
 				83BE4CFF23C675930028AEC4 /* Main.storyboard in Resources */,
 				8640F56423C69C8A00D29F80 /* PostTableViewCell.xib in Resources */,
 			);
@@ -247,6 +256,8 @@
 				8640F55C23C695DB00D29F80 /* Constants.swift in Sources */,
 				83BE4CFC23C675930028AEC4 /* ViewController.swift in Sources */,
 				83BE4CF823C675930028AEC4 /* AppDelegate.swift in Sources */,
+				8640F56923C8014B00D29F80 /* Comment.swift in Sources */,
+				8640F56B23C801BF00D29F80 /* User.swift in Sources */,
 				83BE4CFA23C675930028AEC4 /* SceneDelegate.swift in Sources */,
 				8640F55A23C6907400D29F80 /* Post.swift in Sources */,
 				8640F56323C69C8A00D29F80 /* PostTableViewCell.swift in Sources */,
