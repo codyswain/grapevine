@@ -40,6 +40,10 @@ class ViewController: UIViewController {
         return .darkContent
     }
     
+    @IBAction func newPostButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+    }
+    
     func loadPosts(){
         
 //        let submittedVoteFlagRef = self.db.collection("posts").document("GeX4k92lojNu8Xkuim2T").collection("user").document("zr42Im6A43mrGdO5w0Ja")
