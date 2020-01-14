@@ -10,6 +10,8 @@ import Foundation
 
 struct Post {
     let content: String
-    let upvotes: Int
-    let downvotes: Int
+    let votes: Int
+    let postID: String? = nil
+    let poster: User? = nil
+    let comments: [Comment]? = nil
 }
