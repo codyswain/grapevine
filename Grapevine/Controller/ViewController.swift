@@ -35,20 +35,68 @@ class ViewController: UIViewController {
         tableView.backgroundColor = UIColor.white
     }
     
-    // Make top information (time, battery, signal) dark
+    // Make top information (time, battery, signal) dark mode
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
     
     func loadPosts(){
-        db.collection(Constants.Firestore.collectionName).getDocuments{ (querySnapshot, error) in
-            if let e = error {
-                print("Error return posts from Firestore: \(e)")
+        
+//        let submittedVoteFlagRef = self.db.collection("posts").document("GeX4k92lojNu8Xkuim2T").collection("user").document("zr42Im6A43mrGdO5w0Ja")
+//        submittedVoteFlagRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+//                print("Document data: \(dataDescription)")
+//            } else {
+//                print("Document does not exist")
+//            }
+//        }
+//
+        print("Device id")
+        print(UIDevice.current.identifierForVendor!.uuidString)
+        db.collection("posts").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
                     let data = document.data()
+                    let documentId = document.documentID
+                    
                     if let currentPostContent = data[Constants.Firestore.textField] as? String,
-                        let currentPostVotes = data[Constants.Firestore.votesField] as? Int {
+                    let currentPostVotes = data[Constants.Firestore.votesField] as? Int {
+                        
+                        
+                        // Get existing vote status
+                        let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
+                        voteStatusRef.getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                
+                                // For debugging only
+                                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                                print("Document data: \(dataDescription)")
+                                
+                                // Get existing vote status
+                                let data = document.data()
+                                if let voteStatus = data?["voteStatus"] as? String {
+                                    print("Existing vote status \(voteStatus)")
+                                } else {
+                                    print("No existing vote status")
+                                }
+                                
+                                
+                            } else {
+                                print("Creating user vote status in firestore post")
+                                let docData: [String: Any] = ["voteStatus": "0"];             self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString).setData(docData) { err in
+                                    if let err = err {
+                                        print("Error writing document: \(err)")
+                                    } else {
+                                        print("Document successfully written!")
+                                    }
+                                }
+                            }
+                        }
+                        
+                        
                         let newPost = Post(content: currentPostContent, votes:currentPostVotes)
                         self.posts.append(newPost)
                         
@@ -56,10 +104,43 @@ class ViewController: UIViewController {
                             self.tableView.reloadData()
                         }
                     }
+                    print("\(document.documentID) => \(document.data())")
                 }
             }
         }
+        
+        
+//        db.collection(Constants.Firestore.collectionName).getDocuments{ (querySnapshot, error) in
+//            if let e = error {
+//                print("Error return posts from Firestore: \(e)")
+//            } else {
+//                for document in querySnapshot!.documents {
+//                    let data = document.data()
+//
+//                    if let currentPostContent = data[Constants.Firestore.textField] as? String,
+//                        let currentPostVotes = data[Constants.Firestore.votesField] as? Int {
+//
+//                        if let obj = data[Constants.Firestore.userField] as? NSObject {
+//                            print("Object found")
+//                        } else {
+//                            print("Object not found")
+//                        }
+//
+//
+//                        let newPost = Post(content: currentPostContent, votes:currentPostVotes)
+//                        self.posts.append(newPost)
+//
+//                        DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
+    
+    // ADD: Reload wheel
+    // ADD: Auto-update posts when user submits one
 
 }
 
