@@ -40,6 +40,10 @@ class ViewController: UIViewController {
         return .darkContent
     }
     
+    @IBAction func newPostButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+    }
+    
     func loadPosts(){
         db.collection(Constants.Firestore.collectionName).getDocuments{ (querySnapshot, error) in
             if let e = error {
