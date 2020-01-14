@@ -15,14 +15,6 @@ class ViewController: UIViewController {
     
     let db = Firestore.firestore()
     var posts: [Post] = []
-//    var posts: [Post] = [
-//        Post(content:"God, North Campus is so much nicer than South Campus it’s crazy. Should’ve been an English major.", votes:5),
-//        Post(content:"If you’re sitting near me, I am so sorry. Shrimp burrito is doing me dirty, Rubio’s had a special", votes:3),
-//        Post(content:"Why does this school not have any pencil sharpeners? It’s actually kinda impressive", votes:3),
-//        Post(content:"Best libraries: Rosenfeld > YRL > Powell > PAB > Engineering. Fight me. ", votes:3),
-//        Post(content:"The Lakers are not the real deal. Clippers gonna be champs of the west mark my words baby", votes:3)
-//
-//    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +50,10 @@ class ViewController: UIViewController {
 //
         print("Device id")
         print(UIDevice.current.identifierForVendor!.uuidString)
-        db.collection("posts").getDocuments() { (querySnapshot, err) in
+        db.collection("posts")
+            .order(by:Constants.Firestore.dateField, descending:true)
+            .limit(to:Constants.numberOfPostsPerBatch)
+            .getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -67,7 +62,8 @@ class ViewController: UIViewController {
                     let documentId = document.documentID
                     
                     if let currentPostContent = data[Constants.Firestore.textField] as? String,
-                    let currentPostVotes = data[Constants.Firestore.votesField] as? Int {
+                    let currentPostVotes = data[Constants.Firestore.votesField] as? Int,
+                    let currentPostDate = data[Constants.Firestore.votesField] as? Double {
                         
                         
                         // Get existing vote status
@@ -101,7 +97,7 @@ class ViewController: UIViewController {
                         }
                         
                         
-                        let newPost = Post(content: currentPostContent, votes:currentPostVotes)
+                        let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate)
                         self.posts.append(newPost)
                         
                         DispatchQueue.main.async {

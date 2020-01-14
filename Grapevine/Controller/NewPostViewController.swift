@@ -25,7 +25,8 @@ class NewPostViewController: UIViewController {
             db.collection(Constants.Firestore.collectionName).addDocument(data: [
                 Constants.Firestore.textField: textFieldBody,
                 Constants.Firestore.userIDField: "",
-                Constants.Firestore.votesField: 0
+                Constants.Firestore.votesField: 0,
+                Constants.Firestore.dateField: Date().timeIntervalSince1970
             ]) { (error) in
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")
