@@ -14,4 +14,5 @@ struct Post {
     let postID: String? = nil
     let poster: User? = nil
     let comments: [Comment]? = nil
+    let voteStatus: Int
 }

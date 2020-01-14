@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import FirebaseFirestore
 
 class PostTableViewCell: UITableViewCell {
+    let db = Firestore.firestore()
     
     // Objects used to interface with UI
     @IBOutlet weak var label: UILabel!
@@ -48,12 +51,18 @@ class PostTableViewCell: UITableViewCell {
             footer.backgroundColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
             upvoteImageButton.tintColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
+            
+            // Subtract 1 from vote status
+            
+            
         } else if self.currentVoteStatus == 1 {
             currentVoteStatus = 0
             footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
             upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
             downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
+            
+            //
         } else {
             currentVoteStatus = 0
             footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
