@@ -12,23 +12,21 @@ import FirebaseFirestore
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    
+    let db = Firestore.firestore()
+    var lastRetrievedPostDate: Double = 0.0
     var posts: [Post] = []
-//    var posts: [Post] = [
-//        Post(content:"God, North Campus is so much nicer than South Campus it’s crazy. Should’ve been an English major.", votes:5),
-//        Post(content:"If you’re sitting near me, I am so sorry. Shrimp burrito is doing me dirty, Rubio’s had a special", votes:3),
-//        Post(content:"Why does this school not have any pencil sharpeners? It’s actually kinda impressive", votes:3),
-//        Post(content:"Best libraries: Rosenfeld > YRL > Powell > PAB > Engineering. Fight me. ", votes:3),
-//        Post(content:"The Lakers are not the real deal. Clippers gonna be champs of the west mark my words baby", votes:3)
-//
-//    ]
-
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .black
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPosts()
+        loadPosts(refresh:false)
         tableView.dataSource = self
-        
+        tableView.refreshControl = refresher
         // TableView setup
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 160
@@ -44,8 +42,19 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
     }
     
-    func loadPosts(){
-        db.collection("posts").getDocuments() { (querySnapshot, err) in
+    @objc func refresh(){
+        loadPosts(refresh:true)
+        let deadline = DispatchTime.now() + .milliseconds(1000)
+        DispatchQueue.main.asyncAfter(deadline: deadline){
+            self.refresher.endRefreshing()
+        }
+    }
+    
+    func loadPosts(refresh:Bool){
+        db.collection("posts")
+            .order(by:Constants.Firestore.dateField)
+            .limit(to:Constants.numberOfPostsPerBatch)
+            .getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -53,10 +62,20 @@ class ViewController: UIViewController {
                     let data = document.data()
                     let documentId = document.documentID
                     if let currentPostContent = data[Constants.Firestore.textField] as? String,
-                    let currentPostVotes = data[Constants.Firestore.votesField] as? Int {
-                        
                         // Get existing vote status and update posts
                         var currentVoteStatus = 0
+                  
+                    let currentPostVotes = data[Constants.Firestore.votesField] as? Int,
+                    let currentPostDate = data[Constants.Firestore.votesField] as? Double {
+                      
+                        // If we're refreshing and we've already retrieved this post, we shouldn't add it to the list again
+                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
+                            continue
+                        } else {
+                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
+                        }
+                        
+                        // Get existing vote status
                         let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
                         voteStatusRef.getDocument { (document, error) in
                             if let document = document, document.exists {
@@ -90,7 +109,6 @@ class ViewController: UIViewController {
                             }
                         }
                     }
-                    print("\(document.documentID) => \(document.data())")
                 }
             }
         }
