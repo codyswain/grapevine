@@ -12,15 +12,22 @@ import FirebaseFirestore
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    let db = Firestore.firestore()
-    var posts: [Post] = []
 
+    let db = Firestore.firestore()
+    var lastRetrievedPostDate: Double = 0.0
+    var posts: [Post] = []
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .black
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPosts()
+        loadPosts(refresh:false)
         tableView.dataSource = self
-        
+        tableView.refreshControl = refresher
         // TableView setup
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 160
@@ -36,7 +43,15 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
     }
     
-    func loadPosts(){
+    @objc func refresh(){
+        loadPosts(refresh:true)
+        let deadline = DispatchTime.now() + .milliseconds(1000)
+        DispatchQueue.main.asyncAfter(deadline: deadline){
+            self.refresher.endRefreshing()
+        }
+    }
+    
+    func loadPosts(refresh:Bool){
         
 //        let submittedVoteFlagRef = self.db.collection("posts").document("GeX4k92lojNu8Xkuim2T").collection("user").document("zr42Im6A43mrGdO5w0Ja")
 //        submittedVoteFlagRef.getDocument { (document, error) in
@@ -51,7 +66,7 @@ class ViewController: UIViewController {
         print("Device id")
         print(UIDevice.current.identifierForVendor!.uuidString)
         db.collection("posts")
-            .order(by:Constants.Firestore.dateField, descending:true)
+            .order(by:Constants.Firestore.dateField)
             .limit(to:Constants.numberOfPostsPerBatch)
             .getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -64,7 +79,12 @@ class ViewController: UIViewController {
                     if let currentPostContent = data[Constants.Firestore.textField] as? String,
                     let currentPostVotes = data[Constants.Firestore.votesField] as? Int,
                     let currentPostDate = data[Constants.Firestore.votesField] as? Double {
-                        
+                        // If we're refreshing and we've already retrieved this post, we shouldn't add it to the list again
+                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
+                            continue
+                        } else {
+                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
+                        }
                         
                         // Get existing vote status
                         let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
@@ -98,13 +118,13 @@ class ViewController: UIViewController {
                         
                         
                         let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate)
-                        self.posts.append(newPost)
+                        self.posts.insert(newPost, at:0)
                         
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
                     }
-                    print("\(document.documentID) => \(document.data())")
+//                    print("\(document.documentID) => \(document.data())")
                 }
             }
         }
