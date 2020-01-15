@@ -52,16 +52,6 @@ class ViewController: UIViewController {
     }
     
     func loadPosts(){
-//        let submittedVoteFlagRef = self.db.collection("posts").document("GeX4k92lojNu8Xkuim2T").collection("user").document("zr42Im6A43mrGdO5w0Ja")
-//        submittedVoteFlagRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-//                print("Document data: \(dataDescription)")
-//            } else {
-//                print("Document does not exist")
-//            }
-//        }
-//
         self.posts = []
         db.collection("posts")
             .order(by:Constants.Firestore.dateField)
