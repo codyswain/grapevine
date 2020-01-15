@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPosts(refresh:false)
+        loadPosts()
         tableView.dataSource = self
         tableView.refreshControl = refresher
         // TableView setup
@@ -44,15 +44,14 @@ class ViewController: UIViewController {
     }
     
     @objc func refresh(){
-        loadPosts(refresh:true)
+        loadPosts()
         let deadline = DispatchTime.now() + .milliseconds(1000)
         DispatchQueue.main.asyncAfter(deadline: deadline){
             self.refresher.endRefreshing()
         }
     }
     
-    func loadPosts(refresh:Bool){
-        
+    func loadPosts(){
 //        let submittedVoteFlagRef = self.db.collection("posts").document("GeX4k92lojNu8Xkuim2T").collection("user").document("zr42Im6A43mrGdO5w0Ja")
 //        submittedVoteFlagRef.getDocument { (document, error) in
 //            if let document = document, document.exists {
@@ -63,8 +62,7 @@ class ViewController: UIViewController {
 //            }
 //        }
 //
-        print("Device id")
-        print(UIDevice.current.identifierForVendor!.uuidString)
+        self.posts = []
         db.collection("posts")
             .order(by:Constants.Firestore.dateField)
             .limit(to:Constants.numberOfPostsPerBatch)
@@ -80,11 +78,12 @@ class ViewController: UIViewController {
                     let currentPostVotes = data[Constants.Firestore.votesField] as? Int,
                     let currentPostDate = data[Constants.Firestore.votesField] as? Double {
                         // If we're refreshing and we've already retrieved this post, we shouldn't add it to the list again
-                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
-                            continue
-                        } else {
-                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
-                        }
+//                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
+//
+//                            continue
+//                        } else {
+//                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
+//                        }
                         
                         // Get existing vote status
                         let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
