@@ -52,17 +52,6 @@ class ViewController: UIViewController {
     }
     
     func loadPosts(refresh:Bool){
-        
-//        let submittedVoteFlagRef = self.db.collection("posts").document("GeX4k92lojNu8Xkuim2T").collection("user").document("zr42Im6A43mrGdO5w0Ja")
-//        submittedVoteFlagRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-//                print("Document data: \(dataDescription)")
-//            } else {
-//                print("Document does not exist")
-//            }
-//        }
-//
         print("Device id")
         print(UIDevice.current.identifierForVendor!.uuidString)
         db.collection("posts")
@@ -79,6 +68,7 @@ class ViewController: UIViewController {
                     if let currentPostContent = data[Constants.Firestore.textField] as? String,
                     let currentPostVotes = data[Constants.Firestore.votesField] as? Int,
                     let currentPostDate = data[Constants.Firestore.votesField] as? Double {
+                        
                         // If we're refreshing and we've already retrieved this post, we shouldn't add it to the list again
                         if (refresh && currentPostDate <= self.lastRetrievedPostDate){
                             continue
@@ -87,6 +77,7 @@ class ViewController: UIViewController {
                         }
                         
                         // Get existing vote status
+                        var currentVoteStatus = 0
                         let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
                         voteStatusRef.getDocument { (document, error) in
                             if let document = document, document.exists {
@@ -97,12 +88,17 @@ class ViewController: UIViewController {
                                 
                                 // Get existing vote status
                                 let data = document.data()
-                                if let voteStatus = data?["voteStatus"] as? String {
-                                    print("Existing vote status \(voteStatus)")
+                                if let currentVoteStatusString = data?["voteStatus"] as? String {
+                                    currentVoteStatus = Int(currentVoteStatusString)!
+                                    print("DOC ID 1 \(documentId)")
+                                    let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
+                                    self.posts.append(newPost)
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
                                 } else {
-                                    print("No existing vote status")
+                                    print("No existing vote status. This error should not occur")
                                 }
-                                
                                 
                             } else {
                                 print("Creating user vote status in firestore post")
@@ -110,53 +106,22 @@ class ViewController: UIViewController {
                                     if let err = err {
                                         print("Error writing document: \(err)")
                                     } else {
-                                        print("Document successfully written!")
+                                        // Success - push post to screen
+                                        print("DOC ID 2 \(documentId)")
+                                        let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
+                                        self.posts.append(newPost)
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
                                     }
                                 }
+                                currentVoteStatus = 0
                             }
                         }
-                        
-                        
-                        let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate)
-                        self.posts.insert(newPost, at:0)
-                        
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
                     }
-//                    print("\(document.documentID) => \(document.data())")
                 }
             }
         }
-        
-        
-//        db.collection(Constants.Firestore.collectionName).getDocuments{ (querySnapshot, error) in
-//            if let e = error {
-//                print("Error return posts from Firestore: \(e)")
-//            } else {
-//                for document in querySnapshot!.documents {
-//                    let data = document.data()
-//
-//                    if let currentPostContent = data[Constants.Firestore.textField] as? String,
-//                        let currentPostVotes = data[Constants.Firestore.votesField] as? Int {
-//
-//                        if let obj = data[Constants.Firestore.userField] as? NSObject {
-//                            print("Object found")
-//                        } else {
-//                            print("Object not found")
-//                        }
-//
-//
-//                        let newPost = Post(content: currentPostContent, votes:currentPostVotes)
-//                        self.posts.append(newPost)
-//
-//                        DispatchQueue.main.async {
-//                            self.tableView.reloadData()
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
     
     // ADD: Reload wheel
@@ -182,7 +147,24 @@ extension ViewController: UITableViewDataSource {
         cell.voteCountLabel.text = String(posts[indexPath.row].votes)
         cell.voteCountLabel.textColor = UIColor.black
         cell.backgroundColor = UIColor.white
+        
+        cell.documentId = posts[indexPath.row].postId
 
+        if (posts[indexPath.row].voteStatus == 0){
+            cell.currentVoteStatus = 0
+            cell.footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
+            cell.upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+            cell.downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+        } else if (posts[indexPath.row].voteStatus == 1) {
+            cell.currentVoteStatus = 1
+            cell.footer.backgroundColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+            cell.downvoteImageButton.tintColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+        } else if (posts[indexPath.row].voteStatus == -1) {
+            cell.currentVoteStatus = -1
+            cell.footer.backgroundColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
+            cell.upvoteImageButton.tintColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
+        }
+        
         return cell
     }
 }
