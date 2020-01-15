@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func loadPosts(){
+    func loadPosts(refresh:Bool){
         print("Device id")
         print(UIDevice.current.identifierForVendor!.uuidString)
         self.posts = []
