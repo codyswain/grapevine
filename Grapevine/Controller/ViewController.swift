@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     
     func loadPosts(){
         db.collection("posts")
-            .order(by:Constants.Firestore.dateField, descending:true)
+            .order(by:Constants.Firestore.dateField)
             .limit(to:Constants.numberOfPostsPerBatch)
             .getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -77,19 +77,12 @@ class ViewController: UIViewController {
                             if let document = document, document.exists {
                                 
                                 // For debugging only
-                                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                                print("Document data: \(dataDescription)")
+                                //let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                                 
                                 // Get existing vote status
                                 let data = document.data()
                                 if let currentVoteStatusString = data?["voteStatus"] as? String {
                                     currentVoteStatus = Int(currentVoteStatusString)!
-                                    print("DOC ID 1 \(documentId)")
-                                    let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
-                                    self.posts.insert(newPost, at:0)
-                                    DispatchQueue.main.async {
-                                        self.tableView.reloadData()
-                                    }
                                 } else {
                                     print("No existing vote status. This error should not occur")
                                 }
@@ -102,15 +95,15 @@ class ViewController: UIViewController {
                                     } else {
                                         // Success - push post to screen
                                         print("DOC ID 2 \(documentId)")
-                                        let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
-                                        self.posts.insert(newPost, at:0)
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
                                     }
                                 }
                                 currentVoteStatus = 0
                             }
+                        }
+                        let currentPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
+                        self.posts.insert(currentPost, at:0)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
                         }
                     }
                 }
@@ -130,11 +123,6 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row > posts.count){
-            print("ERROR: UITableViewDataSource view controller trying to fill \(indexPath.row)th row, but only \(posts.count) posts.")
-            return tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath)
-        }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         cell.backgroundColor = UIColor.white
         // Set main body of post cell
