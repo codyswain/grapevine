@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPosts(refresh:false)
+        loadPosts()
         tableView.dataSource = self
         tableView.refreshControl = refresher
         // TableView setup
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     @objc func refresh(){
-        loadPosts(refresh:true)
+        loadPosts()
         let deadline = DispatchTime.now() + .milliseconds(1000)
         DispatchQueue.main.asyncAfter(deadline: deadline){
             self.refresher.endRefreshing()
@@ -54,6 +54,7 @@ class ViewController: UIViewController {
     func loadPosts(refresh:Bool){
         print("Device id")
         print(UIDevice.current.identifierForVendor!.uuidString)
+        self.posts = []
         db.collection("posts")
             .order(by:Constants.Firestore.dateField)
             .limit(to:Constants.numberOfPostsPerBatch)
@@ -70,11 +71,12 @@ class ViewController: UIViewController {
                     let currentPostDate = data[Constants.Firestore.votesField] as? Double {
                         
                         // If we're refreshing and we've already retrieved this post, we shouldn't add it to the list again
-                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
-                            continue
-                        } else {
-                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
-                        }
+//                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
+//
+//                            continue
+//                        } else {
+//                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
+//                        }
                         
                         // Get existing vote status
                         var currentVoteStatus = 0
