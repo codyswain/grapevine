@@ -77,7 +77,7 @@ class PostTableViewCell: UITableViewCell {
             upvoteImageButton.tintColor = .white
             voteCountLabel.textColor = .white
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-        } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
+        } else if self.currentVoteStatus == -1 {
             currentVoteStatus = 0
             footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
             downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)

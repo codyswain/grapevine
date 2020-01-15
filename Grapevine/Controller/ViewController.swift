@@ -52,6 +52,8 @@ class ViewController: UIViewController {
     }
     
     func loadPosts(){
+        print("Device id")
+        print(UIDevice.current.identifierForVendor!.uuidString)
         self.posts = []
         db.collection("posts")
             .order(by:Constants.Firestore.dateField)
