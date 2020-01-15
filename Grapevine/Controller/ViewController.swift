@@ -52,16 +52,17 @@ class ViewController: UIViewController {
     }
     
     func loadPosts(){
-        print("Device id")
-        print(UIDevice.current.identifierForVendor!.uuidString)
-        self.posts = []
         db.collection("posts")
-            .order(by:Constants.Firestore.dateField)
+            .order(by:Constants.Firestore.dateField, descending:true)
             .limit(to:Constants.numberOfPostsPerBatch)
             .getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
+                self.posts = [] // empty posts
+                DispatchQueue.main.async { // since we're emptying posts, UI errors can occur if we don't empty the view too
+                    self.tableView.reloadData()
+                }
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     let documentId = document.documentID
@@ -69,15 +70,6 @@ class ViewController: UIViewController {
                     if let currentPostContent = data[Constants.Firestore.textField] as? String,
                     let currentPostVotes = data[Constants.Firestore.votesField] as? Int,
                     let currentPostDate = data[Constants.Firestore.votesField] as? Double {
-                        
-                        // If we're refreshing and we've already retrieved this post, we shouldn't add it to the list again
-//                        if (refresh && currentPostDate <= self.lastRetrievedPostDate){
-//
-//                            continue
-//                        } else {
-//                            self.lastRetrievedPostDate = max(self.lastRetrievedPostDate, currentPostDate)
-//                        }
-                        
                         // Get existing vote status
                         var currentVoteStatus = 0
                         let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
@@ -94,7 +86,7 @@ class ViewController: UIViewController {
                                     currentVoteStatus = Int(currentVoteStatusString)!
                                     print("DOC ID 1 \(documentId)")
                                     let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
-                                    self.posts.append(newPost)
+                                    self.posts.insert(newPost, at:0)
                                     DispatchQueue.main.async {
                                         self.tableView.reloadData()
                                     }
@@ -111,7 +103,7 @@ class ViewController: UIViewController {
                                         // Success - push post to screen
                                         print("DOC ID 2 \(documentId)")
                                         let newPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
-                                        self.posts.append(newPost)
+                                        self.posts.insert(newPost, at:0)
                                         DispatchQueue.main.async {
                                             self.tableView.reloadData()
                                         }
@@ -138,9 +130,13 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row > posts.count){
+            print("ERROR: UITableViewDataSource view controller trying to fill \(indexPath.row)th row, but only \(posts.count) posts.")
+            return tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath)
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         cell.backgroundColor = UIColor.white
-        
         // Set main body of post cell
         cell.label.text = posts[indexPath.row].content
         cell.label.textColor = UIColor.black // Set the color of the text
