@@ -12,7 +12,8 @@ struct Post {
     let content: String
     let votes: Int
     let date: Double
-    let postID: String? = nil
+    let voteStatus: Int
+    let postId: String
     let poster: User? = nil
     let comments: [Comment]? = nil
 }
