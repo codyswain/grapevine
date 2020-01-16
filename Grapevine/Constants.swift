@@ -14,6 +14,7 @@ struct Constants {
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "PostTableViewCell"
     static let numberOfPostsPerBatch = 20
+    static let numberOfCharactersPerPost = 280
     struct Firestore {
         static let collectionName = "posts"
         static let textField = "content"
