@@ -15,7 +15,7 @@ class NewPostViewController: UIViewController {
 
     @IBOutlet weak var postButton: UIButton!
     @IBOutlet weak var frontTextView: UITextView! // actual user input text
-    @IBOutlet weak var backTextView: UITextView! // placeholder text 
+    @IBOutlet weak var backTextView: UITextView! // placeholder text
     @IBOutlet weak var newPostTextBackground: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
