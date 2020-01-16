@@ -13,6 +13,7 @@ struct Constants {
     static let appName = "Grapevine"
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "PostTableViewCell"
+    static let numberOfCharactersPerPost = 280
     static let numberOfPostsPerBatch = 20
     struct Firestore {
         static let collectionName = "posts"
