@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     
     func loadPosts(){
         db.collection("posts")
-            .order(by:Constants.Firestore.dateField)
+            .order(by:Constants.Firestore.dateField, descending: true)
             .limit(to:Constants.numberOfPostsPerBatch)
             .getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -76,9 +76,6 @@ class ViewController: UIViewController {
                         voteStatusRef.getDocument { (document, error) in
                             if let document = document, document.exists {
                                 
-                                // For debugging only
-                                //let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                                
                                 // Get existing vote status
                                 let data = document.data()
                                 if let currentVoteStatusString = data?["voteStatus"] as? String {
@@ -99,11 +96,11 @@ class ViewController: UIViewController {
                                 }
                                 currentVoteStatus = 0
                             }
-                        }
-                        let currentPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
-                        self.posts.insert(currentPost, at:0)
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
+                            let currentPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
+                            self.posts.insert(currentPost, at:0)
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
                     }
                 }
@@ -145,10 +142,14 @@ extension ViewController: UITableViewDataSource {
             cell.currentVoteStatus = 1
             cell.footer.backgroundColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
             cell.downvoteImageButton.tintColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+            cell.upvoteImageButton.tintColor = UIColor.white
+            cell.voteCountLabel.textColor = .white
         } else if (posts[indexPath.row].voteStatus == -1) {
             cell.currentVoteStatus = -1
             cell.footer.backgroundColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
             cell.upvoteImageButton.tintColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
+            cell.downvoteImageButton.tintColor = UIColor.white
+            cell.voteCountLabel.textColor = .white
         }
         
         return cell
