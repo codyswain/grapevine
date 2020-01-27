@@ -20,7 +20,7 @@ class NewPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         frontTextView.delegate = self
-        postButton.tintColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+        postButton.tintColor = Constants.Colors.darkPurple
         newPostTextBackground.layer.cornerRadius = 10.0
         newPostTextBackground.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         backTextView.textColor = UIColor.lightGray

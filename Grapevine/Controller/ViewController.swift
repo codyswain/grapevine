@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Grapevine
 //
-//  Created by Cody Swain on 1/8/20.
+//  Created by Anthony Humay on 1/8/20.
 //  Copyright © 2020 Grapevine. All rights reserved.
 //
 
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     
     func loadPosts(){
         db.collection("posts")
-            .order(by:Constants.Firestore.dateField, descending: true)
+            .order(by:Constants.Firestore.dateField)
             .limit(to:Constants.numberOfPostsPerBatch)
             .getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
                     let currentPostDate = data[Constants.Firestore.votesField] as? Double {
                         // Get existing vote status
                         var currentVoteStatus = 0
-                        let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString)
+                        let voteStatusRef = self.db.collection("posts").document(documentId).collection("user").document(Constants.userID)
                         voteStatusRef.getDocument { (document, error) in
                             if let document = document, document.exists {
                                 
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
                                 
                             } else {
                                 print("Creating user vote status in firestore post")
-                                let docData: [String: Any] = ["voteStatus": "0"];             self.db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString).setData(docData) { err in
+                                let docData: [String: Any] = ["voteStatus": "0"];             self.db.collection("posts").document(documentId).collection("user").document(Constants.userID).setData(docData) { err in
                                     if let err = err {
                                         print("Error writing document: \(err)")
                                     } else {
@@ -96,11 +96,11 @@ class ViewController: UIViewController {
                                 }
                                 currentVoteStatus = 0
                             }
-                            let currentPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
-                            self.posts.insert(currentPost, at:0)
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
+                        }
+                        let currentPost = Post(content: currentPostContent, votes:currentPostVotes, date:currentPostDate, voteStatus: currentVoteStatus, postId: documentId)
+                        self.posts.insert(currentPost, at:0)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
                         }
                     }
                 }
@@ -135,19 +135,19 @@ extension ViewController: UITableViewDataSource {
 
         if (posts[indexPath.row].voteStatus == 0){
             cell.currentVoteStatus = 0
-            cell.footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            cell.upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            cell.downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+            cell.footer.backgroundColor = Constants.Colors.darkGrey
+            cell.upvoteImageButton.tintColor = Constants.Colors.lightGrey
+            cell.downvoteImageButton.tintColor = Constants.Colors.lightGrey
         } else if (posts[indexPath.row].voteStatus == 1) {
             cell.currentVoteStatus = 1
-            cell.footer.backgroundColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
-            cell.downvoteImageButton.tintColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+            cell.footer.backgroundColor = Constants.Colors.darkPurple
+            cell.downvoteImageButton.tintColor = Constants.Colors.darkPurple
             cell.upvoteImageButton.tintColor = UIColor.white
             cell.voteCountLabel.textColor = .white
         } else if (posts[indexPath.row].voteStatus == -1) {
             cell.currentVoteStatus = -1
-            cell.footer.backgroundColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
-            cell.upvoteImageButton.tintColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
+            cell.footer.backgroundColor = Constants.Colors.lightPurple
+            cell.upvoteImageButton.tintColor = Constants.Colors.lightPurple
             cell.downvoteImageButton.tintColor = UIColor.white
             cell.voteCountLabel.textColor = .white
         }

@@ -15,19 +15,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapes" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-F7-p57">
-                                <rect key="frame" x="136.5" y="345.5" width="141" height="205"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapes" translatesAutoresizingMaskIntoConstraints="NO" id="gUq-Ss-GDE">
+                                <rect key="frame" x="-11" y="332" width="436" height="232"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="205" id="WqX-oL-gic"/>
-                                    <constraint firstAttribute="width" constant="141" id="cJl-Zs-IsQ"/>
+                                    <constraint firstAttribute="height" constant="232" id="DFA-wk-2Bi"/>
+                                    <constraint firstAttribute="width" constant="436" id="USo-Dj-2pJ"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.62352941176470589" green="0.26666666666666666" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="NeT-F7-p57" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dok-ZK-Ah4"/>
-                            <constraint firstItem="NeT-F7-p57" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="oG0-Qq-XdW"/>
+                            <constraint firstItem="gUq-Ss-GDE" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xbm-S6-0JH"/>
+                            <constraint firstItem="gUq-Ss-GDE" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="sQ2-ae-n0Q"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Grapes" width="445" height="542"/>
+        <image name="Grapes" width="379" height="528"/>
     </resources>
 </document>

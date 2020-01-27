@@ -76,7 +76,7 @@ class PostTableViewCell: UITableViewCell {
                 print("Successfully upvoted")
             }
         }
-        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString).setData(voteStatusData, merge: true){
+        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(Constants.userID).setData(voteStatusData, merge: true){
             err in
             if let err = err {
                 print("Error changing voteStatus: \(err)")
@@ -96,7 +96,7 @@ class PostTableViewCell: UITableViewCell {
                 print("Successfully downvoted")
             }
         }
-        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString).setData(voteStatusData, merge: true){
+        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(Constants.userID).setData(voteStatusData, merge: true){
             err in
             if let err = err {
                 print("Error changing voteStatus: \(err)")
@@ -112,25 +112,25 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
             downvote()
-            footer.backgroundColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
+            footer.backgroundColor = Constants.Colors.lightPurple
+            upvoteImageButton.tintColor = Constants.Colors.lightPurple
             downvoteImageButton.tintColor = .white
             voteCountLabel.textColor = .white
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             downvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+            footer.backgroundColor = Constants.Colors.darkGrey
+            upvoteImageButton.tintColor = Constants.Colors.lightGrey
+            downvoteImageButton.tintColor = Constants.Colors.lightGrey
             voteCountLabel.textColor = .black
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             upvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+            footer.backgroundColor = Constants.Colors.darkGrey
+            upvoteImageButton.tintColor = Constants.Colors.lightGrey
+            downvoteImageButton.tintColor = Constants.Colors.lightGrey
             voteCountLabel.textColor = .black
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
         }
@@ -142,25 +142,25 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
             upvote()
-            footer.backgroundColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+            footer.backgroundColor = Constants.Colors.darkPurple
+            downvoteImageButton.tintColor = Constants.Colors.darkPurple
             upvoteImageButton.tintColor = .white
             voteCountLabel.textColor = .white
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
         } else if self.currentVoteStatus == -1 {
             currentVoteStatus = 0
             upvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+            footer.backgroundColor = Constants.Colors.darkGrey
+            downvoteImageButton.tintColor = Constants.Colors.lightGrey
+            upvoteImageButton.tintColor = Constants.Colors.lightGrey
             voteCountLabel.textColor = .black
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
             downvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
+            footer.backgroundColor = Constants.Colors.darkGrey
+            downvoteImageButton.tintColor = Constants.Colors.lightGrey
+            upvoteImageButton.tintColor = Constants.Colors.lightGrey
             voteCountLabel.textColor = .black
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
         }
