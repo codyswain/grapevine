@@ -23,7 +23,7 @@ class PostTableViewCell: UITableViewCell {
     var currentVoteStatus = 0
     var documentId = ""
     
-    // Initialization code
+    // Initialization code, auto-generated
     override func awakeFromNib() {
         super.awakeFromNib() //Some pre-built in shit, probably inheritance
         
@@ -36,15 +36,13 @@ class PostTableViewCell: UITableViewCell {
         let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
         upvoteImageButton.isUserInteractionEnabled = true
         upvoteImageButton.addGestureRecognizer(tapGestureRecognizer2)
-        
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
     }
-
-    // Some auto generated shittt
+    
+    // Auto-generated
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state

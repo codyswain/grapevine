@@ -8,22 +8,6 @@
 
 import Foundation
 import UIKit
-import CommonCrypto.CommonHMAC
-
-func SHA256(data: String) -> String {
-    var sha256String = ""
-    if let strData = data.data(using: String.Encoding.utf8) {
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA256_DIGEST_LENGTH))
-        strData.withUnsafeBytes {
-            CC_SHA256($0.baseAddress, UInt32(strData.count), &digest)
-        }
-        
-        for byte in digest {
-            sha256String += String(format:"%02x", UInt8(byte))
-        }
-    }
-    return sha256String
-}
 
 struct Constants {
     static let appName = "Grapevine"
@@ -32,7 +16,7 @@ struct Constants {
     static let numberOfPostsPerBatch = 20
     static let numberOfCharactersPerPost = 280
     static let userID = SHA256(data:UIDevice.current.identifierForVendor!.uuidString)
-    
+    static let serverURL = "https://grapevineapp.herokuapp.com/"
     struct Colors {
         static let lightPurple = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
         static let darkPurple = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
@@ -50,3 +34,4 @@ struct Constants {
 //        static let voteFlagString = "users" + Constants.userID + "submittedVoteFlag"
     }
 }
+
