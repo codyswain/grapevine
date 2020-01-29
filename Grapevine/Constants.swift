@@ -28,6 +28,7 @@ struct Constants {
         static let textField = "content"
         static let userIDField = "poster"
         static let votesField = "votes"
+        static let voteStatusField = "voteStatus"
         static let dateField = "date"
         static let userField = "user"
         static let voteFlagString = "user." + "zr42Im6A43mrGdO5w0Ja" + ".submittedVoteFlag"

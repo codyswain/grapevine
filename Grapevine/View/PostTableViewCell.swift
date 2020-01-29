@@ -42,6 +42,14 @@ class PostTableViewCell: UITableViewCell {
         let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
         upvoteImageButton.isUserInteractionEnabled = true
         upvoteImageButton.addGestureRecognizer(tapGestureRecognizer2)
+        
+        if self.currentVoteStatus == 0 {
+            setNeutralColors()
+        } else if self.currentVoteStatus == -1 {
+            setDownvotedColors()
+        } else {
+            setUpvotedColors()
+        }
     }
     
     override func layoutSubviews() {

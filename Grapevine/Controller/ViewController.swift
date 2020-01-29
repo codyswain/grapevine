@@ -78,18 +78,70 @@ extension ViewController: UITableViewDataSource {
     // Auto-generated function header
     // Implementation tells the table how to display a cell for each of the cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         // Set main body of post cell
         cell.label.text = posts[indexPath.row].content
         // Set vote count of post cell
         cell.voteCountLabel.text = String(posts[indexPath.row].votes)
         // Set the postID
         cell.documentId = posts[indexPath.row].postId
+        // Set vote status
+        cell = setVoteStatus(cell, cellForRowAt:indexPath)
+        
         // Ensure that the vote number stays accurate
         cell.delegate = self
         cell.indexOfPost = indexPath.row
+        
+        if cell.currentVoteStatus == 0 {
+            return setNeutralColors(cell)
+        } else if cell.currentVoteStatus == 1 {
+            return setUpvotedColors(cell)
+        } else {
+            return setDownvotedColors(cell)
+        }
+    }
+    
+    func setVoteStatus(_ cell: PostTableViewCell, cellForRowAt indexPath: IndexPath) -> PostTableViewCell {
+    db.collection("posts").document(posts[indexPath.row].postId).collection("user").document(Constants.userID).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let currentVoteStatus = (data?[Constants.Firestore.voteStatusField] as! NSString).integerValue
+                cell.currentVoteStatus = currentVoteStatus
+                self.tableView.reloadData()
+                print("xx User has vote status \(currentVoteStatus)")
+            } else {
+                print("xx User has no vote status yet")
+                cell.currentVoteStatus = 0
+            }
+        }
         return cell
     }
+    
+    
+    func setDownvotedColors(_ cell: PostTableViewCell) -> PostTableViewCell {
+        cell.footer.backgroundColor = Constants.Colors.lightPurple
+        cell.upvoteImageButton.tintColor = Constants.Colors.lightPurple
+        cell.downvoteImageButton.tintColor = .white
+        cell.voteCountLabel.textColor = .white
+        return cell
+    }
+    
+    func setNeutralColors(_ cell: PostTableViewCell) -> PostTableViewCell {
+        cell.footer.backgroundColor = Constants.Colors.darkGrey
+        cell.upvoteImageButton.tintColor = Constants.Colors.lightGrey
+        cell.downvoteImageButton.tintColor = Constants.Colors.lightGrey
+        cell.voteCountLabel.textColor = .black
+        return cell
+    }
+
+    func setUpvotedColors(_ cell: PostTableViewCell) -> PostTableViewCell {
+        cell.footer.backgroundColor = Constants.Colors.darkPurple
+        cell.downvoteImageButton.tintColor = Constants.Colors.darkPurple
+        cell.upvoteImageButton.tintColor = .white
+        cell.voteCountLabel.textColor = .white
+        return cell
+    }
+
 }
 
 extension ViewController: PostsManagerDelegate {
