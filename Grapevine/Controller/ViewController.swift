@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var lastRetrievedPostDate: Double = 0.0
     var posts: [Post] = []
     var postsManager = PostsManager()
+    var postTableCell = PostTableViewCell()
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .black
@@ -52,10 +53,12 @@ class ViewController: UIViewController {
         return .darkContent
     }
     
+    // This is how we change screens when a button is pressed
     @IBAction func newPostButton(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
     }
     
+    // This function is called when users refresh
     @objc func refresh(){
         locationManager.requestLocation() // request new location, which will trigger new posts
         let deadline = DispatchTime.now() + .milliseconds(1000)
@@ -76,37 +79,15 @@ extension ViewController: UITableViewDataSource {
     // Implementation tells the table how to display a cell for each of the cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-        cell.backgroundColor = UIColor.white
         // Set main body of post cell
         cell.label.text = posts[indexPath.row].content
-        cell.label.textColor = UIColor.black // Set the color of the text
-        
         // Set vote count of post cell
         cell.voteCountLabel.text = String(posts[indexPath.row].votes)
-        cell.voteCountLabel.textColor = UIColor.black
-        cell.backgroundColor = UIColor.white
-        
+        // Set the postID
         cell.documentId = posts[indexPath.row].postId
-
-        if (posts[indexPath.row].voteStatus == 0){
-            cell.currentVoteStatus = 0
-            cell.footer.backgroundColor = Constants.Colors.darkGrey
-            cell.upvoteImageButton.tintColor = Constants.Colors.lightGrey
-            cell.downvoteImageButton.tintColor = Constants.Colors.lightGrey
-        } else if (posts[indexPath.row].voteStatus == 1) {
-            cell.currentVoteStatus = 1
-            cell.footer.backgroundColor = Constants.Colors.darkPurple
-            cell.downvoteImageButton.tintColor = Constants.Colors.darkPurple
-            cell.upvoteImageButton.tintColor = UIColor.white
-            cell.voteCountLabel.textColor = .white
-        } else if (posts[indexPath.row].voteStatus == -1) {
-            cell.currentVoteStatus = -1
-            cell.footer.backgroundColor = Constants.Colors.lightPurple
-            cell.upvoteImageButton.tintColor = Constants.Colors.lightPurple
-            cell.downvoteImageButton.tintColor = UIColor.white
-            cell.voteCountLabel.textColor = .white
-        }
-        
+        // Ensure that the vote number stays accurate
+        cell.delegate = self
+        cell.indexOfPost = indexPath.row
         return cell
     }
 }
@@ -138,3 +119,8 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
+extension ViewController: PostTableViewCellDelegate {
+    func updateVotes(_ indexOfPost: Int, _ newVote: Int) {
+        posts[indexOfPost].votes = posts[indexOfPost].votes + newVote
+    }
+}
