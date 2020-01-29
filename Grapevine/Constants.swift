@@ -30,9 +30,9 @@ struct Constants {
         static let votesField = "votes"
         static let voteStatusField = "voteStatus"
         static let dateField = "date"
-        static let userField = "user"
-        static let voteFlagString = "user." + "zr42Im6A43mrGdO5w0Ja" + ".submittedVoteFlag"
-//        static let voteFlagString = "users" + Constants.userID + "submittedVoteFlag"
+        static let typeField = "type"
+        static let latitudeField = "lat"
+        static let longitudeField = "lon"
     }
 }
 
