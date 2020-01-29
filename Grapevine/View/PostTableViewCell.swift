@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseFirestore
 
 protocol PostTableViewCellDelegate {
-    func updateVotes(_ indexOfPost: Int, _ newVote: Int)
+    func updateTableView(_ indexOfPost: Int, _ newVote: Int, _ newVoteStatus: Int)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -70,19 +70,19 @@ class PostTableViewCell: UITableViewCell {
             upvote()
             setUpvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-            self.delegate?.updateVotes(indexOfPost, 1)
+            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
         } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
             upvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-            self.delegate?.updateVotes(indexOfPost, 1)
+            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
             downvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            self.delegate?.updateVotes(indexOfPost, -1)
+            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
         }
     }
 
@@ -94,19 +94,19 @@ class PostTableViewCell: UITableViewCell {
             downvote()
             setDownvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            self.delegate?.updateVotes(indexOfPost, -1)
+            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             downvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            self.delegate?.updateVotes(indexOfPost, -1)
+            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             upvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-            self.delegate?.updateVotes(indexOfPost, 1)
+            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
         }
     }
     

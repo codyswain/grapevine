@@ -86,62 +86,17 @@ extension ViewController: UITableViewDataSource {
         // Set the postID
         cell.documentId = posts[indexPath.row].postId
         // Set vote status
-        cell = setVoteStatus(cell, cellForRowAt:indexPath)
+        cell.currentVoteStatus = posts[indexPath.row].voteStatus
         
         // Ensure that the vote number stays accurate
         cell.delegate = self
         cell.indexOfPost = indexPath.row
         
-        if cell.currentVoteStatus == 0 {
-            return setNeutralColors(cell)
-        } else if cell.currentVoteStatus == 1 {
-            return setUpvotedColors(cell)
-        } else {
-            return setDownvotedColors(cell)
-        }
-    }
-    
-    func setVoteStatus(_ cell: PostTableViewCell, cellForRowAt indexPath: IndexPath) -> PostTableViewCell {
-    db.collection("posts").document(posts[indexPath.row].postId).collection("user").document(Constants.userID).getDocument { (document, error) in
-            if let document = document, document.exists {
-                let data = document.data()
-                let currentVoteStatus = (data?[Constants.Firestore.voteStatusField] as! NSString).integerValue
-                cell.currentVoteStatus = currentVoteStatus
-                self.tableView.reloadData()
-                print("xx User has vote status \(currentVoteStatus)")
-            } else {
-                print("xx User has no vote status yet")
-                cell.currentVoteStatus = 0
-            }
-        }
+        // Refresh the display of the cell, now that we've loaded in vote status
+        cell.awakeFromNib()
+        
         return cell
     }
-    
-    
-    func setDownvotedColors(_ cell: PostTableViewCell) -> PostTableViewCell {
-        cell.footer.backgroundColor = Constants.Colors.lightPurple
-        cell.upvoteImageButton.tintColor = Constants.Colors.lightPurple
-        cell.downvoteImageButton.tintColor = .white
-        cell.voteCountLabel.textColor = .white
-        return cell
-    }
-    
-    func setNeutralColors(_ cell: PostTableViewCell) -> PostTableViewCell {
-        cell.footer.backgroundColor = Constants.Colors.darkGrey
-        cell.upvoteImageButton.tintColor = Constants.Colors.lightGrey
-        cell.downvoteImageButton.tintColor = Constants.Colors.lightGrey
-        cell.voteCountLabel.textColor = .black
-        return cell
-    }
-
-    func setUpvotedColors(_ cell: PostTableViewCell) -> PostTableViewCell {
-        cell.footer.backgroundColor = Constants.Colors.darkPurple
-        cell.downvoteImageButton.tintColor = Constants.Colors.darkPurple
-        cell.upvoteImageButton.tintColor = .white
-        cell.voteCountLabel.textColor = .white
-        return cell
-    }
-
 }
 
 extension ViewController: PostsManagerDelegate {
@@ -172,7 +127,8 @@ extension ViewController: CLLocationManagerDelegate {
 }
 
 extension ViewController: PostTableViewCellDelegate {
-    func updateVotes(_ indexOfPost: Int, _ newVote: Int) {
+    func updateTableView(_ indexOfPost: Int, _ newVote: Int, _ newVoteStatus: Int) {
         posts[indexOfPost].votes = posts[indexOfPost].votes + newVote
+        posts[indexOfPost].voteStatus = newVoteStatus
     }
 }

@@ -47,11 +47,11 @@ struct PostsManager {
         let decoder = JSONDecoder()
         var posts:[Post] = []
         do {
-            let JSONposts = try decoder.decode(Array<ServerMessage>.self, from: data)
-            for post in JSONposts {
-                let currentPost = Post(content:post.content, votes:post.votes, date:post.date, voteStatus:post.voteStatus, postId:post.postId)
-                posts.append(currentPost)
-            }
+            posts = try decoder.decode(Array<Post>.self, from: data)
+//            for post in JSONposts {
+//                let currentPost = Post(content:post.content, votes:post.votes, date:post.date, voteStatus:1, postId:post.postId, poster:post.poster)
+//                posts.append(currentPost)
+//            }
         } catch {
             delegate?.didFailWithError(error: error)
         }
