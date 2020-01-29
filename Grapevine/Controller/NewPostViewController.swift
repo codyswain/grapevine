@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFirestore
 import UIKit
+import CoreLocation
 
 class NewPostViewController: UIViewController {
     let db = Firestore.firestore()
@@ -17,6 +18,8 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var frontTextView: UITextView! // actual user input text
     @IBOutlet weak var backTextView: UITextView! // placeholder text
     @IBOutlet weak var newPostTextBackground: UIButton!
+    var lat:CLLocationDegrees = 0.0
+    var lon:CLLocationDegrees = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         frontTextView.delegate = self
@@ -30,9 +33,12 @@ class NewPostViewController: UIViewController {
         if let textFieldBody = frontTextView.text {
             db.collection(Constants.Firestore.collectionName).addDocument(data: [
                 Constants.Firestore.textField: textFieldBody,
-                Constants.Firestore.userIDField: "",
+                Constants.Firestore.userIDField: Constants.userID,
                 Constants.Firestore.votesField: 0,
-                Constants.Firestore.dateField: Date().timeIntervalSince1970
+                Constants.Firestore.dateField: Date().timeIntervalSince1970,
+                Constants.Firestore.typeField: "text",
+                Constants.Firestore.latitudeField: lat,
+                Constants.Firestore.longitudeField: lon
             ]) { (error) in
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")

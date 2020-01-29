@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Post : Decodable {
     let content: String
@@ -15,4 +16,7 @@ struct Post : Decodable {
     var voteStatus: Int
     let postId: String
     let poster: String
+    let type: String
+    let lat: Double
+    let lon: Double
 }

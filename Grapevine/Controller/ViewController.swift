@@ -18,10 +18,11 @@ class ViewController: UIViewController {
     // Globals
     let db = Firestore.firestore()
     let locationManager = CLLocationManager()
-    var lastRetrievedPostDate: Double = 0.0
     var posts: [Post] = []
     var postsManager = PostsManager()
     var postTableCell = PostTableViewCell()
+    var lat:CLLocationDegrees = 0.0
+    var lon:CLLocationDegrees = 0.0
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .black
@@ -66,6 +67,14 @@ class ViewController: UIViewController {
             self.refresher.endRefreshing()
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToNewPosts" {
+            let destinationVC = segue.destination as! NewPostViewController
+            destinationVC.lat = self.lat
+            destinationVC.lon = self.lon
+        }
+    }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -78,7 +87,7 @@ extension ViewController: UITableViewDataSource {
     // Auto-generated function header
     // Implementation tells the table how to display a cell for each of the cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         // Set main body of post cell
         cell.label.text = posts[indexPath.row].content
         // Set vote count of post cell
@@ -115,8 +124,8 @@ extension ViewController: PostsManagerDelegate {
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            let lat = location.coordinate.latitude
-            let lon = location.coordinate.longitude
+            self.lat = location.coordinate.latitude
+            self.lon = location.coordinate.longitude
             postsManager.fetchPosts(latitude: lat, longitude: lon)
         }
     }

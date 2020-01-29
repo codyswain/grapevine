@@ -107,7 +107,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
-                                <rect key="frame" x="32" y="91" width="17" height="17"/>
+                                <rect key="frame" x="32" y="91" width="17.000000000000114" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="17" id="Lll-mH-qLH"/>
                                     <constraint firstAttribute="height" constant="17" id="cKa-tg-5ea"/>
