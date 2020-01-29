@@ -8,12 +8,11 @@
 
 import Foundation
 
-struct Post {
+struct Post : Decodable {
     let content: String
-    let votes: Int
+    var votes: Int
     let date: Double
-    let voteStatus: Int
+    var voteStatus: Int
     let postId: String
-    let poster: User? = nil
-    let comments: [Comment]? = nil
+    let poster: String
 }

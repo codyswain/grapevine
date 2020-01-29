@@ -10,6 +10,10 @@ import UIKit
 import FirebaseDatabase
 import FirebaseFirestore
 
+protocol PostTableViewCellDelegate {
+    func updateTableView(_ indexOfPost: Int, _ newVote: Int, _ newVoteStatus: Int)
+}
+
 class PostTableViewCell: UITableViewCell {
     
     // Objects used to interface with UI
@@ -22,8 +26,10 @@ class PostTableViewCell: UITableViewCell {
     let db = Firestore.firestore()
     var currentVoteStatus = 0
     var documentId = ""
+    var indexOfPost = 0
+    var delegate: PostTableViewCellDelegate?
     
-    // Initialization code
+    // Initialization code, auto-generated
     override func awakeFromNib() {
         super.awakeFromNib() //Some pre-built in shit, probably inheritance
         
@@ -37,72 +43,46 @@ class PostTableViewCell: UITableViewCell {
         upvoteImageButton.isUserInteractionEnabled = true
         upvoteImageButton.addGestureRecognizer(tapGestureRecognizer2)
         
-        
+        if self.currentVoteStatus == 0 {
+            setNeutralColors()
+        } else if self.currentVoteStatus == -1 {
+            setDownvotedColors()
+        } else {
+            setUpvotedColors()
+        }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
     }
-
-    // Some auto generated shittt
+    
+    // Auto-generated
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
     
-    // Get the current vote as an integer
-    // You don't even need this
-    func getVote(){
-        let postRef = self.db.collection("posts").document(documentId)
-        postRef.getDocument {(document, error) in
-            if let document = document, document.exists {
-                let data = document.data()
-                if let currentPostVotes = data?[Constants.Firestore.votesField] as? Int {
-                    print("Votes on this post is \(currentPostVotes)")
-                }
-            }
-        }
-    }
-    
-    // Set the vote. Also update voteStatus
-    func upvote(){
-        let newVote = Int(String(voteCountLabel.text!))! + 1
-        let voteData: [String: Any] = ["votes": newVote]
-        db.collection("posts").document(documentId).setData(voteData, merge: true){
-            err in
-            if let err = err {
-                print("Error upvoting: \(err)")
-            } else {
-                print("Successfully upvoted")
-            }
-        }
-        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString).setData(voteStatusData, merge: true){
-            err in
-            if let err = err {
-                print("Error changing voteStatus: \(err)")
-            } else {
-                print("Successfully changed voteStatus")
-            }
-        }
-    }
-    func downvote(){
-        let newVote = Int(String(voteCountLabel.text!))! - 1
-        let voteData: [String: Any] = ["votes": newVote]
-        db.collection("posts").document(documentId).setData(voteData, merge: true){
-            err in
-            if let err = err {
-                print("Error upvoting: \(err)")
-            } else {
-                print("Successfully downvoted")
-            }
-        }
-        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(UIDevice.current.identifierForVendor!.uuidString).setData(voteStatusData, merge: true){
-            err in
-            if let err = err {
-                print("Error changing voteStatus: \(err)")
-            } else {
-                print("Successfully changed voteStatus")
-            }
+    // Function executed when upvote button is tapped
+    @objc func upvoteTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        if self.currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
+            currentVoteStatus = 1
+            upvote()
+            setUpvotedColors()
+            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
+            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
+        } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
+            currentVoteStatus = 0
+            upvote()
+            setNeutralColors()
+            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
+            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
+        } else { // post was upvoted, after upvoting will be neutral
+            currentVoteStatus = 0
+            downvote()
+            setNeutralColors()
+            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
+            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
         }
     }
 
@@ -112,58 +92,89 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
             downvote()
-            footer.backgroundColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
-            downvoteImageButton.tintColor = .white
-            voteCountLabel.textColor = .white
+            setDownvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
+            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             downvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            voteCountLabel.textColor = .black
+            setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
+            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             upvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            voteCountLabel.textColor = .black
+            setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
+            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
         }
     }
     
-    // Function executed when upvote button is tapped 
-    @objc func upvoteTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        if self.currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
-            currentVoteStatus = 1
-            upvote()
-            footer.backgroundColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
-            upvoteImageButton.tintColor = .white
-            voteCountLabel.textColor = .white
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-        } else if self.currentVoteStatus == -1 {
-            currentVoteStatus = 0
-            upvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            voteCountLabel.textColor = .black
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-        } else { // post was upvoted, after upvoting will be neutral
-            currentVoteStatus = 0
-            downvote()
-            footer.backgroundColor = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
-            downvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            upvoteImageButton.tintColor = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
-            voteCountLabel.textColor = .black
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
+    // Modify the database to reflect the upvote
+    func upvote(){
+        let newVote = Int(String(voteCountLabel.text!))! + 1
+        let voteData: [String: Any] = ["votes": newVote]
+        db.collection("posts").document(documentId).setData(voteData, merge: true){
+            err in
+            if let err = err {
+                print("Error upvoting: \(err)")
+            } else {
+                print("Successfully upvoted in DB")
+            }
+        }
+        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(Constants.userID).setData(voteStatusData, merge: true){
+            err in
+            if let err = err {
+                print("Error changing voteStatus: \(err)")
+            } else {
+                print("Successfully changed voteStatus in DB")
+            }
         }
     }
     
+    // Modify the database to reflect the downvote
+    func downvote(){
+        let newVote = Int(String(voteCountLabel.text!))! - 1
+        let voteData: [String: Any] = ["votes": newVote]
+        db.collection("posts").document(documentId).setData(voteData, merge: true){
+            err in
+            if let err = err {
+                print("Error upvoting: \(err)")
+            } else {
+                print("Successfully downvoted in DB")
+            }
+        }
+        let voteStatusData: [String: Any] = ["voteStatus": String(self.currentVoteStatus)];   db.collection("posts").document(documentId).collection("user").document(Constants.userID).setData(voteStatusData, merge: true){
+            err in
+            if let err = err {
+                print("Error changing voteStatus: \(err)")
+            } else {
+                print("Successfully changed voteStatus in DB")
+            }
+        }
+    }
+
+    // Change the cell's colors
+    func setDownvotedColors(){
+        footer.backgroundColor = Constants.Colors.lightPurple
+        upvoteImageButton.tintColor = Constants.Colors.lightPurple
+        downvoteImageButton.tintColor = .white
+        voteCountLabel.textColor = .white
+    }
+    
+    // Change the cell's colors
+    func setNeutralColors(){
+        footer.backgroundColor = Constants.Colors.darkGrey
+        upvoteImageButton.tintColor = Constants.Colors.lightGrey
+        downvoteImageButton.tintColor = Constants.Colors.lightGrey
+        voteCountLabel.textColor = .black
+    }
+    
+    // Change the cell's colors 
+    func setUpvotedColors(){
+        footer.backgroundColor = Constants.Colors.darkPurple
+        downvoteImageButton.tintColor = Constants.Colors.darkPurple
+        upvoteImageButton.tintColor = .white
+        voteCountLabel.textColor = .white
+    }
 }
