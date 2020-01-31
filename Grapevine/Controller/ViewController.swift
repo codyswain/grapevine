@@ -96,13 +96,18 @@ extension ViewController: UITableViewDataSource {
         cell.documentId = posts[indexPath.row].postId
         // Set vote status
         cell.currentVoteStatus = posts[indexPath.row].voteStatus
+        // If the current user created this post, he/she can delete it
+        if (Constants.userID == posts[indexPath.row].poster){
+            cell.enableDelete()
+        } else {
+            cell.disableDelete()
+        }
         
-        // Ensure that the vote number stays accurate
+        // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
         cell.delegate = self
-        cell.indexOfPost = indexPath.row
         
         // Refresh the display of the cell, now that we've loaded in vote status
-        cell.awakeFromNib()
+        cell.refreshView()
         
         return cell
     }
@@ -136,8 +141,25 @@ extension ViewController: CLLocationManagerDelegate {
 }
 
 extension ViewController: PostTableViewCellDelegate {
-    func updateTableView(_ indexOfPost: Int, _ newVote: Int, _ newVoteStatus: Int) {
-        posts[indexOfPost].votes = posts[indexOfPost].votes + newVote
-        posts[indexOfPost].voteStatus = newVoteStatus
+    func updateTableView(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int) {
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        posts[row].votes = posts[row].votes + newVote
+        posts[row].voteStatus = newVoteStatus
+    }
+    
+    func deleteCell(_ cell: UITableViewCell) {
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        let docIDtoDelete = posts[row].postId
+        db.collection("posts").document(docIDtoDelete).delete() { err in
+            if let err = err {
+                print("Error deleting document: \(err)")
+            } else {
+                print("Post successfully deleted!")
+            }
+        }
+        posts.remove(at: row)
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
 }
