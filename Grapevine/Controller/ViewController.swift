@@ -29,10 +29,16 @@ class ViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
-    
+    var indicator = UIActivityIndicatorView()
+
     // viewDidLoad(), the first function that runs. This is sort of like "main"
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Show loading symbol
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.backgroundColor = .white
+
         // Get location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -47,8 +53,17 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 160
         tableView.backgroundColor = UIColor.white
+        
     }
     
+    // Posts loading
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.medium
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+    }
+
     // Make top information (time, battery, signal) dark mode
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -81,6 +96,10 @@ extension ViewController: UITableViewDataSource {
     // Auto-generated function header
     // Implementation tells the table how many cells we'll need
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (posts.count != 0){
+            indicator.stopAnimating()
+            indicator.hidesWhenStopped = true
+        }
         return posts.count
     }
     
