@@ -11,7 +11,8 @@ import FirebaseDatabase
 import FirebaseFirestore
 
 protocol PostTableViewCellDelegate {
-    func updateTableView(_ indexOfPost: Int, _ newVote: Int, _ newVoteStatus: Int)
+    func updateTableView(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
+    func deleteCell( _ cell: UITableViewCell)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -22,17 +23,18 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var downvoteImageButton: UIImageView!
     @IBOutlet weak var upvoteImageButton: UIImageView!
     @IBOutlet weak var footer: UIView!
+    @IBOutlet weak var deleteButton: UIImageView!
     
     let db = Firestore.firestore()
     var currentVoteStatus = 0
     var documentId = ""
-    var indexOfPost = 0
     var delegate: PostTableViewCellDelegate?
+    var deletable = false
     
     // Initialization code, auto-generated
     override func awakeFromNib() {
-        super.awakeFromNib() //Some pre-built in shit, probably inheritance
-        
+        super.awakeFromNib() //Some pre-built thing
+                
         // Add tapping capabilities to downvote button (UIImageView)
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(downvoteTapped(tapGestureRecognizer:)))
         downvoteImageButton.isUserInteractionEnabled = true
@@ -42,7 +44,10 @@ class PostTableViewCell: UITableViewCell {
         let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
         upvoteImageButton.isUserInteractionEnabled = true
         upvoteImageButton.addGestureRecognizer(tapGestureRecognizer2)
-        
+    }
+    
+    func refreshView(){
+        // Render the cell colors
         if self.currentVoteStatus == 0 {
             setNeutralColors()
         } else if self.currentVoteStatus == -1 {
@@ -50,6 +55,19 @@ class PostTableViewCell: UITableViewCell {
         } else {
             setUpvotedColors()
         }
+    }
+    
+    func enableDelete(){
+        // Set up delete button
+        print("Deletable: \(documentId)")
+        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(deleteTapped(tapGestureRecognizer:)))
+        deleteButton.isUserInteractionEnabled = true
+        deleteButton.addGestureRecognizer(tapGestureRecognizer3)
+    }
+    
+    func disableDelete(){
+        print("Not deletable: \(documentId)")
+        deleteButton.isHidden = true
     }
     
     override func layoutSubviews() {
@@ -70,19 +88,19 @@ class PostTableViewCell: UITableViewCell {
             upvote()
             setUpvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
+            self.delegate?.updateTableView(self, 1, currentVoteStatus)
         } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
             upvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
+            self.delegate?.updateTableView(self, 1, currentVoteStatus)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
             downvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
+            self.delegate?.updateTableView(self, -1, currentVoteStatus)
         }
     }
 
@@ -94,20 +112,27 @@ class PostTableViewCell: UITableViewCell {
             downvote()
             setDownvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
+            self.delegate?.updateTableView(self, -1, currentVoteStatus)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             downvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            self.delegate?.updateTableView(indexOfPost, -1, currentVoteStatus)
+            self.delegate?.updateTableView(self, -1, currentVoteStatus)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             upvote()
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
-            self.delegate?.updateTableView(indexOfPost, 1, currentVoteStatus)
+            self.delegate?.updateTableView(self, 1, currentVoteStatus)
         }
+    }
+    
+    // Function executed when delete button is tapped
+    @objc func deleteTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        deleteButton.tintColor = Constants.Colors.darkPurple
+        self.delegate?.deleteCell(self)
     }
     
     // Modify the database to reflect the upvote
