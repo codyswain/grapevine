@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "slideplanningapp",
+  "private_key_id": "31ea12292fa420e3f67db9da58514bdfc356d7aa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC80WD1PtOTPNSY\nxyDEdAFISVoqgiBMPoCJMwTYxkZwoY1Y6hjo6DOJjAR6mXcq+oPKrA+lbOze7H0O\n+G9rdIOgZA1F/zctymnni9tLVOu8zDw5HAzFKF3ayV2MK8bUMBV8Jm2gXLkbq7TA\neZ3XuHze8I90hFad8uSwfTkO+OlTccR8jRcFXbIokENoIP9t4j5wiZbISOfbAPjS\nCndIy0hSlFbjoJQyKIxtJfGsNZ0QX6uirdcQGE0cRwNRhfKv+S4gDFQjPstSk+vZ\n8WLAXEj9NiMdz8BdgA+gUTgmbA3lVf6+v6Hn77l84IDwlxw4IREpFHxgXsCrWPWK\n/JSoKl0tAgMBAAECggEACJq4AuUGijai74VfgmRQ7KTfFYHRi/frLpVjGqfKbPaH\ntO4SDYcLVjDJwXZ93jkFSXaWzfCNSMlZF5YNqcVo/CWjDzYGozEOq20NpLytc3CR\nK/8Ru+hPgplbiHg0OtYoHHy50S14iADGn2DLZxmyowwuVV50fgUkE8DZGUwRgepg\nwGHmmgBaLoTvKjXYmaB47gRqZ4Mnay2RQSH0/ieSCNuBlsgoOEzKFsnq5EQs+o5R\nBHQ41YosDEWgdZ7+Kt7KtWoRfFDpMz7wd78qPKfB0Ecxb4xhb50POsVrOZHtBc88\nb4RlbkntWxaIwzAPVuY5NoH7Phcs7WZNHDHB0xz8oQKBgQDib486/snu5ZVTcCrs\nfJ/sMTVbpeVaCYpCwGNadHOhDikVTpZ9z9PLUZhU2bt7Tttrk+n1jjXMaGiEZ4MR\nMqlAzlqCNB/ePQ/SzGjNdUlmyDbb9hq2Tse5AsOcUQiq6NUmSo4wvTwykGj+TYC2\nirUtvCIkZ/sWsfVfIqWnSijF/QKBgQDVeHhlcRZMFI2sMf359ScvtBd2gD8LJ2X1\ne+IpjJcRvIz9wPMHYw8TAWiGDEnvzgGbqw2pCfaYqnfI01e3zIUm3J8ZWRQUzSg7\nSBxzMUXYpXXEJ9n8TNLsuVs0zNikdJ3MLKHS/8+haNrJKjIq9p7AxnasI+YVgJdc\na0PwVewC8QKBgGu53W+YxeNFEFzI0XL++2p4IsV+UHYccc2+D8Z5/oTR4tPDNq+W\nT1G8ePdtOte4NYWhsj3jsU6VIZxUTrPA4Wr2gXLOb5bggAWuv/F3ajte51KQbDbt\nlfE8Emns123QJY/5Clq/vMLllz3dC25M4VNn3OprGba7ZVwkdKD5FBrVAoGBAIQ5\nlMmw3JDPglmQtbJoKZegw4/BLEuqYbtGuvXlgYWY9vQO2fpPX3z0OFwfrIR/Y/ua\nXmHALCCwJnYcgo70fd1udpXq2UdxNGRT7Ftlv8/L3UBdNubSZyv+PAJeiCqFmWBo\nnOvnTCK8ohhMrLpz/C2IQOWrbs8O0bKLNo/diMzhAoGAWqbpBXBwFt2b/JUTJMV/\nwaDQu5MJdfA0B5oPVwZCL3DG56fJuAC3ZVwAdMRx3nclBu3hMlSvm1SqG/QOgiJj\npdinLS1t/Nu1lryqFS3QSuA7bRLgwt36SphewZmeCSqZRiFBWcXHYnjRsHp/bHf/\nOHANS7IE/wzcQQbFG10N5SQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-vqyad@slideplanningapp.iam.gserviceaccount.com",
+  "client_id": "109956059623484027216",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vqyad%40slideplanningapp.iam.gserviceaccount.com"
+}

@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Grapevine_130" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts Near You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                                <rect key="frame" x="20" y="46" width="197" height="33.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-vy-wu6">
+                                <rect key="frame" x="0.0" y="112" width="414" height="784"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <sections/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kes-07-CUv">
+                                <rect key="frame" x="287" y="87" width="118" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="118" id="PNV-1X-YNs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title=" Add Post" image="plus.circle.fill" catalog="system">
+                                    <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newPostButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="brU-6G-Jig"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMB-UL-9TV">
+                                <rect key="frame" x="20" y="88" width="83" height="21"/>
+                                <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title=" 3 Miles" image="location.circle.fill" catalog="system">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EsB-jR-aSc">
+                                <rect key="frame" x="165" y="83" width="84" height="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title=" Points" image="person.circle.fill" catalog="system">
+                                    <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="scoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eXB-ae-ibr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="EsB-jR-aSc" firstAttribute="baseline" secondItem="Kes-07-CUv" secondAttribute="firstBaseline" id="4TN-CW-5HV"/>
+                            <constraint firstItem="QMB-UL-9TV" firstAttribute="leading" secondItem="Rbx-yL-B51" secondAttribute="leading" id="7bW-eI-bUF"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AKw-6J-Ol6"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="Kes-07-CUv" secondAttribute="bottom" constant="2" id="CJ3-Wq-CIw"/>
+                            <constraint firstItem="QMB-UL-9TV" firstAttribute="centerY" secondItem="Kes-07-CUv" secondAttribute="centerY" id="F2c-yY-t2h"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Kes-07-CUv" secondAttribute="trailing" constant="5" id="Gj0-tf-tyk"/>
+                            <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="H4I-PK-gZR"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="72" id="Nl4-Mj-zrt"/>
+                            <constraint firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="Sc6-LX-fUD"/>
+                            <constraint firstItem="QMB-UL-9TV" firstAttribute="firstBaseline" secondItem="EsB-jR-aSc" secondAttribute="firstBaseline" id="Txy-iL-lLB"/>
+                            <constraint firstItem="EsB-jR-aSc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQh-IK-iZt"/>
+                            <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="hAr-TB-Hy5"/>
+                            <constraint firstItem="Kes-07-CUv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="38" id="oft-up-dCn"/>
+                            <constraint firstItem="EsB-jR-aSc" firstAttribute="top" secondItem="Kes-07-CUv" secondAttribute="top" id="qiS-lc-ckO"/>
+                            <constraint firstItem="QMB-UL-9TV" firstAttribute="top" secondItem="EsB-jR-aSc" secondAttribute="top" id="v5a-Os-r70"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZ5-dy-vHo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rQz-x8-cJq"/>
+                    <connections>
+                        <outlet property="tableView" destination="aGv-vy-wu6" id="ZPL-Wv-6J8"/>
+                        <segue destination="JOP-em-yKC" kind="presentation" identifier="goToNewPosts" modalPresentationStyle="fullScreen" id="NSO-o6-THf"/>
+                        <segue destination="JfH-1x-7cI" kind="presentation" identifier="banScreen" modalPresentationStyle="fullScreen" id="hTd-kG-DaY"/>
+                        <segue destination="u9k-vM-A2m" kind="show" identifier="mainViewToScoreView" id="nj9-4R-WLt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-57.971014492753625" y="137.94642857142856"/>
+        </scene>
+        <!--New Post View Controller-->
+        <scene sceneID="UWI-Ib-ljT">
+            <objects>
+                <viewController storyboardIdentifier="NewPostViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JOP-em-yKC" customClass="NewPostViewController" customModule="Grapevine_130" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xnG-NU-0nQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGj-2o-pn6">
+                                <rect key="frame" x="20" y="51" width="182.5" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="bNg-aw-9hH" userLabel="Post Type Stack">
+                                <rect key="frame" x="20" y="123" width="141" height="21"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMv-TB-wBo">
+                                        <rect key="frame" x="0.0" y="0.0" width="59" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title=" Text" image="circle.fill" catalog="system">
+                                            <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createTextButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="vDZ-aB-7ui"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtE-6y-hyd">
+                                        <rect key="frame" x="74" y="0.0" width="67" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title=" Draw" image="circle" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createDrawingButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="1xl-xG-OUH"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jf2-V5-mqB">
+                                        <rect key="frame" x="141" y="0.0" width="0.0" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="aDL-oG-sVg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title=" Clear" image="clear.fill" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="y9o-Xc-bU6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xxb-d3-RtE" userLabel="Info Line Stack">
+                                <rect key="frame" x="20" y="93" width="247.5" height="17"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="Lll-mH-qLH"/>
+                                            <constraint firstAttribute="height" constant="17" id="cKa-tg-5ea"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post visibile within 5 miles." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbT-Yh-17R">
+                                        <rect key="frame" x="27" y="0.0" width="220.5" height="17"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="newPostVisibility"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="247-Ek-DQn" userLabel="Drawing Stack View">
+                                <rect key="frame" x="20" y="152" width="374" height="318"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2f-LD-GPN" customClass="CanvasView" customModule="Grapevine_130" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="318"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="newPostCanvas">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="374" id="g9L-Zz-iSa"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="g2f-LD-GPN" firstAttribute="centerX" secondItem="247-Ek-DQn" secondAttribute="centerX" id="UXx-1q-Hbc"/>
+                                    <constraint firstAttribute="width" constant="374" id="UeQ-Fe-LgY"/>
+                                    <constraint firstItem="g2f-LD-GPN" firstAttribute="centerX" secondItem="247-Ek-DQn" secondAttribute="centerX" id="n1x-Nz-D83"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mm-5g-REP" userLabel="Text Background">
+                                <rect key="frame" x="20" y="152" width="374" height="318"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="318" id="9bY-EI-fjH"/>
+                                </constraints>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="What's actually on your mind?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vi9-gC-7xm" userLabel="Back Text View">
+                                <rect key="frame" x="30" y="156" width="345" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="defaultText"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ApM-He-BtP" userLabel="Front Text View">
+                                <rect key="frame" x="30" y="156" width="345" height="281"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="newPostTextView"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMd-Qr-s9B" userLabel="Back Button">
+                                <rect key="frame" x="322" y="88" width="72" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="QXc-KF-Ezf"/>
+                                    <constraint firstAttribute="height" constant="22" id="zW0-fj-kTG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title=" Back" image="arrowshape.turn.up.left.circle.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToMainFromBackButton" modalPresentationStyle="fullScreen" id="sdr-18-gKw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q87-iI-8CO">
+                                <rect key="frame" x="174" y="494" width="66" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Add" image="arrow.up.circle.fill" catalog="system">
+                                    <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPostButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="EtF-9w-pcN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="247-Ek-DQn" firstAttribute="centerX" secondItem="q87-iI-8CO" secondAttribute="centerX" id="2JR-tG-EcC"/>
+                            <constraint firstItem="bNg-aw-9hH" firstAttribute="top" secondItem="xnG-NU-0nQ" secondAttribute="top" constant="123" id="4x9-rG-KIQ"/>
+                            <constraint firstItem="Xxb-d3-RtE" firstAttribute="leading" secondItem="mGj-2o-pn6" secondAttribute="leading" id="8MZ-DT-sf2"/>
+                            <constraint firstItem="RRa-hw-J26" firstAttribute="trailing" secondItem="tMd-Qr-s9B" secondAttribute="trailing" constant="20" id="AnD-Ea-Hpp"/>
+                            <constraint firstItem="Xxb-d3-RtE" firstAttribute="top" secondItem="mGj-2o-pn6" secondAttribute="bottom" constant="8" id="CK6-z4-KhD"/>
+                            <constraint firstItem="247-Ek-DQn" firstAttribute="centerX" secondItem="xnG-NU-0nQ" secondAttribute="centerX" id="FMd-eF-m9A"/>
+                            <constraint firstItem="247-Ek-DQn" firstAttribute="top" secondItem="bNg-aw-9hH" secondAttribute="bottom" constant="8" id="Mof-hG-SD2"/>
+                            <constraint firstItem="8mm-5g-REP" firstAttribute="leading" secondItem="RRa-hw-J26" secondAttribute="leading" constant="20" id="RXK-rp-hVi"/>
+                            <constraint firstItem="bNg-aw-9hH" firstAttribute="top" secondItem="Xxb-d3-RtE" secondAttribute="bottom" constant="13" id="Rfw-88-buB"/>
+                            <constraint firstItem="mGj-2o-pn6" firstAttribute="top" secondItem="RRa-hw-J26" secondAttribute="top" constant="7" id="SYt-iY-eUE"/>
+                            <constraint firstItem="bNg-aw-9hH" firstAttribute="leading" secondItem="Xxb-d3-RtE" secondAttribute="leading" id="WBd-pp-sBl"/>
+                            <constraint firstAttribute="bottom" secondItem="247-Ek-DQn" secondAttribute="bottom" constant="426" id="XpX-nr-T5O"/>
+                            <constraint firstItem="8mm-5g-REP" firstAttribute="top" secondItem="bNg-aw-9hH" secondAttribute="bottom" constant="8" id="aQ9-M4-i26"/>
+                            <constraint firstItem="mGj-2o-pn6" firstAttribute="leading" secondItem="RRa-hw-J26" secondAttribute="leading" constant="20" id="gwv-IX-MgT"/>
+                            <constraint firstItem="tMd-Qr-s9B" firstAttribute="top" secondItem="RRa-hw-J26" secondAttribute="top" constant="44" id="i3t-p0-o7C"/>
+                            <constraint firstItem="RRa-hw-J26" firstAttribute="trailing" secondItem="8mm-5g-REP" secondAttribute="trailing" constant="20" id="uwm-QT-Zzt"/>
+                            <constraint firstItem="q87-iI-8CO" firstAttribute="top" secondItem="247-Ek-DQn" secondAttribute="bottom" constant="24" id="xfe-bb-w5o"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="RRa-hw-J26"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2nT-F3-Toy"/>
+                    <connections>
+                        <outlet property="backButton" destination="tMd-Qr-s9B" id="fhS-17-KUz"/>
+                        <outlet property="backTextView" destination="vi9-gC-7xm" id="PVu-2b-YOX"/>
+                        <outlet property="clearButtonVar" destination="Jf2-V5-mqB" id="qIH-h5-lIt"/>
+                        <outlet property="createDrawingButtonVar" destination="dtE-6y-hyd" id="Kj3-eS-r6m"/>
+                        <outlet property="createTextButtonVar" destination="XMv-TB-wBo" id="xBm-ih-skq"/>
+                        <outlet property="drawingCanvasView" destination="g2f-LD-GPN" id="KU6-gA-LJ3"/>
+                        <outlet property="frontTextView" destination="ApM-He-BtP" id="Wmt-aI-FqO"/>
+                        <outlet property="newPostTextBackground" destination="8mm-5g-REP" id="uKk-wd-Bpc"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToMain" modalPresentationStyle="fullScreen" id="YJd-nw-Ils"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9LD-VA-jbl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="727.536231884058" y="-125.22321428571428"/>
+        </scene>
+        <!--Score View Controller-->
+        <scene sceneID="Nxh-7k-zKW">
+            <objects>
+                <viewController storyboardIdentifier="ScoreViewController" title="Score View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u9k-vM-A2m" customClass="ScoreViewController" customModule="Grapevine_130" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6P4-SN-HTn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMh-NO-oaI">
+                                <rect key="frame" x="20" y="30" width="129" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uju-To-9Vz">
+                                <rect key="frame" x="57" y="287" width="300" height="268.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="hvG-3S-cRA">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="224.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" text="😮" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zvu-32-f0C" userLabel="EmojiLabel">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="114"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="scoreEmoji"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="91"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" horizontalCompressionResistancePriority="1000" text="500" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WzR-vN-kJb" userLabel="ScoreLabel">
+                                                <rect key="frame" x="0.0" y="117" width="300" height="107.5"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="scorePoints"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="90"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="HNi-bt-OKJ"/>
+                                            <constraint firstAttribute="height" constant="224.5" id="btq-lD-0Hb"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fx7-2q-4E5">
+                                        <rect key="frame" x="0.0" y="224.5" width="300" height="44"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title=" Use Points" image="p.circle.fill" catalog="system">
+                                            <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="usePointsButton:" destination="u9k-vM-A2m" eventType="touchUpInside" id="XgK-RD-sEq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="BAl-Rm-ydL"/>
+                                    <constraint firstAttribute="height" constant="268.5" id="RBU-pL-yfE"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-Tl-LGG">
+                                <rect key="frame" x="194.5" y="750.5" width="25" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="T0G-Y4-vL4"/>
+                                    <constraint firstAttribute="height" constant="24" id="kFE-4t-wEn"/>
+                                </constraints>
+                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" backgroundImage="info.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="infoButton:" destination="u9k-vM-A2m" eventType="touchUpInside" id="sKC-8A-G60"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOI-at-lYd">
+                                <rect key="frame" x="139.5" y="715.5" width="135" height="20.5"/>
+                                <accessibility key="accessibilityConfiguration" identifier="scoreStrikes"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="CL0-02-aqm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="22I-bh-a4F" firstAttribute="bottom" secondItem="0ji-Tl-LGG" secondAttribute="bottom" constant="34" id="65e-hn-5BV"/>
+                            <constraint firstItem="uju-To-9Vz" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="GY8-hf-kcI"/>
+                            <constraint firstItem="uju-To-9Vz" firstAttribute="centerY" secondItem="6P4-SN-HTn" secondAttribute="centerY" id="Q9w-Np-2jc"/>
+                            <constraint firstItem="0ji-Tl-LGG" firstAttribute="top" secondItem="eOI-at-lYd" secondAttribute="bottom" constant="14" id="Yyi-le-alj"/>
+                            <constraint firstItem="eOI-at-lYd" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="ZKT-dS-8tR"/>
+                            <constraint firstItem="0ji-Tl-LGG" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="j8m-O1-J3h"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="22I-bh-a4F"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CRd-hN-lYC"/>
+                    <connections>
+                        <outlet property="emojiLabel" destination="Zvu-32-f0C" id="v4J-tb-XI9"/>
+                        <outlet property="scoreLabel" destination="WzR-vN-kJb" id="hz2-Bw-xGa"/>
+                        <outlet property="strikesLeftLabel" destination="eOI-at-lYd" id="rc2-Qf-BJf"/>
+                        <segue destination="i8W-zh-sIl" kind="presentation" identifier="scoreToInfo" id="hP9-ZI-DdC"/>
+                        <segue destination="Pnr-Ar-hx1" kind="presentation" identifier="goToBanChamber" id="WFZ-lt-Ddb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L1r-Rh-zGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="727.536231884058" y="598.66071428571422"/>
+        </scene>
+        <!--Ban Chamber-->
+        <scene sceneID="V89-fe-fuR">
+            <objects>
+                <viewController storyboardIdentifier="BanChamberViewController" title="Ban Chamber" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pnr-Ar-hx1" customClass="BanChamberViewController" customModule="Grapevine_130" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wjO-wY-Hre">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YhT-NM-T2o">
+                                <rect key="frame" x="0.0" y="94" width="414" height="802"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <sections/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Ban Chamber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nam-61-V75">
+                                <rect key="frame" x="20" y="27" width="233" height="33.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nUZ-rb-A9I" userLabel="Info Line Stack">
+                                <rect key="frame" x="20" y="69" width="358.5" height="17"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bnu-3m-B9W">
+                                        <rect key="frame" x="0.0" y="0.5" width="17" height="16"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="Bjv-gv-Bvv"/>
+                                            <constraint firstAttribute="height" constant="17" id="alT-x0-VcY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Punish the creator of one of these posts." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-hN-8R6">
+                                        <rect key="frame" x="27" y="0.0" width="331.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nUZ-rb-A9I" firstAttribute="top" secondItem="nam-61-V75" secondAttribute="bottom" constant="8.5" id="0xL-uu-gNG"/>
+                            <constraint firstItem="nam-61-V75" firstAttribute="leading" secondItem="7Gr-9d-0nE" secondAttribute="leading" constant="20" id="7DJ-nL-sHa"/>
+                            <constraint firstItem="nam-61-V75" firstAttribute="top" secondItem="7Gr-9d-0nE" secondAttribute="top" constant="27" id="Iz5-Oj-hbd"/>
+                            <constraint firstItem="nam-61-V75" firstAttribute="leading" secondItem="7Gr-9d-0nE" secondAttribute="leading" constant="20" id="W6O-Y3-3NO"/>
+                            <constraint firstItem="nUZ-rb-A9I" firstAttribute="leading" secondItem="7Gr-9d-0nE" secondAttribute="leading" constant="20" id="d1x-Mk-Fwc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Gr-9d-0nE"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="YhT-NM-T2o" id="kSC-Aw-HHf"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="banToMain" modalPresentationStyle="fullScreen" id="kjT-Vd-qTU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wuL-O4-EHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1541" y="599"/>
+        </scene>
+        <!--Ban Screen-->
+        <scene sceneID="0wW-yY-ylv">
+            <objects>
+                <viewController storyboardIdentifier="BanScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JfH-1x-7cI" customClass="BanScreen" customModule="Grapevine_130" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="y9D-az-TlX" customClass="banScreen" customModule="Grapevine_130" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SOUR GRAPES." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5n-gp-tdN">
+                                <rect key="frame" x="35" y="348" width="345" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmZ-oE-Qkh">
+                                <rect key="frame" x="35" y="414" width="344" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">You've been temporarily banned for bad behavior! If you think this was a mistake or your ban should be over, please contact teamgrapevineofficial@gmail.com!</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="3jm-9I-UCV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="t30-mN-Bag"/>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eYB-WN-roc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-59.420289855072468" y="906.69642857142856"/>
+        </scene>
+        <!--Info Screen-->
+        <scene sceneID="eH7-Aa-fyQ">
+            <objects>
+                <viewController storyboardIdentifier="InfoScreenViewController" title="Info Screen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="i8W-zh-sIl" customClass="InfoScreenViewController" customModule="Grapevine_130" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gDk-mC-OhR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoc-tF-m8j">
+                                <rect key="frame" x="129" y="47" width="159" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title=" More Info" image="info.circle.fill" catalog="system"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1P-vw-7NA">
+                                <rect key="frame" x="21" y="122" width="374" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">On Grapevine, a user's points are the cumulative sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 points. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
+                                <rect key="frame" x="21" y="235" width="374" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">These points can be spent on special moderating powers: you can unlock the ability to issue strikes on certain users that have posted heavily downvoted content that may be harmful to the community (bullying, spam). </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-Ww-FG0">
+                                <rect key="frame" x="20" y="419" width="374" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">To prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAz-QW-FeO">
+                                <rect key="frame" x="21" y="532" width="374" height="134"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">There are two ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user spends their points to issue a strike. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Points" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCQ-s7-V7r">
+                                <rect key="frame" x="134" y="91" width="147" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Strikes &amp; Bans" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSK-4B-aKh">
+                                <rect key="frame" x="117" y="393" width="176" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="zIP-8Y-ds3"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tan-96-Ror" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="727.536231884058" y="1291.7410714285713"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="InfoSign" width="499" height="504"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="arrowshape.turn.up.left.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="bolt.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="circle" catalog="system" width="64" height="60"/>
+        <image name="circle.fill" catalog="system" width="64" height="60"/>
+        <image name="clear.fill" catalog="system" width="64" height="56"/>
+        <image name="info.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="location.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="p.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="person.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="sdr-18-gKw"/>
+    </inferredMetricsTieBreakers>
+</document>

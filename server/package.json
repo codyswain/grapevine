@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "firebase-admin": "^8.9.2",
+    "geofirestore": "^3.4.1",
+    "html": "^1.0.0",
+    "http-errors": "~1.6.3",
+    "jsdoc": "^3.6.3",
+    "mocha": "^7.0.1",
+    "ngeohash": "^0.6.3",
+    "perspective-api-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

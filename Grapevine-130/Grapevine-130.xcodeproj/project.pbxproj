@@ -1,0 +1,786 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6322402923FC617A007D05F5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402823FC617A007D05F5 /* User.swift */; };
+		6322402B23FC6398007D05F5 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402A23FC6398007D05F5 /* UserManager.swift */; };
+		636D067B23FD1FC00065B4FD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CE23F8A93400C3595F /* Constants.swift */; };
+		638C2A122415B9CA006C3FB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CB23F8A93300C3595F /* ViewController.swift */; };
+		638C2A132415BAFD006C3FB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2D923F8A94100C3595F /* Main.storyboard */; };
+		638C2A142415C48D006C3FB1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2DF23F8A94200C3595F /* Post.swift */; };
+		638C2A152415C48F006C3FB1 /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2E023F8A94200C3595F /* PostsManager.swift */; };
+		638C2A162415C494006C3FB1 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402A23FC6398007D05F5 /* UserManager.swift */; };
+		638C2A172415CA45006C3FB1 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2DB23F8A94100C3595F /* PostTableViewCell.swift */; };
+		638C2A182415CA47006C3FB1 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD724072CCB00712ECC /* CanvasView.swift */; };
+		638C2A192415CA4A006C3FB1 /* BanChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609D27A240CF16100A4328E /* BanChamberViewController.swift */; };
+		638C2A1A2415CA4C006C3FB1 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2F223FE27F900C3595F /* ScoreViewController.swift */; };
+		638C2A1B2415CA50006C3FB1 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CC23F8A93300C3595F /* NewPostViewController.swift */; };
+		638C2A1C2415CA52006C3FB1 /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */; };
+		6390F9BF23FF6E4F00D52FF0 /* ScoreManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390F9BE23FF6E4F00D52FF0 /* ScoreManagerTest.swift */; };
+		6390F9F723FF94E800D52FF0 /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2F023FE264400C3595F /* ScoreManager.swift */; };
+		6390F9F823FF94EE00D52FF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402823FC617A007D05F5 /* User.swift */; };
+		6390F9FA23FF954300D52FF0 /* UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390F9F923FF954300D52FF0 /* UITest.swift */; };
+		6390FA1423FFA0CC00D52FF0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2D423F8A94100C3595F /* Utils.swift */; };
+		8609D27B240CF16100A4328E /* BanChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609D27A240CF16100A4328E /* BanChamberViewController.swift */; };
+		8659F2CF23F8A93400C3595F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2C923F8A93300C3595F /* Assets.xcassets */; };
+		8659F2D023F8A93400C3595F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CB23F8A93300C3595F /* ViewController.swift */; };
+		8659F2D123F8A93400C3595F /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CC23F8A93300C3595F /* NewPostViewController.swift */; };
+		8659F2D223F8A93400C3595F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CD23F8A93400C3595F /* AppDelegate.swift */; };
+		8659F2D323F8A93400C3595F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CE23F8A93400C3595F /* Constants.swift */; };
+		8659F2E123F8A94200C3595F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2D423F8A94100C3595F /* Utils.swift */; };
+		8659F2E223F8A94200C3595F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2D523F8A94100C3595F /* SceneDelegate.swift */; };
+		8659F2E323F8A94200C3595F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2D723F8A94100C3595F /* LaunchScreen.storyboard */; };
+		8659F2E423F8A94200C3595F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2D923F8A94100C3595F /* Main.storyboard */; };
+		8659F2E523F8A94200C3595F /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2DB23F8A94100C3595F /* PostTableViewCell.swift */; };
+		8659F2E623F8A94200C3595F /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2DC23F8A94100C3595F /* PostTableViewCell.xib */; };
+		8659F2E823F8A94200C3595F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2DF23F8A94200C3595F /* Post.swift */; };
+		8659F2E923F8A94200C3595F /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2E023F8A94200C3595F /* PostsManager.swift */; };
+		8659F2F123FE264400C3595F /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2F023FE264400C3595F /* ScoreManager.swift */; };
+		8659F2F323FE27F900C3595F /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2F223FE27F900C3595F /* ScoreViewController.swift */; };
+		86709BD42404BEFD00712ECC /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */; };
+		86709BD824072CCB00712ECC /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD724072CCB00712ECC /* CanvasView.swift */; };
+		86BE51DD241B62D80012AA14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */; };
+		B34BA4B63B8CD21F341BF5E5 /* Pods_Grapevine_130.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6322403B23FC8B15007D05F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8661B73A23F61D7400658288 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8661B74123F61D7400658288;
+			remoteInfo = "Grapevine-130";
+		};
+		6390F9ED23FF909700D52FF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8661B73A23F61D7400658288 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8661B74123F61D7400658288;
+			remoteInfo = "Grapevine-130";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.debug.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.debug.xcconfig"; sourceTree = "<group>"; };
+		1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.release.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.release.xcconfig"; sourceTree = "<group>"; };
+		6322402823FC617A007D05F5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6322402A23FC6398007D05F5 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		6322402E23FC8AA8007D05F5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6322403623FC8B15007D05F5 /* Grapevine-130Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grapevine-130Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6322403A23FC8B15007D05F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6390F9BE23FF6E4F00D52FF0 /* ScoreManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManagerTest.swift; sourceTree = "<group>"; };
+		6390F9E823FF909700D52FF0 /* Grapevine-130UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grapevine-130UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6390F9EC23FF909700D52FF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6390F9F923FF954300D52FF0 /* UITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITest.swift; sourceTree = "<group>"; };
+		6390FA1523FFA15C00D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6390FA1923FFA3A400D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8609D27A240CF16100A4328E /* BanChamberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanChamberViewController.swift; sourceTree = "<group>"; };
+		8659F2C923F8A93300C3595F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8659F2CB23F8A93300C3595F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8659F2CC23F8A93300C3595F /* NewPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		8659F2CD23F8A93400C3595F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8659F2CE23F8A93400C3595F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8659F2D423F8A94100C3595F /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		8659F2D523F8A94100C3595F /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8659F2D823F8A94100C3595F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8659F2DA23F8A94100C3595F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8659F2DB23F8A94100C3595F /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		8659F2DC23F8A94100C3595F /* PostTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		8659F2DD23F8A94100C3595F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8659F2DF23F8A94200C3595F /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		8659F2E023F8A94200C3595F /* PostsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
+		8659F2F023FE264400C3595F /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
+		8659F2F223FE27F900C3595F /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
+		8661B74223F61D7400658288 /* Grapevine-130.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grapevine-130.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
+		86709BD724072CCB00712ECC /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Grapevine_130.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6322403323FC8B15007D05F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6390F9E523FF909700D52FF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8661B73F23F61D7400658288 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B34BA4B63B8CD21F341BF5E5 /* Pods_Grapevine_130.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5774A4D53B35D5E64DEC3D4E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */,
+				1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6322403723FC8B15007D05F5 /* Grapevine-130Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6322403A23FC8B15007D05F5 /* Info.plist */,
+				6390F9BE23FF6E4F00D52FF0 /* ScoreManagerTest.swift */,
+			);
+			path = "Grapevine-130Tests";
+			sourceTree = "<group>";
+		};
+		6390F9E923FF909700D52FF0 /* Grapevine-130UITests */ = {
+			isa = PBXGroup;
+			children = (
+				6390F9EC23FF909700D52FF0 /* Info.plist */,
+				6390F9F923FF954300D52FF0 /* UITest.swift */,
+			);
+			path = "Grapevine-130UITests";
+			sourceTree = "<group>";
+		};
+		8659F2CA23F8A93300C3595F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8609D27A240CF16100A4328E /* BanChamberViewController.swift */,
+				8659F2F223FE27F900C3595F /* ScoreViewController.swift */,
+				8659F2CB23F8A93300C3595F /* ViewController.swift */,
+				8659F2CC23F8A93300C3595F /* NewPostViewController.swift */,
+				86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8659F2D623F8A94100C3595F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8659F2D723F8A94100C3595F /* LaunchScreen.storyboard */,
+				8659F2D923F8A94100C3595F /* Main.storyboard */,
+				8659F2DB23F8A94100C3595F /* PostTableViewCell.swift */,
+				8659F2DC23F8A94100C3595F /* PostTableViewCell.xib */,
+				86709BD724072CCB00712ECC /* CanvasView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8659F2DE23F8A94200C3595F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8659F2DF23F8A94200C3595F /* Post.swift */,
+				8659F2E023F8A94200C3595F /* PostsManager.swift */,
+				8659F2F023FE264400C3595F /* ScoreManager.swift */,
+				6322402823FC617A007D05F5 /* User.swift */,
+				6322402A23FC6398007D05F5 /* UserManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8661B73923F61D7400658288 = {
+			isa = PBXGroup;
+			children = (
+				8661B74423F61D7400658288 /* Grapevine-130 */,
+				6322403723FC8B15007D05F5 /* Grapevine-130Tests */,
+				6390F9E923FF909700D52FF0 /* Grapevine-130UITests */,
+				8661B74323F61D7400658288 /* Products */,
+				5774A4D53B35D5E64DEC3D4E /* Pods */,
+				BD48B6BAA507712A4E67B8AD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8661B74323F61D7400658288 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8661B74223F61D7400658288 /* Grapevine-130.app */,
+				6322403623FC8B15007D05F5 /* Grapevine-130Tests.xctest */,
+				6390F9E823FF909700D52FF0 /* Grapevine-130UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8661B74423F61D7400658288 /* Grapevine-130 */ = {
+			isa = PBXGroup;
+			children = (
+				86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */,
+				8659F2D523F8A94100C3595F /* SceneDelegate.swift */,
+				8659F2CD23F8A93400C3595F /* AppDelegate.swift */,
+				8659F2D423F8A94100C3595F /* Utils.swift */,
+				8659F2CE23F8A93400C3595F /* Constants.swift */,
+				8659F2DE23F8A94200C3595F /* Model */,
+				8659F2D623F8A94100C3595F /* View */,
+				8659F2CA23F8A93300C3595F /* Controller */,
+				8659F2C923F8A93300C3595F /* Assets.xcassets */,
+				8659F2DD23F8A94100C3595F /* Info.plist */,
+			);
+			path = "Grapevine-130";
+			sourceTree = "<group>";
+		};
+		BD48B6BAA507712A4E67B8AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6390FA1923FFA3A400D52FF0 /* GoogleUtilities.framework */,
+				6390FA1523FFA15C00D52FF0 /* GoogleUtilities.framework */,
+				6322402E23FC8AA8007D05F5 /* XCTest.framework */,
+				A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6322403523FC8B15007D05F5 /* Grapevine-130Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6322403D23FC8B15007D05F5 /* Build configuration list for PBXNativeTarget "Grapevine-130Tests" */;
+			buildPhases = (
+				6322403223FC8B15007D05F5 /* Sources */,
+				6322403323FC8B15007D05F5 /* Frameworks */,
+				6322403423FC8B15007D05F5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6322403C23FC8B15007D05F5 /* PBXTargetDependency */,
+			);
+			name = "Grapevine-130Tests";
+			productName = "Grapevine-130Tests";
+			productReference = 6322403623FC8B15007D05F5 /* Grapevine-130Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6390F9E723FF909700D52FF0 /* Grapevine-130UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6390F9EF23FF909700D52FF0 /* Build configuration list for PBXNativeTarget "Grapevine-130UITests" */;
+			buildPhases = (
+				6390F9E423FF909700D52FF0 /* Sources */,
+				6390F9E523FF909700D52FF0 /* Frameworks */,
+				6390F9E623FF909700D52FF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6390F9EE23FF909700D52FF0 /* PBXTargetDependency */,
+			);
+			name = "Grapevine-130UITests";
+			productName = "Grapevine-130UITests";
+			productReference = 6390F9E823FF909700D52FF0 /* Grapevine-130UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		8661B74123F61D7400658288 /* Grapevine-130 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8661B75623F61D7600658288 /* Build configuration list for PBXNativeTarget "Grapevine-130" */;
+			buildPhases = (
+				BB5ACDDC934C9D6842D9DBB2 /* [CP] Check Pods Manifest.lock */,
+				8661B73E23F61D7400658288 /* Sources */,
+				8661B73F23F61D7400658288 /* Frameworks */,
+				8661B74023F61D7400658288 /* Resources */,
+				14383961D92E29DE1B6CCE63 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Grapevine-130";
+			productName = "Grapevine-130";
+			productReference = 8661B74223F61D7400658288 /* Grapevine-130.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8661B73A23F61D7400658288 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Anthony Humay";
+				TargetAttributes = {
+					6322403523FC8B15007D05F5 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 8661B74123F61D7400658288;
+					};
+					6390F9E723FF909700D52FF0 = {
+						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
+						TestTargetID = 8661B74123F61D7400658288;
+					};
+					8661B74123F61D7400658288 = {
+						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
+					};
+				};
+			};
+			buildConfigurationList = 8661B73D23F61D7400658288 /* Build configuration list for PBXProject "Grapevine-130" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8661B73923F61D7400658288;
+			productRefGroup = 8661B74323F61D7400658288 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8661B74123F61D7400658288 /* Grapevine-130 */,
+				6322403523FC8B15007D05F5 /* Grapevine-130Tests */,
+				6390F9E723FF909700D52FF0 /* Grapevine-130UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6322403423FC8B15007D05F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638C2A132415BAFD006C3FB1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6390F9E623FF909700D52FF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8661B74023F61D7400658288 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8659F2E323F8A94200C3595F /* LaunchScreen.storyboard in Resources */,
+				8659F2E623F8A94200C3595F /* PostTableViewCell.xib in Resources */,
+				86BE51DD241B62D80012AA14 /* GoogleService-Info.plist in Resources */,
+				8659F2CF23F8A93400C3595F /* Assets.xcassets in Resources */,
+				8659F2E423F8A94200C3595F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14383961D92E29DE1B6CCE63 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB5ACDDC934C9D6842D9DBB2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Grapevine-130-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6322403223FC8B15007D05F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				638C2A172415CA45006C3FB1 /* PostTableViewCell.swift in Sources */,
+				6390F9F723FF94E800D52FF0 /* ScoreManager.swift in Sources */,
+				638C2A182415CA47006C3FB1 /* CanvasView.swift in Sources */,
+				638C2A192415CA4A006C3FB1 /* BanChamberViewController.swift in Sources */,
+				638C2A1C2415CA52006C3FB1 /* InfoScreenViewController.swift in Sources */,
+				6390FA1423FFA0CC00D52FF0 /* Utils.swift in Sources */,
+				6390F9BF23FF6E4F00D52FF0 /* ScoreManagerTest.swift in Sources */,
+				638C2A152415C48F006C3FB1 /* PostsManager.swift in Sources */,
+				638C2A1A2415CA4C006C3FB1 /* ScoreViewController.swift in Sources */,
+				638C2A142415C48D006C3FB1 /* Post.swift in Sources */,
+				638C2A122415B9CA006C3FB1 /* ViewController.swift in Sources */,
+				6390F9F823FF94EE00D52FF0 /* User.swift in Sources */,
+				638C2A162415C494006C3FB1 /* UserManager.swift in Sources */,
+				636D067B23FD1FC00065B4FD /* Constants.swift in Sources */,
+				638C2A1B2415CA50006C3FB1 /* NewPostViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6390F9E423FF909700D52FF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6390F9FA23FF954300D52FF0 /* UITest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8661B73E23F61D7400658288 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8659F2F123FE264400C3595F /* ScoreManager.swift in Sources */,
+				8659F2E523F8A94200C3595F /* PostTableViewCell.swift in Sources */,
+				86709BD824072CCB00712ECC /* CanvasView.swift in Sources */,
+				8659F2E123F8A94200C3595F /* Utils.swift in Sources */,
+				8659F2D223F8A93400C3595F /* AppDelegate.swift in Sources */,
+				8659F2E923F8A94200C3595F /* PostsManager.swift in Sources */,
+				8659F2F323FE27F900C3595F /* ScoreViewController.swift in Sources */,
+				86709BD42404BEFD00712ECC /* InfoScreenViewController.swift in Sources */,
+				8659F2E823F8A94200C3595F /* Post.swift in Sources */,
+				6322402923FC617A007D05F5 /* User.swift in Sources */,
+				8659F2D023F8A93400C3595F /* ViewController.swift in Sources */,
+				8609D27B240CF16100A4328E /* BanChamberViewController.swift in Sources */,
+				8659F2D123F8A93400C3595F /* NewPostViewController.swift in Sources */,
+				8659F2D323F8A93400C3595F /* Constants.swift in Sources */,
+				6322402B23FC6398007D05F5 /* UserManager.swift in Sources */,
+				8659F2E223F8A94200C3595F /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6322403C23FC8B15007D05F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8661B74123F61D7400658288 /* Grapevine-130 */;
+			targetProxy = 6322403B23FC8B15007D05F5 /* PBXContainerItemProxy */;
+		};
+		6390F9EE23FF909700D52FF0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8661B74123F61D7400658288 /* Grapevine-130 */;
+			targetProxy = 6390F9ED23FF909700D52FF0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8659F2D723F8A94100C3595F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8659F2D823F8A94100C3595F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		8659F2D923F8A94100C3595F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8659F2DA23F8A94100C3595F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6322403E23FC8B15007D05F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Grapevine-130Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ninghu.Grapevine-130Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grapevine-130.app/Grapevine-130";
+			};
+			name = Debug;
+		};
+		6322403F23FC8B15007D05F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Grapevine-130Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ninghu.Grapevine-130Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Grapevine-130.app/Grapevine-130";
+			};
+			name = Release;
+		};
+		6390F9F023FF909700D52FF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Grapevine-130UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ninghu.Grapevine-130UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Grapevine-130";
+			};
+			name = Debug;
+		};
+		6390F9F123FF909700D52FF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Grapevine-130UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "ninghu.Grapevine-130UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Grapevine-130";
+			};
+			name = Release;
+		};
+		8661B75423F61D7600658288 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8661B75523F61D7600658288 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8661B75723F61D7600658288 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HRCTZ322K4;
+				INFOPLIST_FILE = "Grapevine-130/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "humay.Grapevine-130";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8661B75823F61D7600658288 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HRCTZ322K4;
+				INFOPLIST_FILE = "Grapevine-130/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "humay.Grapevine-130";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6322403D23FC8B15007D05F5 /* Build configuration list for PBXNativeTarget "Grapevine-130Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6322403E23FC8B15007D05F5 /* Debug */,
+				6322403F23FC8B15007D05F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6390F9EF23FF909700D52FF0 /* Build configuration list for PBXNativeTarget "Grapevine-130UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6390F9F023FF909700D52FF0 /* Debug */,
+				6390F9F123FF909700D52FF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8661B73D23F61D7400658288 /* Build configuration list for PBXProject "Grapevine-130" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8661B75423F61D7600658288 /* Debug */,
+				8661B75523F61D7600658288 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8661B75623F61D7600658288 /* Build configuration list for PBXNativeTarget "Grapevine-130" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8661B75723F61D7600658288 /* Debug */,
+				8661B75823F61D7600658288 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8661B73A23F61D7400658288 /* Project object */;
+}

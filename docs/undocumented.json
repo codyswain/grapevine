@@ -1,0 +1,642 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/AppDelegate.swift",
+      "line": 5,
+      "symbol": "AppDelegate",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Constants.swift",
+      "line": 4,
+      "symbol": "Constants",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 9,
+      "symbol": "BanChamberViewController.tableView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 11,
+      "symbol": "BanChamberViewController.locationManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 12,
+      "symbol": "BanChamberViewController.posts",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 13,
+      "symbol": "BanChamberViewController.postsManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 14,
+      "symbol": "BanChamberViewController.userManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 15,
+      "symbol": "BanChamberViewController.postTableCell",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 16,
+      "symbol": "BanChamberViewController.lat",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 17,
+      "symbol": "BanChamberViewController.lon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 18,
+      "symbol": "BanChamberViewController.refresher",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 24,
+      "symbol": "BanChamberViewController.indicator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/BanChamberViewController.swift",
+      "line": 60,
+      "symbol": "BanChamberViewController.preferredStatusBarStyle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/InfoScreenViewController.swift",
+      "line": 8,
+      "symbol": "InfoScreenViewController.score",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/InfoScreenViewController.swift",
+      "line": 9,
+      "symbol": "InfoScreenViewController.emoji",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/InfoScreenViewController.swift",
+      "line": 10,
+      "symbol": "InfoScreenViewController.strikesLeftMessage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 8,
+      "symbol": "NewPostViewController.db",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 9,
+      "symbol": "NewPostViewController.currentState",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 11,
+      "symbol": "NewPostViewController.backButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 12,
+      "symbol": "NewPostViewController.frontTextView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 13,
+      "symbol": "NewPostViewController.backTextView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 14,
+      "symbol": "NewPostViewController.newPostTextBackground",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 15,
+      "symbol": "NewPostViewController.drawingCanvasView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 16,
+      "symbol": "NewPostViewController.lat",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 17,
+      "symbol": "NewPostViewController.lon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 18,
+      "symbol": "NewPostViewController.postsManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 20,
+      "symbol": "NewPostViewController.createTextButtonVar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 21,
+      "symbol": "NewPostViewController.createDrawingButtonVar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/NewPostViewController.swift",
+      "line": 22,
+      "symbol": "NewPostViewController.clearButtonVar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ScoreViewController.swift",
+      "line": 8,
+      "symbol": "ScoreViewController.score",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ScoreViewController.swift",
+      "line": 9,
+      "symbol": "ScoreViewController.emoji",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ScoreViewController.swift",
+      "line": 10,
+      "symbol": "ScoreViewController.strikesLeftMessage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ScoreViewController.swift",
+      "line": 11,
+      "symbol": "ScoreViewController.emojiLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ScoreViewController.swift",
+      "line": 12,
+      "symbol": "ScoreViewController.scoreLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ScoreViewController.swift",
+      "line": 13,
+      "symbol": "ScoreViewController.strikesLeftLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 9,
+      "symbol": "ViewController.tableView",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 12,
+      "symbol": "ViewController.db",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 13,
+      "symbol": "ViewController.locationManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 14,
+      "symbol": "ViewController.posts",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 15,
+      "symbol": "ViewController.postsManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 16,
+      "symbol": "ViewController.user",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 17,
+      "symbol": "ViewController.userManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 18,
+      "symbol": "ViewController.scoreManager",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 19,
+      "symbol": "ViewController.postTableCell",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 20,
+      "symbol": "ViewController.lat",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 21,
+      "symbol": "ViewController.lon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 22,
+      "symbol": "ViewController.refresher",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 28,
+      "symbol": "ViewController.indicator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Controller/ViewController.swift",
+      "line": 69,
+      "symbol": "ViewController.preferredStatusBarStyle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/Post.swift",
+      "line": 38,
+      "symbol": "Post.lon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/PostsManager.swift",
+      "line": 4,
+      "symbol": "PostsManagerDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/PostsManager.swift",
+      "line": 14,
+      "symbol": "PostsManager.getBannedPostsURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/PostsManager.swift",
+      "line": 15,
+      "symbol": "PostsManager.createPostURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/PostsManager.swift",
+      "line": 17,
+      "symbol": "PostsManager.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/PostsManager.swift",
+      "line": 31,
+      "symbol": "PostsManager.fetchBannedPosts(latitude:longitude:range:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/UserManager.swift",
+      "line": 11,
+      "symbol": "UserManagerDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/UserManager.swift",
+      "line": 21,
+      "symbol": "UserManager.banUserURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/UserManager.swift",
+      "line": 23,
+      "symbol": "UserManager.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/Model/UserManager.swift",
+      "line": 34,
+      "symbol": "UserManager.banUser(poster:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/SceneDelegate.swift",
+      "line": 3,
+      "symbol": "SceneDelegate",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/CanvasView.swift",
+      "line": 11,
+      "symbol": "CanvasView.lineColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/CanvasView.swift",
+      "line": 12,
+      "symbol": "CanvasView.lineWidth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/CanvasView.swift",
+      "line": 13,
+      "symbol": "CanvasView.path",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/CanvasView.swift",
+      "line": 14,
+      "symbol": "CanvasView.touchPoint",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/CanvasView.swift",
+      "line": 15,
+      "symbol": "CanvasView.startingPoint",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 5,
+      "symbol": "PostTableViewCellDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 12,
+      "symbol": "BannedPostTableViewCellDelegate",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 19,
+      "symbol": "PostTableViewCell.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 20,
+      "symbol": "PostTableViewCell.voteCountLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 21,
+      "symbol": "PostTableViewCell.downvoteImageButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 22,
+      "symbol": "PostTableViewCell.upvoteImageButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 23,
+      "symbol": "PostTableViewCell.footer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 24,
+      "symbol": "PostTableViewCell.deleteButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 25,
+      "symbol": "PostTableViewCell.flagButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 26,
+      "symbol": "PostTableViewCell.banButtonVar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 27,
+      "symbol": "PostTableViewCell.shareButton",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 28,
+      "symbol": "PostTableViewCell.imageVar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 29,
+      "symbol": "PostTableViewCell.db",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 30,
+      "symbol": "PostTableViewCell.currentVoteStatus",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 31,
+      "symbol": "PostTableViewCell.currentFlagStatus",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 32,
+      "symbol": "PostTableViewCell.currentFlagNum",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 33,
+      "symbol": "PostTableViewCell.documentId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 34,
+      "symbol": "PostTableViewCell.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 35,
+      "symbol": "PostTableViewCell.banDelegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 36,
+      "symbol": "PostTableViewCell.deletable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 104,
+      "symbol": "PostTableViewCell.layoutSubviews()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 109,
+      "symbol": "PostTableViewCell.setSelected(_:animated:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 212,
+      "symbol": "PostTableViewCell.shareTapped(tapGestureRecognizer:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 279,
+      "symbol": "PostTableViewCell.setShareButtonHighlightedColors()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 283,
+      "symbol": "PostTableViewCell.setShareButtonNormalColors()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/ninghu/Desktop/team-A6/Grapevine-130/Grapevine-130/View/PostTableViewCell.swift",
+      "line": 287,
+      "symbol": "PostTableViewCell.banButton(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/ninghu/Desktop/team-A6/Grapevine-130"
+}
