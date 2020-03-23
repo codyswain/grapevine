@@ -333,6 +333,11 @@ extension ViewController: PostTableViewCellDelegate {
         alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func viewComments(){
+        self.performSegue(withIdentifier: "goToComments", sender: self)
+        print("Segue to comment view occurs here")
+    }
 }
 
 /// Manages the `user` object returned by the server.

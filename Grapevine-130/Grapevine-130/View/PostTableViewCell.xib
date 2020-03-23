@@ -172,6 +172,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="banButtonVar" destination="Lse-T3-2CM" id="E4g-ye-4A3"/>
+                <outlet property="commentAreaButton" destination="CwN-Dl-0tb" id="erV-pV-svd"/>
                 <outlet property="deleteButton" destination="VNW-4m-14j" id="2rf-XS-ULN"/>
                 <outlet property="downvoteImageButton" destination="mBG-cM-1KG" id="27d-AY-8LW"/>
                 <outlet property="flagButton" destination="ZYF-at-qh9" id="hoo-3f-znw"/>
