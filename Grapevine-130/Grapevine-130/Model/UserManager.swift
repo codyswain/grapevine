@@ -21,7 +21,16 @@ struct UserManager {
     let banUserURL = Constants.serverURL + "banChamber/banPoster/?"
 
     var delegate: UserManagerDelegate?
-        
+    
+    func isBanned(strikes:Int, banTime: Double) -> Bool {
+        let timeDiff = Date().timeIntervalSince1970 - banTime
+        if strikes >= Constants.numStrikesToBeBanned && timeDiff < Constants.banLengthInHours {
+            // reset strikes
+            return true
+        }
+        return false
+    }
+    
     /**
     Fetches a user's information based on the operating device's unique device id.
     */
@@ -32,7 +41,7 @@ struct UserManager {
     }
     
     func banUser(poster: String) {
-        let urlString = "\(banUserURL)&poster=\(poster)"
+        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)"
         print ("Banning userID: ", poster)
         performRequest(with: urlString, handleResponse: false)
     }

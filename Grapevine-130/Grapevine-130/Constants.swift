@@ -9,6 +9,8 @@ struct Constants {
     static let numberOfCharactersPerPost = 280
     static let userID = SHA256(data:UIDevice.current.identifierForVendor!.uuidString)
     static let serverURL = "https://grapevineapp.herokuapp.com/"
+    static let numStrikesToBeBanned = 3
+    static let banLengthInHours = 172800.0 // 48 hours
     struct Colors {
         static let lightPurple = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
         static let darkPurple = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
