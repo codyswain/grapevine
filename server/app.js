@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Link files that control endpoints to the actual endpoints
 app.use('/posts', postsRouter);
-app.user('/comments', commentsRouter);
+app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
 app.use('/interactions', interactionsRouter);
 app.use('/banChamber', banChamberRouter);
