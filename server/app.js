@@ -7,6 +7,7 @@ require('dotenv').config();;
 
 // These are the files that control endpoints the actual endpoints
 var postsRouter = require('./routes/posts');
+var commentsRouter = require('./routes/comments');
 var usersRouter = require('./routes/users');
 var interactionsRouter = require('./routes/interactions');
 var banChamberRouter = require('./routes/banChamber');
@@ -44,6 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Link files that control endpoints to the actual endpoints
 app.use('/posts', postsRouter);
+app.user('/comments', commentsRouter);
 app.use('/users', usersRouter);
 app.use('/interactions', interactionsRouter);
 app.use('/banChamber', banChamberRouter);
