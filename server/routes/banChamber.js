@@ -74,19 +74,37 @@ async function getBannablePosts(req, res, next) {
  */
 async function banPoster(req, res, next) {
 	let poster = req.query.poster;
-
+	let time = req.query.time;
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
+	var strikeUpdateStatus = false
+	var timeUpdateStatus = false
 
-	db.collection('users').doc(poster).update({
+	await db.collection('users').doc(poster).update({
 	  strikes: admin.firestore.FieldValue.increment(3)
 	}).then((snapshot) => {
-		res.send("Success")		
+		strikeUpdateStatus = true
 	})
 	.catch((err) => { 
-		console.log("ERROR looking up post in posts.js:" + err)
-		res.send("Error in banPoster")
+		strikeUpdateStatus = false
+		console.log("ERROR updating strikes in posts.js:" + err)
 	})	
+
+	await db.collection('users').doc(poster).update({
+	  banDate: parseInt(time)
+	}).then((snapshot) => {
+		timeUpdateStatus = true
+	})
+	.catch((err) => { 
+		timeUpdateStatus = false
+		console.log("ERROR updating time in posts.js:" + err)
+	})	
+
+	if (strikeUpdateStatus && timeUpdateStatus){
+		res.send("banPoster strikes and time update success")
+	} else {
+		res.send("Error in banPoster")
+	}
 }
 
 module.exports = router;
