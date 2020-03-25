@@ -11,6 +11,7 @@ class BanChamberViewController: UIViewController {
     // Globals
     let locationManager = CLLocationManager()
     var posts: [Post] = []
+    var ref = ""
     var postsManager = PostsManager()
     var userManager = UserManager()
     var postTableCell = PostTableViewCell()
@@ -135,11 +136,16 @@ extension BanChamberViewController: PostsManagerDelegate {
         - postManager: `PostManager` object that fetched the psots
         - posts: Array of posts returned by the server
      */
-    func didUpdatePosts(_ postManager: PostsManager, posts: [Post]){
+    func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String){
         DispatchQueue.main.async {
             self.posts = posts
+            self.ref = ref
             self.tableView.reloadData()
         }
+    }
+    
+    func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
+        // Nothing yet
     }
     
     /**

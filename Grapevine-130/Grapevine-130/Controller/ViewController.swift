@@ -12,7 +12,11 @@ class ViewController: UIViewController {
     let db = Firestore.firestore()
     let locationManager = CLLocationManager()
     var posts: [Post] = []
+    var ref = ""
+    var canGetMorePosts = true
+    var range = 500
     var postsManager = PostsManager()
+    var scrollPostsManager = PostsManager()
     var user: User?
     var userManager = UserManager()
     var scoreManager = ScoreManager()
@@ -54,6 +58,7 @@ class ViewController: UIViewController {
         
         // Load table
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.refreshControl = refresher
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
@@ -133,7 +138,7 @@ class ViewController: UIViewController {
 }
 
 /// Manages the posts table.
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     /**
      Tells the table how many cells are needed.
      
@@ -149,6 +154,14 @@ extension ViewController: UITableViewDataSource {
             indicator.hidesWhenStopped = true
         }
         return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Latitude, longitude, and range should be the same as the initial posts request
+        if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
+            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref)
+            print("Getting more posts")
+        }
     }
     
     /**
@@ -227,12 +240,35 @@ extension ViewController: PostsManagerDelegate {
         - postManager: `PostManager` object that fetched the psots
         - posts: Array of posts returned by the server
      */
-    func didUpdatePosts(_ postManager: PostsManager, posts: [Post]){
+    func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
             self.posts = posts
+            self.ref = ref
             self.tableView.reloadData()
             
-            print(posts)
+            if ref == "" {
+                self.canGetMorePosts = false
+            } else {
+                self.canGetMorePosts = true
+            }
+            
+            //print("reference doc: ", ref)
+            //print("posts: ", posts)
+        }
+    }
+    
+    func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
+        DispatchQueue.main.async {
+            self.posts.append(contentsOf: posts)
+            self.ref = ref
+            self.tableView.reloadData()
+            
+            if ref == "" {
+                // Cannot retrieve more
+                self.canGetMorePosts = false
+            }
+            //print("reference doc: ", ref)
+            //print("posts: ", posts)
         }
     }
     
@@ -256,7 +292,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
             print("Location request success")
-            postsManager.fetchPosts(latitude: lat, longitude: lon, range: 500)
+            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range)
         }
     }
     

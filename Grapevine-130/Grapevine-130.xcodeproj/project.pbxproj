@@ -32,6 +32,7 @@
 		83B121A4242EE82F0034BF73 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B121A2242EE82F0034BF73 /* CommentTableViewCell.xib */; };
 		83F26B0C24294F6F0056F719 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F26B0B24294F6F0056F719 /* CommentViewController.swift */; };
 		83F26B0D242950FB0056F719 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F26B0B24294F6F0056F719 /* CommentViewController.swift */; };
+		63D218522429B23D00960938 /* PostReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D218512429B23D00960938 /* PostReference.swift */; };
 		8609D27B240CF16100A4328E /* BanChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609D27A240CF16100A4328E /* BanChamberViewController.swift */; };
 		8659F2CF23F8A93400C3595F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2C923F8A93300C3595F /* Assets.xcassets */; };
 		8659F2D023F8A93400C3595F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CB23F8A93300C3595F /* ViewController.swift */; };
@@ -85,11 +86,15 @@
 		6390F9F923FF954300D52FF0 /* UITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITest.swift; sourceTree = "<group>"; };
 		6390FA1523FFA15C00D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6390FA1923FFA3A400D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+<<<<<<< HEAD
 		83B1219D242EDB6F0034BF73 /* CommentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsManager.swift; sourceTree = "<group>"; };
 		83B1219F242EDD610034BF73 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		83B121A2242EE82F0034BF73 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		83F26B0B24294F6F0056F719 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+=======
+		63D218512429B23D00960938 /* PostReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReference.swift; sourceTree = "<group>"; };
+>>>>>>> Added infinite scrolling to main page
 		8609D27A240CF16100A4328E /* BanChamberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanChamberViewController.swift; sourceTree = "<group>"; };
 		8659F2C923F8A93300C3595F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8659F2CB23F8A93300C3595F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +209,7 @@
 				8659F2F023FE264400C3595F /* ScoreManager.swift */,
 				6322402823FC617A007D05F5 /* User.swift */,
 				6322402A23FC6398007D05F5 /* UserManager.swift */,
+				63D218512429B23D00960938 /* PostReference.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 			files = (
 				8659F2F123FE264400C3595F /* ScoreManager.swift in Sources */,
 				8659F2E523F8A94200C3595F /* PostTableViewCell.swift in Sources */,
+				63D218522429B23D00960938 /* PostReference.swift in Sources */,
 				86709BD824072CCB00712ECC /* CanvasView.swift in Sources */,
 				8659F2E123F8A94200C3595F /* Utils.swift in Sources */,
 				8659F2D223F8A93400C3595F /* AppDelegate.swift in Sources */,
