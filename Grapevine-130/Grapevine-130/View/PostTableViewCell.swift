@@ -8,7 +8,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
     func showSharePopup()
-    func viewComments()
+    func viewComments(_ cell: UITableViewCell)
 }
 
 protocol BannedPostTableViewCellDelegate {
@@ -223,7 +223,7 @@ class PostTableViewCell: UITableViewCell {
     // Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        self.delegate?.viewComments()
+        self.delegate?.viewComments(self)
     }
     
     /**
