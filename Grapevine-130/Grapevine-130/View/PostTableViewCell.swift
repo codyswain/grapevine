@@ -281,9 +281,7 @@ class PostTableViewCell: UITableViewCell {
         flagButton.tintColor = Constants.Colors.lightGrey
     }
     
-    /**
-    Remove the option to flag a post if the user upvoted it.
-    */
+    /// Hide the flag button if a user upvotes a post.
     func setFlaggedColorsToPurple(){
         flagButton.tintColor = Constants.Colors.darkPurple
     }
@@ -292,10 +290,12 @@ class PostTableViewCell: UITableViewCell {
         shareButton.tintColor = .white
     }
     
+    /// Initialize the share button colors.
     func setShareButtonNormalColors(){
         shareButton.tintColor = Constants.Colors.lightGrey
     }
     
+    /// Button to ban users from the ban chamber.
     @IBAction func banButton(_ sender: Any) {
         self.banDelegate?.banPoster(self)
     }

@@ -24,17 +24,35 @@ struct PostsManager {
     - Parameters:
         - latitude: Latitude of the client requesting posts
         - longitude: Longitude of the client requesting posts
+        - range: Distance around the user to retrieve posts from
     */
     func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
         let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
     }
     
+    /**
+     Fetches posts that can be banned from the database.
+     
+     - Parameters:
+        - latitude: Latitude of the client requesting posts
+        - longitude: Longtitude of the client requesting posts
+        - range: Distance around the user to retrieve posts from
+     */
     func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
         let urlString = "\(fetchBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
     }
     
+    /**
+     Fetches more posts from the database for infinite scrolling.
+     
+     - Parameters:
+        - latitude: Latitude of the client requesting posts
+        - longitude: Longitude of the client requesting posts
+        - range: Distance around the user to retrieve posts from
+        - ref: Document id of the last post retrieved from the database in the previous request
+     */
     func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, ref: String) {
         let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)"
         performMoreRequest(with: urlString)

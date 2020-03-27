@@ -180,9 +180,11 @@ async function morePosts(req, res, next) {
 	// Calculate the lower and upper geohashes to consider
     const search_box = utils.getGeohashRange(lat, lon, range);
 
+	// Request the document snapshot of the last post retrieved in the previous request for posts
 	var refquery = db.collection('posts')
 				  .doc(docRef)
 
+	// Basic request for posts
 	var query = db.collection('posts')
 				  .where("banned", "==", false)
 				  .where("geohash", ">=", search_box.lower)
@@ -190,7 +192,9 @@ async function morePosts(req, res, next) {
 				  .orderBy("geohash")
 				  .orderBy('date', 'desc')
 
+	// Get the document snapshot of the last document first
 	refquery.get().then((doc) => {
+		// Query for more posts started after the retrieved snapshot
 		query.startAfter(doc).limit(20).get().then((snapshot) => {
 			let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
 			var posts = []

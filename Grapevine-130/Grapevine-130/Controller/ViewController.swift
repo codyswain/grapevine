@@ -7,7 +7,8 @@ import CoreLocation
 class ViewController: UIViewController {
     // UI variables
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var nearbyLabel: UILabel!
+    
     // Globals
     let db = Firestore.firestore()
     let locationManager = CLLocationManager()
@@ -64,6 +65,10 @@ class ViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.backgroundColor = UIColor.white
+        
+        // Add scroll-to-top button
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop(tapGestureRecognizer:)))
+        nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)
     }
     
     /// Displays a loading icon while posts load.
@@ -94,6 +99,17 @@ class ViewController: UIViewController {
      */
     @IBAction func scoreButton(_ sender: Any) {
         self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+    }
+    
+    /**
+     Scrolls to the first post
+     
+     - Parameter tapGestureRegnizer: Tap gesture that fires this function
+     */
+    @objc func scrollToTop(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
+        self.tableView?.setContentOffset(topOffest, animated: true)
     }
     
     /// Refresh the main posts view based on current user location.
@@ -156,6 +172,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return posts.count
     }
     
+    /**
+     Triggers auto-loading of more posts when the user scrolls down far enough.
+     
+     - Parameters:
+        - tableView: Table to be updated
+        - cell: Table cell about to be created
+        - indexPath: Row that the table cell will be generated in
+     */
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Latitude, longitude, and range should be the same as the initial posts request
         if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
@@ -246,6 +270,7 @@ extension ViewController: PostsManagerDelegate {
      - Parameters:
         - postManager: `PostManager` object that fetched the psots
         - posts: Array of posts returned by the server
+        - ref: Document id of the last post retrieved from this call
      */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
@@ -264,6 +289,14 @@ extension ViewController: PostsManagerDelegate {
         }
     }
     
+    /**
+     Adds auto-retrieved posts to the current list of posts.
+     
+     - Parameters:
+        - postManager: `PostManager` object that fetched the posts
+        - posts: Array of posts returned by the server
+        - ref: Document if of the last post retrieved from this call
+     */
     func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
             if ref == "" {
