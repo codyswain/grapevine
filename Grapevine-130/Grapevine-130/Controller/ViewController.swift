@@ -161,6 +161,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
             postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref)
             print("Getting more posts")
+
+            let moreIndicator = UIActivityIndicatorView()
+            moreIndicator.style = UIActivityIndicatorView.Style.medium
+            moreIndicator.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+            moreIndicator.startAnimating()
+            self.tableView.tableFooterView = moreIndicator
+            self.tableView.tableFooterView?.isHidden = false
         }
     }
     
@@ -242,15 +249,15 @@ extension ViewController: PostsManagerDelegate {
      */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
-            self.posts = posts
-            self.ref = ref
-            self.tableView.reloadData()
-            
             if ref == "" {
                 self.canGetMorePosts = false
             } else {
                 self.canGetMorePosts = true
             }
+            
+            self.posts = posts
+            self.ref = ref
+            self.tableView.reloadData()
             
             //print("reference doc: ", ref)
             //print("posts: ", posts)
@@ -259,14 +266,16 @@ extension ViewController: PostsManagerDelegate {
     
     func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
-            self.posts.append(contentsOf: posts)
-            self.ref = ref
-            self.tableView.reloadData()
-            
             if ref == "" {
                 // Cannot retrieve more
                 self.canGetMorePosts = false
             }
+            
+            self.tableView.tableFooterView = nil
+            self.posts.append(contentsOf: posts)
+            self.ref = ref
+            self.tableView.reloadData()
+            
             //print("reference doc: ", ref)
             //print("posts: ", posts)
         }
