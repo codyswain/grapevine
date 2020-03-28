@@ -11,6 +11,7 @@ import Foundation
 protocol CommentsManagerDelegate {
     func didUpdateComments(_ commentManager: CommentsManager, comments: [Comment])
     func didFailWithError(error: Error)
+    func didCreateComment()
 }
 
 struct CommentsManager {
@@ -71,6 +72,8 @@ struct CommentsManager {
             }
             if let safeData = data {
                 print("Comment POST req returned: \(safeData)")
+                self.delegate?.didCreateComment()
+                return
             }
         }
         task.resume()

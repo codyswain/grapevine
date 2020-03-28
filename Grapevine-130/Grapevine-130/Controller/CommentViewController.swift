@@ -95,7 +95,9 @@ class CommentViewController: UIViewController {
                 commentsManager.performPOSTRequest(text:postContent, postID: postID)
             }
         }
-        self.performSegue(withIdentifier: "goToMain", sender: self)
+        commentInput.endEditing(true)
+        commentInput.text = "Add an anonymous comment..."
+//        self.performSegue(withIdentifier: "goToMain", sender: self)
     }
     
     /*
@@ -172,5 +174,8 @@ extension CommentViewController: CommentsManagerDelegate {
     }
     func didFailWithError(error: Error) {
         print(error)
+    }
+    func didCreateComment() {
+        commentsManager.fetchComments(postID: postID)
     }
 }
