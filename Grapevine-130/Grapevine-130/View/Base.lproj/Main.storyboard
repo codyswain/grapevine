@@ -560,6 +560,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2qx-yK-lc3">
+                                <rect key="frame" x="0.0" y="150" width="414" height="692"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uai-0N-qUo">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                 <subviews>
@@ -600,6 +604,9 @@
                                                 <state key="normal" image="arrow.up.circle.fill" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="submitButtonPressed:" destination="nLL-ph-GD5" eventType="touchUpInside" id="Vw3-vP-SHe"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mKf-PO-SDo">
                                                 <rect key="frame" x="24" y="2" width="285" height="30"/>
@@ -631,16 +638,20 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="2qx-yK-lc3" firstAttribute="top" secondItem="byK-WM-eEn" secondAttribute="bottom" id="Ec7-h0-mH3"/>
                             <constraint firstAttribute="bottom" secondItem="Gi2-xw-3SB" secondAttribute="bottom" id="JRf-xt-L59"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="MVn-2P-cAA"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="top" secondItem="7gX-li-N29" secondAttribute="top" id="Qbj-mw-ZHn"/>
+                            <constraint firstAttribute="bottom" secondItem="2qx-yK-lc3" secondAttribute="bottom" id="Qmc-5o-wQa"/>
                             <constraint firstItem="byK-WM-eEn" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="Tk6-0L-cjA"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="UUc-pW-jOq"/>
                             <constraint firstItem="byK-WM-eEn" firstAttribute="top" secondItem="7gX-li-N29" secondAttribute="top" constant="100" id="UZT-Ub-cX0"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="top" secondItem="7gX-li-N29" secondAttribute="top" id="VIb-Pe-aBr"/>
                             <constraint firstItem="byK-WM-eEn" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="acQ-Ek-vxy"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="cDH-4s-zpw"/>
+                            <constraint firstItem="2qx-yK-lc3" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="ei7-EL-5hI"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="h2e-Tp-net"/>
+                            <constraint firstItem="2qx-yK-lc3" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="hz5-G6-s6I"/>
                             <constraint firstItem="Gi2-xw-3SB" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="o7K-OJ-iIt"/>
                             <constraint firstItem="Gi2-xw-3SB" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="sag-kh-YLg"/>
                         </constraints>
@@ -652,11 +663,13 @@
                         <outlet property="inputContainerView" destination="Gi2-xw-3SB" id="nzt-HV-Nxx"/>
                         <outlet property="inputTextContainerView" destination="wN7-hK-svY" id="BJS-D1-5gI"/>
                         <outlet property="postContentLabel" destination="Pam-Cw-fQb" id="Ekk-gq-s1r"/>
+                        <outlet property="tableView" destination="2qx-yK-lc3" id="0md-6b-yro"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToMain" destinationCreationSelector="goToMain" modalPresentationStyle="fullScreen" id="cef-IB-uFx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xl7-SH-pte" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1168.1159420289855" y="137.94642857142856"/>
+            <point key="canvasLocation" x="-1114" y="138"/>
         </scene>
     </scenes>
     <resources>
@@ -674,6 +687,6 @@
         <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sdr-18-gKw"/>
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
 </document>

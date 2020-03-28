@@ -5,6 +5,7 @@ struct Constants {
     static let appName = "Grapevine"
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "PostTableViewCell"
+    static let commentsCellNibName = "CommentTableViewCell"
     static let numberOfPostsPerBatch = 20
     static let numberOfCharactersPerPost = 280
     static let userID = SHA256(data:UIDevice.current.identifierForVendor!.uuidString)

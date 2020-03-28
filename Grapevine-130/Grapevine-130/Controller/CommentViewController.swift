@@ -7,16 +7,35 @@
 //
 
 import UIKit
-
-
+import FirebaseDatabase
+import FirebaseFirestore
 
 class CommentViewController: UIViewController {
-    @IBOutlet weak var inputTextContainerView: UIView!
     @IBOutlet weak var postContentLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    
+    // Outlets for creating a new comment
+    @IBOutlet weak var inputTextContainerView: UIView!
     @IBOutlet weak var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var commentInput: UITextField!
+    
+    var postID: String = ""
+    var comments: [Comment] = []
+    let db = Firestore.firestore()
+    var commentsManager = CommentsManager()
+    var indicator = UIActivityIndicatorView()
     var mainPost: Post?
+    
+    
+    // Define Refresher
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .black
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +43,32 @@ class CommentViewController: UIViewController {
         commentInput.clearsOnBeginEditing = true
         postContentLabel.text = mainPost!.content
         inputTextContainerView.layer.cornerRadius = 17
-        print(mainPost!)
         
+        // Reposition input when keyboard is opened vs closed
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // Get comments related to post
+        postID = mainPost!.postId
+        commentsManager.delegate = self
+        commentsManager.fetchComments(postID: postID)
+        
+        // Load table
+        tableView.dataSource = self
+        tableView.refreshControl = refresher
+        tableView.register(UINib(nibName: Constants.commentsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        
+    }
+    
+    /// Refresh the main posts view based on current user location.
+    @objc func refresh(){
+        commentsManager.fetchComments(postID: postID)
+        let deadline = DispatchTime.now() + .milliseconds(1000)
+        DispatchQueue.main.asyncAfter(deadline: deadline){
+            self.refresher.endRefreshing()
+        }
     }
     
     // Move comment input box up when keyboard opens
@@ -47,9 +88,18 @@ class CommentViewController: UIViewController {
         view.setNeedsLayout()
     }
     
-
+    
+    @IBAction func submitButtonPressed(_ sender: Any) {
+        if let postContent = commentInput.text {
+            if postContent != "" {
+                commentsManager.performPOSTRequest(text:postContent, postID: postID)
+            }
+        }
+        self.performSegue(withIdentifier: "goToMain", sender: self)
+    }
+    
     /*
-    // MARK: - Navigation
+     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,4 +108,69 @@ class CommentViewController: UIViewController {
     }
     */
 
+}
+
+/// Manages the posts table.
+extension CommentViewController: UITableViewDataSource {
+    /**
+     Tells the table how many cells are needed.
+     
+     - Parameters:
+        - tableView: Table to be updated
+        - section: Number of rows in the section
+     
+     - Returns: The number of posts in the table
+     */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (comments.count != 0){
+                indicator.stopAnimating()
+                indicator.hidesWhenStopped = true
+            // put indicator here
+        }
+        print("Comments count\(comments.count)")
+        return comments.count
+    }
+    
+    /**
+     Describes how to display a cell for each post.
+     
+     - Parameters:
+        - tableView: Table being displayed
+        - indexPath: Indicates which post to create a cell for.
+     
+     - Returns: Updated table cell
+     */
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! CommentTableViewCell
+        
+        cell.label.text = comments[indexPath.row].content
+        
+        // If the current user created this comment, he/she can delete it
+//            if (Constants.userID == posts[indexPath.row].poster){
+//                cell.enableDelete()
+//            } else {
+//                cell.disableDelete()
+//            }
+        
+        // Ensure cell can communicate with this view controller
+//        cell.delegate = self
+        
+        // Refresh the display of the cell
+//        cell.refreshView()
+        
+        return cell
+    }
+}
+
+extension CommentViewController: CommentsManagerDelegate {
+    func didUpdateComments(_ commentManager: CommentsManager, comments: [Comment]){
+        DispatchQueue.main.async {
+            self.comments = comments
+            print(comments)
+            self.tableView.reloadData()
+        }
+    }
+    func didFailWithError(error: Error) {
+        print(error)
+    }
 }

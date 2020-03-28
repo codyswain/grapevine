@@ -20,7 +20,6 @@ struct CommentsManager {
     var delegate: CommentsManagerDelegate?
     
     func fetchComments(postID: String){
-        
         let urlString = "\(getCommentsURL)&postID=\(postID)"
         performRequest(with: urlString)
     }
@@ -44,6 +43,37 @@ struct CommentsManager {
             }
             task.resume()
         }
+    }
+    
+    func performPOSTRequest(text: String, postID: String){
+        let json: [String: Any] = [
+            "text":text,
+            "userID": Constants.userID,
+            "date": Date().timeIntervalSince1970,
+            "postID":postID
+        ]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        let url = URL(string:createCommentURL)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // insert json data to the request
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                self.delegate?.didFailWithError(error: error!)
+                print("Comment POST req error")
+                return
+            }
+            if let safeData = data {
+                print("Comment POST req returned: \(safeData)")
+            }
+        }
+        task.resume()
     }
     
     func parseJSON(_ data: Data) -> [Comment]? {
