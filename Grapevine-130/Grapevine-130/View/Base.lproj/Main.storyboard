@@ -154,7 +154,7 @@
                                 <rect key="frame" x="20" y="93" width="247.5" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="17.000000000000114" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -489,61 +489,90 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoc-tF-m8j">
-                                <rect key="frame" x="129" y="47" width="159" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoc-tF-m8j">
+                                <rect key="frame" x="127.5" y="47" width="159" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="C3w-pv-LgW"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title=" More Info" image="info.circle.fill" catalog="system"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1P-vw-7NA">
-                                <rect key="frame" x="21" y="122" width="374" height="134"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1P-vw-7NA">
+                                <rect key="frame" x="20" y="147" width="374" height="72"/>
                                 <string key="text">On Grapevine, a user's points are the cumulative sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 points. </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
-                                <rect key="frame" x="21" y="235" width="374" height="134"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
+                                <rect key="frame" x="20" y="227" width="374" height="99"/>
                                 <string key="text">These points can be spent on special moderating powers: you can unlock the ability to issue strikes on certain users that have posted heavily downvoted content that may be harmful to the community (bullying, spam). </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
+                                <string key="userLabel">These points can be spent on special moderating powers: you can unlock the ability to issue strikes on certain users that have posted heavily downvoted content that may be harmful to the community (bullying, spam).</string>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-Ww-FG0">
-                                <rect key="frame" x="21" y="419" width="373" height="134"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-Ww-FG0">
+                                <rect key="frame" x="20" y="406" width="374" height="72"/>
                                 <string key="text">To prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 48 hours and have their strikes reset.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Points" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCQ-s7-V7r">
-                                <rect key="frame" x="134" y="91" width="147" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCQ-s7-V7r">
+                                <rect key="frame" x="169" y="107.5" width="76.5" height="31.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Strikes &amp; Bans" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSK-4B-aKh">
-                                <rect key="frame" x="117" y="393" width="176" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAz-QW-FeO">
-                                <rect key="frame" x="21" y="544" width="374" height="134"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAz-QW-FeO">
+                                <rect key="frame" x="20" y="493" width="374" height="90"/>
                                 <string key="text">There are two ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user spends their points to issue a strike. </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes &amp; Bans" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSK-4B-aKh">
+                                <rect key="frame" x="119.5" y="356" width="175.5" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="8gg-YX-85P"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="eer-Ww-FG0" firstAttribute="top" secondItem="NSK-4B-aKh" secondAttribute="bottom" constant="8" id="0vk-Fq-vtk"/>
+                            <constraint firstItem="NSK-4B-aKh" firstAttribute="top" secondItem="M1P-vw-7NA" secondAttribute="bottom" constant="137" id="3b5-sL-2Io"/>
+                            <constraint firstItem="nAz-QW-FeO" firstAttribute="top" secondItem="NSK-4B-aKh" secondAttribute="bottom" constant="95" id="5g3-Jc-Cq5"/>
+                            <constraint firstItem="NSK-4B-aKh" firstAttribute="top" secondItem="duU-b9-KcX" secondAttribute="bottom" constant="30" id="Ank-mt-wsP"/>
+                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="duU-b9-KcX" secondAttribute="trailing" constant="20" id="D4K-yd-0jI"/>
+                            <constraint firstItem="nAz-QW-FeO" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="DRg-KT-Rzc"/>
+                            <constraint firstItem="nAz-QW-FeO" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="EE7-cF-c5n"/>
+                            <constraint firstItem="uoc-tF-m8j" firstAttribute="top" secondItem="zIP-8Y-ds3" secondAttribute="top" constant="47" id="FCJ-Qe-zH0"/>
+                            <constraint firstItem="duU-b9-KcX" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="Fa0-v2-usN"/>
+                            <constraint firstItem="duU-b9-KcX" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="H5R-4D-C2b"/>
+                            <constraint firstItem="M1P-vw-7NA" firstAttribute="top" secondItem="UCQ-s7-V7r" secondAttribute="bottom" constant="8" id="Mhk-KR-IYS"/>
+                            <constraint firstItem="duU-b9-KcX" firstAttribute="leading" secondItem="eer-Ww-FG0" secondAttribute="leading" id="MqU-Px-t19"/>
+                            <constraint firstItem="eer-Ww-FG0" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="N1O-1d-6kI"/>
+                            <constraint firstItem="NSK-4B-aKh" firstAttribute="top" secondItem="gDk-mC-OhR" secondAttribute="top" constant="356" id="NQE-Pp-Gbd"/>
+                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="M1P-vw-7NA" secondAttribute="trailing" constant="20" id="QxK-eq-Uhk"/>
+                            <constraint firstItem="UCQ-s7-V7r" firstAttribute="top" secondItem="uoc-tF-m8j" secondAttribute="bottom" constant="24.5" id="S2o-Hx-FXb"/>
+                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="eer-Ww-FG0" secondAttribute="trailing" constant="20" id="XcH-lb-589"/>
+                            <constraint firstItem="uoc-tF-m8j" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="YLr-qm-DVu"/>
+                            <constraint firstItem="M1P-vw-7NA" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="Zcg-sC-MwB"/>
+                            <constraint firstItem="NSK-4B-aKh" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="cCb-cX-Ujc"/>
+                            <constraint firstItem="UCQ-s7-V7r" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="cDG-Hf-epN"/>
+                            <constraint firstItem="nAz-QW-FeO" firstAttribute="top" secondItem="eer-Ww-FG0" secondAttribute="bottom" constant="15" id="cpb-pz-IMo"/>
+                            <constraint firstItem="M1P-vw-7NA" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="nC8-50-Veg"/>
+                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="nAz-QW-FeO" secondAttribute="trailing" constant="20" id="tWN-SG-PGr"/>
+                            <constraint firstItem="eer-Ww-FG0" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="ugU-sm-BRe"/>
+                            <constraint firstItem="duU-b9-KcX" firstAttribute="top" secondItem="M1P-vw-7NA" secondAttribute="bottom" constant="8" id="wib-QY-NKu"/>
+                            <constraint firstItem="duU-b9-KcX" firstAttribute="leading" secondItem="M1P-vw-7NA" secondAttribute="leading" id="yxv-Et-EYe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zIP-8Y-ds3"/>
                     </view>
                 </viewController>

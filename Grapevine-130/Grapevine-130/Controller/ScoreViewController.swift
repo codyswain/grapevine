@@ -18,7 +18,6 @@ class ScoreViewController: UIViewController {
      - Parameter sender: Segue initiator
      */
     @IBAction func usePointsButton(_ sender: Any) {
-        score = 100
         if score >= 20 {
             alertPurchaseBanPower()
         } else {
