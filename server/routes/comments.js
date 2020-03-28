@@ -51,12 +51,15 @@ Input parameter Names: content, userID, date
 Output: None
 */
 async function createComment(req, res, next) {
-	var db = req.app.get('db');  
+  var db = req.app.get('db');  
+  
+  console.log(req.body.text)
 
 	// Text post creation logic
   userComment = {
     content : req.body.text,
     poster : req.body.userID,
+    postID : req.body.postID,
     votes : 0,
     date : req.body.date,
   };
