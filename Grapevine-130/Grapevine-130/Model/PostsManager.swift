@@ -2,7 +2,8 @@ import Foundation
 import CoreLocation
 
 protocol PostsManagerDelegate {
-    func didUpdatePosts(_ postManager: PostsManager, posts: [Post])
+    func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String)
+    func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String)
     func didFailWithError(error: Error)
 }
 
@@ -10,9 +11,10 @@ protocol PostsManagerDelegate {
 struct PostsManager {
     
     /// Hits the /posts endpoint
-    let getPostsURL = Constants.serverURL + "posts/?"
-    let getBannedPostsURL = Constants.serverURL + "banChamber/?"
+    let fetchPostsURL = Constants.serverURL + "posts/?"
+    let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let createPostURL = Constants.serverURL + "posts"
+    let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
     
     var delegate: PostsManagerDelegate?
         
@@ -22,15 +24,38 @@ struct PostsManager {
     - Parameters:
         - latitude: Latitude of the client requesting posts
         - longitude: Longitude of the client requesting posts
+        - range: Distance around the user to retrieve posts from
     */
     func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
-        let urlString = "\(getPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
+        let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
     }
     
+    /**
+     Fetches posts that can be banned from the database.
+     
+     - Parameters:
+        - latitude: Latitude of the client requesting posts
+        - longitude: Longtitude of the client requesting posts
+        - range: Distance around the user to retrieve posts from
+     */
     func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
-        let urlString = "\(getBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
+        let urlString = "\(fetchBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
+    }
+    
+    /**
+     Fetches more posts from the database for infinite scrolling.
+     
+     - Parameters:
+        - latitude: Latitude of the client requesting posts
+        - longitude: Longitude of the client requesting posts
+        - range: Distance around the user to retrieve posts from
+        - ref: Document id of the last post retrieved from the database in the previous request
+     */
+    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, ref: String) {
+        let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)"
+        performMoreRequest(with: urlString)
     }
     
     /**
@@ -49,9 +74,35 @@ struct PostsManager {
                 }
                 if let safeData = data {
                     print("Request returned")
-                    if let posts = self.parseJSON(safeData) {
-                        self.delegate?.didUpdatePosts(self, posts: posts)
-                        print("Request returned and processed \(posts.count) posts")
+                    if let ref = self.parseJSON(safeData) {
+                        self.delegate?.didUpdatePosts(self, posts: ref.posts, ref: ref.reference)
+                        print("Request returned and processed \(ref.posts.count) posts")
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    /**
+    Handles a request for posts' information. Modifies `PostManagerDelegate` based on the retrieved data.
+
+    - Parameter urlString: The server endpoint with parameters.
+    */
+    func performMoreRequest(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            print("Sent request URL: \(url)")
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    self.delegate?.didFailWithError(error: error!)
+                    return
+                }
+                if let safeData = data {
+                    print("Request returned")
+                    if let ref = self.parseJSON(safeData) {
+                        self.delegate?.didGetMorePosts(self, posts: ref.posts, ref: ref.reference)
+                        print("Request returned and processed \(ref.posts.count) posts")
                     }
                 }
             }
@@ -103,15 +154,15 @@ struct PostsManager {
      
     - Returns: A an array of posts or modifies `PostManagerDelegate` upon failure.
     */
-    func parseJSON(_ data: Data) -> [Post]? {
+    func parseJSON(_ data: Data) -> PostReference? {
         let decoder = JSONDecoder()
-        var posts:[Post] = []
+        var ref = PostReference(reference: "", posts: [])
         do {
-            posts = try decoder.decode(Array<Post>.self, from: data)
+            ref = try decoder.decode(PostReference.self, from: data)
         } catch {
             delegate?.didFailWithError(error: error)
         }
-        return posts
+        return ref
     }
     
 }

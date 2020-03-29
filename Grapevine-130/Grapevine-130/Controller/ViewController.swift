@@ -7,12 +7,17 @@ import CoreLocation
 class ViewController: UIViewController {
     // UI variables
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var nearbyLabel: UILabel!
+    
     // Globals
     let db = Firestore.firestore()
     let locationManager = CLLocationManager()
     var posts: [Post] = []
+    var ref = ""
+    var canGetMorePosts = true
+    var range = 500
     var postsManager = PostsManager()
+    var scrollPostsManager = PostsManager()
     var user: User?
     var userManager = UserManager()
     var scoreManager = ScoreManager()
@@ -54,11 +59,16 @@ class ViewController: UIViewController {
         
         // Load table
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.refreshControl = refresher
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.backgroundColor = UIColor.white
+        
+        // Add scroll-to-top button
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop(tapGestureRecognizer:)))
+        nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)
     }
     
     /// Displays a loading icon while posts load.
@@ -89,6 +99,17 @@ class ViewController: UIViewController {
      */
     @IBAction func scoreButton(_ sender: Any) {
         self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+    }
+    
+    /**
+     Scrolls to the first post
+     
+     - Parameter tapGestureRegnizer: Tap gesture that fires this function
+     */
+    @objc func scrollToTop(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
+        self.tableView?.setContentOffset(topOffest, animated: true)
     }
     
     /// Refresh the main posts view based on current user location.
@@ -133,7 +154,7 @@ class ViewController: UIViewController {
 }
 
 /// Manages the posts table.
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     /**
      Tells the table how many cells are needed.
      
@@ -149,6 +170,29 @@ extension ViewController: UITableViewDataSource {
             indicator.hidesWhenStopped = true
         }
         return posts.count
+    }
+    
+    /**
+     Triggers auto-loading of more posts when the user scrolls down far enough.
+     
+     - Parameters:
+        - tableView: Table to be updated
+        - cell: Table cell about to be created
+        - indexPath: Row that the table cell will be generated in
+     */
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // Latitude, longitude, and range should be the same as the initial posts request
+        if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
+            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref)
+            print("Getting more posts")
+
+            let moreIndicator = UIActivityIndicatorView()
+            moreIndicator.style = UIActivityIndicatorView.Style.medium
+            moreIndicator.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+            moreIndicator.startAnimating()
+            self.tableView.tableFooterView = moreIndicator
+            self.tableView.tableFooterView?.isHidden = false
+        }
     }
     
     /**
@@ -226,13 +270,47 @@ extension ViewController: PostsManagerDelegate {
      - Parameters:
         - postManager: `PostManager` object that fetched the psots
         - posts: Array of posts returned by the server
+        - ref: Document id of the last post retrieved from this call
      */
-    func didUpdatePosts(_ postManager: PostsManager, posts: [Post]){
+    func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
+            if ref == "" {
+                self.canGetMorePosts = false
+            } else {
+                self.canGetMorePosts = true
+            }
+            
             self.posts = posts
+            self.ref = ref
             self.tableView.reloadData()
             
-            print(posts)
+            //print("reference doc: ", ref)
+            //print("posts: ", posts)
+        }
+    }
+    
+    /**
+     Adds auto-retrieved posts to the current list of posts.
+     
+     - Parameters:
+        - postManager: `PostManager` object that fetched the posts
+        - posts: Array of posts returned by the server
+        - ref: Document if of the last post retrieved from this call
+     */
+    func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
+        DispatchQueue.main.async {
+            if ref == "" {
+                // Cannot retrieve more
+                self.canGetMorePosts = false
+            }
+            
+            self.tableView.tableFooterView = nil
+            self.posts.append(contentsOf: posts)
+            self.ref = ref
+            self.tableView.reloadData()
+            
+            //print("reference doc: ", ref)
+            //print("posts: ", posts)
         }
     }
     
@@ -256,7 +334,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
             print("Location request success")
-            postsManager.fetchPosts(latitude: lat, longitude: lon, range: 500)
+            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range)
         }
     }
     

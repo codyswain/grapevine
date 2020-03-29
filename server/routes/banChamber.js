@@ -60,7 +60,8 @@ async function getBannablePosts(req, res, next) {
 	db.collection('users').doc(user).update({
 	  score: admin.firestore.FieldValue.increment(-20)
 	}).then((snapshot) => {
-		res.status(200).send(posts)		
+		console.log(posts)
+		res.status(200).send({reference: "", posts: posts})		
 	})
 	.catch((err) => { 
 		console.log("ERROR changing user score:" + err)

@@ -8,6 +8,7 @@ const default_range = "1"; // Default bounding square half width, in miles
 
 // URL parsing to get info from client
 router.get('/', getPosts);
+router.get('/more', morePosts);
 router.post('/', createPost);
 router.delete('/', deletePost);
 
@@ -47,6 +48,7 @@ async function getPosts(req, res, next) {
 		.orderBy('date', 'desc')
 		.limit(20).get()
 		.then((snapshot) => {
+			let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
 			var posts = []
 			// Loop through each post returned and add it to our list
 			snapshot.forEach((post) => {
@@ -76,7 +78,7 @@ async function getPosts(req, res, next) {
 			});
 			// Return the posts to the client
 			posts = posts.sort((a, b) => { return b.date - a.date })
-			res.status(200).send(posts)
+			res.status(200).send({reference: ref, posts: posts})
 		})
 		.catch((err) => { 
 			console.log("ERROR looking up post in posts.js:" + err)
@@ -157,6 +159,85 @@ async function deletePost(req, res, next) {
 	})
 
 
+}
+
+async function morePosts(req, res, next) {
+	let user = req.query.user;
+	let lat = Number(req.query.lat);
+	let lon = Number(req.query.lon);
+	let range = req.query.range;
+	let docRef = req.query.ref;
+	if (typeof(range) == "undefined") { // If range unspecified, use some default one
+		range = default_range;
+	}
+	range = Number(range);
+
+	console.log("GetMorePosts request from lat: " + lat + " and lon: " + lon + " for posts within range:" + range + " from user: " + user)
+
+	// Get the db object, declared in app.js
+	var db = req.app.get('db');
+
+	// Calculate the lower and upper geohashes to consider
+    const search_box = utils.getGeohashRange(lat, lon, range);
+
+	// Request the document snapshot of the last post retrieved in the previous request for posts
+	var refquery = db.collection('posts')
+				  .doc(docRef)
+
+	// Basic request for posts
+	var query = db.collection('posts')
+				  .where("banned", "==", false)
+				  .where("geohash", ">=", search_box.lower)
+				  .where("geohash", "<=", search_box.upper)
+				  .orderBy("geohash")
+				  .orderBy('date', 'desc')
+
+	// Get the document snapshot of the last document first
+	refquery.get().then((doc) => {
+		// Query for more posts started after the retrieved snapshot
+		query.startAfter(doc).limit(20).get().then((snapshot) => {
+			let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
+			var posts = []
+
+			snapshot.forEach((post) => {
+				var voteStatus = 0
+				var flagStatus = 0
+	
+				var interactions = post.get("interactions")
+	
+				// TODO: Better solution by putting this in mobile backend
+				for (var interacting_user in interactions) {
+					if (interacting_user == user) {
+						voteStatus = utils.getVote(interactions[user])
+						flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+						break
+					}
+				}
+	
+				// Add the post, ID, and vote status before returning it
+				var curPost = post.data()
+				curPost.postId = post.id
+				curPost.voteStatus = voteStatus
+				curPost.flagStatus = flagStatus
+				delete curPost["geohash"]
+				delete curPost["interactions"]
+				// delete curPost["inter"]
+				posts.push(curPost)
+			});
+			// Return the posts to the client
+			posts = posts.sort((a, b) => { return b.date - a.date })
+			res.status(200).send({reference: ref, posts: posts})
+		})	
+		.catch((err) => { 
+			console.log("ERROR looking up posts in posts.js:" + err)
+			res.send([])
+		})	
+	})
+	.catch((err) => { 
+		console.log("ERROR looking up document in posts.js:" + err)
+		res.send([])
+	})
+	
 }
 
 module.exports = router;
