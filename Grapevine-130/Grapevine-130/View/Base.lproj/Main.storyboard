@@ -154,7 +154,7 @@
                                 <rect key="frame" x="20" y="93" width="247.5" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="17.000000000000114" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -172,26 +172,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="247-Ek-DQn" userLabel="Drawing Stack View">
-                                <rect key="frame" x="20" y="152" width="374" height="318"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2f-LD-GPN" customClass="CanvasView" customModule="Grapevine_130" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="318"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="newPostCanvas">
-                                            <bool key="isElement" value="YES"/>
-                                        </accessibility>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="374" id="g9L-Zz-iSa"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="g2f-LD-GPN" firstAttribute="centerX" secondItem="247-Ek-DQn" secondAttribute="centerX" id="UXx-1q-Hbc"/>
-                                    <constraint firstAttribute="width" constant="374" id="UeQ-Fe-LgY"/>
-                                    <constraint firstItem="g2f-LD-GPN" firstAttribute="centerX" secondItem="247-Ek-DQn" secondAttribute="centerX" id="n1x-Nz-D83"/>
-                                </constraints>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8mm-5g-REP" userLabel="Text Background">
                                 <rect key="frame" x="20" y="152" width="374" height="318"/>
                                 <constraints>
@@ -207,7 +187,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ApM-He-BtP" userLabel="Front Text View">
-                                <rect key="frame" x="30" y="156" width="345" height="281"/>
+                                <rect key="frame" x="30" y="156" width="345" height="314"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="newPostTextView"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -240,26 +220,35 @@
                                     <action selector="addPostButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="EtF-9w-pcN"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2f-LD-GPN" customClass="CanvasView" customModule="Grapevine_130" customModuleProvider="target">
+                                <rect key="frame" x="20" y="152" width="374" height="292"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <accessibility key="accessibilityConfiguration" identifier="newPostCanvas">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="247-Ek-DQn" firstAttribute="centerX" secondItem="q87-iI-8CO" secondAttribute="centerX" id="2JR-tG-EcC"/>
                             <constraint firstItem="bNg-aw-9hH" firstAttribute="top" secondItem="xnG-NU-0nQ" secondAttribute="top" constant="123" id="4x9-rG-KIQ"/>
                             <constraint firstItem="Xxb-d3-RtE" firstAttribute="leading" secondItem="mGj-2o-pn6" secondAttribute="leading" id="8MZ-DT-sf2"/>
+                            <constraint firstItem="RRa-hw-J26" firstAttribute="bottom" secondItem="q87-iI-8CO" secondAttribute="bottom" constant="339" id="8bl-Ey-4in"/>
                             <constraint firstItem="RRa-hw-J26" firstAttribute="trailing" secondItem="tMd-Qr-s9B" secondAttribute="trailing" constant="20" id="AnD-Ea-Hpp"/>
                             <constraint firstItem="Xxb-d3-RtE" firstAttribute="top" secondItem="mGj-2o-pn6" secondAttribute="bottom" constant="8" id="CK6-z4-KhD"/>
-                            <constraint firstItem="247-Ek-DQn" firstAttribute="centerX" secondItem="xnG-NU-0nQ" secondAttribute="centerX" id="FMd-eF-m9A"/>
-                            <constraint firstItem="247-Ek-DQn" firstAttribute="top" secondItem="bNg-aw-9hH" secondAttribute="bottom" constant="8" id="Mof-hG-SD2"/>
+                            <constraint firstItem="q87-iI-8CO" firstAttribute="centerX" secondItem="g2f-LD-GPN" secondAttribute="centerX" id="GQy-5E-dXy"/>
+                            <constraint firstItem="q87-iI-8CO" firstAttribute="top" secondItem="8mm-5g-REP" secondAttribute="bottom" constant="24" id="LF6-gc-vGa"/>
                             <constraint firstItem="8mm-5g-REP" firstAttribute="leading" secondItem="RRa-hw-J26" secondAttribute="leading" constant="20" id="RXK-rp-hVi"/>
                             <constraint firstItem="bNg-aw-9hH" firstAttribute="top" secondItem="Xxb-d3-RtE" secondAttribute="bottom" constant="13" id="Rfw-88-buB"/>
                             <constraint firstItem="mGj-2o-pn6" firstAttribute="top" secondItem="RRa-hw-J26" secondAttribute="top" constant="7" id="SYt-iY-eUE"/>
                             <constraint firstItem="bNg-aw-9hH" firstAttribute="leading" secondItem="Xxb-d3-RtE" secondAttribute="leading" id="WBd-pp-sBl"/>
-                            <constraint firstAttribute="bottom" secondItem="247-Ek-DQn" secondAttribute="bottom" constant="426" id="XpX-nr-T5O"/>
                             <constraint firstItem="8mm-5g-REP" firstAttribute="top" secondItem="bNg-aw-9hH" secondAttribute="bottom" constant="8" id="aQ9-M4-i26"/>
+                            <constraint firstItem="q87-iI-8CO" firstAttribute="top" secondItem="g2f-LD-GPN" secondAttribute="bottom" constant="50" id="aV5-oe-JjY"/>
+                            <constraint firstItem="g2f-LD-GPN" firstAttribute="top" secondItem="bNg-aw-9hH" secondAttribute="bottom" constant="8" id="coZ-oo-hFx"/>
                             <constraint firstItem="mGj-2o-pn6" firstAttribute="leading" secondItem="RRa-hw-J26" secondAttribute="leading" constant="20" id="gwv-IX-MgT"/>
                             <constraint firstItem="tMd-Qr-s9B" firstAttribute="top" secondItem="RRa-hw-J26" secondAttribute="top" constant="44" id="i3t-p0-o7C"/>
+                            <constraint firstItem="g2f-LD-GPN" firstAttribute="leading" secondItem="RRa-hw-J26" secondAttribute="leading" constant="20" id="j4t-eg-f8v"/>
+                            <constraint firstItem="RRa-hw-J26" firstAttribute="trailing" secondItem="g2f-LD-GPN" secondAttribute="trailing" constant="20" id="pgR-iu-LG9"/>
                             <constraint firstItem="RRa-hw-J26" firstAttribute="trailing" secondItem="8mm-5g-REP" secondAttribute="trailing" constant="20" id="uwm-QT-Zzt"/>
-                            <constraint firstItem="q87-iI-8CO" firstAttribute="top" secondItem="247-Ek-DQn" secondAttribute="bottom" constant="24" id="xfe-bb-w5o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RRa-hw-J26"/>
                     </view>
