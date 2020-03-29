@@ -113,12 +113,11 @@
                                             <action selector="banButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eL4-cc-WBo"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-6Z-Rk4">
-                                        <rect key="frame" x="333" y="5" width="91" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-6Z-Rk4">
+                                        <rect key="frame" x="383" y="5" width="33" height="36"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="arrowshape.turn.up.right.circle.fill" catalog="system" id="dbW-Fm-2AJ">
-                                                <rect key="frame" x="6" y="0.0" width="37" height="35"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowshape.turn.up.right.circle.fill" catalog="system" id="dbW-Fm-2AJ">
+                                                <rect key="frame" x="-3" y="0.0" width="39" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <accessibility key="accessibilityConfiguration">
@@ -126,17 +125,23 @@
                                                 </accessibility>
                                             </imageView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="33" id="Cmw-R9-YJn"/>
+                                            <constraint firstAttribute="height" constant="36" id="h7r-ad-hrd"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="leading" secondItem="mBG-cM-1KG" secondAttribute="trailing" constant="12" id="QIQ-4d-uHh"/>
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="SVI-LJ-p87"/>
+                                    <constraint firstAttribute="trailing" secondItem="MfE-6Z-Rk4" secondAttribute="trailing" constant="8" id="Ui8-zx-V22"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="leading" secondItem="oT7-xD-mBw" secondAttribute="trailing" constant="12" id="fux-qZ-eXx"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="jhw-Z1-hPT"/>
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" id="ksl-U5-yuJ"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" id="tnh-bZ-foq"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" id="vAa-qb-uA6"/>
+                                    <constraint firstItem="MfE-6Z-Rk4" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" id="xyo-UY-0Z6"/>
                                     <constraint firstItem="mBG-cM-1KG" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" id="zU5-5Y-V9e"/>
                                 </constraints>
                             </view>
