@@ -154,7 +154,7 @@
                                 <rect key="frame" x="20" y="93" width="247.5" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="17.000000000000114" height="17"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -454,16 +454,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SOUR GRAPES." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5n-gp-tdN">
-                                <rect key="frame" x="35" y="348" width="345" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOUR GRAPES." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5n-gp-tdN">
+                                <rect key="frame" x="34.5" y="348" width="345" height="58"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmZ-oE-Qkh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmZ-oE-Qkh">
                                 <rect key="frame" x="20" y="414" width="374" height="134"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="134" id="f0M-NN-wo0"/>
+                                </constraints>
                                 <string key="text">You were recently banned for bad behavior! This ban will last 48 hours. If you think this was a mistake or your ban should be over, please contact teamgrapevineofficial@gmail.com</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -472,6 +473,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bmZ-oE-Qkh" firstAttribute="top" secondItem="t5n-gp-tdN" secondAttribute="bottom" constant="8" id="40d-oH-lFI"/>
+                            <constraint firstItem="bmZ-oE-Qkh" firstAttribute="centerX" secondItem="t5n-gp-tdN" secondAttribute="centerX" id="4Ws-lP-Cne"/>
+                            <constraint firstItem="bmZ-oE-Qkh" firstAttribute="centerX" secondItem="y9D-az-TlX" secondAttribute="centerX" id="XTx-B3-eXf"/>
+                            <constraint firstItem="bmZ-oE-Qkh" firstAttribute="top" secondItem="t5n-gp-tdN" secondAttribute="bottom" constant="8" symbolic="YES" id="Y0r-6x-Dn0"/>
+                            <constraint firstItem="bmZ-oE-Qkh" firstAttribute="leading" secondItem="3jm-9I-UCV" secondAttribute="leading" constant="20" id="aSX-p2-bJm"/>
+                            <constraint firstItem="3jm-9I-UCV" firstAttribute="bottom" secondItem="bmZ-oE-Qkh" secondAttribute="bottom" constant="314" id="foe-3L-d70"/>
+                            <constraint firstItem="3jm-9I-UCV" firstAttribute="trailing" secondItem="bmZ-oE-Qkh" secondAttribute="trailing" constant="20" id="yXD-rW-IXj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3jm-9I-UCV"/>
                     </view>
                     <navigationItem key="navigationItem" id="t30-mN-Bag"/>
