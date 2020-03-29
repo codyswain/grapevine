@@ -2,11 +2,13 @@ import UIKit
 import FirebaseDatabase
 import FirebaseFirestore
 
+
 protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
     func showSharePopup()
+    func viewComments(_ cell: UITableViewCell)
 }
 
 protocol BannedPostTableViewCellDelegate {
@@ -17,6 +19,7 @@ protocol BannedPostTableViewCellDelegate {
 class PostTableViewCell: UITableViewCell {
     // Objects used to interface with UI
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var commentAreaButton: UIView!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var downvoteImageButton: UIImageView!
     @IBOutlet weak var upvoteImageButton: UIImageView!
@@ -42,25 +45,28 @@ class PostTableViewCell: UITableViewCell {
         super.awakeFromNib() //Some pre-built thing
                 
         // Add tapping capabilities to downvote button (UIImageView)
-        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(downvoteTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerDownvote = UITapGestureRecognizer(target: self, action: #selector(downvoteTapped(tapGestureRecognizer:)))
         downvoteImageButton.isUserInteractionEnabled = true
-        downvoteImageButton.addGestureRecognizer(tapGestureRecognizer1)
+        downvoteImageButton.addGestureRecognizer(tapGestureRecognizerDownvote)
         
         // Add tapping capabilities to upvote button (UIImageView)
-        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerUpvote = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
         upvoteImageButton.isUserInteractionEnabled = true
-        upvoteImageButton.addGestureRecognizer(tapGestureRecognizer2)
+        upvoteImageButton.addGestureRecognizer(tapGestureRecognizerUpvote)
         
         // Tapping capabilities for flag button
-        let tapGestureRecognizer4 = UITapGestureRecognizer(target: self, action: #selector(flagTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerFlag = UITapGestureRecognizer(target: self, action: #selector(flagTapped(tapGestureRecognizer:)))
         flagButton.isUserInteractionEnabled = true
-        flagButton.addGestureRecognizer(tapGestureRecognizer4)
+        flagButton.addGestureRecognizer(tapGestureRecognizerFlag)
         
         // Tapping capabilities for share button
-        let tapGestureRecognizer5 = UITapGestureRecognizer(target: self, action: #selector(shareTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerShare = UITapGestureRecognizer(target: self, action: #selector(shareTapped(tapGestureRecognizer:)))
         shareButton.isUserInteractionEnabled = true
-        shareButton.addGestureRecognizer(tapGestureRecognizer5)
-
+        shareButton.addGestureRecognizer(tapGestureRecognizerShare)
+        
+        let tapGestureRecognizerComment = UITapGestureRecognizer(target: self, action: #selector(commentTapped(tapGestureRecognizer:)))
+        commentAreaButton.isUserInteractionEnabled = true
+        commentAreaButton.addGestureRecognizer(tapGestureRecognizerComment)
     }
     
     /**
@@ -214,6 +220,12 @@ class PostTableViewCell: UITableViewCell {
         self.delegate?.showSharePopup()
     }
     
+    // Segue to view comment screen
+    @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        self.delegate?.viewComments(self)
+    }
+    
     /**
     Modify post colors to reflect a downvote.
     */
@@ -269,9 +281,7 @@ class PostTableViewCell: UITableViewCell {
         flagButton.tintColor = Constants.Colors.lightGrey
     }
     
-    /**
-    Remove the option to flag a post if the user upvoted it.
-    */
+    /// Hide the flag button if a user upvotes a post.
     func setFlaggedColorsToPurple(){
         flagButton.tintColor = Constants.Colors.darkPurple
     }
@@ -280,10 +290,12 @@ class PostTableViewCell: UITableViewCell {
         shareButton.tintColor = .white
     }
     
+    /// Initialize the share button colors.
     func setShareButtonNormalColors(){
         shareButton.tintColor = Constants.Colors.lightGrey
     }
     
+    /// Button to ban users from the ban chamber.
     @IBAction func banButton(_ sender: Any) {
         self.banDelegate?.banPoster(self)
     }
