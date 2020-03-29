@@ -26,6 +26,9 @@ class ViewController: UIViewController {
         return refreshControl
     }()
     var indicator = UIActivityIndicatorView()
+    
+    // Post clicked to view comments
+    var selectedPost: Post?
 
     /// Main control flow that manages the app once the first screen is entered.
     override func viewDidLoad() {
@@ -121,6 +124,10 @@ class ViewController: UIViewController {
                 destinationVC.emoji = scoreManager.getEmoji(score:0)
                 destinationVC.strikesLeftMessage = scoreManager.getStrikeMessage(strikes:0)
             }
+        }
+        if segue.identifier == "goToComments" {
+            let destinationVC = segue.destination as! CommentViewController
+            destinationVC.mainPost = selectedPost
         }
     }
 }
@@ -332,6 +339,14 @@ extension ViewController: PostTableViewCellDelegate {
         alert.addAction(action2)
         alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func viewComments(_ cell: UITableViewCell){
+        print("Segue to comment view occurs here")
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        selectedPost = posts[row]
+        self.performSegue(withIdentifier: "goToComments", sender: self)
     }
 }
 
