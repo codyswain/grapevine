@@ -13,7 +13,7 @@ protocol CommentTableViewCellDelegate {
 }
 
 class CommentTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var label: UILabel!
     
     override func awakeFromNib() {

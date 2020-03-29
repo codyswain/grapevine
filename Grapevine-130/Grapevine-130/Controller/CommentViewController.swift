@@ -59,7 +59,7 @@ class CommentViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.commentsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
-        
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
     /// Refresh the main posts view based on current user location.

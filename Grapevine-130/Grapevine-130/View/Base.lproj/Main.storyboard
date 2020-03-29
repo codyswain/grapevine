@@ -590,7 +590,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2qx-yK-lc3">
-                                <rect key="frame" x="0.0" y="150" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="150" width="414" height="612"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uai-0N-qUo">
@@ -671,7 +671,7 @@
                             <constraint firstAttribute="bottom" secondItem="Gi2-xw-3SB" secondAttribute="bottom" id="JRf-xt-L59"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="MVn-2P-cAA"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="top" secondItem="7gX-li-N29" secondAttribute="top" id="Qbj-mw-ZHn"/>
-                            <constraint firstAttribute="bottom" secondItem="2qx-yK-lc3" secondAttribute="bottom" id="Qmc-5o-wQa"/>
+                            <constraint firstAttribute="bottom" secondItem="2qx-yK-lc3" secondAttribute="bottom" constant="80" id="Qmc-5o-wQa"/>
                             <constraint firstItem="byK-WM-eEn" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="Tk6-0L-cjA"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="UUc-pW-jOq"/>
                             <constraint firstItem="byK-WM-eEn" firstAttribute="top" secondItem="7gX-li-N29" secondAttribute="top" constant="100" id="UZT-Ub-cX0"/>
@@ -698,7 +698,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xl7-SH-pte" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1114" y="138"/>
+            <point key="canvasLocation" x="-1114.4927536231885" y="137.94642857142856"/>
         </scene>
     </scenes>
     <resources>
