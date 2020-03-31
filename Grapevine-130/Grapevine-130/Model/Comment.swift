@@ -20,4 +20,10 @@ struct Comment : Decodable {
     
     // Hashed device ID of comment creator
     let poster: String
+    
+    // Number of likes a comment has
+    let votes: Int
+    
+    // Comment ID
+    let commentID: String
 }

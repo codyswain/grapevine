@@ -30,7 +30,8 @@ async function getComments(req, res, next) {
       
 			// Loop through each comment returned and add it to our list
 			snapshot.forEach((comment) => {
-				var curComment = comment.data()
+        var curComment = comment.data()
+        curComment.commentID = comment.id
 				comments.push(curComment)
       });
       
@@ -62,6 +63,7 @@ async function createComment(req, res, next) {
     postID : req.body.postID,
     votes : 0,
     date : req.body.date,
+    interactions: {},
   };
 
 	db.collection("comments").add(userComment)

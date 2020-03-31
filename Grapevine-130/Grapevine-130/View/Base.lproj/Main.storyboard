@@ -156,7 +156,7 @@
                                 <rect key="frame" x="20" y="93" width="247.5" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="17.000000000000114" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -596,16 +596,21 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uai-0N-qUo" userLabel="Label View">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="171"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The lazy brown fox jumped over the moon" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pam-Cw-fQb">
-                                        <rect key="frame" x="46" y="8" width="323" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The lazy brown fox jumped over the moon" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pam-Cw-fQb">
+                                        <rect key="frame" x="35" y="45.5" width="344.5" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="OJn-mA-u5c"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HiraMinProN-W3" family="Hiragino Mincho ProN" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="End Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="1Ak-ak-dOo">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="End Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="1Ak-ak-dOo">
                                         <rect key="frame" x="362" y="113" width="19" height="19"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="19" id="0xS-GO-ryd"/>
+                                            <constraint firstAttribute="height" constant="19" id="50R-z4-pUw"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Start Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="aAy-N9-FHQ">
                                         <rect key="frame" x="26" y="40" width="19" height="19"/>
@@ -613,6 +618,12 @@
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Pam-Cw-fQb" firstAttribute="centerX" secondItem="uai-0N-qUo" secondAttribute="centerX" id="4mr-XV-cTY"/>
+                                    <constraint firstItem="Pam-Cw-fQb" firstAttribute="centerY" secondItem="uai-0N-qUo" secondAttribute="centerY" id="TYX-h6-cM9"/>
+                                    <constraint firstItem="1Ak-ak-dOo" firstAttribute="top" secondItem="uai-0N-qUo" secondAttribute="top" constant="113" id="nQd-bB-0Y9"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Ak-ak-dOo" secondAttribute="trailing" constant="33" id="zLM-Hf-Olq"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gi2-xw-3SB">
                                 <rect key="frame" x="0.0" y="762" width="414" height="80"/>

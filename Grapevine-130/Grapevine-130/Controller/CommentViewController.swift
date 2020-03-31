@@ -145,7 +145,12 @@ extension CommentViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! CommentTableViewCell
         
-        cell.label.text = comments[indexPath.row].content
+        let commentText = comments[indexPath.row].content
+        let voteCount = comments[indexPath.row].votes
+        
+        cell.label.text = commentText
+        cell.voteButton.setTitle(String(voteCount), for: .normal)
+        cell.commentID = comments[indexPath.row].commentID
         
         // If the current user created this comment, he/she can delete it
 //            if (Constants.userID == posts[indexPath.row].poster){
