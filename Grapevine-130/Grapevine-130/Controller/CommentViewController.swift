@@ -20,6 +20,10 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var commentInput: UITextField!
     
+    @IBAction func actionsButtonPressed(_ sender: Any) {
+        alertActions()
+    }
+    
     var postID: String = ""
     var comments: [Comment] = []
     let db = Firestore.firestore()
@@ -109,6 +113,19 @@ class CommentViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func alertActions(){
+        let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Share, Flag", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Upvote", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Downvote", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Share", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Flag", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Nevermind", style: .destructive) { (action:UIAlertAction) in
+        })
+        alert.view.tintColor = Constants.Colors.darkPurple
+        self.present(alert, animated: true)
+    }
 
 }
 
