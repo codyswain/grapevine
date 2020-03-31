@@ -27,16 +27,16 @@ class CommentTableViewCell: UITableViewCell {
         // do stuff when someone upvotes a comment
         if (voteStatus == 0){
             voteStatus = 1
-            voteBackground.backgroundColor = Constants.Colors.veryLightgrey
-            voteButton.setTitleColor(UIColor.black, for: .normal)
+            voteBackground.backgroundColor = Constants.Colors.darkPurple
+            voteButton.setTitleColor(UIColor.white, for: .normal)
             commentsManager.performUpvoteRequest(interaction: 1, commentID: commentID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!+1), for: .normal)
             }
         } else {
             voteStatus = 0
-            voteBackground.backgroundColor = Constants.Colors.darkPurple
-            voteButton.setTitleColor(UIColor.white, for: .normal)
+            voteBackground.backgroundColor = Constants.Colors.veryLightgrey
+            voteButton.setTitleColor(UIColor.black, for: .normal)
             commentsManager.performUpvoteRequest(interaction: 0, commentID: commentID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!-1), for: .normal)
