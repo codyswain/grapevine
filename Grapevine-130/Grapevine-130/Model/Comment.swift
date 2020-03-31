@@ -22,11 +22,11 @@ struct Comment : Decodable {
     let poster: String
     
     // Number of likes a comment has
-    let votes: Int
+    var votes: Int
     
     // Comment ID
     let commentID: String
     
     // Whether a user has liked a comment
-    let voteStatus: Int
+    var voteStatus: Int
 }

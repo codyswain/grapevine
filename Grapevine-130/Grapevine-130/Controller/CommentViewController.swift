@@ -64,6 +64,8 @@ class CommentViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 150
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+        
     }
     
     /// Refresh the main posts view based on current user location.
@@ -178,9 +180,11 @@ extension CommentViewController: UITableViewDataSource {
         if (voteStatus == 1){
             cell.voteBackground.backgroundColor = Constants.Colors.darkPurple
             cell.voteButton.setTitleColor(UIColor.white, for: .normal)
+            cell.voteButtonIcon.tintColor = UIColor.white
         } else {
             cell.voteBackground.backgroundColor = Constants.Colors.veryLightgrey
             cell.voteButton.setTitleColor(UIColor.black, for: .normal)
+            cell.voteButtonIcon.tintColor = UIColor.black
         }
         
         // If the current user created this comment, he/she can delete it
@@ -191,7 +195,7 @@ extension CommentViewController: UITableViewDataSource {
 //            }
         
         // Ensure cell can communicate with this view controller
-//        cell.delegate = self
+        cell.delegate = self
         
         // Refresh the display of the cell
 //        cell.refreshView()
@@ -213,5 +217,14 @@ extension CommentViewController: CommentsManagerDelegate {
     }
     func didCreateComment() {
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
+    }
+}
+
+extension CommentViewController: CommentTableViewCellDelegate {
+    func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int) {
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        comments[row].votes = comments[row].votes + newVote
+        comments[row].voteStatus = newVoteStatus
     }
 }
