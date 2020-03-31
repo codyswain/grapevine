@@ -139,7 +139,7 @@ class ViewController: UIViewController {
             self.refresh()
         }
         
-        let action2 = UIAlertAction(title: "Global", style: .destructive) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "Global", style: .default) { (action:UIAlertAction) in
             self.range = -1
             self.rangeButton.setTitle( " Global" , for: .normal )
             
@@ -257,7 +257,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-        cell.imageVar.image = nil // Clear out image content before reusing cells
+        
+        // Reset cell attributes before reusing
+        cell.imageVar.image = nil
+        cell.deleteButton.tintColor = Constants.Colors.lightGrey
+        
         if (posts[indexPath.row].type == "text"){
             // Set main body of post cell
             cell.label.text = posts[indexPath.row].content
