@@ -145,12 +145,27 @@ extension CommentViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! CommentTableViewCell
         
+        // Variables retrieved from GET request
         let commentText = comments[indexPath.row].content
         let voteCount = comments[indexPath.row].votes
+        let commentID = comments[indexPath.row].commentID
+        let voteStatus = comments[indexPath.row].voteStatus
         
-        cell.label.text = commentText
+        // Setting initial values
         cell.voteButton.setTitle(String(voteCount), for: .normal)
-        cell.commentID = comments[indexPath.row].commentID
+        cell.label.text = commentText
+        cell.commentID = commentID
+        cell.voteStatus = voteStatus
+        
+        
+        // Setting styling for liked posts
+        if (voteStatus == 1){
+            cell.voteBackground.backgroundColor = Constants.Colors.veryLightgrey
+            cell.voteButton.setTitleColor(UIColor.black, for: .normal)
+        } else {
+            cell.voteBackground.backgroundColor = Constants.Colors.darkPurple
+            cell.voteButton.setTitleColor(UIColor.white, for: .normal)
+        }
         
         // If the current user created this comment, he/she can delete it
 //            if (Constants.userID == posts[indexPath.row].poster){
