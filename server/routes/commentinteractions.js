@@ -36,10 +36,6 @@ router.get('/', function(req, res, next) {
         v -= 1
       }
       
-      // Delete if interaction is voided or results in bad data
-      if (interactions[user] == 0) {
-        delete interactions[user];
-      }
       t.update(commentRef, { interactions: interactions, votes: v});
 
       // Update poster score
