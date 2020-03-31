@@ -20,8 +20,8 @@ struct CommentsManager {
     let createCommentURL = Constants.serverURL + "comments"
     var delegate: CommentsManagerDelegate?
     
-    func fetchComments(postID: String){
-        let urlString = "\(getCommentsURL)&postID=\(postID)"
+    func fetchComments(postID: String, userID: String){
+        let urlString = "\(getCommentsURL)&postID=\(postID)&userID=\(userID)"
         performRequest(with: urlString)
     }
     

@@ -51,7 +51,7 @@ class CommentViewController: UIViewController {
         // Get comments related to post
         postID = mainPost!.postId
         commentsManager.delegate = self
-        commentsManager.fetchComments(postID: postID)
+        commentsManager.fetchComments(postID: postID, userID: Constants.userID)
         
         // Load table
         tableView.dataSource = self
@@ -64,7 +64,7 @@ class CommentViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
-        commentsManager.fetchComments(postID: postID)
+        commentsManager.fetchComments(postID: postID, userID: Constants.userID)
         let deadline = DispatchTime.now() + .milliseconds(1000)
         DispatchQueue.main.asyncAfter(deadline: deadline){
             self.refresher.endRefreshing()
@@ -157,7 +157,6 @@ extension CommentViewController: UITableViewDataSource {
         cell.commentID = commentID
         cell.voteStatus = voteStatus
         
-        
         // Setting styling for liked posts
         if (voteStatus == 1){
             cell.voteBackground.backgroundColor = Constants.Colors.darkPurple
@@ -196,6 +195,6 @@ extension CommentViewController: CommentsManagerDelegate {
         print(error)
     }
     func didCreateComment() {
-        commentsManager.fetchComments(postID: postID)
+        commentsManager.fetchComments(postID: postID, userID: Constants.userID)
     }
 }
