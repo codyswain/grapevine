@@ -30,6 +30,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var imageVar: UIImageView!    
     let db = Firestore.firestore()
+    let postManager = PostsManager()
     var currentVoteStatus = 0
     var currentFlagStatus = 0
     var currentFlagNum = 0
@@ -126,7 +127,7 @@ class PostTableViewCell: UITableViewCell {
     {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
-            performInteractionRequest(interaction: 1)
+            postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
             setUpvotedColors()
             setFlaggedColorsToPurple() // hide the flag icon
             setShareButtonHighlightedColors()
@@ -134,14 +135,14 @@ class PostTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            performInteractionRequest(interaction: 2)
+            postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setNeutralColors()
             setShareButtonNormalColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            performInteractionRequest(interaction: 1)
+            postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
             resetFlagColors()
             setNeutralColors()
             setShareButtonNormalColors()
@@ -159,14 +160,14 @@ class PostTableViewCell: UITableViewCell {
     {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
-            performInteractionRequest(interaction: 2)
+            postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setDownvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             setShareButtonHighlightedColors()
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            performInteractionRequest(interaction: 1)
+            postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
             setNeutralColors()
             resetFlagColors()
             setShareButtonNormalColors()
@@ -174,7 +175,7 @@ class PostTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            performInteractionRequest(interaction: 2)
+            postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setNeutralColors()
             setShareButtonNormalColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
@@ -212,7 +213,7 @@ class PostTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewFlags(self, newFlagStatus: 0)
         }
         
-        performInteractionRequest(interaction: 4)
+        postManager.performInteractionRequest(interaction: 4, docID: self.documentId)
     }
 
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer)
@@ -298,32 +299,5 @@ class PostTableViewCell: UITableViewCell {
     /// Button to ban users from the ban chamber.
     @IBAction func banButton(_ sender: Any) {
         self.banDelegate?.banPoster(self)
-    }
-    
-    /**
-    Sends interaction request to server.
-     
-    - Parameter interaction: The interaction value to be sent
-        - 1: upvote
-        - 2: downvote
-        - 4: flag
-     */
-    func performInteractionRequest(interaction: Int) {
-        let endpoint = Constants.serverURL + "interactions/?"
-        let urlString = "\(endpoint)&user=\(Constants.userID)&post=\(self.documentId)&action=\(interaction)"
-        print ("Sending interaction: ", interaction)
-        
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    print ("Interaction request failed")
-                    return
-                }
-                
-                print("Interaction request success")
-            }
-            task.resume()
-        }
     }
 }

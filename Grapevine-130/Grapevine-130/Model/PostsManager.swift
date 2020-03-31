@@ -146,7 +146,33 @@ struct PostsManager {
         task.resume()
     }
 
-    
+    /**
+    Sends interaction request to server.
+     
+    - Parameter interaction: The interaction value to be sent
+        - 1: upvote
+        - 2: downvote
+        - 4: flag
+     */
+    func performInteractionRequest(interaction: Int, docID: String) {
+        let endpoint = Constants.serverURL + "interactions/?"
+        let urlString = "\(endpoint)&user=\(Constants.userID)&post=\(docID)&action=\(interaction)"
+        print ("Sending interaction: ", interaction)
+        
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print ("Interaction request failed")
+                    return
+                }
+                
+                print("Interaction request success")
+            }
+            task.resume()
+        }
+    }
+
     /**
     Decodes the JSON data returned from the server and verifies that it is a valid array of posts.
 
@@ -164,5 +190,4 @@ struct PostsManager {
         }
         return ref
     }
-    
 }
