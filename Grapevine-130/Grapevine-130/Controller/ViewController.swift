@@ -202,6 +202,33 @@ class ViewController: UIViewController {
             destinationVC.mainPost = selectedPost
         }
     }
+    
+    ///Displays the sharing popup, so users can share a post to Snapchat.
+    func showSharePopup(){
+        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends!", preferredStyle: .alert)
+                
+        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
+            // share to Snapchat logic goes here
+        }
+        
+        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+            
+        }
+
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func viewComments(_ cell: UITableViewCell){
+        print("Segue to comment view occurs here")
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        selectedPost = posts[row]
+        self.performSegue(withIdentifier: "goToComments", sender: self)
+    }
+
 }
 
 /// Manages the posts table.
@@ -469,31 +496,6 @@ extension ViewController: PostTableViewCellDelegate {
         self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
-    ///Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(){
-        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends!", preferredStyle: .alert)
-                
-        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-            // share to Snapchat logic goes here
-        }
-        
-        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
-            
-        }
-
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func viewComments(_ cell: UITableViewCell){
-        print("Segue to comment view occurs here")
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let row = indexPath.row
-        selectedPost = posts[row]
-        self.performSegue(withIdentifier: "goToComments", sender: self)
-    }
 }
 
 /// Manages the `user` object returned by the server.
@@ -519,5 +521,30 @@ extension ViewController: UserManagerDelegate {
     */
     func userDidFailWithError(error: Error){
         print(error)
+    }
+}
+
+extension ViewController: CommentViewControllerDelegate {
+    func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int) {
+        var row = 0
+        if let i = posts.firstIndex(where: { $0.postId == post.postId }) {
+            row = i
+        }
+        posts[row].votes = posts[row].votes + newVote
+        posts[row].voteStatus = newVoteStatus
+    }
+    
+    func updateTableViewFlags(_ post: Post, newFlagStatus: Int) {
+        var row = 0
+        if let i = posts.firstIndex(where: { $0.postId == post.postId }) {
+            row = i
+        }
+        if (newFlagStatus == 1){
+            posts[row].flagStatus = newFlagStatus
+            posts[row].numFlags = posts[row].numFlags + newFlagStatus
+        } else {
+            posts[row].flagStatus = newFlagStatus
+            posts[row].numFlags = posts[row].numFlags + newFlagStatus
+        }
     }
 }
