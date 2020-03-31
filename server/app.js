@@ -10,6 +10,7 @@ var postsRouter = require('./routes/posts');
 var commentsRouter = require('./routes/comments');
 var usersRouter = require('./routes/users');
 var interactionsRouter = require('./routes/interactions');
+var commentinteractionsRouter = require('./routes/commentinteractions');
 var banChamberRouter = require('./routes/banChamber');
 
 // Set the app to use Express
@@ -48,6 +49,7 @@ app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
 app.use('/interactions', interactionsRouter);
+app.use('/commentinteractions', commentinteractionsRouter)
 app.use('/banChamber', banChamberRouter);
 
 // catch 404 and forward to error handler

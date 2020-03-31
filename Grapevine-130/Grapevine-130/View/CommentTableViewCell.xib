@@ -19,7 +19,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7jS-zn-QMn">
                         <rect key="frame" x="20" y="5" width="70" height="40"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJy-EZ-yeJ">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJy-EZ-yeJ" userLabel="100">
                                 <rect key="frame" x="8" y="10" width="54" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -32,7 +32,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.97438134519999997" green="0.95878075949999997" blue="0.97005279430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.95686274509803915" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="22m-ll-0uD"/>
                             <constraint firstAttribute="width" constant="70" id="fII-e9-U9V"/>
@@ -72,6 +72,7 @@
                 <outlet property="label" destination="W1M-0U-gjB" id="hXt-79-xYH"/>
                 <outlet property="messageBackground" destination="i6V-GN-Nl2" id="ho4-yZ-4jh"/>
                 <outlet property="voteBackground" destination="7jS-zn-QMn" id="Z7n-aC-QKI"/>
+                <outlet property="voteButton" destination="gJy-EZ-yeJ" id="lDp-rl-MEn"/>
             </connections>
             <point key="canvasLocation" x="147.10144927536234" y="227.67857142857142"/>
         </tableViewCell>

@@ -25,6 +25,26 @@ struct CommentsManager {
         performRequest(with: urlString)
     }
     
+    // interaction 1 will be to like a comment
+    // interaction 2 will be to unlike a comment
+    func performUpvoteRequest(interaction: Int, commentID: String){
+        let endpoint = Constants.serverURL + "commentinteractions/?"
+        let urlString = "\(endpoint)&user=\(Constants.userID)&commentID=\(commentID)&action=\(interaction)"
+        print ("Sending interaction: ", interaction)
+        
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print ("Interaction request failed")
+                    return
+                }
+                print("Interaction request success")
+            }
+            task.resume()
+        }
+    }
+    
     func performRequest(with urlString: String) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
