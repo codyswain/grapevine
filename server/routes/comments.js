@@ -36,7 +36,8 @@ async function getComments(req, res, next) {
        
         var interactions = comment.get("interactions")
 
-				// TODO: Better solution by putting this in mobile backend
+        // TODO: Better solution by putting this in mobile backend
+        curComment.voteStatus = 0
 				for (var interacting_user in interactions) {
 					if (interacting_user == userID) {
 						curComment.voteStatus = interactions[userID]
