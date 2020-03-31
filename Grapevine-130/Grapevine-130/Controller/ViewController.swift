@@ -8,6 +8,7 @@ class ViewController: UIViewController {
     // UI variables
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
+    @IBOutlet weak var rangeButton: UIButton!
     
     // Globals
     let db = Firestore.firestore()
@@ -67,8 +68,11 @@ class ViewController: UIViewController {
         tableView.backgroundColor = UIColor.white
         
         // Add scroll-to-top button
-        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop(tapGestureRecognizer:)))
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
         nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)
+        
+        let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(changeRange(tapGestureRecognizer:)))
+        rangeButton.addGestureRecognizer(tapGestureRecognizer2)
     }
     
     /// Displays a loading icon while posts load.
@@ -106,10 +110,57 @@ class ViewController: UIViewController {
      
      - Parameter tapGestureRegnizer: Tap gesture that fires this function
      */
-    @objc func scrollToTop(tapGestureRecognizer: UITapGestureRecognizer)
+    @objc func scrollToTop()
     {
         let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
         self.tableView?.setContentOffset(topOffest, animated: true)
+    }
+    
+    /**
+     Allows user to change the post request range
+     
+     - Parameter tapGestureRegnizer: Tap gesture that fires this function
+     */
+    @objc func changeRange(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        /// Displays the possible ranges users can request posts from
+        let alert = UIAlertController(title: "Change Range", message: "Find more posts around you!", preferredStyle: .alert)
+                
+        let action1 = UIAlertAction(title: "3 miles", style: .default) { (action:UIAlertAction) in
+            self.range = 500
+            self.rangeButton.setTitle( " 3 miles" , for: .normal )
+            
+            // Scroll to top
+            self.scrollToTop()
+            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+            
+            // Refresh posts in the table
+            self.tableView.refreshControl?.beginRefreshing()
+            self.refresh()
+        }
+        
+        let action2 = UIAlertAction(title: "Global", style: .default) { (action:UIAlertAction) in
+            self.range = -1
+            self.rangeButton.setTitle( " Global" , for: .normal )
+            
+            // Scroll to top
+            self.scrollToTop()
+            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+            
+            // Refresh posts in the table
+            self.tableView.refreshControl?.beginRefreshing()
+            self.refresh()
+        }
+        
+        let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+            
+        }
+
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.addAction(action3)
+        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+        self.present(alert, animated: true, completion: nil)
     }
     
     /// Refresh the main posts view based on current user location.
@@ -206,7 +257,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-        cell.imageVar.image = nil // Clear out image content before reusing cells
+        
+        // Reset cell attributes before reusing
+        cell.imageVar.image = nil
+        cell.deleteButton.tintColor = Constants.Colors.lightGrey
+        
         if (posts[indexPath.row].type == "text"){
             // Set main body of post cell
             cell.label.text = posts[indexPath.row].content

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,7 +41,7 @@
                                     <action selector="newPostButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="brU-6G-Jig"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMB-UL-9TV">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMB-UL-9TV" userLabel="3 Miles">
                                 <rect key="frame" x="20" y="88" width="83" height="21"/>
                                 <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -86,6 +86,7 @@
                     <navigationItem key="navigationItem" id="rQz-x8-cJq"/>
                     <connections>
                         <outlet property="nearbyLabel" destination="Rbx-yL-B51" id="ZWZ-kO-IZB"/>
+                        <outlet property="rangeButton" destination="QMB-UL-9TV" id="ZU9-E3-0v2"/>
                         <outlet property="tableView" destination="aGv-vy-wu6" id="ZPL-Wv-6J8"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="goToNewPosts" modalPresentationStyle="fullScreen" id="NSO-o6-THf"/>
                         <segue destination="JfH-1x-7cI" kind="presentation" identifier="banScreen" modalPresentationStyle="fullScreen" id="hTd-kG-DaY"/>
@@ -188,7 +189,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ApM-He-BtP" userLabel="Front Text View">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ApM-He-BtP" userLabel="Front Text View">
                                 <rect key="frame" x="30" y="156" width="345" height="314"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="newPostTextView"/>
@@ -222,7 +223,7 @@
                                     <action selector="addPostButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="EtF-9w-pcN"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2f-LD-GPN" customClass="CanvasView" customModule="Grapevine_130" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2f-LD-GPN" customClass="CanvasView" customModule="Grapevine_130" customModuleProvider="target">
                                 <rect key="frame" x="20" y="152" width="374" height="292"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <accessibility key="accessibilityConfiguration" identifier="newPostCanvas">
@@ -769,28 +770,28 @@
             <point key="canvasLocation" x="-891.304347826087" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YJd-nw-Ils"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
         <image name="InfoSign" width="499" height="504"/>
         <image name="Start Apostrophe" width="1024" height="1024"/>
-        <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowshape.turn.up.left.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowtriangle.up.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="bolt.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="circle" catalog="system" width="64" height="60"/>
-        <image name="circle.fill" catalog="system" width="64" height="60"/>
-        <image name="clear.fill" catalog="system" width="64" height="56"/>
-        <image name="flag.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="heart.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="info.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="location.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="p.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="person.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowshape.turn.up.left.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="clear.fill" catalog="system" width="128" height="114"/>
+        <image name="flag.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="p.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="cef-IB-uFx"/>
-    </inferredMetricsTieBreakers>
 </document>

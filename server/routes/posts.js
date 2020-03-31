@@ -28,24 +28,28 @@ async function getPosts(req, res, next) {
 	let range = req.query.range;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
-	}
+	} 
 	range = Number(range);
 
 	console.log("GetPosts request from lat: " + lat + " and lon: " + lon + " for posts within range:" + range + " from user: " + user)
 
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
+	var query = db.collection('posts').where("banned", "==", false)
+	if (range != -1) { // -1 refers to global range
+		console.log("global")
+		// Calculate the lower and upper geohashes to consider
+		const search_box = utils.getGeohashRange(lat, lon, range);
 
-	// Calculate the lower and upper geohashes to consider
-    const search_box = utils.getGeohashRange(lat, lon, range);
+		query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+	}
 
 	// Query the db for posts
-	db.collection('posts')
-		.where("banned", "==", false)
-		.where("geohash", ">=", search_box.lower)
-		.where("geohash", "<=", search_box.upper)
-		.orderBy("geohash")
-		.orderBy('date', 'desc')
+	query.orderBy('date', 'desc')
 		.limit(20).get()
 		.then((snapshot) => {
 			let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
@@ -170,27 +174,31 @@ async function morePosts(req, res, next) {
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	}
+
 	range = Number(range);
 
 	console.log("GetMorePosts request from lat: " + lat + " and lon: " + lon + " for posts within range:" + range + " from user: " + user)
-
+	
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
-
-	// Calculate the lower and upper geohashes to consider
-    const search_box = utils.getGeohashRange(lat, lon, range);
 
 	// Request the document snapshot of the last post retrieved in the previous request for posts
 	var refquery = db.collection('posts')
 				  .doc(docRef)
 
-	// Basic request for posts
-	var query = db.collection('posts')
-				  .where("banned", "==", false)
-				  .where("geohash", ">=", search_box.lower)
-				  .where("geohash", "<=", search_box.upper)
-				  .orderBy("geohash")
-				  .orderBy('date', 'desc')
+	var query = db.collection('posts').where("banned", "==", false).orderBy('date', 'desc')
+	if (range != -1) { // -1 refers to global range
+		// Calculate the lower and upper geohashes to consider
+		const search_box = utils.getGeohashRange(lat, lon, range);
+
+		// Basic request for posts
+		query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+					.orderBy('date', 'desc')
+	}			  
 
 	// Get the document snapshot of the last document first
 	refquery.get().then((doc) => {

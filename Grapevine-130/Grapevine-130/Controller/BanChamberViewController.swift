@@ -168,7 +168,8 @@ extension BanChamberViewController: CLLocationManagerDelegate {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
             print("Location request success")
-            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: 500)
+            // Set to global ban range for now
+            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: -1)
         }
     }
     
