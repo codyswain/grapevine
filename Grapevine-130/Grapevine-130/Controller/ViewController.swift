@@ -329,6 +329,8 @@ extension ViewController: PostsManagerDelegate {
      */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
+            self.indicator.stopAnimating()
+            
             if ref == "" {
                 self.canGetMorePosts = false
             } else {
@@ -338,6 +340,17 @@ extension ViewController: PostsManagerDelegate {
             self.posts = posts
             self.ref = ref
             self.tableView.reloadData()
+            
+            if self.posts.count == 0 {
+                let noPostsLabel = UILabel()
+                noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
+                noPostsLabel.textAlignment = .center
+                noPostsLabel.text = "No posts in your area :("
+                self.tableView.tableHeaderView = noPostsLabel
+                self.tableView.tableHeaderView?.isHidden = false
+            } else {
+                self.tableView.tableHeaderView = nil
+            }
             
             //print("reference doc: ", ref)
             //print("posts: ", posts)
