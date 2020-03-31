@@ -26,4 +26,7 @@ struct Comment : Decodable {
     
     // Comment ID
     let commentID: String
+    
+    // Whether a user has liked a comment
+    let voteStatus: Int
 }

@@ -15,7 +15,8 @@ Output: Comments ordered by time created
 */
 
 async function getComments(req, res, next) {
-	let postID = req.query.postID;
+  let postID = req.query.postID;
+  let userID = req.query.userID
 	console.log("GET /comments request with postID: " + postID)
 
 	// Get the db object, declared in app.js
@@ -32,7 +33,18 @@ async function getComments(req, res, next) {
 			snapshot.forEach((comment) => {
         var curComment = comment.data()
         curComment.commentID = comment.id
-				comments.push(curComment)
+       
+        var interactions = comment.get("interactions")
+
+				// TODO: Better solution by putting this in mobile backend
+				for (var interacting_user in interactions) {
+					if (interacting_user == userID) {
+						curComment.voteStatus = interactions[userID]
+						break
+					}
+        }
+        
+        comments.push(curComment)
       });
       
 			// Return comments to client
