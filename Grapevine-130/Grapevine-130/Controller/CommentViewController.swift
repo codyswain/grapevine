@@ -160,11 +160,11 @@ extension CommentViewController: UITableViewDataSource {
         
         // Setting styling for liked posts
         if (voteStatus == 1){
-            cell.voteBackground.backgroundColor = Constants.Colors.veryLightgrey
-            cell.voteButton.setTitleColor(UIColor.black, for: .normal)
-        } else {
             cell.voteBackground.backgroundColor = Constants.Colors.darkPurple
             cell.voteButton.setTitleColor(UIColor.white, for: .normal)
+        } else {
+            cell.voteBackground.backgroundColor = Constants.Colors.veryLightgrey
+            cell.voteButton.setTitleColor(UIColor.black, for: .normal)
         }
         
         // If the current user created this comment, he/she can delete it
