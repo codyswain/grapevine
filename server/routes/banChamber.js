@@ -24,18 +24,22 @@ async function getBannablePosts(req, res, next) {
 
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
+	var query = db.collection('posts').where("banned", "==", false)
+	if (range != -1) { // -1 refers to global range
+		// Calculate the lower and upper geohashes to consider
+		const search_box = utils.getGeohashRange(lat, lon, range);
 
-	// Calculate the lower and upper geohashes to consider
-    const search_box = utils.getGeohashRange(lat, lon, range);
-	
+		query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+	}
+
 	var posts = []
 
 	// Query the db for posts
-	db.collection('posts')
-		.where("geohash", ">=", search_box.lower)
-    	.where("geohash", "<=", search_box.upper)
-    	.orderBy('geohash')
-		.orderBy('date', 'desc')
+	db.orderBy('date', 'desc')
 		.limit(50).get()
 		.then((snapshot) => {
 			// Loop through each post returned and add it to our list
