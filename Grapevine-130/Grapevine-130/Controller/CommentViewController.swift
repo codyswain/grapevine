@@ -42,7 +42,7 @@ class CommentViewController: UIViewController {
         commentInput.text = "Add an anonymous comment..."
         commentInput.clearsOnBeginEditing = true
         postContentLabel.text = mainPost!.content
-        inputTextContainerView.layer.cornerRadius = 17
+        inputTextContainerView.layer.cornerRadius = 10
         
         // Reposition input when keyboard is opened vs closed
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -58,7 +58,7 @@ class CommentViewController: UIViewController {
         tableView.refreshControl = refresher
         tableView.register(UINib(nibName: Constants.commentsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 150
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     

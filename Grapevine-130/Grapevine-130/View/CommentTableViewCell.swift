@@ -14,11 +14,19 @@ protocol CommentTableViewCellDelegate {
 
 class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var messageBackground: UIView!
+    @IBOutlet weak var voteBackground: UIView!
+    
+    @IBAction func upvoteCommentPressed(_ sender: Any) {
+        // do stuff when someone upvotes a comment
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        label.text = "yadaasdadsfasdfasdfasdfsdfasdfasdfasdfasdfsadfsdfasdsfdsf"
+        messageBackground.layer.cornerRadius = 10
+        voteBackground.layer.cornerRadius = 10
+        label.text = "Test comment text"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
