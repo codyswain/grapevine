@@ -151,16 +151,19 @@ async function createPost(req, res, next) {
 }
 
 async function deletePost(req, res, next) {
-	var db = req.app.get('db');  
+  var db = req.app.get('db');
+  postID = req.body.postId
+  console.log(`Attempting to delete: ${postID}`)
 
-	db.collection("posts").doc(req.body.postId).delete()
+	db.collection("posts").doc(postID).delete()
 	.catch((err) => {
 		console.log("ERROR storing post : " + err)
 		res.status(400).send()
 	})
 	.then(() => {
-		res.status(200).send("Successfully deleted post " + req.body.postId);
-	})
+    utils.deletePostComments(postID, req)
+		res.status(200).send("Successfully deleted post " + postID);
+  })
 
 
 }

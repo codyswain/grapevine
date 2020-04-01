@@ -485,17 +485,35 @@ extension ViewController: PostTableViewCellDelegate {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         let docIDtoDelete = posts[row].postId
-        db.collection("posts").document(docIDtoDelete).delete() { err in
-            if let err = err {
-                print("Error deleting document: \(err)")
-            } else {
-                print("Post successfully deleted!")
-            }
-        }
+        postsManager.deletePost(postID: docIDtoDelete)
         posts.remove(at: row)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
+    ///Displays the sharing popup, so users can share a post to Snapchat.
+    func showSharePopup(){
+        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends!", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
+            // share to Snapchat logic goes here
+        }
+        
+        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+            
+        }
+
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func viewComments(_ cell: UITableViewCell){
+        print("Segue to comment view occurs here")
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        selectedPost = posts[row]
+        self.performSegue(withIdentifier: "goToComments", sender: self)
+    }
 }
 
 /// Manages the `user` object returned by the server.
