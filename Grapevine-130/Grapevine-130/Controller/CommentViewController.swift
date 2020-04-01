@@ -10,6 +10,12 @@ import UIKit
 import FirebaseDatabase
 import FirebaseFirestore
 
+protocol CommentViewControllerDelegate {
+    func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int)
+    func updateTableViewFlags(_ post: Post, newFlagStatus: Int)
+    func showSharePopup()
+}
+
 class CommentViewController: UIViewController {
     @IBOutlet weak var postContentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -30,7 +36,8 @@ class CommentViewController: UIViewController {
     var commentsManager = CommentsManager()
     var indicator = UIActivityIndicatorView()
     var mainPost: Post?
-    
+    var delegate: CommentViewControllerDelegate?
+    let postManager = PostsManager()
     
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -118,17 +125,73 @@ class CommentViewController: UIViewController {
     
     func alertActions(){
         let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Share, Flag", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Upvote", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Downvote", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Share", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Flag", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Nevermind", style: .destructive) { (action:UIAlertAction) in
+        
+        alert.addAction(UIAlertAction(title: "Upvote", style: .default){ (action:UIAlertAction) in
+            self.upvoteTapped()
+        })
+        alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
+            self.downvoteTapped()
+        })
+        alert.addAction(UIAlertAction(title: "Share", style: .default){ (action:UIAlertAction) in
+            self.delegate?.showSharePopup()
+        })
+        alert.addAction(UIAlertAction(title: "Flag", style: .default){ (action:UIAlertAction) in
+            self.flagTapped()
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
         })
         alert.view.tintColor = Constants.Colors.darkPurple
         self.present(alert, animated: true)
     }
-
+    
+    func upvoteTapped(){
+        var currentVoteStatus = mainPost?.voteStatus
+        if currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
+            currentVoteStatus = 1
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
+        } else if currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
+            currentVoteStatus = 0
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
+        } else { // post was upvoted, after upvoting will be neutral
+            currentVoteStatus = 0
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
+        }
+    }
+    
+    func downvoteTapped(){
+        var currentVoteStatus = mainPost?.voteStatus
+        if currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
+            currentVoteStatus = -1
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
+        } else if currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
+            currentVoteStatus = 0
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
+        } else { // post was downvoted, after downvoting will be neutral
+            currentVoteStatus = 0
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
+        }
+    }
+    
+    func flagTapped(){
+        var currentFlagStatus = mainPost?.flagStatus
+        // wasn't flagged, now is flagged
+        if currentFlagStatus == 0 {
+            currentFlagStatus = 1
+            self.delegate?.updateTableViewFlags(mainPost!, newFlagStatus: 1)
+        // was flagged, now isn't flagged
+        } else {
+            currentFlagStatus = 0
+            self.delegate?.updateTableViewFlags(mainPost!, newFlagStatus: 0)
+        }
+        postManager.performInteractionRequest(interaction: 4, docID: mainPost?.postId ?? "-1")
+    }
+    
 }
 
 /// Manages the posts table.
