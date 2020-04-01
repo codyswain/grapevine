@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var posts: [Post] = []
     var ref = ""
     var canGetMorePosts = true
-    var range = 500
+    var range = 3
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
     var user: User?
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Change Range", message: "Find more posts around you!", preferredStyle: .alert)
                 
         let action1 = UIAlertAction(title: "3 miles", style: .default) { (action:UIAlertAction) in
-            self.range = 500
+            self.range = 3
             self.rangeButton.setTitle( " 3 miles" , for: .normal )
             
             // Scroll to top
