@@ -151,7 +151,7 @@ async function createPost(req, res, next) {
 }
 
 async function deletePost(req, res, next) {
-  var db = req.app.get('db');  
+  var db = req.app.get('db');
   postID = req.body.postId
   console.log(`Attempting to delete: ${postID}`)
 

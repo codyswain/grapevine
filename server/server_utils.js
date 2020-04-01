@@ -178,21 +178,8 @@ function getFlagLimit(numInteractions, toxicity, votes, dateTime) {
   return flagLimit;
 }
 
-
 function deletePostComments(postID, req){
-  // Have to pass in the req object
   var db = req.app.get('db');  
-
-  // Query the db for posts
-	// db.collection('comments')
-  // .where("postID", "==", postID).delete()
-  // .catch((err) => {
-	// 	console.log("ERROR deleting comment: " + err)
-	// 	res.status(400).send()
-	// })
-	// .then(() => {
-	// 	res.status(200).send("Successfully deleted comments with postID " + postID);
-  // })
   
   var commentsQuery = db.collection('comments').where("postID", "==", postID)
   commentsQuery.get().then(function(querySnapshot){
