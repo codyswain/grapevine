@@ -31,6 +31,33 @@ struct PostsManager {
         performRequest(with: urlString)
     }
     
+    
+    func deletePost(postID: String){
+        let json: [String: Any] = ["postID": postID]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        // Create delete request
+        let url = URL(string: Constants.serverURL + "posts")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        // insert json data to the request
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                self.delegate?.didFailWithError(error: error!)
+                print("DELETE req error")
+                return
+            }
+            if let safeData = data {
+                print("DELETE req returned: \(safeData)")
+            }
+        }
+        task.resume()
+    }
+    
     /**
      Fetches posts that can be banned from the database.
      

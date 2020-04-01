@@ -445,13 +445,7 @@ extension ViewController: PostTableViewCellDelegate {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         let docIDtoDelete = posts[row].postId
-        db.collection("posts").document(docIDtoDelete).delete() { err in
-            if let err = err {
-                print("Error deleting document: \(err)")
-            } else {
-                print("Post successfully deleted!")
-            }
-        }
+        postsManager.deletePost(postID: docIDtoDelete)
         posts.remove(at: row)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
@@ -459,7 +453,6 @@ extension ViewController: PostTableViewCellDelegate {
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(){
         let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends!", preferredStyle: .alert)
-                
         let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
             // share to Snapchat logic goes here
         }
