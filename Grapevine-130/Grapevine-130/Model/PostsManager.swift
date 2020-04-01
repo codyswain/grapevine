@@ -31,9 +31,9 @@ struct PostsManager {
         performRequest(with: urlString)
     }
     
-    
     func deletePost(postID: String){
-        let json: [String: Any] = ["postID": postID]
+        let json: [String: Any] = ["postId": postID]
+        print("postid: ", postID)
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         // Create delete request
