@@ -39,13 +39,12 @@ async function getBannablePosts(req, res, next) {
 	var posts = []
 
 	// Query the db for posts
-	db.orderBy('date', 'desc')
-		.limit(50).get()
-		.then((snapshot) => {
+	await query.orderBy('date', 'desc')
+		.limit(50).get().then((snapshot) => {
 			// Loop through each post returned and add it to our list
 			snapshot.forEach((post) => {
 				var curPost = post.data()
-				if (curPost.votes < 0){
+				if (parseInt(curPost.votes) <= -3){
 					curPost.postId = post.id
 					curPost.voteStatus = 0
 					curPost.flagStatus = 0
@@ -54,14 +53,12 @@ async function getBannablePosts(req, res, next) {
 					posts.push(curPost)
 				}
 			});
-			// Return the posts to the client
-			
 		})
 		.catch((err) => { 
 			console.log("ERROR looking up bannable posts:" + err)
 		})
 
-	db.collection('users').doc(user).update({
+	await db.collection('users').doc(user).update({
 	  score: admin.firestore.FieldValue.increment(-20)
 	}).then((snapshot) => {
 		console.log(posts)
@@ -80,6 +77,7 @@ async function getBannablePosts(req, res, next) {
 async function banPoster(req, res, next) {
 	let poster = req.query.poster;
 	let time = req.query.time;
+	let postID = req.query.postID;
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
 	var strikeUpdateStatus = false
@@ -104,6 +102,15 @@ async function banPoster(req, res, next) {
 		timeUpdateStatus = false
 		console.log("ERROR updating time in posts.js:" + err)
 	})	
+
+	// Delete posts
+	await db.collection('posts').doc(postID).delete()
+	.catch((err) => {
+		console.log("ERROR deleting post : " + err)
+	})
+	.then(() => {
+		console.log("Successfully deleted post " + postID);
+	})
 
 	if (strikeUpdateStatus && timeUpdateStatus){
 		res.send("banPoster strikes and time update success")

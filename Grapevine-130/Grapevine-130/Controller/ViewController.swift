@@ -510,6 +510,7 @@ extension ViewController: UserManagerDelegate {
     func didGetUser(_ userManager: UserManager, user: User){
         DispatchQueue.main.async {
             if userManager.isBanned(strikes: user.strikes, banTime:user.banDate){
+                userManager.freeUser()
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user

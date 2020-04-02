@@ -169,7 +169,7 @@ extension BanChamberViewController: CLLocationManagerDelegate {
             self.lon = location.coordinate.longitude
             print("Location request success")
             // Set to global ban range for now
-            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: -1)
+            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: 10)
         }
     }
     
@@ -193,7 +193,8 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         let creatorToBeBanned = posts[row].poster
-        userManager.banUser(poster: creatorToBeBanned)
+        let postToBeDeleted = posts[row].postId
+        userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
         self.performSegue(withIdentifier: "banToMain", sender: self)
     }
 }

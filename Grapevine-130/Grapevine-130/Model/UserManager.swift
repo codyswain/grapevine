@@ -40,9 +40,15 @@ struct UserManager {
         performRequest(with: urlString, handleResponse: true)
     }
     
-    func banUser(poster: String) {
-        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)"
+    func banUser(poster: String, postID: String) {
+        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)&postID=\(postID)"
         print ("Banning userID: ", poster)
+        performRequest(with: urlString, handleResponse: false)
+    }
+    
+    func freeUser(){
+        let urlString = "\(getUserURL)/freeUser/?&user=\(Constants.userID)"
+        print ("Freeing userID: ", Constants.userID)
         performRequest(with: urlString, handleResponse: false)
     }
 
@@ -70,10 +76,10 @@ struct UserManager {
                 // banUser() response
                 } else {
                     if error != nil {
-                        print("Error banning user: \(String(describing: error))")
+                        print("Error banning OR freeing user: \(String(describing: error))")
                     }
                     if data != nil {
-                        print("Banned user success")
+                        print("Banned/free user success")
                     }
                 }
             }
