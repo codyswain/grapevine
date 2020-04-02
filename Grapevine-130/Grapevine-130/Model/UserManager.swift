@@ -19,7 +19,8 @@ struct UserManager {
     /// Hits the /users endpoint.
     let getUserURL = Constants.serverURL + "users/?"
     let banUserURL = Constants.serverURL + "banChamber/banPoster/?"
-
+    let freeUserURL = Constants.serverURL + "users/freeUser/?"
+    
     var delegate: UserManagerDelegate?
     
     func isBanned(strikes:Int, banTime: Double) -> Bool {
@@ -27,6 +28,8 @@ struct UserManager {
         if strikes >= Constants.numStrikesToBeBanned && timeDiff < Constants.banLengthInHours {
             // reset strikes
             return true
+        } else if strikes >= Constants.numStrikesToBeBanned {
+            freeUser()
         }
         return false
     }
@@ -47,7 +50,7 @@ struct UserManager {
     }
     
     func freeUser(){
-        let urlString = "\(getUserURL)/freeUser/?&user=\(Constants.userID)"
+        let urlString = "\(freeUserURL)&user=\(Constants.userID)"
         print ("Freeing userID: ", Constants.userID)
         performRequest(with: urlString, handleResponse: false)
     }
@@ -58,6 +61,7 @@ struct UserManager {
     - Parameter urlString: The server endpoint with parameters.
     */
     func performRequest(with urlString: String, handleResponse: Bool) {
+        print ("Sending request urlString: ", urlString)
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
