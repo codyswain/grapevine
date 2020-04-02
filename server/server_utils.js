@@ -178,4 +178,15 @@ function getFlagLimit(numInteractions, toxicity, votes, dateTime) {
   return flagLimit;
 }
 
-module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, hasInteraction}
+function deletePostComments(postID, req){
+  var db = req.app.get('db');  
+  
+  var commentsQuery = db.collection('comments').where("postID", "==", postID)
+  commentsQuery.get().then(function(querySnapshot){
+    querySnapshot.forEach(function(doc){
+      doc.ref.delete();
+    });
+  });
+}
+
+module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction}

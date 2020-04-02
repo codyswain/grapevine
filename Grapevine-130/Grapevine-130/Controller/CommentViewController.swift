@@ -25,6 +25,10 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var commentInput: UITextField!
+    @IBOutlet weak var imageVar: UIImageView!
+    @IBOutlet weak var actionBar: UIView!
+    @IBOutlet weak var startApostrophe: UIImageView!
+    @IBOutlet weak var endApostrophe: UIImageView!
     
     @IBAction func actionsButtonPressed(_ sender: Any) {
         alertActions()
@@ -52,7 +56,12 @@ class CommentViewController: UIViewController {
         super.viewDidLoad()
         commentInput.text = "Add an anonymous comment..."
         commentInput.clearsOnBeginEditing = true
-        postContentLabel.text = mainPost!.content
+        if (mainPost?.type == "text"){
+            postContentLabel.text = mainPost!.content
+        } else {
+            displayImage()
+        }
+        
         inputTextContainerView.layer.cornerRadius = 10
         
         // Reposition input when keyboard is opened vs closed
@@ -73,6 +82,35 @@ class CommentViewController: UIViewController {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         
+    }
+    
+    func displayImage(){
+        postContentLabel.isHidden = true
+        startApostrophe.isHidden = true
+        endApostrophe.isHidden = true
+        if let decodedData = Data(base64Encoded: mainPost!.content, options: .ignoreUnknownCharacters) {
+            let image = UIImage(data: decodedData)!
+            let scale: CGFloat
+            if image.size.width > image.size.height {
+                scale = imageVar.bounds.width / image.size.width
+            } else {
+                scale = imageVar.bounds.height / image.size.height
+            }
+            
+            imageVar.image = image
+            let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            
+            UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+            image.draw(in: rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            imageVar.image = newImage
+        }
+        self.actionBar.frame.origin.x = 0
+        self.actionBar.frame.origin.y = self.view.frame.size.height / 2.5
+
     }
     
     /// Refresh the main posts view based on current user location.
