@@ -21,6 +21,11 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var createDrawingButtonVar: UIButton!
     @IBOutlet weak var clearButtonVar: UIButton!
     
+    
+    @IBOutlet weak var AddButtonContainingViewConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var AddButtonContainingView: UIView!
+    
     /**
      Intializes the new post screen.
      */
@@ -34,6 +39,19 @@ class NewPostViewController: UIViewController {
         drawingCanvasView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         frontTextView.delegate = self
         frontTextView.isHidden = false
+        
+        AddButtonContainingView.layer.cornerRadius = 25
+        
+        // Add listeners to keyboard to reposition "Add Post" button
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // Close keyboard when tapping anywhere
+        let tap = UITapGestureRecognizer(target: self.view,
+                                         action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
+        frontTextView.autocorrectionType = .yes
     }
         
     /**
@@ -67,6 +85,7 @@ class NewPostViewController: UIViewController {
         frontTextView.isHidden = false
         backTextView.isHidden = false
         newPostTextBackground.isHidden = false
+        AddButtonContainingViewConstraint.constant = 240
     }
     
     /// Changes the current screen to show a drawing canvas.
@@ -76,6 +95,7 @@ class NewPostViewController: UIViewController {
         newPostTextBackground.isHidden = true
         drawingCanvasView.isHidden = false
         clearButtonVar.isHidden = false
+        AddButtonContainingViewConstraint.constant = 240
     }
     
     /**
@@ -107,6 +127,24 @@ class NewPostViewController: UIViewController {
      */
     @IBAction func clearButton(_ sender: Any) {
         drawingCanvasView.clearCanvas()
+    }
+    
+    // Move comment input box up when keyboard opens
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if (AddButtonBottomConstraint.constant < keyboardSize.height){
+//                AddButtonBottomConstraint.constant = keyboardSize.height + 10
+//            }
+            AddButtonContainingViewConstraint.constant = keyboardSize.height - 20
+            view.setNeedsLayout()
+        }
+
+    }
+
+    // Move comment input back down when keyboard closes
+    @objc func keyboardWillHide(notification: Notification) {
+        AddButtonContainingViewConstraint.constant = 240
+        view.setNeedsLayout()
     }
     
     /**

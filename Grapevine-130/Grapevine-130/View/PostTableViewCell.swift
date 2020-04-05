@@ -77,10 +77,15 @@ class PostTableViewCell: UITableViewCell {
         // Render the cell colors
         if self.currentVoteStatus == 0 {
             setNeutralColors()
+            setUnflaggedColors()
         } else if self.currentVoteStatus == -1 {
             setDownvotedColors()
+            setUnflaggedColors()
+//            setShareButtonHighlightedColors()
         } else {
             setUpvotedColors()
+            setFlaggedColorsToPurple()
+//            setShareButtonHighlightedColors()
         }
         
         if self.currentFlagStatus == 1 {
@@ -137,7 +142,7 @@ class PostTableViewCell: UITableViewCell {
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setNeutralColors()
-            setShareButtonNormalColors()
+            setShareButtonHighlightedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else { // post was upvoted, after upvoting will be neutral
@@ -145,7 +150,7 @@ class PostTableViewCell: UITableViewCell {
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
             resetFlagColors()
             setNeutralColors()
-            setShareButtonNormalColors()
+            setShareButtonHighlightedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         }

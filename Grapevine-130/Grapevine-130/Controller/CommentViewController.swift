@@ -81,6 +81,11 @@ class CommentViewController: UIViewController {
         tableView.estimatedRowHeight = 150
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
+        // Close keyboard when tapping anywhere
+        let tap = UITapGestureRecognizer(target: self.view,
+                                         action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
         
     }
     
