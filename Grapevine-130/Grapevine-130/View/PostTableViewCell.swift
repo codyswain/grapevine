@@ -77,15 +77,10 @@ class PostTableViewCell: UITableViewCell {
         // Render the cell colors
         if self.currentVoteStatus == 0 {
             setNeutralColors()
-            setUnflaggedColors()
         } else if self.currentVoteStatus == -1 {
             setDownvotedColors()
-            setUnflaggedColors()
-//            setShareButtonHighlightedColors()
         } else {
             setUpvotedColors()
-            setFlaggedColorsToPurple()
-//            setShareButtonHighlightedColors()
         }
         
         if self.currentFlagStatus == 1 {
@@ -134,23 +129,18 @@ class PostTableViewCell: UITableViewCell {
             currentVoteStatus = 1
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
             setUpvotedColors()
-            setFlaggedColorsToPurple() // hide the flag icon
-            setShareButtonHighlightedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setNeutralColors()
-            setShareButtonHighlightedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
-            resetFlagColors()
             setNeutralColors()
-            setShareButtonHighlightedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         }
@@ -168,21 +158,17 @@ class PostTableViewCell: UITableViewCell {
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setDownvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
-            setShareButtonHighlightedColors()
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
             setNeutralColors()
-            resetFlagColors()
-            setShareButtonNormalColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
             setNeutralColors()
-            setShareButtonNormalColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         }
@@ -236,8 +222,12 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect a downvote.
     */
     func setDownvotedColors(){
+        flagButton.isHidden = false
+        downvoteImageButton.isHidden = false
+        upvoteImageButton.isHidden = true
+        shareButton.isHidden = true
+        decideFlagColors()
         footer.backgroundColor = Constants.Colors.veryDarkGrey
-        upvoteImageButton.tintColor = Constants.Colors.veryDarkGrey
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
     }
@@ -246,9 +236,15 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect no vote.
     */
     func setNeutralColors(){
+        flagButton.isHidden = false
+        downvoteImageButton.isHidden = false
+        upvoteImageButton.isHidden = false
+        shareButton.isHidden = false
+        decideFlagColors()
         footer.backgroundColor = Constants.Colors.darkGrey
         upvoteImageButton.tintColor = Constants.Colors.lightGrey
         downvoteImageButton.tintColor = Constants.Colors.lightGrey
+        shareButton.tintColor = Constants.Colors.lightGrey
         voteCountLabel.textColor = .black
     }
     
@@ -256,8 +252,13 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect an upvote.
     */
     func setUpvotedColors(){
+        flagButton.isHidden = true
+        downvoteImageButton.isHidden = true
+        upvoteImageButton.isHidden = false
+        shareButton.isHidden = false
+        decideFlagColors()
+        shareButton.tintColor = .white
         footer.backgroundColor = Constants.Colors.darkPurple
-        downvoteImageButton.tintColor = Constants.Colors.darkPurple
         upvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
     }
@@ -287,20 +288,18 @@ class PostTableViewCell: UITableViewCell {
         flagButton.tintColor = Constants.Colors.lightGrey
     }
     
-    /// Hide the flag button if a user upvotes a post.
-    func setFlaggedColorsToPurple(){
-        flagButton.tintColor = Constants.Colors.darkPurple
+    func decideFlagColors(){
+        if currentFlagStatus == 1 {
+            return
+        }
+        if currentVoteStatus == -1 {
+            flagButton.tintColor = .white
+        } else {
+            setUnflaggedColors()
+        }
+        
     }
-    
-    func setShareButtonHighlightedColors(){
-        shareButton.tintColor = .white
-    }
-    
-    /// Initialize the share button colors.
-    func setShareButtonNormalColors(){
-        shareButton.tintColor = Constants.Colors.lightGrey
-    }
-    
+        
     /// Button to ban users from the ban chamber.
     @IBAction func banButton(_ sender: Any) {
         self.banDelegate?.banPoster(self)

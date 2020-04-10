@@ -159,7 +159,7 @@ class ViewController: UIViewController {
         alert.addAction(action1)
         alert.addAction(action2)
         alert.addAction(action3)
-        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+        alert.view.tintColor = .black
         self.present(alert, animated: true, completion: nil)
     }
     
