@@ -15,23 +15,23 @@ struct ScoreManager {
     */
     func getEmoji(score:Int) -> String {
         if (score <= -10){
-            return "😭"
+            return "😭😭😭"
         } else if (score <= -5){
-            return "😢"
+            return "😢😢😢"
         } else if (score <= 0){
-            return "🥱"
+            return "🥱🥱🥱"
         } else if (score <= 1){
-            return "😮"
+            return "😮😮😮"
         } else if (score <= 5){
-            return "😤"
+            return "😤😤😤"
         } else if (score <= 10){
-            return "🤩"
+            return "🤩🤩🤩"
         } else if (score <= 25){
-            return "😱"
+            return "😱😱😱"
         } else if (score <= 50){
-            return "🤯"
+            return "🤯🤯🤯"
         } else {
-            return "👑"
+            return "👑👑👑"
         }
     }
     

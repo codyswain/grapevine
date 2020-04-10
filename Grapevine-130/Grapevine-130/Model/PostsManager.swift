@@ -156,6 +156,8 @@ struct PostsManager {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
 
+        print("Sent request URL: \(url)")
+
         // insert json data to the request
         request.httpBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
