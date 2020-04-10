@@ -43,6 +43,8 @@ app.set('db', firestore);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // Link files that control endpoints to the actual endpoints
 app.use('/posts', postsRouter);

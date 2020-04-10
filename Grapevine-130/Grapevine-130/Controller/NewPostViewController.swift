@@ -175,8 +175,6 @@ class NewPostViewController: UIViewController {
             if imData != nil {
                 let image = imData!.pngData()
                 let base64 = image!.base64EncodedString()
-//                print("base64 image to be sent")
-//                print(base64)
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
             }
             self.performSegue(withIdentifier: "goToMain", sender: self)
