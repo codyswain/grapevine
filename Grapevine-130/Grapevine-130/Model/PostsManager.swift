@@ -156,13 +156,14 @@ struct PostsManager {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
 
-        print("Sent request URL: \(url)")
-
         // insert json data to the request
         request.httpBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        print("Sent \(postType) POST request URL: \(url)")
+        let session = URLSession(configuration: .default)
+
+        let task = session.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 self.delegate?.didFailWithError(error: error!)
                 print("Post req error")

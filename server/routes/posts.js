@@ -98,7 +98,7 @@ Output: None
 */
 async function createPost(req, res, next) {
 	var db = req.app.get('db');  
-
+	console.log("createPost request of type: " + req.body.type + " and req.body.userID: " + req.body.userID)
 	// Text post creation logic
 	if (req.body.type == 'text') {
 		let toxic_result = await perspective.analyze(req.body.text);
@@ -122,7 +122,7 @@ async function createPost(req, res, next) {
 
 	// Image/drawing creation logic
 	if (req.body.type == 'image') {
-
+		console.log("Setting user post as image")
 		userPost = {
 			content: req.body.text, // TODO: Hacky solution max of 1MB
 			poster : req.body.userID,
@@ -139,7 +139,7 @@ async function createPost(req, res, next) {
 		};
 	}
 
-	db.collection("posts").add(userPost)
+	await db.collection("posts").add(userPost)
 	.then(ref => {
 	  console.log('Added document with ID: ', ref.id);
 		res.status(200).send(ref.id);
