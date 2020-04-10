@@ -162,7 +162,6 @@ struct PostsManager {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         print("Sent \(postType) POST request URL: \(url)")
 //        print("jsonData.length \(jsonData?.count)")
-        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
         let session = URLSession(configuration: .default)
 
         let task = session.dataTask(with: request) { (data, response, error) in
