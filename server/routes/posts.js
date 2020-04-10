@@ -103,7 +103,6 @@ async function createPost(req, res, next) {
 	if (req.body.type == 'text') {
 		let toxic_result = await perspective.analyze(req.body.text);
 		console.log("Toxicity score " + toxic_result.attributeScores.TOXICITY.summaryScore.value)
-
 		userPost = {
 			content : req.body.text,
 			poster : req.body.userID,

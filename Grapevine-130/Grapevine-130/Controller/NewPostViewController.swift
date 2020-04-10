@@ -52,8 +52,19 @@ class NewPostViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         frontTextView.autocorrectionType = .yes
+        frontTextView.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
     }
-        
+    
+    // Add a "Done" button to close the keyboard
+    @objc func tapDone(sender: Any) {
+        self.view.endEditing(true)
+    }
+
+    // Close the keyboard when you touch anywhere outside the keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
     /**
      Switches to the screen to create a text post.
      
@@ -132,9 +143,6 @@ class NewPostViewController: UIViewController {
     // Move comment input box up when keyboard opens
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            if (AddButtonBottomConstraint.constant < keyboardSize.height){
-//                AddButtonBottomConstraint.constant = keyboardSize.height + 10
-//            }
             AddButtonContainingViewConstraint.constant = keyboardSize.height - 20
             view.setNeedsLayout()
         }
@@ -205,4 +213,19 @@ extension NewPostViewController: UITextViewDelegate {
     }
 
 }
+
+// Add a "Done" button to close the keyboard
+extension UITextView {
+    func addDoneButton(title: String, target: Any, selector: Selector) {
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: UIScreen.main.bounds.size.width,
+                                              height: 44.0))//1
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
+        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+        toolBar.setItems([flexible, barButton], animated: false)//4
+        self.inputAccessoryView = toolBar//5
+    }
+}
+
 
