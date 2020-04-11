@@ -66,7 +66,7 @@ class CanvasView: UIView {
     
     /// Clears the canvas.
     func clearCanvas() {
-        if path == nil || !path.isEmpty {
+        if path != nil {
             path.removeAllPoints()
             self.layer.sublayers = nil
             self.setNeedsDisplay()
