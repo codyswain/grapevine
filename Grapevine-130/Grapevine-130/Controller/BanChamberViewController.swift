@@ -104,13 +104,19 @@ extension BanChamberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         
-        cell.downvoteImageButton.isHidden = true
-        cell.upvoteImageButton.isHidden = true
-        cell.flagButton.isHidden = true
-        cell.deleteButton.isHidden = true
-        cell.voteCountLabel.isHidden = true
-        cell.shareButton.isHidden = true
-        cell.banButtonVar.isHidden = false
+        let group = DispatchGroup()
+        group.enter()
+        DispatchQueue.main.async {
+            cell.downvoteImageButton.isHidden = true
+            cell.upvoteImageButton.isHidden = true
+            cell.flagButton.isHidden = true
+            cell.deleteButton.isHidden = true
+            cell.voteCountLabel.isHidden = true
+            cell.shareButton.isHidden = true
+            cell.banButtonVar.isHidden = false
+            group.leave()
+        }
+        
         // Set main body of post cell
         cell.label.text = posts[indexPath.row].content
         // Set vote count of post cell
@@ -122,6 +128,9 @@ extension BanChamberViewController: UITableViewDataSource {
         cell.refreshView()
         
         cell.banDelegate = self
+        
+        // Don't exit this function until the UI is updated in the main thread
+        group.notify(queue: .main) {}
         
         return cell
     }
