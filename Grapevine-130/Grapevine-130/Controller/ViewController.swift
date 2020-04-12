@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var range = 3
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
+    var storyManager = StoryManager()
     var user: User?
     var userManager = UserManager()
     var scoreManager = ScoreManager()
@@ -204,11 +205,14 @@ class ViewController: UIViewController {
     }
     
     ///Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(){
+    func showSharePopup(_ content: String){
         let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends!", preferredStyle: .alert)
                 
         let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-            // share to Snapchat logic goes here
+            let image = self.storyManager.createImage(content, self.view.center.x, self.view.center.y)
+            if let im = image {
+                self.storyManager.shareImageToSnap(im)
+            }
         }
         
         let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in

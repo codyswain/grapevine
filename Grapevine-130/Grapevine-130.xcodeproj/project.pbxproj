@@ -51,6 +51,7 @@
 		8659F2F323FE27F900C3595F /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2F223FE27F900C3595F /* ScoreViewController.swift */; };
 		86709BD42404BEFD00712ECC /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */; };
 		86709BD824072CCB00712ECC /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD724072CCB00712ECC /* CanvasView.swift */; };
+		868528D82443AB6C00B17013 /* StoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868528D72443AB6C00B17013 /* StoryManager.swift */; };
 		86BE51DD241B62D80012AA14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */; };
 		B34BA4B63B8CD21F341BF5E5 /* Pods_Grapevine_130.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */; };
 /* End PBXBuildFile section */
@@ -73,8 +74,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.debug.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.debug.xcconfig"; sourceTree = "<group>"; };
-		1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.release.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.release.xcconfig"; sourceTree = "<group>"; };
+		1A6FDDC054EB8A12618A5FA8 /* Pods-Grapevine-130.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.release.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.release.xcconfig"; sourceTree = "<group>"; };
 		6322402823FC617A007D05F5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6322402A23FC6398007D05F5 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		6322402E23FC8AA8007D05F5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -112,8 +112,10 @@
 		8661B74223F61D7400658288 /* Grapevine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapevine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
 		86709BD724072CCB00712ECC /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		868528D72443AB6C00B17013 /* StoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryManager.swift; sourceTree = "<group>"; };
 		86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Grapevine_130.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAFD2F6A8E93B87AD264FBEE /* Pods-Grapevine-130.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.debug.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,8 +147,8 @@
 		5774A4D53B35D5E64DEC3D4E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */,
-				1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */,
+				CAFD2F6A8E93B87AD264FBEE /* Pods-Grapevine-130.debug.xcconfig */,
+				1A6FDDC054EB8A12618A5FA8 /* Pods-Grapevine-130.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -207,6 +209,7 @@
 				6322402823FC617A007D05F5 /* User.swift */,
 				6322402A23FC6398007D05F5 /* UserManager.swift */,
 				63D218512429B23D00960938 /* PostReference.swift */,
+				868528D72443AB6C00B17013 /* StoryManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				86709BD42404BEFD00712ECC /* InfoScreenViewController.swift in Sources */,
 				8659F2E823F8A94200C3595F /* Post.swift in Sources */,
 				6322402923FC617A007D05F5 /* User.swift in Sources */,
+				868528D82443AB6C00B17013 /* StoryManager.swift in Sources */,
 				83B1219E242EDB6F0034BF73 /* CommentsManager.swift in Sources */,
 				8659F2D023F8A93400C3595F /* ViewController.swift in Sources */,
 				8609D27B240CF16100A4328E /* BanChamberViewController.swift in Sources */,
@@ -534,7 +538,6 @@
 /* Begin XCBuildConfiguration section */
 		6322403E23FC8B15007D05F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -554,7 +557,6 @@
 		};
 		6322403F23FC8B15007D05F5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -728,12 +730,12 @@
 		};
 		8661B75723F61D7600658288 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 011762738E34EA15AC4875E4 /* Pods-Grapevine-130.debug.xcconfig */;
+			baseConfigurationReference = CAFD2F6A8E93B87AD264FBEE /* Pods-Grapevine-130.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HRCTZ322K4;
+				DEVELOPMENT_TEAM = 75V6QRRPC3;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -749,12 +751,12 @@
 		};
 		8661B75823F61D7600658288 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1725EC6196336695B3E48980 /* Pods-Grapevine-130.release.xcconfig */;
+			baseConfigurationReference = 1A6FDDC054EB8A12618A5FA8 /* Pods-Grapevine-130.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HRCTZ322K4;
+				DEVELOPMENT_TEAM = 75V6QRRPC3;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
