@@ -161,7 +161,7 @@ struct PostsManager {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         print("Sent \(postType) POST request URL: \(url)")
-//        print("jsonData.length \(jsonData?.count)")
+        print("Post req request.httpBody?.count \(request.httpBody?.count)")
         let session = URLSession(configuration: .default)
 
         let task = session.dataTask(with: request) { (data, response, error) in

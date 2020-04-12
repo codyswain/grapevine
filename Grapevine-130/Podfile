@@ -12,4 +12,7 @@ target 'Grapevine-130' do
   pod 'Firebase/Firestore'
   
   pod 'GoogleUtilities'
+
+  pod 'SnapSDK', '1.4.0', :subspecs => ['SCSDKCreativeKit']
+
 end
