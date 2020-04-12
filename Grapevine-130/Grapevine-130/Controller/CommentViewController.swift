@@ -147,7 +147,7 @@ class CommentViewController: UIViewController {
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         if let postContent = commentInput.text {
-            if postContent != "" {
+            if (postContent != "" && postContent != "Add an anonymous comment...") {
                 commentsManager.performPOSTRequest(text:postContent, postID: postID)
             }
         }
