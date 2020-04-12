@@ -109,7 +109,7 @@
 		8659F2E023F8A94200C3595F /* PostsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
 		8659F2F023FE264400C3595F /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
 		8659F2F223FE27F900C3595F /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
-		8661B74223F61D7400658288 /* Grapevine-130.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grapevine-130.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8661B74223F61D7400658288 /* Grapevine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapevine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
 		86709BD724072CCB00712ECC /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		868528D72443AB6C00B17013 /* StoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryManager.swift; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		8661B74323F61D7400658288 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8661B74223F61D7400658288 /* Grapevine-130.app */,
+				8661B74223F61D7400658288 /* Grapevine.app */,
 				6322403623FC8B15007D05F5 /* Grapevine-130Tests.xctest */,
 				6390F9E823FF909700D52FF0 /* Grapevine-130UITests.xctest */,
 			);
@@ -319,7 +319,7 @@
 			);
 			name = "Grapevine-130";
 			productName = "Grapevine-130";
-			productReference = 8661B74223F61D7400658288 /* Grapevine-130.app */;
+			productReference = 8661B74223F61D7400658288 /* Grapevine.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -742,7 +742,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.grapevineapp.Grapevine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grapevine;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -763,7 +763,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.grapevineapp.Grapevine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Grapevine;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

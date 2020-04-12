@@ -83,6 +83,7 @@ class NewPostViewController: UIViewController {
      - Parameter sender: Button that initiates the segue
      */
     @IBAction func createDrawingButton(_ sender: UIButton) {
+        frontTextView.resignFirstResponder() // close keyboard if open
         selectedButtonColors(button:sender)
         deselectedButtonColors(button:createTextButtonVar)
         changeViewToDrawing()
@@ -96,7 +97,6 @@ class NewPostViewController: UIViewController {
         frontTextView.isHidden = false
         backTextView.isHidden = false
         newPostTextBackground.isHidden = false
-        AddButtonContainingViewConstraint.constant = 240
     }
     
     /// Changes the current screen to show a drawing canvas.
@@ -106,7 +106,6 @@ class NewPostViewController: UIViewController {
         newPostTextBackground.isHidden = true
         drawingCanvasView.isHidden = false
         clearButtonVar.isHidden = false
-        AddButtonContainingViewConstraint.constant = 240
     }
     
     /**
@@ -143,7 +142,11 @@ class NewPostViewController: UIViewController {
     // Move comment input box up when keyboard opens
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            AddButtonContainingViewConstraint.constant = keyboardSize.height - 20
+            if (UIScreen.main.bounds.size.height < 736.0){
+                AddButtonContainingViewConstraint.constant = keyboardSize.height + 10
+            } else {
+                AddButtonContainingViewConstraint.constant = keyboardSize.height - 20
+            }
             view.setNeedsLayout()
         }
 
@@ -151,7 +154,7 @@ class NewPostViewController: UIViewController {
 
     // Move comment input back down when keyboard closes
     @objc func keyboardWillHide(notification: Notification) {
-        AddButtonContainingViewConstraint.constant = 240
+        AddButtonContainingViewConstraint.constant = 40
         view.setNeedsLayout()
     }
     
