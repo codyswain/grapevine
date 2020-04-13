@@ -15,15 +15,32 @@ struct StoryManager {
         return SCSDKSnapAPI()
     }()
     
-    func createImage(_ content: String, _ centerX: CGFloat, _ centerY: CGFloat) -> UIImage? {
+    func createImage() -> UIImage? {
         let frame = CGRect(x: 0, y: 0, width: UIScreen.main.nativeBounds.width, height: UIScreen.main.nativeBounds.height)
         let textLabel = UILabel(frame: frame)
         textLabel.backgroundColor = Constants.Colors.darkPurple
+        UIGraphicsBeginImageContext(frame.size)
+        
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            textLabel.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+        return nil
+    }
+    
+    func createSticker(_ content: String, _ centerX: CGFloat, _ centerY: CGFloat) -> UIImage? {
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.nativeBounds.width * (2/3), height: UIScreen.main.nativeBounds.height * (1/3))
+        let textLabel = UILabel(frame: frame)
         textLabel.numberOfLines = 0
         textLabel.textAlignment = .center
-        textLabel.textColor = .white
-        textLabel.font = UIFont.boldSystemFont(ofSize: 35)
-        textLabel.text = "Heard on Grapevine: \"" + content + "\""
+        textLabel.textColor = .black
+        textLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        textLabel.text = "Overheard near me:\n\"" + content + "\""
+        textLabel.layer.masksToBounds = true
+        textLabel.layer.cornerRadius = 40
+        textLabel.clipsToBounds = true
+        
         UIGraphicsBeginImageContext(frame.size)
         
         if let currentContext = UIGraphicsGetCurrentContext() {
@@ -34,11 +51,12 @@ struct StoryManager {
         return nil
     }
 
-    func shareImageToSnap(_ image: UIImage) {
-        let snapPhoto = SCSDKSnapPhoto(image: image)
+    func shareImageToSnap(_ backgroundImage: UIImage, _ stickerImage: UIImage) {
+        let snapPhoto = SCSDKSnapPhoto(image: backgroundImage)
         let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
         snapContent.attachmentUrl = "https://www.instagram.com/teamgrapevine/"
-        // Send it over to Snapchat
+        let sticker = SCSDKSnapSticker(stickerImage: stickerImage)
+        snapContent.sticker = sticker
         snapAPI.startSending(snapContent)
     }
 }

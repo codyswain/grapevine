@@ -13,7 +13,7 @@ import FirebaseFirestore
 protocol CommentViewControllerDelegate {
     func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ post: Post, newFlagStatus: Int)
-    func showSharePopup(_ content: String)
+    func showSharePopup(_ postType: String, _ content: Any)
 }
 
 class CommentViewController: UIViewController {
@@ -176,7 +176,7 @@ class CommentViewController: UIViewController {
             self.downvoteTapped()
         })
         alert.addAction(UIAlertAction(title: "Share", style: .default){ (action:UIAlertAction) in
-            self.delegate?.showSharePopup(self.postContentLabel.text ?? "Error sharing post")
+            self.delegate?.showSharePopup("text", self.postContentLabel.text ?? "Error sharing post")
         })
         alert.addAction(UIAlertAction(title: "Flag", style: .default){ (action:UIAlertAction) in
             self.flagTapped()
