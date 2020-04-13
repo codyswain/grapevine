@@ -194,7 +194,7 @@ class NewPostViewController: UIViewController {
         } else {
             let imData = drawingCanvasView.renderToImage()
             if imData != nil {
-                let image = imData!.pngData()
+                let image = imData!.jpegData(compressionQuality: 0.50)
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
             }
@@ -256,5 +256,3 @@ extension UITextView {
         self.inputAccessoryView = toolBar//5
     }
 }
-
-
