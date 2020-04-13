@@ -22,14 +22,30 @@ struct ScoreManager {
             return "🥱🥱🥱"
         } else if (score <= 1){
             return "😮😮😮"
-        } else if (score <= 5){
+        } else if (score <= 2){
+            return "🙂🙂🙂"
+        } else if (score <= 3){
+            return "😄😄😄"
+        } else if (score <= 4){
             return "😤😤😤"
-        } else if (score <= 10){
+        } else if (score <= 5){
             return "🤩🤩🤩"
-        } else if (score <= 25){
+        } else if (score <= 10){
             return "😱😱😱"
-        } else if (score <= 50){
+        } else if (score <= 15){
             return "🤯🤯🤯"
+        } else if (score <= 20){
+            return "💰💰💰"
+        } else if (score <= 25){
+            return "❄️❄️❄️"
+        } else if (score <= 50){
+            return "🔥🔥🔥"
+        } else if (score <= 100){
+            return "⚡⚡⚡"
+        } else if (score <= 500){
+            return "❗❗❗"
+        } else if (score <= 1000){
+            return "🚨🚨🚨"
         } else {
             return "👑👑👑"
         }

@@ -205,13 +205,18 @@ class ViewController: UIViewController {
     }
     
     ///Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(_ content: String){
-        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends!", preferredStyle: .alert)
+    func showSharePopup(_ postType: String, _ content: Any){
+        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
                 
         let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-            let image = self.storyManager.createImage(content, self.view.center.x, self.view.center.y)
-            if let im = image {
-                self.storyManager.shareImageToSnap(im)
+            let backgroundImage: UIImage = self.storyManager.createImage()!
+            if postType == "text" {
+                let stickerImage = self.storyManager.createSticker(content as! String, self.view.center.x, self.view.center.y)
+                if let im = stickerImage {
+                    self.storyManager.shareImageToSnap(backgroundImage, im)
+                }
+            } else if postType == "image" {
+                self.storyManager.shareImageToSnap(backgroundImage, content as! UIImage)
             }
         }
         
@@ -296,6 +301,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if (posts[indexPath.row].type == "text"){
             // Set main body of post cell
             cell.label.text = posts[indexPath.row].content
+            cell.postType = "text"
         } else {
             if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
                 let image = UIImage(data: decodedData)!
@@ -315,7 +321,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 image.draw(in: rect)
                 let newImage = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
-                
+                cell.postType = "image"
                 cell.imageVar.image = newImage
             }
         }

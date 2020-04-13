@@ -7,7 +7,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
-    func showSharePopup(_ content: String)
+    func showSharePopup(_ postType: String, _ content: Any)
     func viewComments(_ cell: UITableViewCell)
 }
 
@@ -28,7 +28,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var flagButton: UIImageView!
     @IBOutlet weak var banButtonVar: UIButton!
     @IBOutlet weak var shareButton: UIImageView!
-    @IBOutlet weak var imageVar: UIImageView!    
+    @IBOutlet weak var imageVar: UIImageView!
     let db = Firestore.firestore()
     let postManager = PostsManager()
     var currentVoteStatus = 0
@@ -38,6 +38,7 @@ class PostTableViewCell: UITableViewCell {
     var delegate: PostTableViewCellDelegate?
     var banDelegate: BannedPostTableViewCellDelegate?
     var deletable = false
+    var postType = ""
     
     /**
     Initializes the posts table and adds gestures.
@@ -209,7 +210,11 @@ class PostTableViewCell: UITableViewCell {
 
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        self.delegate?.showSharePopup(label.text ?? "Error sharing post")
+        if postType == "text" {
+            self.delegate?.showSharePopup("text", label.text ?? "Error sharing post")
+        } else {
+            self.delegate?.showSharePopup("image", imageVar.image ?? nil!)
+        }
     }
     
     // Segue to view comment screen
