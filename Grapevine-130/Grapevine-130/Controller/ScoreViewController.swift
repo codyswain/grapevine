@@ -68,9 +68,9 @@ class ScoreViewController: UIViewController {
 
     /// Displays a popup that let's the user know that they have enough points to ban others and direct them to the ban chamber.
     func alertPurchaseBanPower(){
-        let alert = UIAlertController(title: "Spend Points", message: "Use your points for the ability to ban someone who has negatively contributed to the community.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Spend Points", message: "Use your points for special powers on Grapevine.", preferredStyle: .alert)
                 
-        let action1 = UIAlertAction(title: "Enter Ban Chamber (20 Points)", style: .default) { (action:UIAlertAction) in
+        let action1 = UIAlertAction(title: "Ban Chamber - Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
             self.performSegue(withIdentifier: "goToBanChamber", sender: self)
         }
 
