@@ -20,17 +20,18 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var createTextButtonVar: UIButton!
     @IBOutlet weak var createDrawingButtonVar: UIButton!
     @IBOutlet weak var clearButtonVar: UIButton!
-    
-    
     @IBOutlet weak var AddButtonContainingViewConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var AddButtonContainingView: UIView!
+    @IBOutlet var newPostView: UIView!
     
     /**
      Intializes the new post screen.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        postsManager.delegate = self
         
         newPostTextBackground.layer.cornerRadius = 10.0
         newPostTextBackground.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
@@ -40,7 +41,11 @@ class NewPostViewController: UIViewController {
         frontTextView.delegate = self
         frontTextView.isHidden = false
         
+        // Custom "Add" post button within view
         AddButtonContainingView.layer.cornerRadius = 25
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addPostButton))
+        AddButtonContainingView.addGestureRecognizer(tapGesture)
+        AddButtonContainingView.isUserInteractionEnabled = true
         
         // Add listeners to keyboard to reposition "Add Post" button
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -163,16 +168,29 @@ class NewPostViewController: UIViewController {
      
      - Parameter sender: Button pressed to activate this function
      */
-    @IBAction func addPostButton(_ sender: Any) {
+    @objc func addPostButton() {
+        // Change button color to make it feel responsive
+        AddButtonContainingView.backgroundColor = Constants.Colors.lightPurple
+        
+        // Hide keyboard
+        self.view.endEditing(true)
+        
+        // Show activity spinner
+        let spinnerView = UIView.init(frame: self.view.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .large)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        spinnerView.addSubview(ai)
+        self.view.addSubview(spinnerView)
+        
         if currentState == "text" {
             print("current state text")
             if let textFieldBody = frontTextView.text {
                 if textFieldBody != "" {
                     postsManager.performPOSTRequest(contentText: textFieldBody, latitude: lat, longitude: lon, postType: "text")
-                    self.frontTextView.text = ""
                 }
             }
-            self.performSegue(withIdentifier: "goToMain", sender: self)
         } else {
             let imData = drawingCanvasView.renderToImage()
             if imData != nil {
@@ -180,7 +198,6 @@ class NewPostViewController: UIViewController {
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
             }
-            self.performSegue(withIdentifier: "goToMain", sender: self)
         }
     }
 }
@@ -212,7 +229,18 @@ extension NewPostViewController: UITextViewDelegate {
         let numberOfChars = newText.count
         return numberOfChars < Constants.numberOfCharactersPerPost;
     }
+}
 
+extension NewPostViewController: PostsManagerDelegate {
+    func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {}
+    func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {}
+    func didFailWithError(error: Error) {}
+    
+    func didCreatePost() {
+        DispatchQueue.main.async {
+          self.performSegue(withIdentifier: "goToMain", sender: self)
+        }
+    }
 }
 
 // Add a "Done" button to close the keyboard

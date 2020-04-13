@@ -156,6 +156,13 @@ extension BanChamberViewController: PostsManagerDelegate {
     func didFailWithError(error: Error){
         print(error)
     }
+    
+    /**
+    This function must be declared but is never called
+    */
+    func didCreatePost() {
+        return
+    }
 }
 
 /// Retrieves user location data and fetches posts.
