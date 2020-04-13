@@ -41,10 +41,9 @@ app.set('db', firestore);
 
 // Middleware that allows us to use URL decoding, JSON, etc
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json({ limit: '125mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '125mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb', parameterLimit:50000}));
 
 // Link files that control endpoints to the actual endpoints
 app.use('/posts', postsRouter);
