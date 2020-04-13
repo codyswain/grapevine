@@ -413,7 +413,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nUZ-rb-A9I" userLabel="Info Line Stack">
-                                <rect key="frame" x="20" y="69" width="358.5" height="17"/>
+                                <rect key="frame" x="20" y="69" width="258" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bnu-3m-B9W">
                                         <rect key="frame" x="0.0" y="0.5" width="17" height="16"/>
@@ -423,8 +423,8 @@
                                             <constraint firstAttribute="height" constant="17" id="alT-x0-VcY"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Punish the creator of one of these posts." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-hN-8R6">
-                                        <rect key="frame" x="27" y="0.0" width="331.5" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Punish the creator of a post." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-hN-8R6">
+                                        <rect key="frame" x="27" y="0.0" width="231" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -822,6 +822,6 @@
         <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YJd-nw-Ils"/>
+        <segue reference="kjT-Vd-qTU"/>
     </inferredMetricsTieBreakers>
 </document>
