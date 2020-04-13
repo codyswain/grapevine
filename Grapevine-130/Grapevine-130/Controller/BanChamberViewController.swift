@@ -12,6 +12,8 @@ class BanChamberViewController: UIViewController {
     let locationManager = CLLocationManager()
     var posts: [Post] = []
     var ref = ""
+    var range = 3
+    var canGetMorePosts = true
     var postsManager = PostsManager()
     var userManager = UserManager()
     var postTableCell = PostTableViewCell()
@@ -147,9 +149,28 @@ extension BanChamberViewController: PostsManagerDelegate {
      */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String){
         DispatchQueue.main.async {
+            self.indicator.stopAnimating()
+            
+            if ref == "" {
+                self.canGetMorePosts = false
+            } else {
+                self.canGetMorePosts = true
+            }
+            
             self.posts = posts
             self.ref = ref
             self.tableView.reloadData()
+            
+            if self.posts.count == 0 {
+                let noPostsLabel = UILabel()
+                noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
+                noPostsLabel.textAlignment = .center
+                noPostsLabel.text = "No bannable posts in your area :("
+                self.tableView.tableHeaderView = noPostsLabel
+                self.tableView.tableHeaderView?.isHidden = false
+            } else {
+                self.tableView.tableHeaderView = nil
+            }
         }
     }
     
@@ -185,7 +206,7 @@ extension BanChamberViewController: CLLocationManagerDelegate {
             self.lon = location.coordinate.longitude
             print("Location request success")
             // Set to global ban range for now
-            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: 10)
+            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: self.range)
         }
     }
     
