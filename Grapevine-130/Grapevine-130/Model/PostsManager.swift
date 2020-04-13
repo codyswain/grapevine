@@ -5,6 +5,7 @@ protocol PostsManagerDelegate {
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String)
     func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String)
     func didFailWithError(error: Error)
+    func didCreatePost()
 }
 
 /// An object that handles the retrieval of post data from the database.
@@ -177,6 +178,7 @@ struct PostsManager {
                 print("Post req response = \(response)")
                 let httpResponse = response as! HTTPURLResponse
                 print("Post req response code = \(httpResponse.statusCode)")
+                self.delegate?.didCreatePost()
             }
         }
         task.resume()

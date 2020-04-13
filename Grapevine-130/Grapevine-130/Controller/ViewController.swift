@@ -417,6 +417,19 @@ extension ViewController: PostsManagerDelegate {
     func didFailWithError(error: Error){
         print(error)
     }
+    
+    func didCreatePost() {
+        print("This is what I want to run")
+//        /**
+//        Fires after a new post is created and return processed. This ensures a newly created post will show up.
+//        */
+//        func didCreatePost() {
+//            print("Create post delegate executed. ")
+//            // Refresh posts in the table
+//            self.tableView.refreshControl?.beginRefreshing()
+//            self.refresh()
+//        }
+    }
 }
 
 /// Retrieves user location data and fetches posts.
