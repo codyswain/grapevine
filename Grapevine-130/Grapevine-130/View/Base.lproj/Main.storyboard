@@ -157,7 +157,7 @@
                                 <rect key="frame" x="20" y="93" width="247.5" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoSign" translatesAutoresizingMaskIntoConstraints="NO" id="1kH-kp-NaZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="17.000000000000114" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -166,7 +166,7 @@
                                             <constraint firstAttribute="height" constant="17" id="cKa-tg-5ea"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post visibile within 5 miles." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbT-Yh-17R">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post visibile within 3 miles." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbT-Yh-17R">
                                         <rect key="frame" x="27" y="0.0" width="220.5" height="17"/>
                                         <accessibility key="accessibilityConfiguration" identifier="newPostVisibility"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -515,14 +515,14 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1P-vw-7NA">
                                 <rect key="frame" x="20" y="147" width="374" height="72"/>
-                                <string key="text">On Grapevine, a user's points are the cumulative sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 points. </string>
+                                <string key="text">On Grapevine, a user's points are the sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 points. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
                                 <rect key="frame" x="20" y="227" width="374" height="99"/>
-                                <string key="text">These points can be spent on special moderating powers: you can unlock the ability to issue strikes on certain users that have posted heavily downvoted content that may be harmful to the community (bullying, spam). </string>
+                                <string key="text">These points can be spent on platform powers. One power is the ability to issue strikes on certain users that have posted heavily downvoted content. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -822,6 +822,6 @@
         <image name="plus.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kjT-Vd-qTU"/>
+        <segue reference="sdr-18-gKw"/>
     </inferredMetricsTieBreakers>
 </document>
