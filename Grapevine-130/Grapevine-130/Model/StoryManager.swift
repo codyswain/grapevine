@@ -7,26 +7,29 @@
 //
 
 import Foundation
-
+import CoreLocation
 import SCSDKCreativeKit
 
 struct StoryManager {
     var snapAPI = {
         return SCSDKSnapAPI()
     }()
-    
-    func createBackgroundImage() -> UIImage? {
+        
+    func createBackgroundImage(_ postType: String, _ city: String) -> UIImage? {
         let frame = CGRect(x: 0, y: 0, width: UIScreen.main.nativeBounds.width, height: UIScreen.main.nativeBounds.height)
         let mainView = UIView(frame: frame)
         mainView.backgroundColor = .white
         
-        let frameX = CGRect(x: (UIScreen.main.nativeBounds.width/2) - 300, y: UIScreen.main.nativeBounds.height*(1/4), width: 600, height: 200)
-        let textLabelX = UILabel(frame: frameX)
+        var labelFrame = CGRect(x: (UIScreen.main.nativeBounds.width/2) - 300, y: UIScreen.main.nativeBounds.height*(1/4), width: 600, height: 100)
+        if (postType == "text"){
+            labelFrame = CGRect(x: (UIScreen.main.nativeBounds.width/2) - 300, y: UIScreen.main.nativeBounds.height*(1/3), width: 600, height: 100)
+        }
+        let textLabelX = UILabel(frame:labelFrame)
         textLabelX.numberOfLines = 0
         textLabelX.textAlignment = .center
         textLabelX.textColor = .black
-        textLabelX.font = UIFont.boldSystemFont(ofSize: 45)
-        textLabelX.text = "Anonymously said near me:"
+        textLabelX.font = UIFont.boldSystemFont(ofSize: 35)
+        textLabelX.text = "Anonymously said near " + city
         
         mainView.addSubview(textLabelX)
         

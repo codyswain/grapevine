@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var postTableCell = PostTableViewCell()
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
+    var currentCity:String = "Grapevine"
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .black
@@ -204,23 +205,37 @@ class ViewController: UIViewController {
         }
     }
     
+    func updateCity() {
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: lat, longitude: lon)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            self.currentCity = placeMark.addressDictionary!["SubLocality"] as! String
+        })
+    }
+    
     ///Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(_ postType: String, _ content: Any){
-        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
-                
-        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-            let backgroundImage: UIImage = self.storyManager.createBackgroundImage()!
-            self.storyManager.shareImageToSnap(backgroundImage, content as! UIImage)
-        }
+    func showSharePopup(_ postType: String, _ content: UIImage){
         
-        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
-            
-        }
-
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
-        self.present(alert, animated: true, completion: nil)
+        let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity)!
+        self.storyManager.shareImageToSnap(backgroundImage, content)
+//        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
+//
+//        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
+//            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType)!
+//            self.storyManager.shareImageToSnap(backgroundImage, content)
+//        }
+//
+//        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+//
+//        }
+//
+//        alert.addAction(action1)
+//        alert.addAction(action2)
+//        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+//        self.present(alert, animated: true, completion: nil)
     }
     
     func viewComments(_ cell: UITableViewCell){
@@ -444,6 +459,7 @@ extension ViewController: CLLocationManagerDelegate {
         if let location = locations.last {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
+            updateCity()
             print("Location request success")
             postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range)
         }
