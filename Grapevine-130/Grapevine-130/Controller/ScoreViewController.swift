@@ -8,6 +8,7 @@ class ScoreViewController: UIViewController {
     var score = 0
     var emoji: String?
     var strikesLeftMessage:String?
+    var range = 3
     @IBOutlet weak var emojiLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var strikesLeftLabel: UILabel!
@@ -54,6 +55,11 @@ class ScoreViewController: UIViewController {
             destinationVC.score = score
             destinationVC.emoji = emoji
             destinationVC.strikesLeftMessage = strikesLeftMessage
+        }
+        
+        if segue.identifier == "goToBanChamber" {
+            let destinationVC = segue.destination as! BanChamberViewController
+            destinationVC.range = range
         }
     }
     

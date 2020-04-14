@@ -198,6 +198,7 @@ class ViewController: UIViewController {
                 destinationVC.emoji = scoreManager.getEmoji(score:0)
                 destinationVC.strikesLeftMessage = scoreManager.getStrikeMessage(strikes:0)
             }
+            destinationVC.range = range
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
