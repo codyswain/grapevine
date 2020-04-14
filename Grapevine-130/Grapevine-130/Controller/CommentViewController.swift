@@ -42,6 +42,7 @@ class CommentViewController: UIViewController {
     var mainPost: Post?
     var delegate: CommentViewControllerDelegate?
     let postManager = PostsManager()
+    var mainPostScreenshot: UIImage?
     
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -167,7 +168,7 @@ class CommentViewController: UIViewController {
     */
     
     func alertActions(){
-        let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Share, Flag", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Flag", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Upvote", style: .default){ (action:UIAlertAction) in
             self.upvoteTapped()
@@ -175,9 +176,9 @@ class CommentViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
             self.downvoteTapped()
         })
-//        alert.addAction(UIAlertAction(title: "Share", style: .default){ (action:UIAlertAction) in
-//            self.delegate?.showSharePopup("text", self.postContentLabel.text ?? "Error sharing post")
-//        })
+        /*alert.addAction(UIAlertAction(title: "Share", style: .default){ (action:UIAlertAction) in
+            self.delegate?.showSharePopup(self.mainPost?.type ?? "text", self.mainPostScreenshot ?? nil!)
+        })*/
         alert.addAction(UIAlertAction(title: "Flag", style: .default){ (action:UIAlertAction) in
             self.flagTapped()
         })

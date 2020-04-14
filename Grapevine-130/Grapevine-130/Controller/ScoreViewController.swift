@@ -79,13 +79,17 @@ class ScoreViewController: UIViewController {
         let action1 = UIAlertAction(title: "Ban Chamber - Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
             self.performSegue(withIdentifier: "goToBanChamber", sender: self)
         }
-
-        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        
+        let action2 = UIAlertAction(title: "Juiced - Get Double Karma (Currently Unavailable)", style: .default) { (action:UIAlertAction) in
+        }
+                
+        let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
             print("You've pressed cancel");
         }
 
         alert.addAction(action1)
         alert.addAction(action2)
+        alert.addAction(action3)
         alert.view.tintColor = Constants.Colors.darkPurple
         self.present(alert, animated: true, completion: nil)
 

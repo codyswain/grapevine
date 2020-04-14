@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     
     // Post clicked to view comments
     var selectedPost: Post?
+    var selectedPostScreenshot: UIImage?
 
     /// Main control flow that manages the app once the first screen is entered.
     override func viewDidLoad() {
@@ -203,6 +204,7 @@ class ViewController: UIViewController {
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
             destinationVC.mainPost = selectedPost
+            destinationVC.mainPostScreenshot = selectedPostScreenshot
         }
     }
     
@@ -219,34 +221,35 @@ class ViewController: UIViewController {
     
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ postType: String, _ content: UIImage){
-        
         let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity)!
         self.storyManager.shareImageToSnap(backgroundImage, content)
-//        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
-//
-//        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-//            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType)!
-//            self.storyManager.shareImageToSnap(backgroundImage, content)
-//        }
-//
-//        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
-//
-//        }
-//
-//        alert.addAction(action1)
-//        alert.addAction(action2)
-//        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
-//        self.present(alert, animated: true, completion: nil)
+        /*
+        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
+
+        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
+            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType)!
+            self.storyManager.shareImageToSnap(backgroundImage, content)
+        }
+
+        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+
+        }
+
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
+        self.present(alert, animated: true, completion: nil)
+         */
     }
     
-    func viewComments(_ cell: UITableViewCell){
+    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
         print("Segue to comment view occurs here")
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         selectedPost = posts[row]
+        selectedPostScreenshot = postScreenshot
         self.performSegue(withIdentifier: "goToComments", sender: self)
     }
-
 }
 
 /// Manages the posts table.
