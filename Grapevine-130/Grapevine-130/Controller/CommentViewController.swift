@@ -62,6 +62,7 @@ class CommentViewController: UIViewController {
         } else {
             displayImage()
         }
+        adjustFrame()
         
         inputTextContainerView.layer.cornerRadius = 10
         
@@ -114,9 +115,18 @@ class CommentViewController: UIViewController {
             
             imageVar.image = newImage
         }
-        self.actionBar.frame.origin.x = 0
-        self.actionBar.frame.origin.y = self.view.frame.size.height / 2.5
-
+    }
+    
+    func adjustFrame(){
+        let heightInPoints = mainPostScreenshot?.size.height
+        let heightInPixels = heightInPoints! * mainPostScreenshot!.scale
+        if (mainPost?.type == "text"){
+            self.actionBar.frame.origin.x = 0
+            self.actionBar.frame.origin.y = max(heightInPixels / 2.5, 150)
+        } else {
+            self.actionBar.frame.origin.x = 0
+            self.actionBar.frame.origin.y = max(heightInPixels / 2, 250)
+        }
     }
     
     /// Refresh the main posts view based on current user location.

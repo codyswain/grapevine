@@ -19,11 +19,7 @@ class ScoreViewController: UIViewController {
      - Parameter sender: Segue initiator
      */
     @IBAction func usePointsButton(_ sender: Any) {
-        if score >= 20 {
-            alertPurchaseBanPower()
-        } else {
-            alertMessageNotEnoughPoints()
-        }
+        alertPurchaseBanPower()
     }
     
     /**
@@ -74,13 +70,17 @@ class ScoreViewController: UIViewController {
 
     /// Displays a popup that let's the user know that they have enough points to ban others and direct them to the ban chamber.
     func alertPurchaseBanPower(){
-        let alert = UIAlertController(title: "Spend Points", message: "Use your points for special powers on Grapevine.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Spend Karma", message: "Use your karma for special powers on Grapevine.", preferredStyle: .alert)
                 
         let action1 = UIAlertAction(title: "Ban Chamber - Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
-            self.performSegue(withIdentifier: "goToBanChamber", sender: self)
+            if self.score >= 20 {
+                self.performSegue(withIdentifier: "goToBanChamber", sender: self)
+            } else {
+                self.alertMessageNotEnoughPoints()
+            }
         }
         
-        let action2 = UIAlertAction(title: "Juiced - Get Double Karma (Currently Unavailable)", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "(Closed) Juiced - Get Double Karma", style: .default) { (action:UIAlertAction) in
         }
                 
         let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
