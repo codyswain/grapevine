@@ -221,7 +221,10 @@ class ViewController: UIViewController {
     
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ postType: String, _ content: UIImage){
-        let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity)!
+        let heightInPoints = content.size.height
+        let heightInPixels = heightInPoints * content.scale
+
+        let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity, heightInPixels)!
         self.storyManager.shareImageToSnap(backgroundImage, content)
         /*
         let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
