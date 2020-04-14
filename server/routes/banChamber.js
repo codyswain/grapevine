@@ -44,7 +44,7 @@ async function getBannablePosts(req, res, next) {
 			// Loop through each post returned and add it to our list
 			snapshot.forEach((post) => {
 				var curPost = post.data()
-				if (parseInt(curPost.votes) <= -3){
+				if (parseInt(curPost.votes) <= -3 && curPost.poster != user){
 					curPost.postId = post.id
 					curPost.voteStatus = 0
 					curPost.flagStatus = 0
