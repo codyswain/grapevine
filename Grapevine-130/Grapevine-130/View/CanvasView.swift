@@ -20,7 +20,7 @@ class CanvasView: UIView {
         self.isMultipleTouchEnabled = false
         
         lineColor = Constants.Colors.darkPurple
-        lineWidth = 5
+        lineWidth = 7
     }
     
     /**

@@ -194,7 +194,7 @@ class NewPostViewController: UIViewController {
         } else {
             let imData = drawingCanvasView.renderToImage()
             if imData != nil {
-                let image = imData!.jpegData(compressionQuality: 0.50)
+                let image = imData!.jpegData(compressionQuality: 0.5)
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
             }

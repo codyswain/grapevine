@@ -207,14 +207,24 @@ class PostTableViewCell: UITableViewCell {
         
         postManager.performInteractionRequest(interaction: 4, docID: self.documentId)
     }
-
+    
+    func createImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            self.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+        return nil
+    }
+    
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        if postType == "text" {
-            self.delegate?.showSharePopup("text", label.text ?? "Error sharing post")
-        } else {
-            self.delegate?.showSharePopup("image", imageVar.image ?? nil!)
-        }
+//        if postType == "text" {
+//            self.delegate?.showSharePopup("text", label.text ?? "Error sharing post")
+//        } else {
+            self.delegate?.showSharePopup("image", createImage() ?? nil!)
+//        }
     }
     
     // Segue to view comment screen

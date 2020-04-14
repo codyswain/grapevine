@@ -209,15 +209,8 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
                 
         let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-            let backgroundImage: UIImage = self.storyManager.createImage()!
-            if postType == "text" {
-                let stickerImage = self.storyManager.createSticker(content as! String, self.view.center.x, self.view.center.y)
-                if let im = stickerImage {
-                    self.storyManager.shareImageToSnap(backgroundImage, im)
-                }
-            } else if postType == "image" {
-                self.storyManager.shareImageToSnap(backgroundImage, content as! UIImage)
-            }
+            let backgroundImage: UIImage = self.storyManager.createBackgroundImage()!
+            self.storyManager.shareImageToSnap(backgroundImage, content as! UIImage)
         }
         
         let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in

@@ -15,42 +15,31 @@ struct StoryManager {
         return SCSDKSnapAPI()
     }()
     
-    func createImage() -> UIImage? {
+    func createBackgroundImage() -> UIImage? {
         let frame = CGRect(x: 0, y: 0, width: UIScreen.main.nativeBounds.width, height: UIScreen.main.nativeBounds.height)
-        let textLabel = UILabel(frame: frame)
-        textLabel.backgroundColor = Constants.Colors.darkPurple
+        let mainView = UIView(frame: frame)
+        mainView.backgroundColor = .white
+        
+        let frameX = CGRect(x: (UIScreen.main.nativeBounds.width/2) - 300, y: UIScreen.main.nativeBounds.height*(1/4), width: 600, height: 200)
+        let textLabelX = UILabel(frame: frameX)
+        textLabelX.numberOfLines = 0
+        textLabelX.textAlignment = .center
+        textLabelX.textColor = .black
+        textLabelX.font = UIFont.boldSystemFont(ofSize: 45)
+        textLabelX.text = "Anonymously said near me:"
+        
+        mainView.addSubview(textLabelX)
+        
         UIGraphicsBeginImageContext(frame.size)
         
         if let currentContext = UIGraphicsGetCurrentContext() {
-            textLabel.layer.render(in: currentContext)
+            mainView.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()
             return nameImage
         }
         return nil
     }
     
-    func createSticker(_ content: String, _ centerX: CGFloat, _ centerY: CGFloat) -> UIImage? {
-        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.nativeBounds.width * (2/3), height: UIScreen.main.nativeBounds.height * (1/3))
-        let textLabel = UILabel(frame: frame)
-        textLabel.numberOfLines = 0
-        textLabel.textAlignment = .center
-        textLabel.textColor = .black
-        textLabel.font = UIFont.boldSystemFont(ofSize: 40)
-        textLabel.text = "Overheard near me:\n\"" + content + "\""
-        textLabel.layer.masksToBounds = true
-        textLabel.layer.cornerRadius = 40
-        textLabel.clipsToBounds = true
-        
-        UIGraphicsBeginImageContext(frame.size)
-        
-        if let currentContext = UIGraphicsGetCurrentContext() {
-            textLabel.layer.render(in: currentContext)
-            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-            return nameImage
-        }
-        return nil
-    }
-
     func shareImageToSnap(_ backgroundImage: UIImage, _ stickerImage: UIImage) {
         let snapPhoto = SCSDKSnapPhoto(image: backgroundImage)
         let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
