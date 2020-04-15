@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var utils = require('../server_utils.js') // NOTE: Relative pathing can break
 const admin = require('firebase-admin');
+const FieldValue = require('firebase-admin').firestore.FieldValue
 
 // URL parsing to get info from client
 router.get('/', getBannablePosts);
@@ -58,17 +59,7 @@ async function getBannablePosts(req, res, next) {
 			console.log("ERROR looking up bannable posts:" + err)
 		})
 
-	await db.collection('users').doc(user).update({
-	  score: admin.firestore.FieldValue.increment(-20)
-	}).then((snapshot) => {
-		console.log(posts)
-		res.status(200).send({reference: "", posts: posts})		
-	})
-	.catch((err) => { 
-		console.log("ERROR changing user score:" + err)
-		res.status(200).send(posts)
-	})	
-	
+	res.status(200).send({reference: "", posts: posts})		
 }
 
 /**
@@ -76,47 +67,35 @@ async function getBannablePosts(req, res, next) {
  */
 async function banPoster(req, res, next) {
 	let poster = req.query.poster;
+	let user = req.query.user;
 	let time = req.query.time;
 	let postID = req.query.postID;
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
-	var strikeUpdateStatus = false
-	var timeUpdateStatus = false
 
-	await db.collection('users').doc(poster).update({
-	  strikes: admin.firestore.FieldValue.increment(3)
-	}).then((snapshot) => {
-		strikeUpdateStatus = true
-	})
-	.catch((err) => { 
-		strikeUpdateStatus = false
-		console.log("ERROR updating strikes in posts.js:" + err)
-	})	
+	let posterref = db.collection('users').doc(poster)
+	let userref = db.collection('users').doc(user)
+	let docref = db.collection('posts').doc(postID)
+	db.runTransaction(t => {
+		return t.get(docref).then(snapshot => {
+			console.log(snapshot.data())
+			if (!snapshot.exists) {
+				res.status(500).send();
+				throw "Post " + postID + " does not exist";
+			}
 
-	await db.collection('users').doc(poster).update({
-	  banDate: parseInt(time)
-	}).then((snapshot) => {
-		timeUpdateStatus = true
+			t.update(userref, { score: FieldValue.increment(-20)});
+			t.update(posterref, { banDate: parseInt(time), strikes: 3});
+			t.delete(docref);
+		})
+	}).then(() => {
+		console.log("Successfully deleted the post " + postID + " and banned user " + user)
+		res.status(200).send()
+	}).catch((err) => {
+		console.log("Failed to delete the post " + postID + " and user " + user)
+		console.log("Error: " + err)
+		res.status(500).send()
 	})
-	.catch((err) => { 
-		timeUpdateStatus = false
-		console.log("ERROR updating time in posts.js:" + err)
-	})	
-
-	// Delete posts
-	await db.collection('posts').doc(postID).delete()
-	.catch((err) => {
-		console.log("ERROR deleting post : " + err)
-	})
-	.then(() => {
-		console.log("Successfully deleted post " + postID);
-	})
-
-	if (strikeUpdateStatus && timeUpdateStatus){
-		res.send("banPoster strikes and time update success")
-	} else {
-		res.send("Error in banPoster")
-	}
 }
 
 module.exports = router;

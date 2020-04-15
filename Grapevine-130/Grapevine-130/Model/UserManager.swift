@@ -10,6 +10,7 @@ import Foundation
 
 protocol UserManagerDelegate {
     func didGetUser(_ userManager: UserManager, user: User)
+    func didBanUser(_ userManager: UserManager)
     func userDidFailWithError(error: Error)
 }
 
@@ -44,7 +45,7 @@ struct UserManager {
     }
     
     func banUser(poster: String, postID: String) {
-        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)&postID=\(postID)"
+        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)&postID=\(postID)&user=\(Constants.userID)"
         print ("Banning userID: ", poster)
         performRequest(with: urlString, handleResponse: false)
     }
@@ -79,11 +80,15 @@ struct UserManager {
                     }
                 // banUser() response
                 } else {
-                    if error != nil {
-                        print("Error banning OR freeing user: \(String(describing: error))")
-                    }
-                    if data != nil {
-                        print("Banned/free user success")
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if httpResponse.statusCode != 200 {
+                            print("Error banning OR freeing user: \(String(describing: error))")
+                            self.delegate?.userDidFailWithError(error: NSError(domain:"", code:httpResponse.statusCode, userInfo:nil))
+                            return
+                        } else {
+                            print("Banned/free user success")
+                            self.delegate?.didBanUser(self)
+                        }
                     }
                 }
             }

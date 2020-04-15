@@ -8,6 +8,7 @@ import CoreLocation
 class BanChamberViewController: UIViewController {
     // UI variables
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var banLabel: UILabel!
     // Globals
     let locationManager = CLLocationManager()
     var posts: [Post] = []
@@ -44,6 +45,8 @@ class BanChamberViewController: UIViewController {
         // Load posts
         postsManager.delegate = self
         
+        userManager.delegate = self
+        
         // Load table
         tableView.dataSource = self
         tableView.refreshControl = refresher
@@ -51,6 +54,10 @@ class BanChamberViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.backgroundColor = UIColor.white
+        
+        // Add scroll to top button
+        let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
+        banLabel.addGestureRecognizer(tapGestureRecognizer1)
     }
     
     /// Displays a loading icon while posts load.
@@ -71,6 +78,14 @@ class BanChamberViewController: UIViewController {
         let deadline = DispatchTime.now() + .milliseconds(1000)
         DispatchQueue.main.asyncAfter(deadline: deadline){
             self.refresher.endRefreshing()
+        }
+    }
+    
+    @objc func scrollToTop()
+    {
+        DispatchQueue.main.async {
+            let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
+            self.tableView?.setContentOffset(topOffest, animated: true)
         }
     }
 }
@@ -106,8 +121,8 @@ extension BanChamberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         
-        let group = DispatchGroup()
-        group.enter()
+        cell.imageVar.image = nil
+        
         DispatchQueue.main.async {
             cell.downvoteImageButton.isHidden = true
             cell.upvoteImageButton.isHidden = true
@@ -116,13 +131,36 @@ extension BanChamberViewController: UITableViewDataSource {
             cell.voteCountLabel.isHidden = true
             cell.shareButton.isHidden = true
             cell.banButtonVar.isHidden = false
-            group.leave()
         }
         
-        // Set main body of post cell
-        cell.label.text = posts[indexPath.row].content
-        // Set vote count of post cell
-        cell.voteCountLabel.text = String(posts[indexPath.row].votes)
+        if (posts[indexPath.row].type == "text"){
+            // Set main body of post cell
+            cell.label.text = posts[indexPath.row].content
+            cell.postType = "text"
+        } else {
+            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
+                let image = UIImage(data: decodedData)!
+                cell.label.text = ""
+                let scale: CGFloat
+                if image.size.width > image.size.height {
+                    scale = cell.imageVar.bounds.width / image.size.width
+                } else {
+                    scale = cell.imageVar.bounds.height / image.size.height
+                }
+                
+                cell.imageVar.image = image
+                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+                
+                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+                image.draw(in: rect)
+                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                cell.postType = "image"
+                cell.imageVar.image = newImage
+            }
+        }
+    
         // Set the postID
         cell.documentId = posts[indexPath.row].postId
                 
@@ -130,9 +168,6 @@ extension BanChamberViewController: UITableViewDataSource {
         cell.refreshView()
         
         cell.banDelegate = self
-        
-        // Don't exit this function until the UI is updated in the main thread
-        group.notify(queue: .main) {}
         
         return cell
     }
@@ -227,11 +262,44 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
     */
     func banPoster(_ cell: UITableViewCell) {
         print("inside banPoster")
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let row = indexPath.row
-        let creatorToBeBanned = posts[row].poster
-        let postToBeDeleted = posts[row].postId
-        userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
-        self.performSegue(withIdentifier: "banToMain", sender: self)
+        
+        let alert = UIAlertController(title: "Are you sure you want to ban this user?", message: "", preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "Yes", style: .default) { (action:UIAlertAction) in
+            let indexPath = self.tableView.indexPath(for: cell)!
+            let row = indexPath.row
+            let creatorToBeBanned = self.posts[row].poster
+            let postToBeDeleted = self.posts[row].postId
+            self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
+        }
+        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+            print("You've pressed cancel");
+        }
+        alert.addAction(action1)
+        alert.addAction(action2)
+        alert.view.tintColor = Constants.Colors.darkPurple
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension BanChamberViewController: UserManagerDelegate {
+    func didGetUser(_ userManager: UserManager, user: User) {}
+    
+    func didBanUser(_ userManager: UserManager) {
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "banToMain", sender: self)
+        }
+    }
+    
+    func userDidFailWithError(error: Error) {
+        // TODO: Refactor scrolling to the top and refreshing for this and ViewController
+        // Scroll to top and refresh posts in the table
+        self.scrollToTop()
+        DispatchQueue.main.async {
+            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+            
+            self.tableView.refreshControl?.beginRefreshing()
+        }
+        
+        self.refresh()
     }
 }

@@ -482,6 +482,10 @@ extension ViewController: CLLocationManagerDelegate {
 
 /// Update post data.
 extension ViewController: PostTableViewCellDelegate {
+    func showSharePopup(_ postType: String, _ content: Any) {}
+    
+    func viewComments(_ cell: UITableViewCell) {}
+    
     /**
      Updates votes view on a post.
      
@@ -547,6 +551,8 @@ extension ViewController: UserManagerDelegate {
             self.user = user
         }
     }
+    
+    func didBanUser(_ userManager: UserManager) {}
     
     /**
     Fires if user retrieval fails.
