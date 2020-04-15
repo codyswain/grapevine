@@ -207,18 +207,7 @@ class ViewController: UIViewController {
             destinationVC.mainPostScreenshot = selectedPostScreenshot
         }
     }
-    
-    func updateCity() {
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: lat, longitude: lon)
-        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-            // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            self.currentCity = placeMark.addressDictionary!["SubLocality"] as! String
-        })
-    }
-    
+        
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
@@ -252,6 +241,17 @@ class ViewController: UIViewController {
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
         self.performSegue(withIdentifier: "goToComments", sender: self)
+    }
+    
+    func updateCity() {
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: lat, longitude: lon)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            self.currentCity = placeMark.addressDictionary!["SubLocality"] as! String
+        })
     }
 }
 

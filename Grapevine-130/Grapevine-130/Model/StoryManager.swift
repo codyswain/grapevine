@@ -48,4 +48,11 @@ struct StoryManager {
         snapContent.sticker = sticker
         snapAPI.startSending(snapContent)
     }
+    
+    func shareImageToSnapNoSticker(_ backgroundImage: UIImage) {
+        let snapPhoto = SCSDKSnapPhoto(image: backgroundImage)
+        let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
+        snapContent.attachmentUrl = "https://www.instagram.com/teamgrapevine/"
+        snapAPI.startSending(snapContent)
+    }
 }

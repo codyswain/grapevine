@@ -43,7 +43,8 @@ class CommentViewController: UIViewController {
     var delegate: CommentViewControllerDelegate?
     let postManager = PostsManager()
     var mainPostScreenshot: UIImage?
-    
+    var storyManager = StoryManager()
+
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -166,17 +167,7 @@ class CommentViewController: UIViewController {
         commentInput.text = "Add an anonymous comment..."
 //        self.performSegue(withIdentifier: "goToMain", sender: self)
     }
-    
-    /*
-     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
+        
     func alertActions(){
         let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Flag", preferredStyle: .alert)
         
@@ -186,9 +177,9 @@ class CommentViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
             self.downvoteTapped()
         })
-        /*alert.addAction(UIAlertAction(title: "Share", style: .default){ (action:UIAlertAction) in
-            self.delegate?.showSharePopup(self.mainPost?.type ?? "text", self.mainPostScreenshot ?? nil!)
-        })*/
+        alert.addAction(UIAlertAction(title: "Share Comments", style: .default){ (action:UIAlertAction) in
+            self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
+        })
         alert.addAction(UIAlertAction(title: "Flag", style: .default){ (action:UIAlertAction) in
             self.flagTapped()
         })
@@ -246,6 +237,15 @@ class CommentViewController: UIViewController {
         postManager.performInteractionRequest(interaction: 4, docID: mainPost?.postId ?? "-1")
     }
     
+    func createCommentsImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0.0)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            self.view.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+        return nil
+    }
 }
 
 /// Manages the posts table.

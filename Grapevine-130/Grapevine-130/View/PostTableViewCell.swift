@@ -207,30 +207,20 @@ class PostTableViewCell: UITableViewCell {
         
         postManager.performInteractionRequest(interaction: 4, docID: self.documentId)
     }
-    
-    func createImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
-        if let currentContext = UIGraphicsGetCurrentContext() {
-            self.layer.render(in: currentContext)
-            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-            return nameImage
-        }
-        return nil
-    }
-    
+        
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
         if postType == "text" {
-            self.delegate?.showSharePopup("text", createImage() ?? nil!)
+            self.delegate?.showSharePopup("text", createTableCellImage() ?? nil!)
         } else {
-            self.delegate?.showSharePopup("image", createImage() ?? nil!)
+            self.delegate?.showSharePopup("image", createTableCellImage() ?? nil!)
         }
     }
     
     // Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        self.delegate?.viewComments(self, (createImage() ?? nil)!)
+        self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
     }
     
     /**
@@ -318,5 +308,15 @@ class PostTableViewCell: UITableViewCell {
     /// Button to ban users from the ban chamber.
     @IBAction func banButton(_ sender: Any) {
         self.banDelegate?.banPoster(self)
+    }
+    
+    func createTableCellImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            self.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+        return nil
     }
 }
