@@ -204,7 +204,7 @@ function sendPushNotificationToPoster(req, postID, body){
       if (doc.exists) {
           userID = doc.data().poster;
           console.log(`RETRIEVED USER ID ${userID}`);
-          pushNotificationHelper1(res, userID, body);
+          pushNotificationHelper1(req, userID, body);
       } else {
           console.log("No such document!");
       }
