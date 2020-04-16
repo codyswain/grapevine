@@ -80,7 +80,7 @@ class ScoreViewController: UIViewController {
             }
         }
         
-        let action2 = UIAlertAction(title: "(Closed) Juiced - Get Double Karma", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "(Closed) Juiced - 24 Hrs Double Karma", style: .default) { (action:UIAlertAction) in
         }
                 
         let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
