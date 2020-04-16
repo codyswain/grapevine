@@ -84,7 +84,7 @@ async function banPoster(req, res, next) {
 				throw "Post " + postID + " does not exist";
 			}
 
-			t.update(userref, { score: FieldValue.increment(-20)});
+			t.update(userref, { score: FieldValue.increment(-10)});
 			t.update(posterref, { banDate: parseInt(time), strikes: 3});
 			t.delete(docref);
 		})

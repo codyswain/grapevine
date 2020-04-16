@@ -263,7 +263,7 @@ class ViewController: UIViewController {
             if placeMark?.subLocality != nil {
                 self.currentCity = (placeMark?.subLocality)!
             } else if placeMark?.locality != nil {
-                self.currentCity = (placeMark?.subLocality)!
+                self.currentCity = (placeMark?.locality)!
             } else {
                 self.currentCity = "me"
             }

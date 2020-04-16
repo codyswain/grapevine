@@ -61,7 +61,7 @@ class ScoreViewController: UIViewController {
     
     /// Displays a popup that let's the user know that they do not have enough points to ban other users.
     func alertMessageNotEnoughPoints(){
-        let alert = UIAlertController(title: "Not enough points!", message: "You need \(20 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         alert.view.tintColor = Constants.Colors.darkPurple
@@ -72,21 +72,26 @@ class ScoreViewController: UIViewController {
     func alertPurchaseBanPower(){
         let alert = UIAlertController(title: "Spend Karma", message: "Use your karma for special powers on Grapevine.", preferredStyle: .alert)
                 
-        let action1 = UIAlertAction(title: "[20] Ban Chamber: Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
-            if self.score >= 20 {
+        let action1 = UIAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
+            if self.score >= 10 {
                 self.performSegue(withIdentifier: "goToBanChamber", sender: self)
             } else {
                 self.alertMessageNotEnoughPoints()
             }
         }
         
-        let action2 = UIAlertAction(title: "[Closed] Juiced: 24 Hrs Double Karma", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "[🔒] Juiced: Receive Double Karma (24 HRs)", style: .default) { (action:UIAlertAction) in
         }
         
-        let action3 = UIAlertAction(title: "[Closed] Animal Style: Release Local Chaos", style: .default) { (action:UIAlertAction) in
+        let action3 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Promising Post", style: .default) { (action:UIAlertAction) in
+        }
+                
+        let action4 = UIAlertAction(title: "[🔒] Insurance: Karma Won't Decrease (24 HRs)", style: .default) { (action:UIAlertAction) in
         }
 
-        let action4 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+
+        let action5
+            = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
             print("You've pressed cancel");
         }
 
@@ -94,6 +99,7 @@ class ScoreViewController: UIViewController {
         alert.addAction(action2)
         alert.addAction(action3)
         alert.addAction(action4)
+        alert.addAction(action5)
         alert.view.tintColor = Constants.Colors.darkPurple
         self.present(alert, animated: true, completion: nil)
 
