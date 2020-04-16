@@ -190,7 +190,8 @@ function deletePostComments(postID, req){
 
 function updatePushNotificationToken(req, userID, token){
   var db = req.app.get('db');
-  db.collection("users").document(userID).set({"pushNotificationToken": token}, { merge: true });
+  var userRef = db.collection('users').doc(userID);
+  var setWithMerge = userRef.set({"pushNotificationToken": token}, { merge: true });
 }
 
 module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken}
