@@ -82,7 +82,7 @@ async function createComment(req, res, next) {
 	db.collection("comments").add(userComment)
 	.then(ref => {
     // Send push notification to creator of post
-    var body = "Anonymous commented on your post";
+    var body = "Someone commented on your post";
     utils.sendPushNotificationToPoster(req, req.body.postID, body);
 	  console.log('Added document with ID: ', ref.id);
 		res.status(200).send(ref.id);
