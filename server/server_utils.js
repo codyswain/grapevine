@@ -196,6 +196,7 @@ function updatePushNotificationToken(req, userID, body){
 }
 
 function sendPushNotificationToPoster(req, postID, body){
+  console.log("SENDING PUSH NOTIFICATION HERE")
   var apnProvider = req.app.get('apnProvider')
   var db = req.app.get('db');
   
@@ -203,8 +204,10 @@ function sendPushNotificationToPoster(req, postID, body){
   var userID = "";
   var docRef = db.collection("posts").doc(postID);
   docRef.get().then(function(doc) {
+    console.log("POST EXISTS");
       if (doc.exists) {
-          userID = doc.data().poster
+          userID = doc.data().poster;
+          console.log(`RETRIEVED USER ID ${userID}`);
       } else {
           console.log("No such document!");
       }
@@ -215,10 +218,12 @@ function sendPushNotificationToPoster(req, postID, body){
   // Retrieve token to push notification to post creator
   var token = "";
   if (userID){
+    console.log("USER EXISTS");
     var docRef = db.collection("users").doc(userID);
     docRef.get().then(function(doc) {
         if (doc.exists) {
             token = doc.data().pushNotificationToken
+            console.log(`RETRIEVED token ${token}`);
         } else {
             console.log("No such document!");
         }
@@ -228,6 +233,7 @@ function sendPushNotificationToPoster(req, postID, body){
   }
 
   if (token){
+    console.log("TOKEN EXISTS");
     var note = new apn.Notification();
     note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
     note.badge = 3;
@@ -236,6 +242,7 @@ function sendPushNotificationToPoster(req, postID, body){
     note.payload = {'messageFrom': 'Anonymous'};
     note.topic = "io.grapevineapp.Grapevine";
 
+    console.log("SENDING TOKEN");
     apnProvider.send(note, token).then( (result) => {
       console.log("Sent notification")
     });
