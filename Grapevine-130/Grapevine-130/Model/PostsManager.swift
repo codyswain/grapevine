@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol PostsManagerDelegate {
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String)
@@ -148,7 +149,19 @@ struct PostsManager {
         - postType: The type of post that is being sent
     */
     func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String) {
-        let json: [String: Any] = ["text": contentText, "userID": Constants.userID, "date": Date().timeIntervalSince1970, "type": postType, "latitude": latitude, "longitude": longitude]
+        // Get most up to date notification token
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let pushNotificationToken = appDelegate.pushNotificationToken
+        
+        let json: [String: Any] = [
+            "text": contentText,
+            "userID": Constants.userID,
+            "userNotificationToken": pushNotificationToken,
+            "date": Date().timeIntervalSince1970,
+            "type": postType,
+            "latitude": latitude,
+            "longitude": longitude,
+        ]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 

@@ -87,6 +87,7 @@
 		6390FA1523FFA15C00D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6390FA1923FFA3A400D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D218512429B23D00960938 /* PostReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReference.swift; sourceTree = "<group>"; };
+		83347FF32447C91E00EB2BAD /* Grapevine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Grapevine.entitlements; sourceTree = "<group>"; };
 		83B1219D242EDB6F0034BF73 /* CommentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsManager.swift; sourceTree = "<group>"; };
 		83B1219F242EDD610034BF73 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,6 +240,7 @@
 		8661B74423F61D7400658288 /* Grapevine-130 */ = {
 			isa = PBXGroup;
 			children = (
+				83347FF32447C91E00EB2BAD /* Grapevine.entitlements */,
 				86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */,
 				8659F2D523F8A94100C3595F /* SceneDelegate.swift */,
 				8659F2CD23F8A93400C3595F /* AppDelegate.swift */,
@@ -734,6 +736,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Grapevine-130/Grapevine.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75V6QRRPC3;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
@@ -755,6 +758,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Grapevine-130/Grapevine.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75V6QRRPC3;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
