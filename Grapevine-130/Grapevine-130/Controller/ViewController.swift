@@ -250,7 +250,7 @@ class ViewController: UIViewController {
             // Place details
             var placeMark: CLPlacemark!
             placeMark = placemarks?[0]
-            self.currentCity = placeMark.addressDictionary!["SubLocality"] as! String
+            self.currentCity = placeMark?.subLocality ?? ""
         })
     }
 }
