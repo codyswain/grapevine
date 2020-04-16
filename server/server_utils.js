@@ -237,7 +237,7 @@ function pushNotificationHelper2(req, token, body){
     note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
     note.badge = 1;
     note.sound = "ping.aiff";
-    note.alert = `🔥👀 ${body}`;
+    note.alert = `${body}`;
     note.payload = {'messageFrom': 'Anonymous'};
     note.topic = "io.grapevineapp.Grapevine";
 
