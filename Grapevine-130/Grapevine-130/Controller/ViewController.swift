@@ -431,6 +431,7 @@ extension ViewController: PostsManagerDelegate {
             
             self.posts = posts
             self.ref = ref
+            self.applyFilter(reset: true)
             self.tableView.reloadData()
             
             if self.posts.count == 0 {
