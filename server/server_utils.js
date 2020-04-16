@@ -3,6 +3,7 @@
 /*********************** Geohashing Logic ************************/
 
 var geohash = require('ngeohash');
+var apn = require('apn');
 
 // These are magic numbers I got from StackOverflow (Douglas)
 const dpm_lat = 0.0144927536231884; // degrees latitude per mile
@@ -188,10 +189,57 @@ function deletePostComments(postID, req){
   });
 }
 
-function updatePushNotificationToken(req, userID, token){
+function updatePushNotificationToken(req, userID, body){
   var db = req.app.get('db');
   var userRef = db.collection('users').doc(userID);
   var setWithMerge = userRef.set({"pushNotificationToken": token}, { merge: true });
 }
 
-module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken}
+function sendPushNotificationToPoster(req, postID, body){
+  var apnProvider = req.app.get('apnProvider')
+  var db = req.app.get('db');
+  
+  // Retrieve userID of post creator
+  var userID = "";
+  var docRef = db.collection("posts").doc(postID);
+  docRef.get().then(function(doc) {
+      if (doc.exists) {
+          userID = doc.data().poster
+      } else {
+          console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+
+  // Retrieve token to push notification to post creator
+  var token = "";
+  if (userID){
+    var docRef = db.collection("users").doc(userID);
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            token = doc.data().pushNotificationToken
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+  }
+
+  if (token){
+    var note = new apn.Notification();
+    note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+    note.badge = 3;
+    note.sound = "ping.aiff";
+    note.alert = `\uD83D\uDCE7 \u2709 ${body}`;
+    note.payload = {'messageFrom': 'Anonymous'};
+    note.topic = "io.grapevineapp.Grapevine";
+
+    apnProvider.send(note, token).then( (result) => {
+      console.log("Sent notification")
+    });
+  }
+}
+
+module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken, sendPushNotificationToPoster}

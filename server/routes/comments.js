@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var utils = require('../server_utils.js') // NOTE: Relative pathing can break
 
 // URL parsing to get info from client
 router.get('/', getComments);
@@ -66,7 +67,6 @@ Output: None
 */
 async function createComment(req, res, next) {
   var db = req.app.get('db');  
-  
   console.log(req.body.text)
 
 	// Text post creation logic
@@ -81,6 +81,9 @@ async function createComment(req, res, next) {
 
 	db.collection("comments").add(userComment)
 	.then(ref => {
+    // Send push notification to creator of post
+    var body = "Anonymous commented on your post";
+    utils.sendPushNotificationToPoster(req, req.body.postID, body);
 	  console.log('Added document with ID: ', ref.id);
 		res.status(200).send(ref.id);
 	})

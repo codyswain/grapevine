@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "apn": "^2.2.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "debug": "~2.6.9",

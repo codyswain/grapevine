@@ -3,7 +3,20 @@ var path = require('path');
 var createError = require('http-errors');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var apn = require('apn');
 require('dotenv').config();;
+
+// Set up Apple Push Notification Service Config (APNS)
+// Move this to separate file or env variable
+var options = {
+  token: {
+    key: "./AuthKey_Q85QL6J8H6.p8",
+    keyId: "Q85QL6J8H6",
+    teamId: "75V6QRRPC3"
+  },
+  production: false
+};
+var apnProvider = new apn.Provider(options);
 
 // These are the files that control endpoints the actual endpoints
 var postsRouter = require('./routes/posts');
@@ -38,6 +51,7 @@ const firestore = admin.firestore();
 
 // Aliases
 app.set('db', firestore); 
+app.set('apnProvider', apnProvider)
 
 // Middleware that allows us to use URL decoding, JSON, etc
 app.use(express.json());

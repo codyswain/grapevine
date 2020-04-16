@@ -156,7 +156,7 @@ struct PostsManager {
         let json: [String: Any] = [
             "text": contentText,
             "userID": Constants.userID,
-            "userNotificationToken": pushNotificationToken,
+            "pushNotificationToken": pushNotificationToken,
             "date": Date().timeIntervalSince1970,
             "type": postType,
             "latitude": latitude,
