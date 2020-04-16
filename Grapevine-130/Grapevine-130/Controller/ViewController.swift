@@ -276,7 +276,11 @@ class ViewController: UIViewController {
     
     func applyFilter(reset: Bool){
         if reset {
-            filterToNewPosts()
+            if (currentFilterState == "new"){ // was showing new, change to top
+                filterToNewPosts()
+            } else if (currentFilterState == "top"){ // was showing top, change to new
+                 filterToTopPosts()
+            }
         } else {
             if (currentFilterState == "new"){ // was showing new, change to top
                 filterToTopPosts()
