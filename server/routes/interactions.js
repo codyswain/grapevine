@@ -9,6 +9,7 @@ const FieldValue = require('firebase-admin').firestore.FieldValue
  * @function
  */
 router.get('/', function(req, res, next) {
+  let vote = 0;
   let user = req.query.user;
   let post = req.query.post;
   let action = parseInt(req.query.action, 10); // Flag encoding request to toggle
@@ -46,9 +47,8 @@ router.get('/', function(req, res, next) {
         f += utils.updateFlagCount(interactions[user]);
       } else {
         // Update post votes
-        let vote = utils.updateVoteCount(interactions[user], action);
+        vote = utils.updateVoteCount(interactions[user], action);
         v += vote;
-
         userv = vote; 
       }
       
@@ -67,10 +67,16 @@ router.get('/', function(req, res, next) {
       // Update poster score
       // TODO: Entire transaction fails if the user document does not exist
       let poster = snapshot.data().poster;
-      let userRef = db.collection('users').doc(poster)
-      t.update(userRef, { score: FieldValue.increment(userv)})
+      let userRef = db.collection('users').doc(poster);
+      t.update(userRef, { score: FieldValue.increment(userv)});
+
     });
   }).then(() => {
+    // Send notification to poster if the interaction is an upvote
+    if (vote === 1){
+      var body = "Someone liked your post";
+      utils.sendPushNotificationToPoster(req, post, body);
+    }
     res.status(200).send();
     console.log("Transaction to update interaction from " + user + " with post " + post + " and action " + action + " successful");
   }).catch(err => {
