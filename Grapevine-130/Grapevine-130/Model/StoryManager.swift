@@ -26,7 +26,11 @@ struct StoryManager {
         textLabelX.textAlignment = .center
         textLabelX.textColor = .black
         textLabelX.font = UIFont.boldSystemFont(ofSize: 35)
-        textLabelX.text = "Anonymously said near " + city
+        if city != "NO_CITY" {
+            textLabelX.text = "Anonymously said near " + city
+        } else {
+            textLabelX.text = "Heard on Grapevine"
+        }
         
         mainView.addSubview(textLabelX)
         

@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     var postTableCell = PostTableViewCell()
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
-    var currentCity:String = "Grapevine"
+    var currentCity:String = "me" // "Anonymous said near me"
     var currentFilterState:String = "new" // options: new, top
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -218,9 +218,13 @@ class ViewController: UIViewController {
     func showSharePopup(_ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
-
-        let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity, heightInPixels)!
-        self.storyManager.shareImageToSnap(backgroundImage, content)
+        if self.range == -1 {
+            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            self.storyManager.shareImageToSnap(backgroundImage, content)
+        } else {
+            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity, heightInPixels)!
+            self.storyManager.shareImageToSnap(backgroundImage, content)
+        }
         /*
         let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
 
@@ -256,7 +260,13 @@ class ViewController: UIViewController {
             // Place details
             var placeMark: CLPlacemark!
             placeMark = placemarks?[0]
-            self.currentCity = placeMark?.subLocality ?? ""
+            if placeMark?.subLocality != nil {
+                self.currentCity = (placeMark?.subLocality)!
+            } else if placeMark?.locality != nil {
+                self.currentCity = (placeMark?.subLocality)!
+            } else {
+                self.currentCity = "me"
+            }
         })
     }
     
