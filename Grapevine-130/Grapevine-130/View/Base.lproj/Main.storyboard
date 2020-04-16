@@ -666,11 +666,6 @@
                                     <constraint firstItem="c0i-Hx-SUQ" firstAttribute="top" secondItem="uai-0N-qUo" secondAttribute="top" id="vLE-lW-6LV"/>
                                     <constraint firstItem="1Ak-ak-dOo" firstAttribute="leading" secondItem="Pam-Cw-fQb" secondAttribute="trailing" constant="14" id="z1G-3L-2yl"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="c0i-Hx-SUQ"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gi2-xw-3SB">
                                 <rect key="frame" x="0.0" y="762" width="414" height="80"/>
