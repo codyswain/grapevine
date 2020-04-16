@@ -72,7 +72,7 @@ class ScoreViewController: UIViewController {
     func alertPurchaseBanPower(){
         let alert = UIAlertController(title: "Spend Karma", message: "Use your karma for special powers on Grapevine.", preferredStyle: .alert)
                 
-        let action1 = UIAlertAction(title: "Ban Chamber - Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
+        let action1 = UIAlertAction(title: "[20] Ban Chamber: Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
             if self.score >= 20 {
                 self.performSegue(withIdentifier: "goToBanChamber", sender: self)
             } else {
@@ -80,16 +80,20 @@ class ScoreViewController: UIViewController {
             }
         }
         
-        let action2 = UIAlertAction(title: "(Closed) Juiced - Get Double Karma", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "[Closed] Juiced: 24 Hrs Double Karma", style: .default) { (action:UIAlertAction) in
         }
-                
-        let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        
+        let action3 = UIAlertAction(title: "[Closed] Animal Style: Release Local Chaos", style: .default) { (action:UIAlertAction) in
+        }
+
+        let action4 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
             print("You've pressed cancel");
         }
 
         alert.addAction(action1)
         alert.addAction(action2)
         alert.addAction(action3)
+        alert.addAction(action4)
         alert.view.tintColor = Constants.Colors.darkPurple
         self.present(alert, animated: true, completion: nil)
 
