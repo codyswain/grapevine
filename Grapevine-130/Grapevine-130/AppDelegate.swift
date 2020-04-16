@@ -12,6 +12,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let db = Firestore.firestore()
         print(db)
         registerForPushNotifications()
+        
+        // Remove all push notifications
+        application.applicationIconBadgeNumber = 0
+        let center = UNUserNotificationCenter.current()
+        center.removeAllDeliveredNotifications()
+        center.removeAllPendingNotificationRequests()
         return true
     }
 
