@@ -180,7 +180,6 @@ function getFlagLimit(numInteractions, toxicity, votes, dateTime) {
 
 function deletePostComments(postID, req){
   var db = req.app.get('db');  
-  
   var commentsQuery = db.collection('comments').where("postID", "==", postID)
   commentsQuery.get().then(function(querySnapshot){
     querySnapshot.forEach(function(doc){
@@ -189,4 +188,9 @@ function deletePostComments(postID, req){
   });
 }
 
-module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction}
+function updatePushNotificationToken(req, userID, token){
+  var db = req.app.get('db');
+  db.collection("users").document(userID).setData([ "pushNotificationToken": token ], merge: true);
+}
+
+module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken}

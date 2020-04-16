@@ -105,7 +105,7 @@ async function createPost(req, res, next) {
 		console.log("Toxicity score " + toxic_result.attributeScores.TOXICITY.summaryScore.value)
 		userPost = {
 			content : req.body.text,
-			poster : req.body.userID,
+      poster : req.body.userID,
 			votes : 0,
 			date : req.body.date,
 			type : req.body.type,
@@ -136,17 +136,22 @@ async function createPost(req, res, next) {
 			toxicity: 1, // Just default to the worst for images
 			banned: false
 		};
-	}
+  }
 
 	await db.collection("posts").add(userPost)
 	.then(ref => {
+    // update push notification token for APNS requests
+    token = req.body.pushNotificationToken
+    utils.updatePushNotificationToken(req, req.body.userID, token)
 	  console.log('Added document with ID: ', ref.id);
 		res.status(200).send(ref.id);
 	})
 	.catch((err) => {
 		console.log("ERROR storing post : " + err)
 		res.status(400).send()
-	})
+  })
+  
+
 }
 
 async function deletePost(req, res, next) {
