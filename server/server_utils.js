@@ -195,43 +195,42 @@ function updatePushNotificationToken(req, userID, body){
   var setWithMerge = userRef.set({"pushNotificationToken": token}, { merge: true });
 }
 
+// Get user id from post id
 function sendPushNotificationToPoster(req, postID, body){
-  console.log("SENDING PUSH NOTIFICATION HERE")
-  var apnProvider = req.app.get('apnProvider')
   var db = req.app.get('db');
-  
-  // Retrieve userID of post creator
-  var userID = "";
   var docRef = db.collection("posts").doc(postID);
   docRef.get().then(function(doc) {
     console.log("POST EXISTS");
       if (doc.exists) {
           userID = doc.data().poster;
           console.log(`RETRIEVED USER ID ${userID}`);
+          pushNotificationHelper1(res, userID, body);
       } else {
           console.log("No such document!");
       }
   }).catch(function(error) {
       console.log("Error getting document:", error);
   });
-
-  // Retrieve token to push notification to post creator
-  var token = "";
-  if (userID){
-    console.log("USER EXISTS");
-    var docRef = db.collection("users").doc(userID);
-    docRef.get().then(function(doc) {
-        if (doc.exists) {
-            token = doc.data().pushNotificationToken
-            console.log(`RETRIEVED token ${token}`);
-        } else {
-            console.log("No such document!");
-        }
-    }).catch(function(error) {
-        console.log("Error getting document:", error);
-    });
-  }
-
+}
+// Get user token from user id
+function pushNotificationHelper1(req, userID, body){
+  var db = req.app.get('db');
+  var docRef = db.collection("users").doc(userID);
+  docRef.get().then(function(doc) {
+      if (doc.exists) {
+          token = doc.data().pushNotificationToken
+          console.log(`RETRIEVED token ${token}`);
+          pushNotificationHelper2(req, token, body);
+      } else {
+          console.log("No such document!");
+      }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+  });
+}
+// Send the push notification
+function pushNotificationHelper2(req, token, body){
+  var apnProvider = req.app.get('apnProvider')
   if (token){
     console.log("TOKEN EXISTS");
     var note = new apn.Notification();
