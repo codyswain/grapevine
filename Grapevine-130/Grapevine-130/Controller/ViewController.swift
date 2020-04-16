@@ -9,6 +9,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
+    @IBOutlet weak var filterButton: UIButton!
     
     // Globals
     let db = Firestore.firestore()
@@ -133,6 +134,7 @@ class ViewController: UIViewController {
         let action1 = UIAlertAction(title: "3 miles", style: .default) { (action:UIAlertAction) in
             self.range = 3
             self.rangeButton.setTitle( " 3 miles" , for: .normal )
+            self.nearbyLabel.text = "Posts Near You"
             
             // Scroll to top
             self.scrollToTop()
@@ -141,12 +143,14 @@ class ViewController: UIViewController {
             // Refresh posts in the table
             self.tableView.refreshControl?.beginRefreshing()
             self.refresh()
+            self.applyFilter(reset: true)
         }
         
         let action2 = UIAlertAction(title: "Global", style: .default) { (action:UIAlertAction) in
             self.range = -1
             self.rangeButton.setTitle( " Global" , for: .normal )
-            
+            self.nearbyLabel.text = "Global Posts"
+
             // Scroll to top
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
@@ -154,6 +158,7 @@ class ViewController: UIViewController {
             // Refresh posts in the table
             self.tableView.refreshControl?.beginRefreshing()
             self.refresh()
+            self.applyFilter(reset: true)
         }
         
         let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
@@ -256,15 +261,37 @@ class ViewController: UIViewController {
     }
     
     @IBAction func filterPosts(_ sender: Any) {
-        if (currentFilterState == "new"){ // was showing new, change to top
-            currentFilterState = "top"
-            self.posts.sort(by: {$0.votes > $1.votes})
-            self.tableView.reloadData()
-        } else if (currentFilterState == "top"){ // was showing top, change to new
-            currentFilterState = "new"
-            self.posts.sort(by: {$0.date > $1.date})
-            self.tableView.reloadData()
+        applyFilter(reset: false)
+    }
+    
+    func applyFilter(reset: Bool){
+        if reset {
+            filterToNewPosts()
+        } else {
+            if (currentFilterState == "new"){ // was showing new, change to top
+                filterToTopPosts()
+            } else if (currentFilterState == "top"){ // was showing top, change to new
+                filterToNewPosts()
+            }
         }
+    }
+    
+    func filterToTopPosts(){
+        currentFilterState = "top"
+        filterButton.setTitle(" Top", for: UIControl.State.normal)
+        let newIcon = UIImage(systemName: "star.circle.fill")
+        filterButton.setImage(newIcon, for: UIControl.State.normal)
+        self.posts.sort(by: {$0.votes > $1.votes})
+        self.tableView.reloadData()
+    }
+    
+    func filterToNewPosts(){
+        currentFilterState = "new"
+        filterButton.setTitle(" New", for: UIControl.State.normal)
+        let newIcon = UIImage(systemName: "bolt.circle.fill")
+        filterButton.setImage(newIcon, for: UIControl.State.normal)
+        self.posts.sort(by: {$0.date > $1.date})
+        self.tableView.reloadData()
     }
 }
 
