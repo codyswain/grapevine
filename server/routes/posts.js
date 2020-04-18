@@ -25,7 +25,8 @@ async function getPosts(req, res, next) {
 	let user = req.query.user;
 	let lat = Number(req.query.lat);
 	let lon = Number(req.query.lon);
-	let range = req.query.range;
+  let range = req.query.range;
+  let filterType = req.query.filter;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	} 
@@ -34,60 +35,101 @@ async function getPosts(req, res, next) {
 	console.log("GetPosts request from lat: " + lat + " and lon: " + lon + " for posts within range:" + range + " from user: " + user)
 
 	// Get the db object, declared in app.js
-	var db = req.app.get('db');
-	var query = db.collection('posts').where("banned", "==", false)
+  var db = req.app.get('db');
+  var query; 
 	if (range != -1) { // -1 refers to global range
 		console.log("global")
 		// Calculate the lower and upper geohashes to consider
 		const search_box = utils.getGeohashRange(lat, lon, range);
-
 		query = db.collection('posts')
-					.where("banned", "==", false)
-					.where("geohash", ">=", search_box.lower)
-					.where("geohash", "<=", search_box.upper)
-					.orderBy("geohash")
-	}
+      .where("banned", "==", false)
+      .where("geohash", ">=", search_box.lower)
+      .where("geohash", "<=", search_box.upper)
+      .orderBy("geohash")
+	} else {
+    query = db.collection('posts').where("banned", "==", false)
+  }
 
-	// Query the db for posts
-	query.orderBy('date', 'desc')
-		.limit(20).get()
-		.then((snapshot) => {
-			let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
-			var posts = []
-			// Loop through each post returned and add it to our list
-			snapshot.forEach((post) => {
-				var voteStatus = 0
-				var flagStatus = 0
+  // Query the db for posts
+  if (filterType == "top"){
+    query.orderBy('votes', 'desc')
+    .limit(20).get()
+    .then((snapshot) => {
+      let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
+      var posts = []
+      // Loop through each post returned and add it to our list
+      snapshot.forEach((post) => {
+        var voteStatus = 0
+        var flagStatus = 0
+        var interactions = post.get("interactions")
 
-				var interactions = post.get("interactions")
+        // TODO: Better solution by putting this in mobile backend
+        for (var interacting_user in interactions) {
+          if (interacting_user == user) {
+            voteStatus = utils.getVote(interactions[user])
+            flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+            break
+          }
+        }
 
-				// TODO: Better solution by putting this in mobile backend
-				for (var interacting_user in interactions) {
-					if (interacting_user == user) {
-						voteStatus = utils.getVote(interactions[user])
-						flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
-						break
-					}
-				}
+        // Add the post, ID, and vote status before returning it
+        var curPost = post.data()
+        curPost.postId = post.id
+        curPost.voteStatus = voteStatus
+        curPost.flagStatus = flagStatus
+        delete curPost["geohash"]
+        delete curPost["interactions"]
+        // delete curPost["inter"]
+        posts.push(curPost)
+      });
+      // Return the posts to the client
+      posts = posts.sort((a, b) => { return b.votes - a.votes })
+      res.status(200).send({reference: ref, posts: posts})
+    })
+    .catch((err) => { 
+      console.log("ERROR looking up post in posts.js:" + err)
+      res.send([])
+    })
+  } else {
+    query.orderBy('date', 'desc')
+    .limit(20).get()
+    .then((snapshot) => {
+      let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
+      var posts = []
+      // Loop through each post returned and add it to our list
+      snapshot.forEach((post) => {
+        var voteStatus = 0
+        var flagStatus = 0
+        var interactions = post.get("interactions")
 
-				// Add the post, ID, and vote status before returning it
-				var curPost = post.data()
-				curPost.postId = post.id
-				curPost.voteStatus = voteStatus
-				curPost.flagStatus = flagStatus
-				delete curPost["geohash"]
-				delete curPost["interactions"]
-				// delete curPost["inter"]
-				posts.push(curPost)
-			});
-			// Return the posts to the client
-			posts = posts.sort((a, b) => { return b.date - a.date })
-			res.status(200).send({reference: ref, posts: posts})
-		})
-		.catch((err) => { 
-			console.log("ERROR looking up post in posts.js:" + err)
-			res.send([])
-		})
+        // TODO: Better solution by putting this in mobile backend
+        for (var interacting_user in interactions) {
+          if (interacting_user == user) {
+            voteStatus = utils.getVote(interactions[user])
+            flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+            break
+          }
+        }
+
+        // Add the post, ID, and vote status before returning it
+        var curPost = post.data()
+        curPost.postId = post.id
+        curPost.voteStatus = voteStatus
+        curPost.flagStatus = flagStatus
+        delete curPost["geohash"]
+        delete curPost["interactions"]
+        // delete curPost["inter"]
+        posts.push(curPost)
+      });
+      // Return the posts to the client
+      posts = posts.sort((a, b) => { return b.date - a.date })
+      res.status(200).send({reference: ref, posts: posts})
+    })
+    .catch((err) => { 
+      console.log("ERROR looking up post in posts.js:" + err)
+      res.send([])
+    })
+  }
 }
 
 /*
@@ -177,7 +219,8 @@ async function morePosts(req, res, next) {
 	let lat = Number(req.query.lat);
 	let lon = Number(req.query.lon);
 	let range = req.query.range;
-	let docRef = req.query.ref;
+  let docRef = req.query.ref;
+  let filterType = req.query.filter;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	}
@@ -193,19 +236,34 @@ async function morePosts(req, res, next) {
 	var refquery = db.collection('posts')
 				  .doc(docRef)
 
-	var query = db.collection('posts').where("banned", "==", false).orderBy('date', 'desc')
+  var query;
 	if (range != -1) { // -1 refers to global range
 		// Calculate the lower and upper geohashes to consider
 		const search_box = utils.getGeohashRange(lat, lon, range);
 
-		// Basic request for posts
-		query = db.collection('posts')
+    // Basic request for posts
+    if (filterType == "top"){
+      query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+					.orderBy('votes', 'desc')
+    } else {
+      query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
 					.where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('date', 'desc')
-	}			  
+    }
+	} else {
+    if (filterType == "top"){
+      query = db.collection('posts').where("banned", "==", false).orderBy('votes', 'desc')
+    } else {
+      query = db.collection('posts').where("banned", "==", false).orderBy('date', 'desc')
+    }
+  }
 
 	// Get the document snapshot of the last document first
 	refquery.get().then((doc) => {
@@ -239,8 +297,12 @@ async function morePosts(req, res, next) {
 				// delete curPost["inter"]
 				posts.push(curPost)
 			});
-			// Return the posts to the client
-			posts = posts.sort((a, b) => { return b.date - a.date })
+      // Return the posts to the client
+      if (filterType == "top"){
+        posts = posts.sort((a, b) => { return b.votes - a.votes })
+      } else {
+        posts = posts.sort((a, b) => { return b.date - a.date })
+      }
 			res.status(200).send({reference: ref, posts: posts})
 		})	
 		.catch((err) => { 
