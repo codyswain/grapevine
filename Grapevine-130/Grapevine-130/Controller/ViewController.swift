@@ -320,6 +320,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
      
      - Returns: The number of posts in the table
      */
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (posts.count != 0){
             indicator.stopAnimating()
@@ -401,9 +402,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         // Set vote status
         cell.currentVoteStatus = posts[indexPath.row].voteStatus
         // Set flag status
-        cell.currentFlagStatus = posts[indexPath.row].flagStatus
+//        cell.currentFlagStatus = posts[indexPath.row].flagStatus
         // Set number of flags
-        cell.currentFlagNum = posts[indexPath.row].numFlags
+//        cell.currentFlagNum = posts[indexPath.row].numFlags
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
         // If the current user created this post, he/she can delete it
@@ -420,6 +421,25 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.refreshView()
         
         return cell
+    }
+    
+    // Context menu
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId)
+            }
+            let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
+                print("Bookmarks was tapped")
+            }
+            let share1 = UIAction(title: "Share to Instagram [🔒]", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                print("Saved was tapped")
+            }
+            return UIMenu(title: "", children: [report, bookmark, share1])
+        }
+        return configuration
     }
 }
 
@@ -587,6 +607,8 @@ extension ViewController: PostTableViewCellDelegate {
         posts.remove(at: row)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
+    
+    
 }
 
 /// Manages the `user` object returned by the server.

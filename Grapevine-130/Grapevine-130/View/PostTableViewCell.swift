@@ -25,7 +25,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var upvoteImageButton: UIImageView!
     @IBOutlet weak var footer: UIView!
     @IBOutlet weak var deleteButton: UIImageView!
-    @IBOutlet weak var flagButton: UIImageView!
+    @IBOutlet weak var commentButton: UIImageView!
     @IBOutlet weak var banButtonVar: UIButton!
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var imageVar: UIImageView!
@@ -57,9 +57,9 @@ class PostTableViewCell: UITableViewCell {
         upvoteImageButton.addGestureRecognizer(tapGestureRecognizerUpvote)
         
         // Tapping capabilities for flag button
-        let tapGestureRecognizerFlag = UITapGestureRecognizer(target: self, action: #selector(flagTapped(tapGestureRecognizer:)))
-        flagButton.isUserInteractionEnabled = true
-        flagButton.addGestureRecognizer(tapGestureRecognizerFlag)
+        let tapGestureRecognizerFlag = UITapGestureRecognizer(target: self, action: #selector(commentTapped(tapGestureRecognizer:)))
+        commentButton.isUserInteractionEnabled = true
+        commentButton.addGestureRecognizer(tapGestureRecognizerFlag)
         
         // Tapping capabilities for share button
         let tapGestureRecognizerShare = UITapGestureRecognizer(target: self, action: #selector(shareTapped(tapGestureRecognizer:)))
@@ -69,6 +69,10 @@ class PostTableViewCell: UITableViewCell {
         let tapGestureRecognizerComment = UITapGestureRecognizer(target: self, action: #selector(commentTapped(tapGestureRecognizer:)))
         commentAreaButton.isUserInteractionEnabled = true
         commentAreaButton.addGestureRecognizer(tapGestureRecognizerComment)
+        
+        let pressGestureRecognizerOptions = UILongPressGestureRecognizer(target: self, action: #selector(optionsPressed(longPressGestureRecognizer:)))
+        commentAreaButton.isUserInteractionEnabled = true
+        commentAreaButton.addGestureRecognizer(pressGestureRecognizerOptions)
     }
     
     /**
@@ -223,15 +227,22 @@ class PostTableViewCell: UITableViewCell {
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
     }
     
+    @objc func optionsPressed(longPressGestureRecognizer: UILongPressGestureRecognizer)
+    {
+//        let generator = UIImpactFeedbackGenerator(style: .medium)
+//        generator.impactOccurred()
+//        self.delegate?.viewOptions(self);
+    }
+    
+    
     /**
     Modify post colors to reflect a downvote.
     */
     func setDownvotedColors(){
-        flagButton.isHidden = false
+        commentButton.tintColor = UIColor.white
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
-        shareButton.isHidden = true
-        decideFlagColors()
+//        shareButton.isHidden = true
         footer.backgroundColor = Constants.Colors.veryDarkGrey
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
@@ -241,7 +252,7 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect no vote.
     */
     func setNeutralColors(){
-        flagButton.isHidden = false
+        
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
         shareButton.isHidden = false
@@ -257,11 +268,10 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect an upvote.
     */
     func setUpvotedColors(){
-        flagButton.isHidden = true
+        commentButton.tintColor = UIColor.white
         downvoteImageButton.isHidden = true
         upvoteImageButton.isHidden = false
         shareButton.isHidden = false
-        decideFlagColors()
         shareButton.tintColor = .white
         footer.backgroundColor = Constants.Colors.darkPurple
         upvoteImageButton.tintColor = .white
@@ -283,24 +293,24 @@ class PostTableViewCell: UITableViewCell {
     Modify flag colors on a post to reflect a flagged status by the user.
     */
     func setFlaggedColors(){
-        flagButton.tintColor = Constants.Colors.veryDarkGrey
+        commentButton.tintColor = Constants.Colors.veryDarkGrey
     }
     
     /**
     Modify flag colors on a post to reflect an un-flagged status by the user.
     */
     func setUnflaggedColors(){
-        flagButton.tintColor = Constants.Colors.lightGrey
+        commentButton.tintColor = Constants.Colors.lightGrey
     }
     
     func decideFlagColors(){
         if currentFlagStatus == 1 {
-            return
+            commentButton.tintColor = .white
         }
         if currentVoteStatus == -1 {
-            flagButton.tintColor = .white
+            commentButton.tintColor = .white
         } else {
-            setUnflaggedColors()
+            commentButton.tintColor = Constants.Colors.lightGrey
         }
         
     }
