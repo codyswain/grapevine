@@ -160,6 +160,10 @@ class NewPostViewController: UIViewController {
     // Move comment input back down when keyboard closes
     @objc func keyboardWillHide(notification: Notification) {
         AddButtonContainingViewConstraint.constant = 40
+        if backTextView.text == "" && frontTextView.text == "" {
+            backTextView.text = "What's actually on your mind?"
+        }
+        
         view.setNeedsLayout()
     }
     

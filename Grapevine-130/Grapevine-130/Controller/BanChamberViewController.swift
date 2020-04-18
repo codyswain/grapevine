@@ -126,7 +126,7 @@ extension BanChamberViewController: UITableViewDataSource {
         DispatchQueue.main.async {
             cell.downvoteImageButton.isHidden = true
             cell.upvoteImageButton.isHidden = true
-            cell.flagButton.isHidden = true
+            cell.commentButton.isHidden = true
             cell.deleteButton.isHidden = true
             cell.voteCountLabel.isHidden = true
             cell.shareButton.isHidden = true

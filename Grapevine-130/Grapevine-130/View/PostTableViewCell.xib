@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableCell" rowHeight="371" id="KGk-i7-Jjw" customClass="PostTableViewCell" customModule="Grapevine_130" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReusableCell" rowHeight="371" id="KGk-i7-Jjw" customClass="PostTableViewCell" customModule="Grapevine" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="454" height="267"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="left" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -90,7 +90,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag.circle.fill" catalog="system" id="ZYF-at-qh9">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message.circle.fill" catalog="system" id="ZYF-at-qh9">
                                         <rect key="frame" x="8" y="5.5" width="37" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -178,9 +178,9 @@
             <connections>
                 <outlet property="banButtonVar" destination="Lse-T3-2CM" id="E4g-ye-4A3"/>
                 <outlet property="commentAreaButton" destination="CwN-Dl-0tb" id="erV-pV-svd"/>
+                <outlet property="commentButton" destination="ZYF-at-qh9" id="to7-ZO-sIb"/>
                 <outlet property="deleteButton" destination="VNW-4m-14j" id="2rf-XS-ULN"/>
                 <outlet property="downvoteImageButton" destination="mBG-cM-1KG" id="27d-AY-8LW"/>
-                <outlet property="flagButton" destination="ZYF-at-qh9" id="hoo-3f-znw"/>
                 <outlet property="footer" destination="L55-3s-fTy" id="B3b-7a-vA7"/>
                 <outlet property="imageVar" destination="RXq-AR-44P" id="kFF-zA-o0V"/>
                 <outlet property="label" destination="k6Z-o2-oI6" id="iy5-dk-p94"/>
@@ -195,8 +195,8 @@
         <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="64" height="60"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="flag.circle.fill" catalog="system" width="64" height="60"/>
         <image name="flame.fill" catalog="system" width="54" height="64"/>
+        <image name="message.circle.fill" catalog="system" width="64" height="60"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
 </document>
