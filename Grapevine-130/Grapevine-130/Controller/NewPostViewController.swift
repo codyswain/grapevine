@@ -48,8 +48,8 @@ class NewPostViewController: UIViewController {
         AddButtonContainingView.isUserInteractionEnabled = true
         
         // Add listeners to keyboard to reposition "Add Post" button
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPostViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         // Close keyboard when tapping anywhere
         let tap = UITapGestureRecognizer(target: self.view,
