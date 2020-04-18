@@ -26,7 +26,7 @@ async function getComments(req, res, next) {
 	// Query the db for posts
 	db.collection('comments')
 		.where("postID", "==", postID)
-		.orderBy("date", 'desc').get()
+		.orderBy("date", 'asc').get()
 		.then((snapshot) => {
       var comments = []
       

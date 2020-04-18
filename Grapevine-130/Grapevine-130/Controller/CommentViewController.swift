@@ -57,7 +57,7 @@ class CommentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         commentInput.text = "Add an anonymous comment..."
-        commentInput.clearsOnBeginEditing = true
+        commentInput.clearsOnBeginEditing = false;
         if (mainPost?.type == "text"){
             postContentLabel.text = mainPost!.content
         } else {
@@ -68,6 +68,7 @@ class CommentViewController: UIViewController {
         inputTextContainerView.layer.cornerRadius = 10
         
         // Reposition input when keyboard is opened vs closed
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -141,10 +142,32 @@ class CommentViewController: UIViewController {
     }
     
     // Move comment input box up when keyboard opens
+    @objc func keyboardDidShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            // Hacky way to scroll posts up (insert footer, then delete it)
+            let footer = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: keyboardSize.height-20))
+            self.tableView.tableFooterView = footer
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
+            view.setNeedsLayout()
+        }
+
+    }
+    
+    // Move comment input box up when keyboard opens
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            inputContainerView.frame.size.height -= 22.0
-            inputBottomConstraint.constant = keyboardSize.height - 22.0
+            self.inputContainerView.frame.size.height -= 22.0
+            self.inputBottomConstraint.constant = keyboardSize.height - 22.0
+            UIView.animate(withDuration: 0.1) {
+                self.view.layoutIfNeeded()
+            }
+            
+            // Clear comment input if placeholder text is present
+            if let postContent = commentInput.text {
+                if (postContent == "Add an anonymous comment...") {
+                    commentInput.text = "";
+                }
+            }
             view.setNeedsLayout()
         }
 
@@ -152,8 +175,18 @@ class CommentViewController: UIViewController {
 
     // Move comment input back down when keyboard closes
     @objc func keyboardWillHide(notification: Notification) {
+        // scroll back to bottom of posts
+        let footer = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        self.tableView.tableFooterView = footer
+        self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
+        
         inputContainerView.frame.size.height += 22.0
         inputBottomConstraint.constant = 0.0
+        if let postContent = commentInput.text {
+            if (postContent == "") {
+                commentInput.text = "Add an anonymous comment...";
+            }
+        }
         view.setNeedsLayout()
     }
     
@@ -328,6 +361,7 @@ extension CommentViewController: CommentsManagerDelegate {
             self.comments = comments
             print(comments)
             self.tableView.reloadData()
+            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
         }
     }
     func didFailWithError(error: Error) {
