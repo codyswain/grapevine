@@ -138,7 +138,7 @@ class CommentViewController: UIViewController {
         if (mainPost?.type == "text"){
             let heightInPoints = (mainPostScreenshot?.size.height)! - 40 // - 80 fits perfectly with no space
             self.actionBar.frame.origin.x = 0
-            self.actionBar.frame.origin.y = heightInPoints
+            self.actionBar.frame.origin.y = min(heightInPoints, self.view.frame.height / 2)
         } else {
             let heightInPoints = (imageVar.image?.size.height)! + 40
             self.actionBar.frame.origin.x = 0

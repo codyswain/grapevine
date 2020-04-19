@@ -218,23 +218,6 @@ class ViewController: UIViewController {
             let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity, heightInPixels)!
             self.storyManager.shareImageToSnap(backgroundImage, content)
         }
-        /*
-        let alert = UIAlertController(title: "Share Post", message: "Share this post with your friends or on the Snap Map!", preferredStyle: .alert)
-
-        let action1 = UIAlertAction(title: "Share To Snapchat", style: .default) { (action:UIAlertAction) in
-            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType)!
-            self.storyManager.shareImageToSnap(backgroundImage, content)
-        }
-
-        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
-
-        }
-
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.view.tintColor = UIColor(red:0.95, green:0.77, blue:0.06, alpha:1.0)
-        self.present(alert, animated: true, completion: nil)
-         */
     }
     
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
@@ -300,6 +283,13 @@ class ViewController: UIViewController {
         let newIcon = UIImage(systemName: "bolt.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
         self.refresh()
+    }
+    
+    func showFlaggedAlertPopup(){
+        let alert = UIAlertController(title: "Sorry about that. Post was flagged.", message: "Please email teamgrapevineofficial@gmail.com if this is urgently serious.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default){ (action:UIAlertAction) in })
+        self.present(alert, animated: true)
     }
 }
 
@@ -421,9 +411,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
-                
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
                 self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId)
+                self.showFlaggedAlertPopup()
             }
             let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
                 print("Bookmarks was tapped")
