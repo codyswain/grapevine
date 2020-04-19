@@ -136,16 +136,13 @@ class CommentViewController: UIViewController {
     
     func adjustFrame(){
         if (mainPost?.type == "text"){
-            let heightInPoints = (mainPostScreenshot?.size.height)! - 60 // - 80 fits well
-//            let heightInPixels = heightInPoints! * mainPostScreenshot!.scale
+            let heightInPoints = (mainPostScreenshot?.size.height)! - 40 // - 80 fits perfectly with no space
             self.actionBar.frame.origin.x = 0
             self.actionBar.frame.origin.y = heightInPoints
-//            self.actionBar.frame.origin.y = max(heightInPixels / 2.5, 150)
         } else {
-            let heightInPoints = imageVar.image?.size.height
-            let heightInPixels = heightInPoints! * imageVar.image!.scale
+            let heightInPoints = (imageVar.image?.size.height)! + 40
             self.actionBar.frame.origin.x = 0
-            self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPixels, 250)
+            self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPoints, 250)
         }
     }
         
