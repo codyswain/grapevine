@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseFirestore
 
 protocol CommentViewControllerDelegate {
     func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int)
@@ -36,7 +34,6 @@ class CommentViewController: UIViewController {
     
     var postID: String = ""
     var comments: [Comment] = []
-    let db = Firestore.firestore()
     var commentsManager = CommentsManager()
     var indicator = UIActivityIndicatorView()
     var mainPost: Post?

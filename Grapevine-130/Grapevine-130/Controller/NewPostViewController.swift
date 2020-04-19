@@ -1,11 +1,9 @@
 import Foundation
-import FirebaseFirestore
 import UIKit
 import CoreLocation
 
 /// Manages the control flow for making a new post.
 class NewPostViewController: UIViewController {
-    let db = Firestore.firestore()
     var currentState = "text"
     
     @IBOutlet weak var backButton: UIButton!
