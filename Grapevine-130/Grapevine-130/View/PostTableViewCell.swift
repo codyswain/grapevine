@@ -243,6 +243,7 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
 //        shareButton.isHidden = true
+        shareButton.tintColor = .white
         footer.backgroundColor = Constants.Colors.veryDarkGrey
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white

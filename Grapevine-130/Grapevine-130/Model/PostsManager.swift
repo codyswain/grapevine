@@ -17,7 +17,6 @@ struct PostsManager {
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let createPostURL = Constants.serverURL + "posts"
     let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
-    
     var delegate: PostsManagerDelegate?
         
     /**
