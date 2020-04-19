@@ -56,6 +56,20 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Show loading symbol
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.backgroundColor = .white
+        
+        // Load table
+        tableView.dataSource = self
+        tableView.refreshControl = refresher
+        tableView.register(UINib(nibName: Constants.commentsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
         commentInput.text = "Add an anonymous comment..."
         commentInput.clearsOnBeginEditing = false;
         if (mainPost?.type == "text"){
@@ -75,22 +89,23 @@ class CommentViewController: UIViewController {
         // Get comments related to post
         postID = mainPost!.postId
         commentsManager.delegate = self
-        commentsManager.fetchComments(postID: postID, userID: Constants.userID)
-        
-        // Load table
-        tableView.dataSource = self
-        tableView.refreshControl = refresher
-        tableView.register(UINib(nibName: Constants.commentsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 150
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         // Close keyboard when tapping anywhere
         let tap = UITapGestureRecognizer(target: self.view,
                                          action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
+        commentsManager.fetchComments(postID: postID, userID: Constants.userID)
         
         
+    }
+    
+    /// Displays a loading icon while posts load.
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.medium
+        indicator.center.y = self.tableView.center.y
+        indicator.center.x = self.view.center.x
+        self.view.addSubview(indicator)
     }
     
     func displayImage(){
@@ -135,10 +150,6 @@ class CommentViewController: UIViewController {
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
-        let deadline = DispatchTime.now() + .milliseconds(1000)
-        DispatchQueue.main.asyncAfter(deadline: deadline){
-            self.refresher.endRefreshing()
-        }
     }
     
     // Move comment input box up when keyboard opens
@@ -361,6 +372,7 @@ extension CommentViewController: CommentsManagerDelegate {
             self.comments = comments
             print(comments)
             self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
         }
     }
