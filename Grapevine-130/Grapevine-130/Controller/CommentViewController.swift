@@ -32,6 +32,10 @@ class CommentViewController: UIViewController {
         alertActions()
     }
     
+    @IBAction func shareCommentsPressed(_ sender: Any) {
+        self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
+    }
+    
     var postID: String = ""
     var comments: [Comment] = []
     var commentsManager = CommentsManager()
@@ -221,9 +225,6 @@ class CommentViewController: UIViewController {
         })
         alert.addAction(UIAlertAction(title: "Share Comments", style: .default){ (action:UIAlertAction) in
             self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
-        })
-        alert.addAction(UIAlertAction(title: "Flag", style: .default){ (action:UIAlertAction) in
-            self.flagTapped()
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
         })
