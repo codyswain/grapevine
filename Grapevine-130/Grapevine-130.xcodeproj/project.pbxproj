@@ -27,6 +27,9 @@
 		6390F9FA23FF954300D52FF0 /* UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390F9F923FF954300D52FF0 /* UITest.swift */; };
 		6390FA1423FFA0CC00D52FF0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2D423F8A94100C3595F /* Utils.swift */; };
 		63D218522429B23D00960938 /* PostReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D218512429B23D00960938 /* PostReference.swift */; };
+		83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */; };
+		83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1347244BFF6F004AF1B5 /* SwipingController.swift */; };
+		83AF134A244C080C004AF1B5 /* WalkthroughPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */; };
 		83B1219E242EDB6F0034BF73 /* CommentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1219D242EDB6F0034BF73 /* CommentsManager.swift */; };
 		83B121A0242EDD610034BF73 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1219F242EDD610034BF73 /* Comment.swift */; };
 		83B121A3242EE82F0034BF73 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */; };
@@ -88,6 +91,9 @@
 		6390FA1923FFA3A400D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D218512429B23D00960938 /* PostReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReference.swift; sourceTree = "<group>"; };
 		83347FF32447C91E00EB2BAD /* Grapevine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Grapevine.entitlements; sourceTree = "<group>"; };
+		83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
+		83AF1347244BFF6F004AF1B5 /* SwipingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingController.swift; sourceTree = "<group>"; };
+		83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughPageCell.swift; sourceTree = "<group>"; };
 		83B1219D242EDB6F0034BF73 /* CommentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsManager.swift; sourceTree = "<group>"; };
 		83B1219F242EDD610034BF73 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -181,6 +187,8 @@
 				8659F2CB23F8A93300C3595F /* ViewController.swift */,
 				8659F2CC23F8A93300C3595F /* NewPostViewController.swift */,
 				86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */,
+				83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */,
+				83AF1347244BFF6F004AF1B5 /* SwipingController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 				8659F2DB23F8A94100C3595F /* PostTableViewCell.swift */,
 				8659F2DC23F8A94100C3595F /* PostTableViewCell.xib */,
 				86709BD724072CCB00712ECC /* CanvasView.swift */,
+				83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,6 +501,7 @@
 				8659F2E823F8A94200C3595F /* Post.swift in Sources */,
 				6322402923FC617A007D05F5 /* User.swift in Sources */,
 				868528D82443AB6C00B17013 /* StoryManager.swift in Sources */,
+				83AF134A244C080C004AF1B5 /* WalkthroughPageCell.swift in Sources */,
 				83B1219E242EDB6F0034BF73 /* CommentsManager.swift in Sources */,
 				8659F2D023F8A93400C3595F /* ViewController.swift in Sources */,
 				8609D27B240CF16100A4328E /* BanChamberViewController.swift in Sources */,
@@ -499,7 +509,9 @@
 				8659F2D323F8A93400C3595F /* Constants.swift in Sources */,
 				83B121A0242EDD610034BF73 /* Comment.swift in Sources */,
 				6322402B23FC6398007D05F5 /* UserManager.swift in Sources */,
+				83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */,
 				8659F2E223F8A94200C3595F /* SceneDelegate.swift in Sources */,
+				83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
