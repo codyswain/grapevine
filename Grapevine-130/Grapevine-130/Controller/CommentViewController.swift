@@ -320,12 +320,12 @@ extension CommentViewController: UITableViewDataSource {
      - Returns: The number of posts in the table
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (comments.count != 0){
-                indicator.stopAnimating()
-                indicator.hidesWhenStopped = true
-            // put indicator here
-        }
-        print("Comments count\(comments.count)")
+//        if (comments.count != 0){
+//                indicator.stopAnimating()
+//                indicator.hidesWhenStopped = true
+//            // put indicator here
+//        }
+//        print("Comments count\(comments.count)")
         return comments.count
     }
     
@@ -385,9 +385,21 @@ extension CommentViewController: CommentsManagerDelegate {
     func didUpdateComments(_ commentManager: CommentsManager, comments: [Comment]){
         DispatchQueue.main.async {
             self.comments = comments
-            print(comments)
+            if self.comments.count == 0 {
+                let noCommentsLabel = UILabel()
+                noCommentsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
+                noCommentsLabel.textAlignment = .center
+                noCommentsLabel.text = "🙁 No comments yet..."
+                self.tableView.tableHeaderView = noCommentsLabel
+                self.tableView.tableHeaderView?.isHidden = false
+            } else {
+                self.tableView.tableHeaderView = nil
+            }
             self.tableView.reloadData()
+            self.indicator.stopAnimating()
+            self.indicator.hidesWhenStopped = true
             self.tableView.refreshControl?.endRefreshing()
+            
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
         }
     }

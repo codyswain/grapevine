@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
+        
         return true
     }
 
@@ -71,4 +72,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 
