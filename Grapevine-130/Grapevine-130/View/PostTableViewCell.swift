@@ -2,7 +2,6 @@ import UIKit
 import FirebaseDatabase
 import FirebaseFirestore
 
-
 protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)

@@ -56,8 +56,7 @@ class WalkthroughPageCell: UICollectionViewCell {
     }
     
     @objc func continueTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        self.delegate?.continueButtonTapped()Grapevine-130/Controller/CommentViewController.swift
-        Grapevine-130/Controller/SwipingController.swift
+        self.delegate?.continueButtonTapped()
     }
     
     public func setupLayout() {
