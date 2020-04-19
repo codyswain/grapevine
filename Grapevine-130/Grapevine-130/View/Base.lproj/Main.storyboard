@@ -784,11 +784,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="HZf-2O-dvH"/>
+                            <constraint firstItem="2qx-yK-lc3" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="JJ3-zW-UVN"/>
                             <constraint firstAttribute="bottom" secondItem="Gi2-xw-3SB" secondAttribute="bottom" id="JRf-xt-L59"/>
                             <constraint firstAttribute="bottom" secondItem="2qx-yK-lc3" secondAttribute="bottom" constant="80" id="Qmc-5o-wQa"/>
+                            <constraint firstItem="2qx-yK-lc3" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="azQ-Q3-k8c"/>
                             <constraint firstItem="2qx-yK-lc3" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="ei7-EL-5hI"/>
                             <constraint firstItem="byK-WM-eEn" firstAttribute="top" secondItem="uai-0N-qUo" secondAttribute="bottom" id="hcY-TZ-TZt"/>
                             <constraint firstItem="2qx-yK-lc3" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="hz5-G6-s6I"/>
+                            <constraint firstItem="2qx-yK-lc3" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="lyg-ah-LIg"/>
                             <constraint firstItem="uai-0N-qUo" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="n5N-3L-hZU"/>
                             <constraint firstItem="Gi2-xw-3SB" firstAttribute="leading" secondItem="7gX-li-N29" secondAttribute="leading" id="o7K-OJ-iIt"/>
                             <constraint firstItem="Gi2-xw-3SB" firstAttribute="trailing" secondItem="7gX-li-N29" secondAttribute="trailing" id="sag-kh-YLg"/>
