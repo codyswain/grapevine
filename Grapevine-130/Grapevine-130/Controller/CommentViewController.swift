@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseFirestore
 
 protocol CommentViewControllerDelegate {
     func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int)
@@ -34,9 +32,12 @@ class CommentViewController: UIViewController {
         alertActions()
     }
     
+    @IBAction func shareCommentsPressed(_ sender: Any) {
+        self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
+    }
+    
     var postID: String = ""
     var comments: [Comment] = []
-    let db = Firestore.firestore()
     var commentsManager = CommentsManager()
     var indicator = UIActivityIndicatorView()
     var mainPost: Post?
@@ -95,10 +96,10 @@ class CommentViewController: UIViewController {
                                          action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
-        
-        
+            
+        // Add Done button
+        addDoneButton()
     }
-    
     /// Displays a loading icon while posts load.
     func activityIndicator() {
         indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
@@ -135,18 +136,16 @@ class CommentViewController: UIViewController {
     
     func adjustFrame(){
         if (mainPost?.type == "text"){
-            let heightInPoints = mainPostScreenshot?.size.height
-            let heightInPixels = heightInPoints! * mainPostScreenshot!.scale
+            let heightInPoints = (mainPostScreenshot?.size.height)! - 40 // - 80 fits perfectly with no space
             self.actionBar.frame.origin.x = 0
-            self.actionBar.frame.origin.y = max(heightInPixels / 2.5, 150)
+            self.actionBar.frame.origin.y = heightInPoints
         } else {
-            let heightInPoints = imageVar.image?.size.height
-            let heightInPixels = heightInPoints! * imageVar.image!.scale
+            let heightInPoints = (imageVar.image?.size.height)! + 40
             self.actionBar.frame.origin.x = 0
-            self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPixels, 250)
+            self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPoints, 250)
         }
     }
-    
+        
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
@@ -225,9 +224,6 @@ class CommentViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Share Comments", style: .default){ (action:UIAlertAction) in
             self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
         })
-        alert.addAction(UIAlertAction(title: "Flag", style: .default){ (action:UIAlertAction) in
-            self.flagTapped()
-        })
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
         })
         alert.view.tintColor = Constants.Colors.darkPurple
@@ -290,6 +286,25 @@ class CommentViewController: UIViewController {
             return nameImage
         }
         return nil
+    }
+    
+    // Add a "Done" button to close the keyboard
+    @objc func tapDone(sender: Any) {
+        self.view.endEditing(true)
+    }
+    
+    func addDoneButton(){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.tapDone))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        commentInput.inputAccessoryView = doneToolbar
     }
 }
 

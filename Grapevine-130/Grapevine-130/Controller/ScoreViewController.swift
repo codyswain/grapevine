@@ -1,5 +1,4 @@
 import Foundation
-import FirebaseFirestore
 import UIKit
 import CoreLocation
 
@@ -86,7 +85,7 @@ class ScoreViewController: UIViewController {
         let action3 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Post", style: .default) { (action:UIAlertAction) in
         }
                 
-        let action4 = UIAlertAction(title: "[🔒] Insurance: Karma Won't Decrease", style: .default) { (action:UIAlertAction) in
+        let action4 = UIAlertAction(title: "[🔒] Defense: Karma Won't Decrease", style: .default) { (action:UIAlertAction) in
         }
 
 

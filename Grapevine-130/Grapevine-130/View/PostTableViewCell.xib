@@ -116,7 +116,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-6Z-Rk4">
                                         <rect key="frame" x="383" y="5" width="33" height="36"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowshape.turn.up.right.circle.fill" catalog="system" id="dbW-Fm-2AJ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.uturn.right.circle.fill" catalog="system" id="dbW-Fm-2AJ">
                                                 <rect key="frame" x="-3" y="0.0" width="39" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -192,7 +192,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="arrow.uturn.right.circle.fill" catalog="system" width="64" height="60"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="64" height="60"/>
         <image name="flame.fill" catalog="system" width="54" height="64"/>

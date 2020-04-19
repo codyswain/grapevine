@@ -1,5 +1,4 @@
 import UIKit
-import Firebase
 import UserNotifications
 
 @UIApplicationMain
@@ -8,11 +7,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
-        let db = Firestore.firestore()
-        print(db)
         registerForPushNotifications()
-        
+        print("Device Type: \(Constants.deviceType)")
         // Remove all push notifications
         application.applicationIconBadgeNumber = 0
         let center = UNUserNotificationCenter.current()

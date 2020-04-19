@@ -1,6 +1,4 @@
 import UIKit
-import FirebaseDatabase
-import FirebaseFirestore
 import CoreLocation
 
 /// Manages the main workflow.
@@ -12,7 +10,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var filterButton: UIButton!
     
     // Globals
-    let db = Firestore.firestore()
     let locationManager = CLLocationManager()
     var posts: [Post] = []
     var ref = ""
