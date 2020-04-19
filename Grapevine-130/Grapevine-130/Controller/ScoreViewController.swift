@@ -80,13 +80,13 @@ class ScoreViewController: UIViewController {
             }
         }
         
-        let action2 = UIAlertAction(title: "[🔒] Juiced: Receive Double Karma (24 HRs)", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "[🔒] Juiced: Receive Double Karma", style: .default) { (action:UIAlertAction) in
         }
         
-        let action3 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Promising Post", style: .default) { (action:UIAlertAction) in
+        let action3 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Post", style: .default) { (action:UIAlertAction) in
         }
                 
-        let action4 = UIAlertAction(title: "[🔒] Insurance: Karma Won't Decrease (24 HRs)", style: .default) { (action:UIAlertAction) in
+        let action4 = UIAlertAction(title: "[🔒] Insurance: Karma Won't Decrease", style: .default) { (action:UIAlertAction) in
         }
 
 
