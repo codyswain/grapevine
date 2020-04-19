@@ -16,8 +16,8 @@ class NewPostViewController: UIViewController {
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var postsManager = PostsManager()
-    var lastPostingTimestamp:Double?
-    
+    var lastPostingTimestamp:Double = 0.0
+
     @IBOutlet weak var createTextButtonVar: UIButton!
     @IBOutlet weak var createDrawingButtonVar: UIButton!
     @IBOutlet weak var clearButtonVar: UIButton!
@@ -173,7 +173,19 @@ class NewPostViewController: UIViewController {
      
      - Parameter sender: Button pressed to activate this function
      */
-    @objc func addPostButton() {        
+    @objc func addPostButton() {
+        // Don't let user post twice within 30 seconds
+        if lastPostingTimestamp != 0.0 {
+            print("lastPostingTimestamp is \(lastPostingTimestamp)")
+            let timeDiff = Date().timeIntervalSince1970 - lastPostingTimestamp
+            if timeDiff < Constants.spamLength { // less than 30 seconds ago
+                spamPopup()
+                return
+            }
+        } else {
+            lastPostingTimestamp = Double(Date().timeIntervalSince1970)
+        }
+
         // Change button color to make it feel responsive
         AddButtonContainingView.backgroundColor = Constants.Colors.lightPurple
         
@@ -205,6 +217,18 @@ class NewPostViewController: UIViewController {
             }
         }
     }
+    
+    func spamPopup(){
+        let alert = UIAlertController(title: "Too Much Posting", message: "To prevent potential spamming, we can't let you post that much. Try again later", preferredStyle: .alert)
+                
+        let action1 = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in }
+        
+        alert.addAction(action1)
+        alert.view.tintColor = Constants.Colors.darkPurple
+        self.present(alert, animated: true, completion: nil)
+
+    }
+
 }
 
 /// Manages the text displayed in the new post.
