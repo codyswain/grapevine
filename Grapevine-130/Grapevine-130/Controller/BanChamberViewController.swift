@@ -1,7 +1,6 @@
 
 import UIKit
 import FirebaseDatabase
-import FirebaseFirestore
 import CoreLocation
 
 /// Manages the main workflow of the ban chamber screen.
@@ -200,7 +199,7 @@ extension BanChamberViewController: PostsManagerDelegate {
                 let noPostsLabel = UILabel()
                 noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
                 noPostsLabel.textAlignment = .center
-                noPostsLabel.text = "No bannable posts in your area :("
+                noPostsLabel.text = "No bannable posts in your area :( No karma was lost!"
                 self.tableView.tableHeaderView = noPostsLabel
                 self.tableView.tableHeaderView?.isHidden = false
             } else {

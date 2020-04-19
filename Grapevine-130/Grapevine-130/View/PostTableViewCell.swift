@@ -1,6 +1,4 @@
 import UIKit
-import FirebaseDatabase
-import FirebaseFirestore
 
 protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
@@ -28,7 +26,6 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var banButtonVar: UIButton!
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var imageVar: UIImageView!
-    let db = Firestore.firestore()
     let postManager = PostsManager()
     var currentVoteStatus = 0
     var currentFlagStatus = 0
@@ -242,6 +239,7 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
 //        shareButton.isHidden = true
+        shareButton.tintColor = .white
         footer.backgroundColor = Constants.Colors.veryDarkGrey
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
