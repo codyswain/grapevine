@@ -280,7 +280,7 @@ extension UITextView {
                                               width: UIScreen.main.bounds.size.width,
                                               height: 44.0))//1
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
-        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+        let barButton = UIBarButtonItem(title: title, style: .done, target: target, action: selector)//3
         toolBar.setItems([flexible, barButton], animated: false)//4
         self.inputAccessoryView = toolBar//5
     }

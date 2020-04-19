@@ -95,10 +95,10 @@ class CommentViewController: UIViewController {
                                          action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
-        
-        
+            
+        // Add Done button
+        addDoneButton()
     }
-    
     /// Displays a loading icon while posts load.
     func activityIndicator() {
         indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
@@ -290,6 +290,25 @@ class CommentViewController: UIViewController {
             return nameImage
         }
         return nil
+    }
+    
+    // Add a "Done" button to close the keyboard
+    @objc func tapDone(sender: Any) {
+        self.view.endEditing(true)
+    }
+    
+    func addDoneButton(){
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.tapDone))
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        commentInput.inputAccessoryView = doneToolbar
     }
 }
 
