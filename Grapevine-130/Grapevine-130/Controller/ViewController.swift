@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var currentCity:String = "me" // "Anonymous said near me"
-    var currentFilterState:String = "new" // options: new, top
+    var currentFilterState: String = "new" //Options: "new," "top"
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .black
@@ -142,7 +142,7 @@ class ViewController: UIViewController {
             
             // Refresh posts in the table
             self.tableView.refreshControl?.beginRefreshing()
-            self.refresh()
+//            self.refresh()
             self.applyFilter(reset: true)
         }
         
@@ -157,7 +157,7 @@ class ViewController: UIViewController {
             
             // Refresh posts in the table
             self.tableView.refreshControl?.beginRefreshing()
-            self.refresh()
+//            self.refresh()
             self.applyFilter(reset: true)
         }
         
@@ -175,10 +175,6 @@ class ViewController: UIViewController {
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
         locationManager.requestLocation() // request new location, which will trigger new posts
-        let deadline = DispatchTime.now() + .milliseconds(1000)
-        DispatchQueue.main.asyncAfter(deadline: deadline){
-            self.refresher.endRefreshing()
-        }
     }
     
     /**
@@ -271,6 +267,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func filterPosts(_ sender: Any) {
+        // Scroll to top
+        self.scrollToTop()
+        self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+        self.tableView.refreshControl?.beginRefreshing()
         applyFilter(reset: false)
     }
     
@@ -291,21 +291,18 @@ class ViewController: UIViewController {
     }
     
     func filterToTopPosts(){
-        currentFilterState = "top"
+        self.currentFilterState = "top"
         filterButton.setTitle(" Top", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "star.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
-        self.posts.sort(by: {$0.votes > $1.votes})
-        self.tableView.reloadData()
+        self.refresh()
     }
-    
     func filterToNewPosts(){
-        currentFilterState = "new"
+        self.currentFilterState = "new"
         filterButton.setTitle(" New", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "bolt.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
-        self.posts.sort(by: {$0.date > $1.date})
-        self.tableView.reloadData()
+        self.refresh()
     }
 }
 
@@ -340,7 +337,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Latitude, longitude, and range should be the same as the initial posts request
         if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
-            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref)
+            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, filter:currentFilterState)
             print("Getting more posts")
 
             let moreIndicator = UIActivityIndicatorView()
@@ -455,19 +452,13 @@ extension ViewController: PostsManagerDelegate {
      */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
-            self.indicator.stopAnimating()
-            
             if ref == "" {
                 self.canGetMorePosts = false
             } else {
                 self.canGetMorePosts = true
             }
-            
             self.posts = posts
             self.ref = ref
-            self.applyFilter(reset: true)
-            self.tableView.reloadData()
-            
             if self.posts.count == 0 {
                 let noPostsLabel = UILabel()
                 noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
@@ -479,8 +470,10 @@ extension ViewController: PostsManagerDelegate {
                 self.tableView.tableHeaderView = nil
             }
             
-            //print("reference doc: ", ref)
-            //print("posts: ", posts)
+            self.tableView.reloadData()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+            self.refresher.endRefreshing()
         }
     }
     
@@ -543,7 +536,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.lon = location.coordinate.longitude
             updateCity()
             print("Location request success")
-            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range)
+            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, filter:self.currentFilterState)
         }
     }
     
