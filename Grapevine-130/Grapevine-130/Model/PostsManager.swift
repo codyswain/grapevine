@@ -173,8 +173,6 @@ struct PostsManager {
         request.httpBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        print("Sent \(postType) POST request URL: \(url)")
-        print("Post req request.httpBody?.count \(request.httpBody?.count)")
         let session = URLSession(configuration: .default)
 
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -183,13 +181,8 @@ struct PostsManager {
                 print("Post req error")
                 return
             }
-            if let safeData = data {
-                print("Post req returned: \(safeData)")
-            }
             if let response = response {
-                print("Post req response = \(response)")
                 let httpResponse = response as! HTTPURLResponse
-                print("Post req response code = \(httpResponse.statusCode)")
                 self.delegate?.didCreatePost()
             }
         }

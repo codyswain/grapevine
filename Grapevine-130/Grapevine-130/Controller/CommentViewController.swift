@@ -136,10 +136,11 @@ class CommentViewController: UIViewController {
     
     func adjustFrame(){
         if (mainPost?.type == "text"){
-            let heightInPoints = mainPostScreenshot?.size.height
-            let heightInPixels = heightInPoints! * mainPostScreenshot!.scale
+            let heightInPoints = (mainPostScreenshot?.size.height)! - 60 // - 80 fits well
+//            let heightInPixels = heightInPoints! * mainPostScreenshot!.scale
             self.actionBar.frame.origin.x = 0
-            self.actionBar.frame.origin.y = max(heightInPixels / 2.5, 150)
+            self.actionBar.frame.origin.y = heightInPoints
+//            self.actionBar.frame.origin.y = max(heightInPixels / 2.5, 150)
         } else {
             let heightInPoints = imageVar.image?.size.height
             let heightInPixels = heightInPoints! * imageVar.image!.scale
@@ -147,7 +148,7 @@ class CommentViewController: UIViewController {
             self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPixels, 250)
         }
     }
-    
+        
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
