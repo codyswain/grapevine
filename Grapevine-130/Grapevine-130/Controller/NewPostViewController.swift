@@ -16,6 +16,7 @@ class NewPostViewController: UIViewController {
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var postsManager = PostsManager()
+    var lastPostingTimestamp:Double?
     
     @IBOutlet weak var createTextButtonVar: UIButton!
     @IBOutlet weak var createDrawingButtonVar: UIButton!
@@ -172,7 +173,7 @@ class NewPostViewController: UIViewController {
      
      - Parameter sender: Button pressed to activate this function
      */
-    @objc func addPostButton() {
+    @objc func addPostButton() {        
         // Change button color to make it feel responsive
         AddButtonContainingView.backgroundColor = Constants.Colors.lightPurple
         
