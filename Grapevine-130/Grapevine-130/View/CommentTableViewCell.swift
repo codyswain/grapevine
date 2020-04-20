@@ -54,8 +54,8 @@ class CommentTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        messageBackground.layer.cornerRadius = 10
-        voteBackground.layer.cornerRadius = 10
+        messageBackground.layer.cornerRadius = 5
+        voteBackground.layer.cornerRadius = 5
         label.text = "Test comment text"
     }
 
