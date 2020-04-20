@@ -400,7 +400,11 @@ extension CommentViewController: CommentsManagerDelegate {
             self.indicator.hidesWhenStopped = true
             self.tableView.refreshControl?.endRefreshing()
             
-            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
+            if (self.comments.count != 0){
+                self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
+                let indexPath = IndexPath(row: self.comments.count-1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
     }
     func didFailWithError(error: Error) {
