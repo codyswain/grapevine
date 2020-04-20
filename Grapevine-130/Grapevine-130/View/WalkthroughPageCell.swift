@@ -71,7 +71,7 @@ class WalkthroughPageCell: UICollectionViewCell {
             topImageContainerView.addSubview(pageImageView)
             pageImageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
             pageImageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor, constant: 100).isActive = true
-            pageImageView.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.5).isActive = true
+            pageImageView.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.4).isActive = true
         
             topImageContainerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
         
@@ -93,7 +93,7 @@ class WalkthroughPageCell: UICollectionViewCell {
             bottomDescriptionView.addSubview(continueImageView)
             continueImageView.translatesAutoresizingMaskIntoConstraints = false
             continueImageView.centerXAnchor.constraint(equalTo: descriptionTextView.centerXAnchor).isActive = true
-        continueImageView.centerYAnchor.constraint(equalTo: bottomAnchor, constant: -80).isActive = true
+            continueImageView.centerYAnchor.constraint(equalTo: bottomAnchor, constant: -80).isActive = true
             continueImageView.heightAnchor.constraint(equalTo: bottomDescriptionView.heightAnchor, multiplier: 0.14).isActive = true
             continueImageView.widthAnchor.constraint(equalTo: bottomDescriptionView.widthAnchor, multiplier: 0.7).isActive = true
         
