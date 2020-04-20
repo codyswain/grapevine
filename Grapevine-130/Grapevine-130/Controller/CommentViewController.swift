@@ -45,6 +45,7 @@ class CommentViewController: UIViewController {
     let postManager = PostsManager()
     var mainPostScreenshot: UIImage?
     var storyManager = StoryManager()
+    var newCommentCreated: Bool = false // fixes auto scrolling bug
 
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -160,7 +161,7 @@ class CommentViewController: UIViewController {
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
             view.setNeedsLayout()
         }
-
+//
     }
     
     // Move comment input box up when keyboard opens
@@ -171,6 +172,10 @@ class CommentViewController: UIViewController {
             UIView.animate(withDuration: 0.1) {
                 self.view.layoutIfNeeded()
             }
+            
+//            let footer = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: keyboardSize.height-20))
+//            self.tableView.tableFooterView = footer
+//            self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
             
             // Clear comment input if placeholder text is present
             if let postContent = commentInput.text {
@@ -399,14 +404,19 @@ extension CommentViewController: CommentsManagerDelegate {
             self.indicator.stopAnimating()
             self.indicator.hidesWhenStopped = true
             self.tableView.refreshControl?.endRefreshing()
-            
             self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.contentSize.height), animated: true)
+            if (self.newCommentCreated){
+                let indexPath = IndexPath(row: self.comments.count-1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+            self.newCommentCreated = false
         }
     }
     func didFailWithError(error: Error) {
         print(error)
     }
     func didCreateComment() {
+        self.newCommentCreated = true
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
     }
 }
