@@ -29,10 +29,10 @@ router.get('/', function(req, res, next) {
       let v = snapshot.data().votes;
       let userv = 0;
       if (action === 1){
-        userv = v+1
+        userv = 1
         v += 1
       } else {
-        userv = v-1
+        userv = -1
         v -= 1
       }
       
