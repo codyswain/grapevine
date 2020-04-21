@@ -189,15 +189,6 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "mainViewToScoreView" {
             let destinationVC = segue.destination as! ScoreViewController
-            if let curScore = user?.score {
-                destinationVC.score = curScore
-                destinationVC.emoji = scoreManager.getEmoji(score:curScore)
-                destinationVC.strikesLeftMessage = scoreManager.getStrikeMessage(strikes:user!.strikes)
-            } else {
-                destinationVC.score = 0
-                destinationVC.emoji = scoreManager.getEmoji(score:0)
-                destinationVC.strikesLeftMessage = scoreManager.getStrikeMessage(strikes:0)
-            }
             destinationVC.range = range
         }
         if segue.identifier == "goToComments" {

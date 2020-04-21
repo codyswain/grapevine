@@ -8,6 +8,7 @@ class BanChamberViewController: UIViewController {
     // UI variables
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var banLabel: UILabel!
+    @IBOutlet weak var failedBanLabel: UILabel!
     // Globals
     let locationManager = CLLocationManager()
     var posts: [Post] = []
@@ -294,6 +295,15 @@ extension BanChamberViewController: UserManagerDelegate {
         // Scroll to top and refresh posts in the table
         self.scrollToTop()
         DispatchQueue.main.async {
+            self.failedBanLabel.isHidden = false
+            UIView.animate(withDuration: 2, animations: { () -> Void in
+                self.failedBanLabel.alpha = 0
+            }, completion: { finished in
+                // Reset the failed ban label
+                self.failedBanLabel.isHidden = true
+                self.failedBanLabel.alpha = 1
+            })
+            
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             
             self.tableView.refreshControl?.beginRefreshing()
