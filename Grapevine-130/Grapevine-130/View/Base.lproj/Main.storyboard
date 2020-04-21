@@ -444,6 +444,14 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failed to ban user" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xey-ze-Gu8">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -457,6 +465,7 @@
                     </view>
                     <connections>
                         <outlet property="banLabel" destination="nam-61-V75" id="KWX-rO-JvN"/>
+                        <outlet property="failedBanLabel" destination="xey-ze-Gu8" id="7Jr-bO-E1x"/>
                         <outlet property="tableView" destination="YhT-NM-T2o" id="kSC-Aw-HHf"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="banToMain" modalPresentationStyle="fullScreen" id="kjT-Vd-qTU"/>
                     </connections>

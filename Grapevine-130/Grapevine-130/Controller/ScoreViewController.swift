@@ -8,6 +8,9 @@ class ScoreViewController: UIViewController {
     var emoji: String?
     var strikesLeftMessage:String?
     var range = 3
+    var userManager = UserManager()
+    var scoreManager = ScoreManager()
+    var indicator = UIActivityIndicatorView()
     @IBOutlet weak var emojiLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var strikesLeftLabel: UILabel!
@@ -34,9 +37,26 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emojiLabel.text = emoji
-        scoreLabel.text = String(score)
-        strikesLeftLabel.text = strikesLeftMessage
+        // Show loading symbol
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.backgroundColor = .white
+        
+        emojiLabel.isHidden = true
+        scoreLabel.isHidden = true
+        strikesLeftLabel.isHidden = true
+        
+        userManager.delegate = self
+        userManager.fetchUser()
+        
+    }
+    
+    /// Displays a loading icon while posts load.
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.medium
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
     }
     
     /**
@@ -45,13 +65,6 @@ class ScoreViewController: UIViewController {
      - Parameter sender: Segue initiator
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "scoreToInfo" {
-            let destinationVC = segue.destination as! InfoScreenViewController
-            destinationVC.score = score
-            destinationVC.emoji = emoji
-            destinationVC.strikesLeftMessage = strikesLeftMessage
-        }
-        
         if segue.identifier == "goToBanChamber" {
             let destinationVC = segue.destination as! BanChamberViewController
             destinationVC.range = range
@@ -96,5 +109,29 @@ class ScoreViewController: UIViewController {
         alert.view.tintColor = Constants.Colors.darkPurple
         self.present(alert, animated: true, completion: nil)
 
+    }
+}
+
+extension ScoreViewController: UserManagerDelegate {
+    func didGetUser(_ userManager: UserManager, user: User) {
+        self.score = user.score
+        self.emoji = scoreManager.getEmoji(score:self.score)
+        self.strikesLeftMessage = scoreManager.getStrikeMessage(strikes:user.strikes)
+        
+        DispatchQueue.main.async {
+            self.indicator.stopAnimating()
+            self.emojiLabel.text = self.emoji
+            self.scoreLabel.text = String(self.score)
+            self.strikesLeftLabel.text = self.strikesLeftMessage
+            self.emojiLabel.isHidden = false
+            self.scoreLabel.isHidden = false
+            self.strikesLeftLabel.isHidden = false
+        }
+        print("got user")
+    }
+    
+    func didBanUser(_ userManager: UserManager) {}
+    func userDidFailWithError(error: Error) {
+        
     }
 }
