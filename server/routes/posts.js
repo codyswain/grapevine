@@ -77,7 +77,6 @@ async function getPosts(req, res, next) {
         curPost.postId = post.id
         curPost.voteStatus = voteStatus
 		curPost.flagStatus = flagStatus
-		curPost.comments = 'comments' in curPost ? curPost.comments : 0
         delete curPost["geohash"]
         delete curPost["interactions"]
         // delete curPost["inter"]
@@ -117,7 +116,6 @@ async function getPosts(req, res, next) {
         curPost.postId = post.id
         curPost.voteStatus = voteStatus
 		curPost.flagStatus = flagStatus
-		curPost.comments = 'comments' in curPost ? curPost.comments : 0
         delete curPost["geohash"]
         delete curPost["interactions"]
         // delete curPost["inter"]

@@ -265,8 +265,12 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.tintColor = Constants.Colors.lightGrey
         shareButton.tintColor = Constants.Colors.lightGrey
         voteCountLabel.textColor = .black
-        commentButton.setTitleColor(.black, for: .normal)
-        commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+        commentButton.setTitleColor(Constants.Colors.darkGrey, for: .normal)
+        if let text = commentButton.titleLabel?.text {
+            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        } else {
+            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+        }
     }
     
     /**
