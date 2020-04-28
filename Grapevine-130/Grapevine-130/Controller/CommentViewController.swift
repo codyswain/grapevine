@@ -27,6 +27,7 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var actionBar: UIView!
     @IBOutlet weak var startApostrophe: UIImageView!
     @IBOutlet weak var endApostrophe: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     @IBAction func actionsButtonPressed(_ sender: Any) {
         alertActions()
@@ -100,6 +101,14 @@ class CommentViewController: UIViewController {
             
         // Add Done button
         addDoneButton()
+        
+        // Put in date
+        if let millisecondsSince1970 = mainPost?.date {
+            let postDate = Date(timeIntervalSince1970: TimeInterval(millisecondsSince1970))
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd HH:mm"
+            dateLabel.text = formatter.string(from: postDate)
+        }
     }
     /// Displays a loading icon while posts load.
     func activityIndicator() {
