@@ -91,13 +91,19 @@ class ScoreViewController: UIViewController {
                 self.alertMessageNotEnoughPoints()
             }
         }
-        let action2 = UIAlertAction(title: "[🔒] Juiced: Receive Double Karma", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "[🔒] Shout: Emphasize Post In Feed", style: .default) { (action:UIAlertAction) in
         }
-        let action3 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Post", style: .default) { (action:UIAlertAction) in
+        let action3 = UIAlertAction(title: "[🔒] Scream: Notify All In Radius", style: .default) { (action:UIAlertAction) in
         }
-        let action4 = UIAlertAction(title: "[🔒] Defense: Karma Won't Decrease", style: .default) { (action:UIAlertAction) in
+        let action4 = UIAlertAction(title: "[🔒] Creative Kit: Fonts & Colors", style: .default) { (action:UIAlertAction) in
         }
-        let action5
+        let action5 = UIAlertAction(title: "[🔒] Juiced: Receive Double Karma", style: .default) { (action:UIAlertAction) in
+        }
+        let action6 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Post", style: .default) { (action:UIAlertAction) in
+        }
+        let action7 = UIAlertAction(title: "[🔒] Defense: Karma Won't Decrease", style: .default) { (action:UIAlertAction) in
+        }
+        let action8
             = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
             print("You've pressed cancel");
         }
@@ -106,6 +112,10 @@ class ScoreViewController: UIViewController {
         alert.addAction(action3)
         alert.addAction(action4)
         alert.addAction(action5)
+        alert.addAction(action6)
+        alert.addAction(action7)
+        alert.addAction(action8)
+
         alert.view.tintColor = Constants.Colors.darkPurple
         self.present(alert, animated: true, completion: nil)
 

@@ -426,7 +426,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nUZ-rb-A9I" userLabel="Info Line Stack">
-                                <rect key="frame" x="20" y="69" width="258" height="17"/>
+                                <rect key="frame" x="20" y="69" width="292" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bnu-3m-B9W">
                                         <rect key="frame" x="0.0" y="0.5" width="17" height="16"/>
@@ -436,9 +436,9 @@
                                             <constraint firstAttribute="height" constant="17" id="alT-x0-VcY"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Punish the creator of a post." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-hN-8R6">
-                                        <rect key="frame" x="27" y="0.0" width="231" height="17"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ban creator of a post for 24 hours." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-hN-8R6">
+                                        <rect key="frame" x="27" y="0.0" width="265" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -540,8 +540,8 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1P-vw-7NA">
                                 <rect key="frame" x="20" y="117" width="374" height="81.5"/>
-                                <string key="text">On Grapevine, a user's karma is the sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 karma. </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <string key="text">On Grapevine, a user's karma is the sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 karma.</string>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -551,9 +551,8 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlike other platforms, your karma can be spent on powers that make the platform more useful. Check them out!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
                                 <rect key="frame" x="20" y="171" width="374" height="99.5"/>
-                                <string key="text">Unlike other platforms, your karma can be spent to unlock special powers. One power is the ability to issue temporary bans on certain users that have posted heavily downvoted content. </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -567,8 +566,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAz-QW-FeO">
-                                <rect key="frame" x="20" y="398" width="374" height="124.5"/>
-                                <string key="text">There are four ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If our automated systems detect a harmful post, a single strike is issued. (4) If one upvotes a post that falls under one of the above, they will get a strike.</string>
+                                <rect key="frame" x="20" y="398" width="374" height="109"/>
+                                <string key="text">There are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -682,7 +681,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="UFH-mX-YS0">
-                                        <rect key="frame" x="20" y="14" width="254" height="22"/>
+                                        <rect key="frame" x="20" y="14" width="334.5" height="22"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRu-AS-snd">
                                                 <rect key="frame" x="0.0" y="0.0" width="83" height="22"/>
@@ -706,6 +705,12 @@
                                                     <action selector="shareCommentsPressed:" destination="nLL-ph-GD5" eventType="touchUpInside" id="v89-3x-g9N"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/24 11:21" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ers-Sr-bvZ">
+                                                <rect key="frame" x="267" y="0.0" width="67.5" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sf-Ko-KaV">
@@ -800,6 +805,7 @@
                     <connections>
                         <outlet property="actionBar" destination="byK-WM-eEn" id="3Ap-gx-DH1"/>
                         <outlet property="commentInput" destination="mKf-PO-SDo" id="y40-DQ-y7U"/>
+                        <outlet property="dateLabel" destination="ers-Sr-bvZ" id="SCR-UT-i2z"/>
                         <outlet property="endApostrophe" destination="1Ak-ak-dOo" id="pnA-cD-g2p"/>
                         <outlet property="imageVar" destination="c0i-Hx-SUQ" id="PQO-04-b6b"/>
                         <outlet property="inputBottomConstraint" destination="JRf-xt-L59" id="f0Q-ae-mdD"/>
