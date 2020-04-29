@@ -34,7 +34,17 @@ class CommentViewController: UIViewController {
     }
     
     @IBAction func shareCommentsPressed(_ sender: Any) {
-        self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
+        let alert = UIAlertController(title: "Share", message: "Share post with friends!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Snapchat", style: .default){ (action:UIAlertAction) in
+            self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
+        })
+        alert.addAction(UIAlertAction(title: "Instagram Stories", style: .default){ (action:UIAlertAction) in
+            self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        })
+        alert.view.tintColor = .black
+        self.present(alert, animated: true)
     }
     
     var postID: String = ""
@@ -235,8 +245,11 @@ class CommentViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
             self.downvoteTapped()
         })
-        alert.addAction(UIAlertAction(title: "Share Comments", style: .default){ (action:UIAlertAction) in
-            self.storyManager.shareImageToSnapNoSticker(self.createCommentsImage()!)
+        alert.addAction(UIAlertAction(title: "Share Comments To Snap", style: .default){ (action:UIAlertAction) in
+            self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
+        })
+        alert.addAction(UIAlertAction(title: "Share Comments To IG", style: .default){ (action:UIAlertAction) in
+            self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
         })
@@ -293,7 +306,8 @@ class CommentViewController: UIViewController {
     }
     
     func createCommentsImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0.0)
+        let dimensions = CGSize(width: self.view.frame.width, height: self.view.frame.height - 100)
+        UIGraphicsBeginImageContextWithOptions(dimensions, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             self.view.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()

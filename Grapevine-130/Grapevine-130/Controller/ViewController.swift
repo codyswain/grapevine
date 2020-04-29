@@ -202,13 +202,29 @@ class ViewController: UIViewController {
     func showSharePopup(_ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
-        if self.range == -1 {
-            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            self.storyManager.shareImageToSnap(backgroundImage, content)
-        } else {
-            let backgroundImage: UIImage = self.storyManager.createBackgroundImage(postType, currentCity, heightInPixels)!
-            self.storyManager.shareImageToSnap(backgroundImage, content)
-        }
+        let alert = UIAlertController(title: "Share", message: "Share post with friends!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Snapchat", style: .default){ (action:UIAlertAction) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToSnap(backgroundImage, content)
+        })
+        alert.addAction(UIAlertAction(title: "Instagram Stories", style: .default){ (action:UIAlertAction) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToInstagram(backgroundImage, content)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        })
+        alert.view.tintColor = .black
+        self.present(alert, animated: true)
     }
     
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
@@ -409,10 +425,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
                 print("Bookmarks was tapped")
             }
-            let share1 = UIAction(title: "Share to Instagram [🔒]", image: UIImage(systemName: "square.and.arrow.up")) { action in
-                print("Saved was tapped")
-            }
-            return UIMenu(title: "", children: [report, bookmark, share1])
+            return UIMenu(title: "", children: [report, bookmark])
         }
         return configuration
     }
