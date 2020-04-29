@@ -76,7 +76,7 @@ async function getPosts(req, res, next) {
         var curPost = post.data()
         curPost.postId = post.id
         curPost.voteStatus = voteStatus
-        curPost.flagStatus = flagStatus
+		curPost.flagStatus = flagStatus
         delete curPost["geohash"]
         delete curPost["interactions"]
         // delete curPost["inter"]
@@ -115,7 +115,7 @@ async function getPosts(req, res, next) {
         var curPost = post.data()
         curPost.postId = post.id
         curPost.voteStatus = voteStatus
-        curPost.flagStatus = flagStatus
+		curPost.flagStatus = flagStatus
         delete curPost["geohash"]
         delete curPost["interactions"]
         // delete curPost["inter"]
@@ -157,7 +157,8 @@ async function createPost(req, res, next) {
 			geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
 			interactions: {},
 			toxicity: toxic_result.attributeScores.TOXICITY.summaryScore.value,
-			banned: false
+			banned: false,
+			comments: 0
 		};
 	}
 
@@ -176,7 +177,8 @@ async function createPost(req, res, next) {
 			geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
 			interactions: {},
 			toxicity: 1, // Just default to the worst for images
-			banned: false
+			banned: false,
+			comments: 0
 		};
   }
 

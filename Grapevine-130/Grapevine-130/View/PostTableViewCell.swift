@@ -22,10 +22,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var upvoteImageButton: UIImageView!
     @IBOutlet weak var footer: UIView!
     @IBOutlet weak var deleteButton: UIImageView!
-    @IBOutlet weak var commentButton: UIImageView!
     @IBOutlet weak var banButtonVar: UIButton!
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var imageVar: UIImageView!
+    @IBOutlet weak var commentButton: UIButton!
     let postManager = PostsManager()
     var currentVoteStatus = 0
     var currentFlagStatus = 0
@@ -243,6 +243,12 @@ class PostTableViewCell: UITableViewCell {
         footer.backgroundColor = Constants.Colors.veryDarkGrey
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
+        commentButton.setTitleColor(Constants.Colors.veryDarkGrey, for: .normal)
+        if let text = commentButton.titleLabel?.text {
+            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        } else {
+            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+        }
     }
     
     /**
@@ -259,6 +265,12 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.tintColor = Constants.Colors.lightGrey
         shareButton.tintColor = Constants.Colors.lightGrey
         voteCountLabel.textColor = .black
+        commentButton.setTitleColor(Constants.Colors.darkGrey, for: .normal)
+        if let text = commentButton.titleLabel?.text {
+            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        } else {
+            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+        }
     }
     
     /**
@@ -273,6 +285,12 @@ class PostTableViewCell: UITableViewCell {
         footer.backgroundColor = Constants.Colors.darkPurple
         upvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
+        commentButton.setTitleColor(Constants.Colors.darkPurple, for: .normal)
+        if let text = commentButton.titleLabel?.text {
+            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        } else {
+            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+        }
     }
     
     /**
@@ -328,5 +346,16 @@ class PostTableViewCell: UITableViewCell {
         }
         self.deleteButton.isHidden = false
         return nil
+    }
+    
+    func getCommentCount(numComments: Int) -> String {
+        if numComments >= 1000 {
+            let digit = numComments / 1000
+            let rem = (numComments % 1000) / 100
+            
+            return "\(digit).\(rem)k"
+        } else {
+            return "\(numComments)"
+        }
     }
 }
