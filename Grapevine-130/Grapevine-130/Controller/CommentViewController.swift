@@ -28,6 +28,8 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var startApostrophe: UIImageView!
     @IBOutlet weak var endApostrophe: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var actionsButtonVar: UIButton!
+    @IBOutlet weak var shareButtonVar: UIButton!
     
     @IBAction func actionsButtonPressed(_ sender: Any) {
         alertActions()
@@ -307,13 +309,22 @@ class CommentViewController: UIViewController {
     
     func createCommentsImage() -> UIImage? {
         let dimensions = CGSize(width: self.view.frame.width, height: self.view.frame.height - 100)
+        prepareCommentScreenshot(showElementsToggle:true)
         UIGraphicsBeginImageContextWithOptions(dimensions, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             self.view.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            prepareCommentScreenshot(showElementsToggle:false)
             return nameImage
         }
+        prepareCommentScreenshot(showElementsToggle:false)
         return nil
+    }
+    
+    func prepareCommentScreenshot(showElementsToggle: Bool){
+        dateLabel.isHidden = showElementsToggle
+        actionsButtonVar.isHidden = showElementsToggle
+        shareButtonVar.isHidden = showElementsToggle
     }
     
     // Add a "Done" button to close the keyboard

@@ -318,12 +318,15 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func createTableCellImage() -> UIImage? {
+        self.deleteButton.isHidden = true
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             self.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            self.deleteButton.isHidden = false
             return nameImage
         }
+        self.deleteButton.isHidden = false
         return nil
     }
 }
