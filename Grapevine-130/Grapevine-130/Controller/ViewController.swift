@@ -38,6 +38,9 @@ class ViewController: UIViewController {
     var selectedPost: Post?
     var selectedPostScreenshot: UIImage?
 
+    // Floating button
+    var addButton = UIButton()
+
     /// Main control flow that manages the app once the first screen is entered.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +78,14 @@ class ViewController: UIViewController {
         
         let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(changeRange(tapGestureRecognizer:)))
         rangeButton.addGestureRecognizer(tapGestureRecognizer2)
+        
+        // Add floating button programatically 
+        prepareFloatingAddButton()
+    }
+    
+    func prepareFloatingAddButton(){
+        self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
+        self.view.addSubview(addButton)
     }
     
     /// Displays a loading icon while posts load.
@@ -88,16 +99,7 @@ class ViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
-    
-    /**
-     Segue to the new post screen on button press.
-     
-     - Parameter sender: Segue initiator
-     */
-    @IBAction func newPostButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "goToNewPosts", sender: self)
-    }
-    
+        
     /**
      Segue to the score screen on button press.
      
@@ -202,7 +204,7 @@ class ViewController: UIViewController {
     func showSharePopup(_ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
-        let alert = UIAlertController(title: "Share", message: "Share post with friends!", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Stories", message: "Share post as a story!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Snapchat", style: .default){ (action:UIAlertAction) in
             var backgroundImage: UIImage
             if self.range == -1 {
@@ -279,24 +281,47 @@ class ViewController: UIViewController {
     
     func filterToTopPosts(){
         self.currentFilterState = "top"
-        filterButton.setTitle(" Top", for: UIControl.State.normal)
+        filterButton.setTitle(" Best", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "star.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
         self.refresh()
     }
     func filterToNewPosts(){
         self.currentFilterState = "new"
-        filterButton.setTitle(" New", for: UIControl.State.normal)
+        filterButton.setTitle(" Newest", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "bolt.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
         self.refresh()
     }
     
+    // Popup when user flags post
     func showFlaggedAlertPopup(){
         let alert = UIAlertController(title: "Sorry about that. Post was flagged.", message: "Please email teamgrapevineofficial@gmail.com if this is urgently serious.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: .default){ (action:UIAlertAction) in })
         self.present(alert, animated: true)
+    }
+    
+    // For floating add button
+    override func viewWillLayoutSubviews() {
+        addButton.layer.cornerRadius = addButton.layer.frame.size.width/2
+        addButton.clipsToBounds = true
+        addButton.setBackgroundImage(UIImage(systemName:"plus.circle.fill"), for: .normal)
+        addButton.tintColor = Constants.Colors.darkPurple
+        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        addButton.layer.masksToBounds = false
+        addButton.layer.shadowRadius = 2.0
+        addButton.layer.shadowOpacity = 0.25
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            addButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -40),
+        addButton.widthAnchor.constraint(equalToConstant: 50),
+        addButton.heightAnchor.constraint(equalToConstant: 50)])
+    }
+
+    @IBAction func addButtonPressed(_ sender: UIButton){
+        self.performSegue(withIdentifier: "goToNewPosts", sender: self)
     }
 }
 
