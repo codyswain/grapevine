@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -813,24 +813,26 @@
             <point key="canvasLocation" x="-891.304347826087" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="cef-IB-uFx"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
         <image name="InfoSign" width="499" height="504"/>
         <image name="Start Apostrophe" width="1024" height="1024"/>
-        <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrow.uturn.right.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="bolt.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="circle" catalog="system" width="64" height="60"/>
-        <image name="circle.fill" catalog="system" width="64" height="60"/>
-        <image name="clear.fill" catalog="system" width="64" height="56"/>
-        <image name="heart.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="info.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="location.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="p.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="person.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowshape.turn.up.left.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="clear.fill" catalog="system" width="128" height="114"/>
+        <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="p.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="sdr-18-gKw"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -45,4 +45,9 @@ struct Post : Decodable {
     - Values: 0, 1
     */
     var flagStatus: Int
+    
+    /**
+     Number of comments
+     */
+    var comments: Int
 }

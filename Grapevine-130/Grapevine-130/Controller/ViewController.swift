@@ -421,6 +421,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 //        cell.currentFlagStatus = posts[indexPath.row].flagStatus
         // Set number of flags
 //        cell.currentFlagNum = posts[indexPath.row].numFlags
+        // Set the comment count number
+        if posts[indexPath.row].comments > 0 {
+            let commentText = cell.getCommentCount(numComments: posts[indexPath.row].comments)
+            cell.commentButton.setTitle(commentText, for: .normal)
+        } else {
+            cell.commentButton.setTitle("", for: .normal)
+        }
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
         // If the current user created this post, he/she can delete it

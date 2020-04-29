@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var utils = require('../server_utils.js') // NOTE: Relative pathing can break
+const FieldValue = require('firebase-admin').firestore.FieldValue
 
 // URL parsing to get info from client
 router.get('/', getComments);
@@ -70,10 +71,11 @@ async function createComment(req, res, next) {
   console.log(req.body.text)
 
 	// Text post creation logic
+  let postID = req.body.postID
   userComment = {
     content : req.body.text,
     poster : req.body.userID,
-    postID : req.body.postID,
+    postID : postID,
     votes : 0,
     date : req.body.date,
     interactions: {},
@@ -91,6 +93,8 @@ async function createComment(req, res, next) {
 		console.log("ERROR storing comment: " + err)
 		res.status(400).send()
 	})
+
+	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(1) })
 }
 
 module.exports = router;
