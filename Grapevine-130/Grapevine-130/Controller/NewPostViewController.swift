@@ -16,6 +16,7 @@ class NewPostViewController: UIViewController {
     var postsManager = PostsManager()
     var lastPostingTimestamp:Double = 0.0
 
+    @IBOutlet weak var ColorButtonVar: UIButton!
     @IBOutlet weak var createTextButtonVar: UIButton!
     @IBOutlet weak var createDrawingButtonVar: UIButton!
     @IBOutlet weak var clearButtonVar: UIButton!
@@ -98,6 +99,7 @@ class NewPostViewController: UIViewController {
     func changeViewToText(){
         drawingCanvasView.isHidden = true
         clearButtonVar.isHidden = true
+        ColorButtonVar.isHidden = true
         frontTextView.isHidden = false
         backTextView.isHidden = false
         newPostTextBackground.isHidden = false
@@ -110,6 +112,7 @@ class NewPostViewController: UIViewController {
         newPostTextBackground.isHidden = true
         drawingCanvasView.isHidden = false
         clearButtonVar.isHidden = false
+        ColorButtonVar.isHidden = false
     }
     
     /**
@@ -141,6 +144,15 @@ class NewPostViewController: UIViewController {
      */
     @IBAction func clearButton(_ sender: Any) {
         drawingCanvasView.clearCanvas()
+    }
+    
+    @IBAction func colorButton(_ sender: Any) {
+        if ColorButtonVar.titleColor(for: .normal) == Constants.Colors.darkPink {
+            ColorButtonVar.setTitleColor(Constants.Colors.darkPurple, for: .normal)
+        } else {
+            ColorButtonVar.setTitleColor(Constants.Colors.darkPink, for: .normal)
+        }
+        drawingCanvasView.changeColor()
     }
     
     // Move comment input box up when keyboard opens

@@ -8,19 +8,17 @@ import UIKit
 
 /// Describes the canvas for drawing posts.
 class CanvasView: UIView {
-    var lineColor:UIColor!
     var lineWidth:CGFloat!
     var path:UIBezierPath!
     var touchPoint:CGPoint!
     var startingPoint:CGPoint!
+    var currentColor = Constants.Colors.darkPurple
     
     /// Sets up the canvas
     override func layoutSubviews() {
         self.clipsToBounds = true
         self.isMultipleTouchEnabled = false
-        
-        lineColor = Constants.Colors.darkPurple
-        lineWidth = 7
+        lineWidth = 6
     }
     
     /**
@@ -55,7 +53,7 @@ class CanvasView: UIView {
     func drawShapeLayer() {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.strokeColor = lineColor.cgColor
+        shapeLayer.strokeColor = currentColor.cgColor
         shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
@@ -88,5 +86,14 @@ class CanvasView: UIView {
         }
         
         return image
+    }
+    
+    func changeColor(){
+        if currentColor == Constants.Colors.darkPurple {
+            self.currentColor = Constants.Colors.darkPink
+        } else {
+            self.currentColor = Constants.Colors.darkPurple
+        }
+        
     }
 }
