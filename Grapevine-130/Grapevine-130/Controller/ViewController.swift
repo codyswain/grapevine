@@ -416,6 +416,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.voteCountLabel.text = String(posts[indexPath.row].votes)
         // Set the postID
         cell.documentId = posts[indexPath.row].postId
+        // Set poster to check against interactions
+        cell.poster = posts[indexPath.row].poster
         // Set vote status
         cell.currentVoteStatus = posts[indexPath.row].voteStatus
         // Set flag status
@@ -424,10 +426,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 //        cell.currentFlagNum = posts[indexPath.row].numFlags
         // Set the comment count number
         if posts[indexPath.row].comments > 0 {
+            print(posts[indexPath.row].comments)
             let commentText = cell.getCommentCount(numComments: posts[indexPath.row].comments)
             cell.commentButton.setTitle(commentText, for: .normal)
+            cell.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
         } else {
+            print(posts[indexPath.row].content)
             cell.commentButton.setTitle("", for: .normal)
+            cell.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
         }
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
@@ -452,7 +458,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId)
+                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId, poster: cell.poster)
                 self.showFlaggedAlertPopup()
             }
             let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in

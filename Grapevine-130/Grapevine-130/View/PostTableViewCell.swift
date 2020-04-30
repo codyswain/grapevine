@@ -31,6 +31,7 @@ class PostTableViewCell: UITableViewCell {
     var currentFlagStatus = 0
     var currentFlagNum = 0
     var documentId = ""
+    var poster = ""
     var delegate: PostTableViewCellDelegate?
     var banDelegate: BannedPostTableViewCellDelegate?
     var deletable = false
@@ -95,10 +96,10 @@ class PostTableViewCell: UITableViewCell {
     func enableDelete(){
         // Set up delete button
         print("Deletable: \(documentId)")
-        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(deleteTapped(tapGestureRecognizer:)))
-        deleteButton.isUserInteractionEnabled = true
-        deleteButton.addGestureRecognizer(tapGestureRecognizer3)
-        deleteButton.isHidden = false
+        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(self.deleteTapped(tapGestureRecognizer:)))
+        self.deleteButton.isUserInteractionEnabled = true
+        self.deleteButton.addGestureRecognizer(tapGestureRecognizer3)
+        self.deleteButton.isHidden = false
     }
     
     /**
@@ -106,7 +107,7 @@ class PostTableViewCell: UITableViewCell {
     */
     func disableDelete(){
         print("Not deletable: \(documentId)")
-        deleteButton.isHidden = true
+        self.deleteButton.isHidden = true
     }
     
     override func layoutSubviews() {
@@ -128,19 +129,19 @@ class PostTableViewCell: UITableViewCell {
     {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
-            postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
+            postManager.performInteractionRequest(interaction: 1, docID: self.documentId, poster: self.poster)
             setUpvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else if self.currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
+            postManager.performInteractionRequest(interaction: 2, docID: self.documentId, poster: self.poster)
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
+            postManager.performInteractionRequest(interaction: 1, docID: self.documentId, poster: self.poster)
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
@@ -156,19 +157,19 @@ class PostTableViewCell: UITableViewCell {
     {
         if self.currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
-            postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
+            postManager.performInteractionRequest(interaction: 2, docID: self.documentId, poster: self.poster)
             setDownvotedColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         } else if self.currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 1, docID: self.documentId)
+            postManager.performInteractionRequest(interaction: 1, docID: self.documentId, poster: self.poster)
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 2, docID: self.documentId)
+            postManager.performInteractionRequest(interaction: 2, docID: self.documentId, poster: self.poster)
             setNeutralColors()
             voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
@@ -205,7 +206,7 @@ class PostTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewFlags(self, newFlagStatus: 0)
         }
         
-        postManager.performInteractionRequest(interaction: 4, docID: self.documentId)
+        postManager.performInteractionRequest(interaction: 4, docID: self.documentId, poster: self.poster)
     }
         
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer)
@@ -244,11 +245,6 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
         commentButton.setTitleColor(Constants.Colors.veryDarkGrey, for: .normal)
-        if let text = commentButton.titleLabel?.text {
-            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
     }
     
     /**
@@ -266,11 +262,6 @@ class PostTableViewCell: UITableViewCell {
         shareButton.tintColor = Constants.Colors.lightGrey
         voteCountLabel.textColor = .black
         commentButton.setTitleColor(Constants.Colors.darkGrey, for: .normal)
-        if let text = commentButton.titleLabel?.text {
-            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
     }
     
     /**
@@ -286,11 +277,6 @@ class PostTableViewCell: UITableViewCell {
         upvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
         commentButton.setTitleColor(Constants.Colors.darkPurple, for: .normal)
-        if let text = commentButton.titleLabel?.text {
-            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
     }
     
     /**

@@ -263,15 +263,15 @@ class CommentViewController: UIViewController {
         var currentVoteStatus = mainPost?.voteStatus
         if currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
-            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
             self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
         } else if currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
             self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
             self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
         }
     }
@@ -280,15 +280,15 @@ class CommentViewController: UIViewController {
         var currentVoteStatus = mainPost?.voteStatus
         if currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
-            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
             self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
         } else if currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
             self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
             self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
         }
     }
@@ -304,7 +304,7 @@ class CommentViewController: UIViewController {
             currentFlagStatus = 0
             self.delegate?.updateTableViewFlags(mainPost!, newFlagStatus: 0)
         }
-        postManager.performInteractionRequest(interaction: 4, docID: mainPost?.postId ?? "-1")
+        postManager.performInteractionRequest(interaction: 4, docID: mainPost?.postId ?? "-1", poster: mainPost?.poster ?? "-1")
     }
     
     func createCommentsImage() -> UIImage? {
