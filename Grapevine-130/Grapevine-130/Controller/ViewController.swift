@@ -306,12 +306,13 @@ class ViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         addButton.layer.cornerRadius = addButton.layer.frame.size.width/2
         addButton.clipsToBounds = true
-        addButton.setBackgroundImage(UIImage(systemName:"plus.circle.fill"), for: .normal)
+        addButton.setBackgroundImage(UIImage(named:"addButton1"), for: .normal)
+//        addButton.setBackgroundImage(UIImage(systemName:"plus.circle.fill"), for: .normal)
         addButton.tintColor = Constants.Colors.darkPurple
-//        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-//        addButton.layer.masksToBounds = false
-//        addButton.layer.shadowRadius = 2.0
-//        addButton.layer.shadowOpacity = 0.25
+        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        addButton.layer.masksToBounds = false
+        addButton.layer.shadowRadius = 2.0
+        addButton.layer.shadowOpacity = 0.25
         addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
