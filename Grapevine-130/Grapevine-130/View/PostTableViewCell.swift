@@ -336,16 +336,19 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func createTableCellImage() -> UIImage? {
-        self.deleteButton.isHidden = true
+        var im:UIImage?
+        if deletable {
+            self.deleteButton.isHidden = true
+        }
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             self.layer.render(in: currentContext)
-            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-            self.deleteButton.isHidden = false
-            return nameImage
+            im = UIGraphicsGetImageFromCurrentImageContext()
         }
-        self.deleteButton.isHidden = false
-        return nil
+        if deletable {
+            self.deleteButton.isHidden = false
+        }
+        return im
     }
     
     func getCommentCount(numComments: Int) -> String {
