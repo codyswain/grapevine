@@ -338,6 +338,8 @@ class PostTableViewCell: UITableViewCell {
         var im:UIImage?
         if deletable {
             self.deleteButton.isHidden = true
+            self.upvoteImageButton.isHidden = false
+            self.downvoteImageButton.isHidden = false
         }
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
