@@ -348,6 +348,8 @@ class PostTableViewCell: UITableViewCell {
         }
         if deletable {
             self.deleteButton.isHidden = false
+            self.upvoteImageButton.isHidden = true
+            self.upvoteImageButton.isHidden = true
         }
         return im
     }
