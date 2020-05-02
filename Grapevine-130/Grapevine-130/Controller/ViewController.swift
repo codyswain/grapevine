@@ -436,8 +436,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         // If the current user created this post, he/she can delete it
         if (Constants.userID == posts[indexPath.row].poster){
             cell.enableDelete()
+            cell.disableInteraction()
         } else {
             cell.disableDelete()
+            cell.enableInteraction()
         }
         
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
