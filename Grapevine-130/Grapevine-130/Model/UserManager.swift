@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DeviceCheck
 
 protocol UserManagerDelegate {
     func didGetUser(_ userManager: UserManager, user: User)
@@ -21,6 +22,7 @@ struct UserManager {
     let getUserURL = Constants.serverURL + "users/?"
     let banUserURL = Constants.serverURL + "banChamber/banPoster/?"
     let freeUserURL = Constants.serverURL + "users/freeUser/?"
+    let checkDuplicateURL = Constants.serverURL + "deviceCheck"
     
     var delegate: UserManagerDelegate?
     
@@ -114,4 +116,33 @@ struct UserManager {
         return user
     }
     
+    
+    func checkIfDuplicate(_ data: Data){
+        DCDevice.current.generateToken { (data, error) in
+            if let data = data {
+                let sesh = URLSession(configuration: .default)
+                var req = URLRequest(url: URL(string:self.checkDuplicateURL)!)
+                req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                req.httpMethod = "POST"
+
+                let data = try! JSONSerialization.data(withJSONObject: ["token": data.base64EncodedString()], options: [])
+
+                req.httpBody = data
+                let task = sesh.dataTask(with: req, completionHandler: { (data, response, error) in
+                    if let data = data, let jsonString = String(data: data, encoding: .utf8) {
+                        print(jsonString)
+
+//                        DispatchQueue.main.async {
+//                            self.actOnDuplicateDeviceData(with: data)
+//                        }
+                    }
+                })
+                task.resume()
+            }
+            if let error = error {
+                print("Generate Token error:")
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

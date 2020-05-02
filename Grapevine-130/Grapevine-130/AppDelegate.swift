@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
         
+        let userManager = UserManager()
+        DCDevice.current.generateToken { (data, error) in
+            userManager.checkIfDuplicate(data!)
+        }
+
         return true
     }
 
