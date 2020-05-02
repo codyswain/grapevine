@@ -241,12 +241,16 @@ class CommentViewController: UIViewController {
     func alertActions(){
         let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Flag", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Upvote", style: .default){ (action:UIAlertAction) in
-            self.upvoteTapped()
-        })
-        alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
-            self.downvoteTapped()
-        })
+        // Do not allow users to interact with their own posts
+        if mainPost!.poster != Constants.userID {
+            alert.addAction(UIAlertAction(title: "Upvote", style: .default){ (action:UIAlertAction) in
+                self.upvoteTapped()
+            })
+            alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
+                self.downvoteTapped()
+            })
+        }
+        
         alert.addAction(UIAlertAction(title: "Share Comments To Snap", style: .default){ (action:UIAlertAction) in
             self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
         })
