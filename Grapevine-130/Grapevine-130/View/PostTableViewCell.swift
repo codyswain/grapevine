@@ -244,11 +244,6 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
         commentButton.setTitleColor(Constants.Colors.veryDarkGrey, for: .normal)
-        if let text = commentButton.titleLabel?.text {
-            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
     }
     
     /**
@@ -266,11 +261,6 @@ class PostTableViewCell: UITableViewCell {
         shareButton.tintColor = Constants.Colors.lightGrey
         voteCountLabel.textColor = .black
         commentButton.setTitleColor(Constants.Colors.darkGrey, for: .normal)
-        if let text = commentButton.titleLabel?.text {
-            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
     }
     
     /**
@@ -286,11 +276,6 @@ class PostTableViewCell: UITableViewCell {
         upvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
         commentButton.setTitleColor(Constants.Colors.darkPurple, for: .normal)
-        if let text = commentButton.titleLabel?.text {
-            commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
     }
     
     /**

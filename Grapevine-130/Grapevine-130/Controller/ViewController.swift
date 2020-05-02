@@ -426,8 +426,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if posts[indexPath.row].comments > 0 {
             let commentText = cell.getCommentCount(numComments: posts[indexPath.row].comments)
             cell.commentButton.setTitle(commentText, for: .normal)
+            cell.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
         } else {
             cell.commentButton.setTitle("", for: .normal)
+            cell.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
         }
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
