@@ -110,17 +110,13 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func enableInteraction() {
-        DispatchQueue.main.async {
-            self.upvoteImageButton.isHidden = false
-            self.downvoteImageButton.isHidden = false
-        }
+        self.upvoteImageButton.isHidden = false
+        self.downvoteImageButton.isHidden = false
     }
     
     func disableInteraction() {
-        DispatchQueue.main.async {
-            self.upvoteImageButton.isHidden = true
-            self.downvoteImageButton.isHidden = true
-        }
+        self.upvoteImageButton.isHidden = true
+        self.downvoteImageButton.isHidden = true
     }
     
     override func layoutSubviews() {
