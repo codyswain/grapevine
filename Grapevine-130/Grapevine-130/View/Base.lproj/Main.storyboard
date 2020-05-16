@@ -228,7 +228,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToMainFromBackButton" modalPresentationStyle="fullScreen" id="sdr-18-gKw"/>
+                                    <action selector="backButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="Kme-Vh-dRb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -256,7 +256,6 @@
                         <outlet property="AddButtonContainingView" destination="AoY-7M-6tP" id="iD3-r5-BC7"/>
                         <outlet property="AddButtonContainingViewConstraint" destination="mjC-bZ-cAe" id="rvW-vx-ZO5"/>
                         <outlet property="ColorButtonVar" destination="lVs-Bt-fIb" id="6tU-uw-8WX"/>
-                        <outlet property="backButton" destination="tMd-Qr-s9B" id="fhS-17-KUz"/>
                         <outlet property="backTextView" destination="vi9-gC-7xm" id="PVu-2b-YOX"/>
                         <outlet property="clearButtonVar" destination="Jf2-V5-mqB" id="qIH-h5-lIt"/>
                         <outlet property="createDrawingButtonVar" destination="dtE-6y-hyd" id="Kj3-eS-r6m"/>
@@ -853,6 +852,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
-        <segue reference="hoR-89-MDP"/>
+        <segue reference="YJd-nw-Ils"/>
     </inferredMetricsTieBreakers>
 </document>
