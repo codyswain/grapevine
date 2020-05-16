@@ -852,10 +852,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
-<<<<<<< HEAD
-        <segue reference="6l6-0s-KYJ"/>
-=======
-        <segue reference="YJd-nw-Ils"/>
->>>>>>> a490368abcb50d83590ea394766e67c27a9d2cd4
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
 </document>

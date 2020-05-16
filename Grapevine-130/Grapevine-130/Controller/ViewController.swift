@@ -236,7 +236,7 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
-        alert.titleIcon = UIImage(systemName: "paperplane.fill")
+        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle")
         alert.titleIconTintColor = .black
         alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
         alert.messageFont = UIFont.systemFont(ofSize: 17)
