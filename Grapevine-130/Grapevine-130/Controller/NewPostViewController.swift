@@ -5,8 +5,7 @@ import CoreLocation
 /// Manages the control flow for making a new post.
 class NewPostViewController: UIViewController {
     var currentState = "text"
-    
-    @IBOutlet weak var backButton: UIButton!
+
     @IBOutlet weak var frontTextView: UITextView! // actual user input text
     @IBOutlet weak var backTextView: UITextView! // placeholder text
     @IBOutlet weak var newPostTextBackground: UIButton! // text
@@ -81,6 +80,13 @@ class NewPostViewController: UIViewController {
         changeViewToText()
         currentState = "text"
     }
+    
+    
+    // Go back to main feed
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil);
+    }
+    
     
     /**
      Switches to the screen to create a drawing post.
@@ -277,7 +283,7 @@ extension NewPostViewController: PostsManagerDelegate {
     
     func didCreatePost() {
         DispatchQueue.main.async {
-          self.performSegue(withIdentifier: "goToMain", sender: self)
+          self.dismiss(animated: true, completion: nil);
         }
     }
 }
