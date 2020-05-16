@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhO-Gx-aTh" userLabel="New">
-                                        <rect key="frame" x="157.5" y="0.0" width="86" height="20"/>
+                                        <rect key="frame" x="144" y="0.0" width="86" height="20"/>
                                         <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,10 +53,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EsB-jR-aSc">
-                                        <rect key="frame" x="344" y="0.0" width="30" height="20"/>
+                                        <rect key="frame" x="290" y="0.0" width="84" height="20"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title=" ">
+                                        <state key="normal" title="                     ">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -279,8 +279,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Karma" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMh-NO-oaI">
+                                <rect key="frame" x="20" y="51" width="131" height="33.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-Tl-LGG">
-                                <rect key="frame" x="194.5" y="804.5" width="25" height="23"/>
+                                <rect key="frame" x="195" y="760" width="25" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="T0G-Y4-vL4"/>
                                     <constraint firstAttribute="height" constant="24" id="kFE-4t-wEn"/>
@@ -292,7 +298,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOI-at-lYd">
-                                <rect key="frame" x="139.5" y="769.5" width="135" height="20.5"/>
+                                <rect key="frame" x="140" y="725" width="135" height="20.5"/>
                                 <accessibility key="accessibilityConfiguration" identifier="scoreStrikes"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="CL0-02-aqm"/>
@@ -302,7 +308,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uju-To-9Vz">
-                                <rect key="frame" x="57" y="314" width="300" height="268.5"/>
+                                <rect key="frame" x="57" y="270" width="300" height="268.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1000" text="😮😮😮" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zvu-32-f0C" userLabel="EmojiLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="22"/>
@@ -347,19 +353,13 @@
                                     <constraint firstItem="hvG-3S-cRA" firstAttribute="centerY" secondItem="uju-To-9Vz" secondAttribute="centerY" id="czj-01-agj"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Karma" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PMh-NO-oaI">
-                                <rect key="frame" x="20" y="51" width="131" height="33.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="22I-bh-a4F" firstAttribute="bottom" secondItem="0ji-Tl-LGG" secondAttribute="bottom" constant="34" id="65e-hn-5BV"/>
+                            <constraint firstItem="22I-bh-a4F" firstAttribute="bottom" secondItem="0ji-Tl-LGG" secondAttribute="bottom" constant="78.5" id="65e-hn-5BV"/>
                             <constraint firstItem="PMh-NO-oaI" firstAttribute="top" secondItem="22I-bh-a4F" secondAttribute="top" constant="7" id="9xF-U5-aZ0"/>
                             <constraint firstItem="uju-To-9Vz" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="GY8-hf-kcI"/>
-                            <constraint firstItem="uju-To-9Vz" firstAttribute="centerY" secondItem="6P4-SN-HTn" secondAttribute="centerY" id="Q9w-Np-2jc"/>
+                            <constraint firstItem="uju-To-9Vz" firstAttribute="centerY" secondItem="6P4-SN-HTn" secondAttribute="centerY" constant="-43.75" id="Q9w-Np-2jc"/>
                             <constraint firstItem="0ji-Tl-LGG" firstAttribute="top" secondItem="eOI-at-lYd" secondAttribute="bottom" constant="14" id="Yyi-le-alj"/>
                             <constraint firstItem="eOI-at-lYd" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="ZKT-dS-8tR"/>
                             <constraint firstItem="0ji-Tl-LGG" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="j8m-O1-J3h"/>
@@ -374,6 +374,7 @@
                         <outlet property="strikesLeftLabel" destination="eOI-at-lYd" id="rc2-Qf-BJf"/>
                         <segue destination="i8W-zh-sIl" kind="presentation" identifier="scoreToInfo" id="hP9-ZI-DdC"/>
                         <segue destination="Pnr-Ar-hx1" kind="presentation" identifier="goToBanChamber" id="WFZ-lt-Ddb"/>
+                        <segue destination="BYZ-38-t0r" kind="showDetail" identifier="scoreToMain" animates="NO" id="6l6-0s-KYJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1r-Rh-zGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -816,6 +817,6 @@
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sdr-18-gKw"/>
+        <segue reference="6l6-0s-KYJ"/>
     </inferredMetricsTieBreakers>
 </document>

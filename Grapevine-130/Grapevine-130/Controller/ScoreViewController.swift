@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import MaterialComponents.MaterialBottomNavigation
 
 /// Manages control flow of the score screen.
 class ScoreViewController: UIViewController {
@@ -11,6 +12,7 @@ class ScoreViewController: UIViewController {
     var userManager = UserManager()
     var scoreManager = ScoreManager()
     var indicator = UIActivityIndicatorView()
+    var bottomNavBar = MDCBottomNavigationBar()
     @IBOutlet weak var emojiLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var strikesLeftLabel: UILabel!
@@ -49,6 +51,9 @@ class ScoreViewController: UIViewController {
         userManager.delegate = self
         userManager.fetchUser()
         
+        // Add menu navigation bar programatically
+        bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Karma")
+        self.view.addSubview(bottomNavBar)
     }
     
     /// Displays a loading icon while posts load.
@@ -143,5 +148,17 @@ extension ScoreViewController: UserManagerDelegate {
     func didBanUser(_ userManager: UserManager) {}
     func userDidFailWithError(error: Error) {
         
+    }
+}
+
+extension ScoreViewController: MDCBottomNavigationBarDelegate {
+    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+        if item.title! == "Posts" {
+            self.performSegue(withIdentifier: "scoreToMain", sender: self)
+        } else if item.title! == "Karma" {
+            // doesn't do anything
+        } else if item.title! == "Me" {
+            
+        }
     }
 }

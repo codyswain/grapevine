@@ -36,15 +36,14 @@ class ViewController: UIViewController {
         return refreshControl
     }()
     var indicator = UIActivityIndicatorView()
-    
     // Post clicked to view comments
     var selectedPost: Post?
+    // We take a screenshot of each cell before opening the comment view of that cell because we need to find out roughly how 'tall' the text is. We use the screenshot height to do that
     var selectedPostScreenshot: UIImage?
-
     // Floating button
     var addButton = MDCFloatingButton()
-    
-    let bottomNavBar = MDCBottomNavigationBar()
+    // Add the bottom nav bar, which is done in BottomNavBarMenu.swift
+    var bottomNavBar = MDCBottomNavigationBar()
     /// Main control flow that manages the app once the first screen is entered.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,8 +76,9 @@ class ViewController: UIViewController {
         // Add floating button programatically 
         prepareFloatingAddButton()
         
-        // Add menu navigation bar programatically
-        prepareBottomNavBar()
+        // Add menu navigation bar programatically 
+        bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
+        self.view.addSubview(bottomNavBar)
     }
     
     func prepareTableView(){
@@ -90,41 +90,10 @@ class ViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.backgroundColor = UIColor.white
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
-    
-    func prepareBottomNavBar() {
-        var bottomNavBarFrame = CGRect(x: 0, y: view.frame.height - 80, width: view.frame.width, height: 80)
         
-        // Extend the Bottom Navigation to the bottom of the screen.
-        if #available(iOS 11.0, *) {
-            bottomNavBarFrame.size.height += view.safeAreaInsets.bottom
-            bottomNavBarFrame.origin.y -= view.safeAreaInsets.bottom
-        }
-        bottomNavBar.frame = bottomNavBarFrame
-        
-        // Potential other images: pencil.and.outline, doc.append, quote.bubble, scribble
-        let tabBarItem1 = UITabBarItem(title: "Posts", image: UIImage(systemName: "scribble"), tag: 0)
-        let tabBarItem2 = UITabBarItem(title: "Karma", image: UIImage(systemName: "k.circle.fill"), tag: 1)
-        let tabBarItem3 = UITabBarItem(title: "Me", image: UIImage(systemName: "person.circle.fill"), tag: 2)
-
-        bottomNavBar.items = [tabBarItem1, tabBarItem2, tabBarItem3]
-        bottomNavBar.selectedItem = tabBarItem1
-        
-        bottomNavBar.delegate = self
-        
-        bottomNavBarStyling()
-        
-        view.addSubview(bottomNavBar)
-    }
-    
-    func bottomNavBarStyling(){
-        bottomNavBar.itemTitleFont = UIFont.boldSystemFont(ofSize: 17)
-        bottomNavBar.itemsContentVerticalMargin = 5
-        bottomNavBar.backgroundColor = UIColor(white: 1, alpha: 0.97)
-        // Ripple effect: this doesn't turn it off for whatever reason
-        self.bottomNavBar.enableRippleBehavior = false
-    }
-    
     func prepareFloatingAddButton(){
         addButton.accessibilityLabel = "Create"
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
