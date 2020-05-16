@@ -55,6 +55,7 @@
 		86709BD42404BEFD00712ECC /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */; };
 		86709BD824072CCB00712ECC /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86709BD724072CCB00712ECC /* CanvasView.swift */; };
 		8676C0A5246F78F3006C8FB8 /* BottomNavBarMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8676C0A4246F78F3006C8FB8 /* BottomNavBarMenu.swift */; };
+		8676C0A7246F81F0006C8FB8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8676C0A6246F81F0006C8FB8 /* ProfileViewController.swift */; };
 		868528D82443AB6C00B17013 /* StoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868528D72443AB6C00B17013 /* StoryManager.swift */; };
 		86BE51DD241B62D80012AA14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */; };
 		B34BA4B63B8CD21F341BF5E5 /* Pods_Grapevine_130.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */; };
@@ -121,6 +122,7 @@
 		86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
 		86709BD724072CCB00712ECC /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		8676C0A4246F78F3006C8FB8 /* BottomNavBarMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavBarMenu.swift; sourceTree = "<group>"; };
+		8676C0A6246F81F0006C8FB8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		868528D72443AB6C00B17013 /* StoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryManager.swift; sourceTree = "<group>"; };
 		86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Grapevine_130.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +193,7 @@
 				86709BD32404BEFD00712ECC /* InfoScreenViewController.swift */,
 				83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */,
 				83AF1347244BFF6F004AF1B5 /* SwipingController.swift */,
+				8676C0A6246F81F0006C8FB8 /* ProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				86709BD824072CCB00712ECC /* CanvasView.swift in Sources */,
 				8659F2E123F8A94200C3595F /* Utils.swift in Sources */,
 				8659F2D223F8A93400C3595F /* AppDelegate.swift in Sources */,
+				8676C0A7246F81F0006C8FB8 /* ProfileViewController.swift in Sources */,
 				83F26B0C24294F6F0056F719 /* CommentViewController.swift in Sources */,
 				8659F2E923F8A94200C3595F /* PostsManager.swift in Sources */,
 				83B121A3242EE82F0034BF73 /* CommentTableViewCell.swift in Sources */,

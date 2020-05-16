@@ -681,7 +681,7 @@ extension ViewController: MDCBottomNavigationBarDelegate {
         } else if item.title! == "Karma" {
             self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
         } else if item.title! == "Me" {
-            scrollToTop()
+            self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
     }
 }

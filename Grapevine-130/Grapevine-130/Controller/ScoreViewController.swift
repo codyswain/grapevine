@@ -156,9 +156,9 @@ extension ScoreViewController: MDCBottomNavigationBarDelegate {
         if item.title! == "Posts" {
             self.performSegue(withIdentifier: "scoreToMain", sender: self)
         } else if item.title! == "Karma" {
-            // doesn't do anything
+
         } else if item.title! == "Me" {
-            
+            self.performSegue(withIdentifier: "scoreToProfile", sender: self)
         }
     }
 }
