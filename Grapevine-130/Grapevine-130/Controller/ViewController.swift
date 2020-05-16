@@ -1,6 +1,8 @@
 import UIKit
 import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
+import MaterialComponents.MaterialButtons
+import MaterialComponents.MaterialButtons_Theming
 
 /// Manages the main workflow.
 class ViewController: UIViewController {
@@ -40,7 +42,7 @@ class ViewController: UIViewController {
     var selectedPostScreenshot: UIImage?
 
     // Floating button
-    var addButton = UIButton()
+    var addButton = MDCFloatingButton()
     
     let bottomNavBar = MDCBottomNavigationBar()
     /// Main control flow that manages the app once the first screen is entered.
@@ -124,22 +126,13 @@ class ViewController: UIViewController {
     }
     
     func prepareFloatingAddButton(){
-        self.view.addSubview(addButton)
+        addButton.accessibilityLabel = "Create"
+        addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addButton.setImageTintColor(.black, for: .normal)
+        addButton.backgroundColor = UIColor(white: 1, alpha: 0.97)
+        addButton.frame = CGRect(x: view.frame.width - 60 - 20, y: view.frame.height - 80 - 60 - 20, width: 60, height: 60)
         self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
-        addButton.layer.cornerRadius = addButton.layer.frame.size.width/2
-        addButton.clipsToBounds = true
-        addButton.setBackgroundImage(UIImage(named:"addButton1"), for: .normal)
-        addButton.tintColor = Constants.Colors.darkPurple
-        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-        addButton.layer.masksToBounds = false
-        addButton.layer.shadowRadius = 2.0
-        addButton.layer.shadowOpacity = 0.25
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            addButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -40),
-        addButton.widthAnchor.constraint(equalToConstant: 50),
-        addButton.heightAnchor.constraint(equalToConstant: 50)])
+        self.view.addSubview(addButton)
     }
     
     /// Displays a loading icon while posts load.

@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework
+${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework
 ${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework
 ${PODS_ROOT}/SnapSDK/SCSDKCreativeKit.framework
 ${PODS_ROOT}/SnapSDK/SCSDKCoreKit.framework

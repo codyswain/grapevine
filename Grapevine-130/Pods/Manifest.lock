@@ -12,6 +12,33 @@ PODS:
     - MaterialComponents/ShadowLayer
     - MaterialComponents/Typography
     - MDFInternationalization
+  - MaterialComponents/Buttons (109.3.1):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Shapes
+    - MaterialComponents/Typography
+    - MDFInternationalization
+    - MDFTextAccessibility
+  - "MaterialComponents/Buttons+ColorThemer (109.3.1)":
+    - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Color
+  - "MaterialComponents/Buttons+ShapeThemer (109.3.1)":
+    - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Shape
+  - "MaterialComponents/Buttons+Theming (109.3.1)":
+    - MaterialComponents/Buttons
+    - "MaterialComponents/Buttons+ColorThemer"
+    - "MaterialComponents/Buttons+ShapeThemer"
+    - "MaterialComponents/Buttons+TypographyThemer"
+    - MaterialComponents/schemes/Container
+    - MaterialComponents/ShadowElevations
+  - "MaterialComponents/Buttons+TypographyThemer (109.3.1)":
+    - MaterialComponents/Buttons
+    - MaterialComponents/schemes/Typography
   - MaterialComponents/Elevation (109.3.1):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
@@ -30,30 +57,58 @@ PODS:
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
     - MaterialComponents/private/Math
+  - MaterialComponents/schemes/Color (109.3.1):
+    - MaterialComponents/Availability
+    - MaterialComponents/private/Color
+  - MaterialComponents/schemes/Container (109.3.1):
+    - MaterialComponents/schemes/Color
+    - MaterialComponents/schemes/Shape
+    - MaterialComponents/schemes/Typography
+  - MaterialComponents/schemes/Shape (109.3.1):
+    - MaterialComponents/ShapeLibrary
+    - MaterialComponents/Shapes
+  - MaterialComponents/schemes/Typography (109.3.1):
+    - "MaterialComponents/schemes/Typography+BasicFontScheme"
+    - "MaterialComponents/schemes/Typography+Scheming"
+    - MaterialComponents/Typography
+  - "MaterialComponents/schemes/Typography+BasicFontScheme (109.3.1)"
+  - "MaterialComponents/schemes/Typography+Scheming (109.3.1)"
   - MaterialComponents/ShadowElevations (109.3.1)
   - MaterialComponents/ShadowLayer (109.3.1):
     - MaterialComponents/ShadowElevations
+  - MaterialComponents/ShapeLibrary (109.3.1):
+    - MaterialComponents/private/Math
+    - MaterialComponents/Shapes
+  - MaterialComponents/Shapes (109.3.1):
+    - MaterialComponents/private/Color
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowLayer
   - MaterialComponents/Typography (109.3.1):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
   - MDFInternationalization (2.0.0)
+  - MDFTextAccessibility (2.0.0)
   - SnapSDK/SCSDKCreativeKit (1.4.0)
 
 DEPENDENCIES:
   - MaterialComponents/BottomNavigation
+  - MaterialComponents/Buttons
+  - "MaterialComponents/Buttons+Theming"
   - SnapSDK/SCSDKCreativeKit (= 1.4.0)
 
 SPEC REPOS:
   trunk:
     - MaterialComponents
     - MDFInternationalization
+    - MDFTextAccessibility
     - SnapSDK
 
 SPEC CHECKSUMS:
   MaterialComponents: 7675cd4b1c9f660b63cddeb725b2de853790402b
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
+  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   SnapSDK: 222857226700e1373a186da658c619a79dfa40c8
 
-PODFILE CHECKSUM: 86b5bcc3c18e80baff969c854c2f9ce9b1f7e299
+PODFILE CHECKSUM: c922ba388f1d50783c99d40942f79afffe36c450
 
 COCOAPODS: 1.9.1

@@ -11,5 +11,7 @@ target 'Grapevine-130' do
   pod 'SnapSDK', '1.4.0', :subspecs => ['SCSDKCreativeKit']
 
   pod 'MaterialComponents/BottomNavigation'
-  
+  pod 'MaterialComponents/Buttons'
+  pod 'MaterialComponents/Buttons+Theming'
+
 end
