@@ -99,7 +99,7 @@ class ViewController: UIViewController {
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addButton.setImageTintColor(.black, for: .normal)
         addButton.backgroundColor = UIColor(white: 1, alpha: 0.97)
-        addButton.frame = CGRect(x: view.frame.width - 60 - 20, y: view.frame.height - 80 - 60 - 20, width: 60, height: 60)
+        addButton.frame = CGRect(x: view.frame.width - 55 - 20, y: view.frame.height - 80 - 60 - 20, width: 60, height: 60)
         self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         self.view.addSubview(addButton)
     }
@@ -236,7 +236,7 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
-        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle")
+        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle.fill")
         alert.titleIconTintColor = .black
         alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
         alert.messageFont = UIFont.systemFont(ofSize: 17)
