@@ -78,50 +78,63 @@ class ScoreViewController: UIViewController {
     
     /// Displays a popup that let's the user know that they do not have enough points to ban other users.
     func alertMessageNotEnoughPoints(){
-        let alert = UIAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.", preferredStyle: .alert)
+        let alert = MDCAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.")
 
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        alert.view.tintColor = Constants.Colors.darkPurple
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        alert.titleIcon = UIImage(systemName: "x.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true)
     }
 
     /// Displays a popup that let's the user know that they have enough points to ban others and direct them to the ban chamber.
     func alertPurchaseBanPower(){
-        let alert = UIAlertController(title: "Spend Karma", message: "Use your karma for extra abilities on Grapevine.", preferredStyle: .alert)
+        let alert = MDCAlertController(title: "Spend Karma", message: "Use your karma for extra abilities on Grapevine.")
                 
-        let action1 = UIAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters", style: .default) { (action:UIAlertAction) in
+        let action1 = MDCAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters") { (action) in
             if self.score >= 10 {
                 self.performSegue(withIdentifier: "goToBanChamber", sender: self)
             } else {
                 self.alertMessageNotEnoughPoints()
             }
         }
-        let action2 = UIAlertAction(title: "[🔒] Shout: Emphasize Post In Feed", style: .default) { (action:UIAlertAction) in
+        let action2 = MDCAlertAction(title: "[🔒] Shout: Emphasize Post In Feed") { (action) in
         }
-        let action3 = UIAlertAction(title: "[🔒] Scream: Notify All In Radius", style: .default) { (action:UIAlertAction) in
+        let action3 = MDCAlertAction(title: "[🔒] Scream: Notify All In Radius") { (action) in
         }
-        let action4 = UIAlertAction(title: "[🔒] Creative Kit: Fonts & Colors", style: .default) { (action:UIAlertAction) in
+        let action4 = MDCAlertAction(title: "[🔒] Creative Kit: Fonts & Colors") { (action) in
         }
-        let action5 = UIAlertAction(title: "[🔒] Juiced: Receive Double Karma", style: .default) { (action:UIAlertAction) in
+        let action5 = MDCAlertAction(title: "[🔒] Juiced: Receive Double Karma") { (action) in
         }
-        let action6 = UIAlertAction(title: "[🔒] Invest: Share Karma Of Post", style: .default) { (action:UIAlertAction) in
+        let action6 = MDCAlertAction(title: "[🔒] Invest: Share Karma Of Post") { (action) in
         }
-        let action7 = UIAlertAction(title: "[🔒] Defense: Karma Won't Decrease", style: .default) { (action:UIAlertAction) in
+        let action7 = MDCAlertAction(title: "[🔒] Defense: Karma Won't Decrease") { (action) in
         }
         let action8
-            = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+            = MDCAlertAction(title: "Cancel") { (action) in
             print("You've pressed cancel");
         }
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.addAction(action3)
-        alert.addAction(action4)
-        alert.addAction(action5)
-        alert.addAction(action6)
-        alert.addAction(action7)
+        // MCD shows the actions backwards
         alert.addAction(action8)
+        alert.addAction(action7)
+        alert.addAction(action6)
+        alert.addAction(action5)
+        alert.addAction(action4)
+        alert.addAction(action3)
+        alert.addAction(action2)
+        alert.addAction(action1)
 
-        alert.view.tintColor = Constants.Colors.darkPurple
+        alert.titleIcon = UIImage(systemName: "checkmark.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true, completion: nil)
 
     }

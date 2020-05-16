@@ -1,4 +1,37 @@
 PODS:
+  - GoogleUtilities (6.6.0):
+    - GoogleUtilities/AppDelegateSwizzler (= 6.6.0)
+    - GoogleUtilities/Environment (= 6.6.0)
+    - GoogleUtilities/ISASwizzler (= 6.6.0)
+    - GoogleUtilities/Logger (= 6.6.0)
+    - GoogleUtilities/MethodSwizzler (= 6.6.0)
+    - GoogleUtilities/Network (= 6.6.0)
+    - "GoogleUtilities/NSData+zlib (= 6.6.0)"
+    - GoogleUtilities/Reachability (= 6.6.0)
+    - GoogleUtilities/SwizzlerTestHelpers (= 6.6.0)
+    - GoogleUtilities/UserDefaults (= 6.6.0)
+  - GoogleUtilities/AppDelegateSwizzler (6.6.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.6.0):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/ISASwizzler (6.6.0)
+  - GoogleUtilities/Logger (6.6.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.6.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.6.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.6.0)"
+  - GoogleUtilities/Reachability (6.6.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/SwizzlerTestHelpers (6.6.0):
+    - GoogleUtilities/MethodSwizzler
+  - GoogleUtilities/UserDefaults (6.6.0):
+    - GoogleUtilities/Logger
   - MaterialComponents/AnimationTiming (109.3.1)
   - MaterialComponents/Availability (109.3.1)
   - MaterialComponents/BottomNavigation (109.3.1):
@@ -39,6 +72,15 @@ PODS:
   - "MaterialComponents/Buttons+TypographyThemer (109.3.1)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Typography
+  - MaterialComponents/Dialogs (109.3.1):
+    - MaterialComponents/Buttons
+    - MaterialComponents/Elevation
+    - MaterialComponents/private/KeyboardWatcher
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
   - MaterialComponents/Elevation (109.3.1):
     - MaterialComponents/Availability
     - MaterialComponents/private/Color
@@ -51,6 +93,8 @@ PODS:
   - MaterialComponents/private/Application (109.3.1)
   - MaterialComponents/private/Color (109.3.1):
     - MaterialComponents/Availability
+  - MaterialComponents/private/KeyboardWatcher (109.3.1):
+    - MaterialComponents/private/Application
   - MaterialComponents/private/Math (109.3.1)
   - MaterialComponents/Ripple (109.3.1):
     - MaterialComponents/AnimationTiming
@@ -88,27 +132,34 @@ PODS:
     - MaterialComponents/private/Math
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
+  - PromisesObjC (1.2.8)
   - SnapSDK/SCSDKCreativeKit (1.4.0)
 
 DEPENDENCIES:
+  - GoogleUtilities
   - MaterialComponents/BottomNavigation
   - MaterialComponents/Buttons
   - "MaterialComponents/Buttons+Theming"
+  - MaterialComponents/Dialogs
   - SnapSDK/SCSDKCreativeKit (= 1.4.0)
 
 SPEC REPOS:
   trunk:
+    - GoogleUtilities
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - PromisesObjC
     - SnapSDK
 
 SPEC CHECKSUMS:
+  GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   MaterialComponents: 7675cd4b1c9f660b63cddeb725b2de853790402b
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SnapSDK: 222857226700e1373a186da658c619a79dfa40c8
 
-PODFILE CHECKSUM: c922ba388f1d50783c99d40942f79afffe36c450
+PODFILE CHECKSUM: cbbf5af0ac3cbc650a655fd250554912a73949a3
 
 COCOAPODS: 1.9.1

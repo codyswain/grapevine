@@ -135,9 +135,9 @@ class ViewController: UIViewController {
     @objc func changeRange(tapGestureRecognizer: UITapGestureRecognizer)
     {
         /// Displays the possible ranges users can request posts from
-        let alert = UIAlertController(title: "Change Range", message: "Find more posts around you!", preferredStyle: .alert)
+        let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
                 
-        let action1 = UIAlertAction(title: "3 miles", style: .default) { (action:UIAlertAction) in
+        let action1 = MDCAlertAction(title: "3 miles") { (action) in
             self.range = 3
             self.rangeButton.setTitle( " 3 miles" , for: .normal )
             self.nearbyLabel.text = "Posts Near You"
@@ -152,7 +152,7 @@ class ViewController: UIViewController {
             self.applyFilter(reset: true)
         }
         
-        let action2 = UIAlertAction(title: "Global", style: .default) { (action:UIAlertAction) in
+        let action2 = MDCAlertAction(title: "Global") { (action) in
             self.range = -1
             self.rangeButton.setTitle( " Global" , for: .normal )
             self.nearbyLabel.text = "Global Posts"
@@ -167,14 +167,19 @@ class ViewController: UIViewController {
             self.applyFilter(reset: true)
         }
         
-        let action3 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
-            
-        }
-
-        alert.addAction(action1)
-        alert.addAction(action2)
+        let action3 = MDCAlertAction(title: "Cancel") { (action) in }
+        
         alert.addAction(action3)
-        alert.view.tintColor = .black
+        alert.addAction(action2)
+        alert.addAction(action1)
+        
+        alert.titleIcon = UIImage(systemName: "location.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -211,17 +216,9 @@ class ViewController: UIViewController {
     func showSharePopup(_ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
-        let alert = UIAlertController(title: "Stories", message: "Share post as a story!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Snapchat", style: .default){ (action:UIAlertAction) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToSnap(backgroundImage, content)
-        })
-        alert.addAction(UIAlertAction(title: "Instagram Stories", style: .default){ (action:UIAlertAction) in
+        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
+        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
@@ -230,9 +227,22 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToInstagram(backgroundImage, content)
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToSnap(backgroundImage, content)
         })
-        alert.view.tintColor = .black
+        alert.titleIcon = UIImage(systemName: "paperplane.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true)
     }
     
@@ -304,9 +314,15 @@ class ViewController: UIViewController {
     
     // Popup when user flags post
     func showFlaggedAlertPopup(){
-        let alert = UIAlertController(title: "Sorry about that. Post was flagged.", message: "Please email teamgrapevineofficial@gmail.com if this is urgently serious.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: .default){ (action:UIAlertAction) in })
+        let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
+        alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
+        alert.titleIcon = UIImage(systemName: "flag")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true)
     }
     

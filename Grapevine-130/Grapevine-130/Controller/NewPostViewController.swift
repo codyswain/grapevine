@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import CoreLocation
+import MaterialComponents.MaterialDialogs
 
 /// Manages the control flow for making a new post.
 class NewPostViewController: UIViewController {
@@ -229,12 +230,17 @@ class NewPostViewController: UIViewController {
     }
     
     func spamPopup(){
-        let alert = UIAlertController(title: "Too Much Posting", message: "To prevent potential spamming, we can't let you post that much. Try again later", preferredStyle: .alert)
+        let alert = MDCAlertController(title: "Too Much Posting", message: "To prevent potential spamming, we can't let you post that much. Try again later")
                 
-        let action1 = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in }
-        
+        let action1 = MDCAlertAction(title: "Ok") { (action) in }
         alert.addAction(action1)
-        alert.view.tintColor = Constants.Colors.darkPurple
+        alert.titleIcon = UIImage(systemName: "x.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true, completion: nil)
 
     }

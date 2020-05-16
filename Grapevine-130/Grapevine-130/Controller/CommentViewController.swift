@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialDialogs
 
 protocol CommentViewControllerDelegate {
     func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int)
@@ -36,16 +37,21 @@ class CommentViewController: UIViewController {
     }
     
     @IBAction func shareCommentsPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Share", message: "Share post with friends!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Snapchat", style: .default){ (action:UIAlertAction) in
-            self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
-        })
-        alert.addAction(UIAlertAction(title: "Instagram Stories", style: .default){ (action:UIAlertAction) in
+        let alert = MDCAlertController(title: "Share", message: "Share comments with friends!")
+        alert.addAction(MDCAlertAction(title: "Cancel"){ (action) in })
+        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+            self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
         })
-        alert.view.tintColor = .black
+        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true)
     }
     
@@ -239,27 +245,30 @@ class CommentViewController: UIViewController {
     }
         
     func alertActions(){
-        let alert = UIAlertController(title: "Do Something", message: "Upvote, Downvote, Flag", preferredStyle: .alert)
-        
+        let alert = MDCAlertController(title: "Do Something", message: "")
+        alert.addAction(MDCAlertAction(title: "Cancel", emphasis: .high) { (action) in })
         // Do not allow users to interact with their own posts
         if mainPost!.poster != Constants.userID {
-            alert.addAction(UIAlertAction(title: "Upvote", style: .default){ (action:UIAlertAction) in
-                self.upvoteTapped()
-            })
-            alert.addAction(UIAlertAction(title: "Downvote", style: .default){ (action:UIAlertAction) in
+            alert.addAction(MDCAlertAction(title: "Downvote"){ (action) in
                 self.downvoteTapped()
             })
+            alert.addAction(MDCAlertAction(title: "Upvote"){ (action) in
+                self.upvoteTapped()
+            })
         }
-        
-        alert.addAction(UIAlertAction(title: "Share Comments To Snap", style: .default){ (action:UIAlertAction) in
-            self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
-        })
-        alert.addAction(UIAlertAction(title: "Share Comments To IG", style: .default){ (action:UIAlertAction) in
+        alert.addAction(MDCAlertAction(title: "Share Comments To IG"){ (action) in
             self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
+        alert.addAction(MDCAlertAction(title: "Share Comments To Snap"){ (action) in
+            self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
         })
-        alert.view.tintColor = Constants.Colors.darkPurple
+        alert.titleIcon = UIImage(systemName: "heart.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
         self.present(alert, animated: true)
     }
     

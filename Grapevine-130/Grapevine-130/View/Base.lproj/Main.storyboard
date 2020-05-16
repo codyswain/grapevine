@@ -338,7 +338,7 @@
                                         <rect key="frame" x="0.0" y="246.5" width="300" height="22"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title=" Use Karma" image="p.circle.fill" catalog="system">
+                                        <state key="normal" title=" Use Karma" image="k.circle.fill" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -810,8 +810,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Interactions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-WB-RVF">
-                                <rect key="frame" x="20" y="49" width="203" height="33.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Posts &amp; Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-WB-RVF">
+                                <rect key="frame" x="20" y="49" width="295" height="34"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -846,13 +846,13 @@
         <image name="circle.fill" catalog="system" width="64" height="60"/>
         <image name="heart.circle.fill" catalog="system" width="64" height="60"/>
         <image name="info.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="k.circle.fill" catalog="system" width="64" height="60"/>
         <image name="location.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="p.circle.fill" catalog="system" width="64" height="60"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
-        <segue reference="hoR-89-MDP"/>
+        <segue reference="6l6-0s-KYJ"/>
     </inferredMetricsTieBreakers>
 </document>

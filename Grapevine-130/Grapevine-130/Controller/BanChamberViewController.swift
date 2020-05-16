@@ -1,6 +1,7 @@
 
 import UIKit
 import CoreLocation
+import MaterialComponents.MaterialDialogs
 
 /// Manages the main workflow of the ban chamber screen.
 class BanChamberViewController: UIViewController {
@@ -262,21 +263,27 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
     func banPoster(_ cell: UITableViewCell) {
         print("inside banPoster")
         
-        let alert = UIAlertController(title: "Are you sure you want to ban this user?", message: "", preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "Yes", style: .default) { (action:UIAlertAction) in
+        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want to ban this user?")
+        let action1 = MDCAlertAction(title: "Cancel") { (action) in
+            print("You've pressed cancel");
+        }
+        let action2 = MDCAlertAction(title: "Yes") { (action) in
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
             let creatorToBeBanned = self.posts[row].poster
             let postToBeDeleted = self.posts[row].postId
             self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
         }
-        let action2 = UIAlertAction(title: "Cancel", style: .destructive) { (action:UIAlertAction) in
-            print("You've pressed cancel");
-        }
         alert.addAction(action1)
         alert.addAction(action2)
-        alert.view.tintColor = Constants.Colors.darkPurple
-        self.present(alert, animated: true, completion: nil)
+        alert.titleIcon = UIImage(systemName: "flame.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
+        self.present(alert, animated: true)
     }
 }
 

@@ -1,8 +1,8 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization" "${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents" "${PODS_ROOT}/SnapSDK"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities" "${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization" "${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents" "${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC" "${PODS_ROOT}/SnapSDK"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization/MDFInternationalization.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents/MaterialComponents.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MDFInternationalization/MDFInternationalization.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents/MaterialComponents.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises.framework/Headers" "${PODS_TARGET_SRCROOT}/Sources/FBLPromises/include"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "MDFInternationalization" -framework "MDFTextAccessibility" -framework "MaterialComponents" -framework "SCSDKCoreKit" -framework "SCSDKCreativeKit"
+OTHER_LDFLAGS = $(inherited) -l"z" -framework "FBLPromises" -framework "GoogleUtilities" -framework "MDFInternationalization" -framework "MDFTextAccessibility" -framework "MaterialComponents" -framework "SCSDKCoreKit" -framework "SCSDKCreativeKit" -framework "Security" -framework "SystemConfiguration"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

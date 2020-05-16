@@ -7,11 +7,13 @@ target 'Grapevine-130' do
 
   # Pods for Grapevine
   # add the Firebase pod for Google Analytics
+  pod 'GoogleUtilities'
 
   pod 'SnapSDK', '1.4.0', :subspecs => ['SCSDKCreativeKit']
 
   pod 'MaterialComponents/BottomNavigation'
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/Buttons+Theming'
+  pod 'MaterialComponents/Dialogs'
 
 end
