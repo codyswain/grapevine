@@ -1,6 +1,5 @@
 
 import UIKit
-import FirebaseDatabase
 import CoreLocation
 
 /// Manages the main workflow of the ban chamber screen.

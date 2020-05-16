@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import FirebaseDatabase
-import FirebaseFirestore
 
 class WalkthroughViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLoad() {

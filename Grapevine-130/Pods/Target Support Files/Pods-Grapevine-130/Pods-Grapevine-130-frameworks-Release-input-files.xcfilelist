@@ -1,10 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130-frameworks.sh
-${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework
-${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
+${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework
+${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework
 ${PODS_ROOT}/SnapSDK/SCSDKCreativeKit.framework
 ${PODS_ROOT}/SnapSDK/SCSDKCoreKit.framework
-${BUILT_PRODUCTS_DIR}/abseil/absl.framework
-${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework
-${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework
-${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework
-${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

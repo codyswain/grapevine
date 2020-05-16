@@ -1,5 +1,6 @@
 import UIKit
 import CoreLocation
+import MaterialComponents.MaterialBottomNavigation
 
 /// Manages the main workflow.
 class ViewController: UIViewController {
@@ -40,7 +41,8 @@ class ViewController: UIViewController {
 
     // Floating button
     var addButton = UIButton()
-
+    
+    let bottomNavBar = MDCBottomNavigationBar()
     /// Main control flow that manages the app once the first screen is entered.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,18 +61,9 @@ class ViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestLocation()
-        
-        // Load posts
-        postsManager.delegate = self
-        
+                
         // Load table
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.refreshControl = refresher
-        tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 120
-        tableView.backgroundColor = UIColor.white
+        prepareTableView()
         
         // Add scroll-to-top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
@@ -81,11 +74,72 @@ class ViewController: UIViewController {
         
         // Add floating button programatically 
         prepareFloatingAddButton()
+        
+        // Add menu navigation bar programatically
+        prepareBottomNavBar()
+    }
+    
+    func prepareTableView(){
+        postsManager.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.refreshControl = refresher
+        tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 120
+        tableView.backgroundColor = UIColor.white
+    }
+    
+    func prepareBottomNavBar() {
+        var bottomNavBarFrame = CGRect(x: 0, y: view.frame.height - 80, width: view.frame.width, height: 80)
+        
+        // Extend the Bottom Navigation to the bottom of the screen.
+        if #available(iOS 11.0, *) {
+            bottomNavBarFrame.size.height += view.safeAreaInsets.bottom
+            bottomNavBarFrame.origin.y -= view.safeAreaInsets.bottom
+        }
+        bottomNavBar.frame = bottomNavBarFrame
+        
+        // Potential other images: pencil.and.outline, doc.append, quote.bubble, scribble
+        let tabBarItem1 = UITabBarItem(title: "Posts", image: UIImage(systemName: "scribble"), tag: 0)
+        let tabBarItem2 = UITabBarItem(title: "Karma", image: UIImage(systemName: "k.circle.fill"), tag: 1)
+        let tabBarItem3 = UITabBarItem(title: "Me", image: UIImage(systemName: "person.circle.fill"), tag: 2)
+
+        bottomNavBar.items = [tabBarItem1, tabBarItem2, tabBarItem3]
+        bottomNavBar.selectedItem = tabBarItem1
+        
+        bottomNavBar.delegate = self
+        
+        bottomNavBarStyling()
+        
+        view.addSubview(bottomNavBar)
+    }
+    
+    func bottomNavBarStyling(){
+        bottomNavBar.itemTitleFont = UIFont.boldSystemFont(ofSize: 17)
+        bottomNavBar.itemsContentVerticalMargin = 5
+        bottomNavBar.backgroundColor = UIColor(white: 1, alpha: 0.97)
+        // Ripple effect: this doesn't turn it off for whatever reason
+        self.bottomNavBar.enableRippleBehavior = false
     }
     
     func prepareFloatingAddButton(){
-        self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         self.view.addSubview(addButton)
+        self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
+        addButton.layer.cornerRadius = addButton.layer.frame.size.width/2
+        addButton.clipsToBounds = true
+        addButton.setBackgroundImage(UIImage(named:"addButton1"), for: .normal)
+        addButton.tintColor = Constants.Colors.darkPurple
+        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        addButton.layer.masksToBounds = false
+        addButton.layer.shadowRadius = 2.0
+        addButton.layer.shadowOpacity = 0.25
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            addButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -40),
+        addButton.widthAnchor.constraint(equalToConstant: 50),
+        addButton.heightAnchor.constraint(equalToConstant: 50)])
     }
     
     /// Displays a loading icon while posts load.
@@ -99,16 +153,7 @@ class ViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
-        
-    /**
-     Segue to the score screen on button press.
-     
-     - Parameter sender: Segue initiator
-     */
-    @IBAction func scoreButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
-    }
-    
+            
     /**
      Scrolls to the first post
      
@@ -238,6 +283,7 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "goToComments", sender: self)
     }
     
+    // For sharing to stories
     func updateCity() {
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: lat, longitude: lon)
@@ -302,25 +348,6 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    // For floating add button
-    override func viewWillLayoutSubviews() {
-        addButton.layer.cornerRadius = addButton.layer.frame.size.width/2
-        addButton.clipsToBounds = true
-        addButton.setBackgroundImage(UIImage(named:"addButton1"), for: .normal)
-//        addButton.setBackgroundImage(UIImage(systemName:"plus.circle.fill"), for: .normal)
-        addButton.tintColor = Constants.Colors.darkPurple
-        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-        addButton.layer.masksToBounds = false
-        addButton.layer.shadowRadius = 2.0
-        addButton.layer.shadowOpacity = 0.25
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            addButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            addButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -40),
-        addButton.widthAnchor.constraint(equalToConstant: 50),
-        addButton.heightAnchor.constraint(equalToConstant: 50)])
-    }
-
     @IBAction func addButtonPressed(_ sender: UIButton){
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
     }
@@ -681,6 +708,18 @@ extension ViewController: CommentViewControllerDelegate {
         } else {
             posts[row].flagStatus = newFlagStatus
             posts[row].numFlags = posts[row].numFlags + newFlagStatus
+        }
+    }
+}
+
+extension ViewController: MDCBottomNavigationBarDelegate {
+    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+        if item.title! == "Posts" {
+            scrollToTop()
+        } else if item.title! == "Karma" {
+            self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+        } else if item.title! == "Me" {
+            scrollToTop()
         }
     }
 }
