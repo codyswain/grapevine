@@ -245,7 +245,7 @@ class CommentViewController: UIViewController {
     }
         
     func alertActions(){
-        let alert = MDCAlertController(title: "Do Something", message: "")
+        let alert = MDCAlertController(title: "Do Something", message: "Take some action.")
         alert.addAction(MDCAlertAction(title: "Cancel", emphasis: .high) { (action) in })
         // Do not allow users to interact with their own posts
         if mainPost!.poster != Constants.userID {
