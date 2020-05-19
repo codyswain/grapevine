@@ -5,6 +5,8 @@ import MaterialComponents.MaterialCards
 
 /// Manages control flow of the score screen.
 class KarmaOptionsViewController: UIViewController {
+    fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1"),#imageLiteral(resourceName: "Grapevine Store Card 2"), #imageLiteral(resourceName: "Grapevine Store Card 3")]
+
     /// Intializes the score screen.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,7 @@ class KarmaOptionsViewController: UIViewController {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(MDCCardCollectionCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "Cell")
         return collectionView
     }()
 
@@ -41,19 +43,12 @@ extension KarmaOptionsViewController: UICollectionViewDelegateFlowLayout, UIColl
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
-                                                    for: indexPath) as! MDCCardCollectionCell
+                                                    for: indexPath) as! CustomCell
         cell.isSelectable = false
         cell.cornerRadius = 10
-        cell.setShadowColor(UIColor.black, for: .highlighted)
-        
-//        cell.setImage(UIImage(systemName: "scribble"), for: .normal)
-//        cell.setImageTintColor(.black, for: .normal)
-//        
-//        let card = MDCCard(frame: CGRect(x: 50, y: 50, width: 0, height: 0))
-//        card.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0.0)
-//        card.largeContentImage = UIImage(named: "Party")
-//        cell.backgroundView = card
-        
+        cell.setShadowElevation(ShadowElevation(rawValue: 0), for: .normal)        
+        cell.image = self.pictures[indexPath.item]
+
         return cell
     }
     
@@ -61,3 +56,36 @@ extension KarmaOptionsViewController: UICollectionViewDelegateFlowLayout, UIColl
         // do something when item was selected
     }
 }
+
+class CustomCell: MDCCardCollectionCell {
+    var image: UIImage? {
+        didSet {
+            guard let im = image else { return }
+            bg.image = im
+        }
+    }
+    
+    fileprivate let bg: UIImageView = {
+       let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+                iv.layer.cornerRadius = 12
+        return iv
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        contentView.addSubview(bg)
+        bg.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        bg.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        bg.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
+        bg.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
+    // Xcode required me to have this
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
