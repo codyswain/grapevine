@@ -98,6 +98,7 @@ class ViewController: UIViewController {
         addButton.accessibilityLabel = "Create"
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addButton.setImageTintColor(.black, for: .normal)
+        addButton.enableRippleBehavior = true
         addButton.backgroundColor = UIColor(white: 1, alpha: 0.97)
         addButton.frame = CGRect(x: view.frame.width - 55 - 20, y: view.frame.height - 80 - 60 - 20, width: 60, height: 60)
         self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
@@ -155,7 +156,7 @@ class ViewController: UIViewController {
         let action2 = MDCAlertAction(title: "Global") { (action) in
             self.range = -1
             self.rangeButton.setTitle( " Global" , for: .normal )
-            self.nearbyLabel.text = "Global Posts"
+            self.nearbyLabel.text = "Global Grapevine"
 
             // Scroll to top
             self.scrollToTop()
@@ -493,11 +494,7 @@ extension ViewController: PostsManagerDelegate {
             self.posts = posts
             self.ref = ref
             if self.posts.count == 0 {
-                let noPostsLabel = UILabel()
-                noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
-                noPostsLabel.textAlignment = .center
-                noPostsLabel.text = "Bad Internet or no posts in your area :("
-                self.tableView.tableHeaderView = noPostsLabel
+                self.alertNoPosts()
                 self.tableView.tableHeaderView?.isHidden = false
             } else {
                 self.tableView.tableHeaderView = nil
@@ -555,6 +552,19 @@ extension ViewController: PostsManagerDelegate {
 //            self.tableView.refreshControl?.beginRefreshing()
 //            self.refresh()
 //        }
+    }
+    
+    func alertNoPosts(){
+        let alert = MDCAlertController(title: "No posts.", message: "Either bad Internet or no posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        alert.titleIcon = UIImage(systemName: "x.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
+        self.present(alert, animated: true)
     }
 }
 

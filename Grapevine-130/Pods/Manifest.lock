@@ -1,4 +1,5 @@
 PODS:
+  - CollectionViewPagingLayout (0.1.5)
   - GoogleUtilities (6.6.0):
     - GoogleUtilities/AppDelegateSwizzler (= 6.6.0)
     - GoogleUtilities/Environment (= 6.6.0)
@@ -147,6 +148,7 @@ PODS:
   - SnapSDK/SCSDKCreativeKit (1.4.0)
 
 DEPENDENCIES:
+  - CollectionViewPagingLayout
   - GoogleUtilities
   - MaterialComponents/BottomNavigation
   - MaterialComponents/Buttons
@@ -157,6 +159,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CollectionViewPagingLayout
     - GoogleUtilities
     - MaterialComponents
     - MDFInternationalization
@@ -165,6 +168,7 @@ SPEC REPOS:
     - SnapSDK
 
 SPEC CHECKSUMS:
+  CollectionViewPagingLayout: 3642f60815ed46f56c31232cca984c65b49e2c40
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   MaterialComponents: 7675cd4b1c9f660b63cddeb725b2de853790402b
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
@@ -172,6 +176,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SnapSDK: 222857226700e1373a186da658c619a79dfa40c8
 
-PODFILE CHECKSUM: 0b1d07c0776bee2a7ef9a15e7f4a7d7f7d9dd50d
+PODFILE CHECKSUM: 0c077d26b0781e48868352a59d454d85efc93357
 
 COCOAPODS: 1.9.1

@@ -103,8 +103,6 @@ class ScoreViewController: UIViewController {
     /// Displays a popup that let's the user know that they have enough points to ban others and direct them to the ban chamber.
     func alertPurchaseBanPower(){
         self.performSegue(withIdentifier: "scoreToKarmaOptions", sender: self)
-//        let alert = MDCAlertController(title: "Spend Karma", message: "Use your karma for extra abilities on Grapevine.")
-//
 //        let action1 = MDCAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters") { (action) in
 //            if self.score >= 10 {
 //                self.performSegue(withIdentifier: "goToBanChamber", sender: self)

@@ -441,6 +441,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7Gr-9d-0nE"/>
                     </view>
+                    <navigationItem key="navigationItem" id="BlP-3o-dVC"/>
                     <connections>
                         <outlet property="banLabel" destination="nam-61-V75" id="KWX-rO-JvN"/>
                         <outlet property="failedBanLabel" destination="xey-ze-Gu8" id="7Jr-bO-E1x"/>
@@ -541,6 +542,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zIP-8Y-ds3"/>
                     </view>
+                    <connections>
+                        <segue destination="Pnr-Ar-hx1" kind="show" identifier="storeToBanChamber" id="sTt-8x-MlF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tan-96-Ror" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -801,6 +805,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
+        <segue reference="sTt-8x-MlF"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="kjT-Vd-qTU"/>
     </inferredMetricsTieBreakers>

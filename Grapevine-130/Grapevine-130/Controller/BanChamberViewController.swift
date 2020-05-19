@@ -197,11 +197,7 @@ extension BanChamberViewController: PostsManagerDelegate {
             self.tableView.reloadData()
             
             if self.posts.count == 0 {
-                let noPostsLabel = UILabel()
-                noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
-                noPostsLabel.textAlignment = .center
-                noPostsLabel.text = "No bannable posts in your area :( No karma was lost!"
-                self.tableView.tableHeaderView = noPostsLabel
+                self.alertNoPosts()
                 self.tableView.tableHeaderView?.isHidden = false
             } else {
                 self.tableView.tableHeaderView = nil
@@ -228,6 +224,20 @@ extension BanChamberViewController: PostsManagerDelegate {
     func didCreatePost() {
         return
     }
+    
+    func alertNoPosts(){
+        let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        alert.titleIcon = UIImage(systemName: "x.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
+        self.present(alert, animated: true)
+    }
+
 }
 
 /// Retrieves user location data and fetches posts.
