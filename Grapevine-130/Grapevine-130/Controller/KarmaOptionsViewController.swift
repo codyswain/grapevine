@@ -5,7 +5,7 @@ import MaterialComponents.MaterialCards
 
 /// Manages control flow of the score screen.
 class KarmaOptionsViewController: UIViewController {
-    fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1"),#imageLiteral(resourceName: "Grapevine Store Card 2"), #imageLiteral(resourceName: "Grapevine Store Card 3")]
+    fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1 copy"),#imageLiteral(resourceName: "Grapevine Store Card 2 copy"), #imageLiteral(resourceName: "Grapevine Store Card 3 copy")]
 
     /// Intializes the score screen.
     override func viewDidLoad() {
@@ -14,10 +14,10 @@ class KarmaOptionsViewController: UIViewController {
         collectionView.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant:50).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant:80).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: view.frame.height*0.8).isActive = true
+        collectionView.heightAnchor.constraint(lessThanOrEqualToConstant: view.frame.height*0.8).isActive = true
         collectionView.showsHorizontalScrollIndicator = false
     }
     
@@ -35,7 +35,7 @@ class KarmaOptionsViewController: UIViewController {
 
 extension KarmaOptionsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width*0.7, height: view.frame.height * 0.7)
+        return CGSize(width: view.frame.width*0.8, height: view.frame.height * 0.8)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
