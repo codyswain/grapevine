@@ -14,7 +14,7 @@ class KarmaOptionsViewController: UIViewController {
         collectionView.backgroundColor = UIColor(red:1, green:1, blue:1, alpha:0)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height*0.1).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant:50).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: view.frame.height*0.8).isActive = true
@@ -35,7 +35,7 @@ class KarmaOptionsViewController: UIViewController {
 
 extension KarmaOptionsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width*0.8, height: view.frame.height * 0.8)
+        return CGSize(width: view.frame.width*0.7, height: view.frame.height * 0.7)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3

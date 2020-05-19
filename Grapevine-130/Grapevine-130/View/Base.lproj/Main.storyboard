@@ -285,28 +285,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-Tl-LGG">
-                                <rect key="frame" x="194.5" y="760" width="25" height="23"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="T0G-Y4-vL4"/>
-                                    <constraint firstAttribute="height" constant="24" id="kFE-4t-wEn"/>
-                                </constraints>
-                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" backgroundImage="info.circle.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="infoButton:" destination="u9k-vM-A2m" eventType="touchUpInside" id="sKC-8A-G60"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOI-at-lYd">
-                                <rect key="frame" x="139.5" y="725" width="135" height="20.5"/>
-                                <accessibility key="accessibilityConfiguration" identifier="scoreStrikes"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20.5" id="CL0-02-aqm"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uju-To-9Vz">
                                 <rect key="frame" x="57" y="270" width="300" height="268.5"/>
                                 <subviews>
@@ -353,10 +331,32 @@
                                     <constraint firstItem="hvG-3S-cRA" firstAttribute="centerY" secondItem="uju-To-9Vz" secondAttribute="centerY" id="czj-01-agj"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ji-Tl-LGG">
+                                <rect key="frame" x="195" y="747" width="25" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="T0G-Y4-vL4"/>
+                                    <constraint firstAttribute="height" constant="24" id="kFE-4t-wEn"/>
+                                </constraints>
+                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" backgroundImage="info.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="infoButton:" destination="u9k-vM-A2m" eventType="touchUpInside" id="sKC-8A-G60"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOI-at-lYd">
+                                <rect key="frame" x="140" y="712" width="135" height="20.5"/>
+                                <accessibility key="accessibilityConfiguration" identifier="scoreStrikes"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="CL0-02-aqm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="22I-bh-a4F" firstAttribute="bottom" secondItem="0ji-Tl-LGG" secondAttribute="bottom" constant="78.5" id="65e-hn-5BV"/>
+                            <constraint firstItem="22I-bh-a4F" firstAttribute="bottom" secondItem="0ji-Tl-LGG" secondAttribute="bottom" constant="91.5" id="65e-hn-5BV"/>
                             <constraint firstItem="PMh-NO-oaI" firstAttribute="top" secondItem="22I-bh-a4F" secondAttribute="top" constant="5" id="9xF-U5-aZ0"/>
                             <constraint firstItem="uju-To-9Vz" firstAttribute="centerX" secondItem="6P4-SN-HTn" secondAttribute="centerX" id="GY8-hf-kcI"/>
                             <constraint firstItem="uju-To-9Vz" firstAttribute="centerY" secondItem="6P4-SN-HTn" secondAttribute="centerY" constant="-43.75" id="Q9w-Np-2jc"/>
@@ -804,9 +804,9 @@
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ekl-9A-j9Q"/>
+        <segue reference="Akc-y1-XXs"/>
         <segue reference="sTt-8x-MlF"/>
         <segue reference="nj9-4R-WLt"/>
-        <segue reference="kjT-Vd-qTU"/>
+        <segue reference="6l6-0s-KYJ"/>
     </inferredMetricsTieBreakers>
 </document>
