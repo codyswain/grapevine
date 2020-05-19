@@ -72,6 +72,14 @@ PODS:
   - "MaterialComponents/Buttons+TypographyThemer (109.3.1)":
     - MaterialComponents/Buttons
     - MaterialComponents/schemes/Typography
+  - MaterialComponents/Cards (109.3.1):
+    - MaterialComponents/Elevation
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Icons/ic_check_circle
+    - MaterialComponents/private/Math
+    - MaterialComponents/Ripple
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Shapes
   - MaterialComponents/Dialogs (109.3.1):
     - MaterialComponents/Buttons
     - MaterialComponents/Elevation
@@ -93,6 +101,9 @@ PODS:
   - MaterialComponents/private/Application (109.3.1)
   - MaterialComponents/private/Color (109.3.1):
     - MaterialComponents/Availability
+  - MaterialComponents/private/Icons/Base (109.3.1)
+  - MaterialComponents/private/Icons/ic_check_circle (109.3.1):
+    - MaterialComponents/private/Icons/Base
   - MaterialComponents/private/KeyboardWatcher (109.3.1):
     - MaterialComponents/private/Application
   - MaterialComponents/private/Math (109.3.1)
@@ -140,6 +151,7 @@ DEPENDENCIES:
   - MaterialComponents/BottomNavigation
   - MaterialComponents/Buttons
   - "MaterialComponents/Buttons+Theming"
+  - MaterialComponents/Cards
   - MaterialComponents/Dialogs
   - SnapSDK/SCSDKCreativeKit (= 1.4.0)
 
@@ -160,6 +172,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SnapSDK: 222857226700e1373a186da658c619a79dfa40c8
 
-PODFILE CHECKSUM: cbbf5af0ac3cbc650a655fd250554912a73949a3
+PODFILE CHECKSUM: 0b1d07c0776bee2a7ef9a15e7f4a7d7f7d9dd50d
 
 COCOAPODS: 1.9.1

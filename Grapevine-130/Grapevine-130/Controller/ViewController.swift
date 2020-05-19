@@ -140,7 +140,7 @@ class ViewController: UIViewController {
         let action1 = MDCAlertAction(title: "3 miles") { (action) in
             self.range = 3
             self.rangeButton.setTitle( " 3 miles" , for: .normal )
-            self.nearbyLabel.text = "Posts Near You"
+            self.nearbyLabel.text = "The Grapevine"
             
             // Scroll to top
             self.scrollToTop()

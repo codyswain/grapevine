@@ -15,5 +15,6 @@ target 'Grapevine-130' do
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/Buttons+Theming'
   pod 'MaterialComponents/Dialogs'
+  pod 'MaterialComponents/Cards'
 
 end

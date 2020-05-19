@@ -32,7 +32,16 @@ class ScoreViewController: UIViewController {
      - Parameter sender: Segue intiator
      */
     @IBAction func infoButton(_ sender: Any) {
-        self.performSegue(withIdentifier: "scoreToInfo", sender: self)
+        let alert = MDCAlertController(title: "More Information", message: "On Grapevine, karma is the sum of your comments' & posts' votes. Unlike other platforms, your karma can be spent on powers that make the platform more useful. \n\nTo prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 24 hours and have their strikes reset. \n\nThere are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.")
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        alert.titleIcon = UIImage(systemName: "info.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
+        self.present(alert, animated: true)
     }
         
     /// Intializes the score screen.
@@ -93,50 +102,50 @@ class ScoreViewController: UIViewController {
 
     /// Displays a popup that let's the user know that they have enough points to ban others and direct them to the ban chamber.
     func alertPurchaseBanPower(){
-        let alert = MDCAlertController(title: "Spend Karma", message: "Use your karma for extra abilities on Grapevine.")
-                
-        let action1 = MDCAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters") { (action) in
-            if self.score >= 10 {
-                self.performSegue(withIdentifier: "goToBanChamber", sender: self)
-            } else {
-                self.alertMessageNotEnoughPoints()
-            }
-        }
-        let action2 = MDCAlertAction(title: "[🔒] Shout: Emphasize Post In Feed") { (action) in
-        }
-        let action3 = MDCAlertAction(title: "[🔒] Scream: Notify All In Radius") { (action) in
-        }
-        let action4 = MDCAlertAction(title: "[🔒] Creative Kit: Fonts & Colors") { (action) in
-        }
-        let action5 = MDCAlertAction(title: "[🔒] Juiced: Receive Double Karma") { (action) in
-        }
-        let action6 = MDCAlertAction(title: "[🔒] Invest: Share Karma Of Post") { (action) in
-        }
-        let action7 = MDCAlertAction(title: "[🔒] Defense: Karma Won't Decrease") { (action) in
-        }
-        let action8
-            = MDCAlertAction(title: "Cancel") { (action) in
-            print("You've pressed cancel");
-        }
-        // MCD shows the actions backwards
-        alert.addAction(action8)
-        alert.addAction(action7)
-        alert.addAction(action6)
-        alert.addAction(action5)
-        alert.addAction(action4)
-        alert.addAction(action3)
-        alert.addAction(action2)
-        alert.addAction(action1)
-
-        alert.titleIcon = UIImage(systemName: "checkmark.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
-        self.present(alert, animated: true, completion: nil)
-
+        self.performSegue(withIdentifier: "scoreToKarmaOptions", sender: self)
+//        let alert = MDCAlertController(title: "Spend Karma", message: "Use your karma for extra abilities on Grapevine.")
+//
+//        let action1 = MDCAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters") { (action) in
+//            if self.score >= 10 {
+//                self.performSegue(withIdentifier: "goToBanChamber", sender: self)
+//            } else {
+//                self.alertMessageNotEnoughPoints()
+//            }
+//        }
+//        let action2 = MDCAlertAction(title: "[🔒] Shout: Emphasize Post In Feed") { (action) in
+//        }
+//        let action3 = MDCAlertAction(title: "[🔒] Scream: Notify All In Radius") { (action) in
+//        }
+//        let action4 = MDCAlertAction(title: "[🔒] Creative Kit: Fonts & Colors") { (action) in
+//        }
+//        let action5 = MDCAlertAction(title: "[🔒] Juiced: Receive Double Karma") { (action) in
+//        }
+//        let action6 = MDCAlertAction(title: "[🔒] Invest: Share Karma Of Post") { (action) in
+//        }
+//        let action7 = MDCAlertAction(title: "[🔒] Defense: Karma Won't Decrease") { (action) in
+//        }
+//        let action8
+//            = MDCAlertAction(title: "Cancel") { (action) in
+//            print("You've pressed cancel");
+//        }
+//        // MCD shows the actions backwards
+//        alert.addAction(action8)
+//        alert.addAction(action7)
+//        alert.addAction(action6)
+//        alert.addAction(action5)
+//        alert.addAction(action4)
+//        alert.addAction(action3)
+//        alert.addAction(action2)
+//        alert.addAction(action1)
+//
+//        alert.titleIcon = UIImage(systemName: "checkmark.circle.fill")
+//        alert.titleIconTintColor = .black
+//        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+//        alert.messageFont = UIFont.systemFont(ofSize: 17)
+//        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+//        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+//        alert.cornerRadius = 10
+//        self.present(alert, animated: true, completion: nil)
     }
 }
 

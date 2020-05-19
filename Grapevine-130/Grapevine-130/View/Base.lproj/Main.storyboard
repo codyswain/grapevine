@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posts Near You" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
-                                <rect key="frame" x="20" y="46" width="197" height="38.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Grapevine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                                <rect key="frame" x="20" y="46" width="190" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -372,7 +372,7 @@
                         <outlet property="emojiLabel" destination="Zvu-32-f0C" id="v4J-tb-XI9"/>
                         <outlet property="scoreLabel" destination="WzR-vN-kJb" id="hz2-Bw-xGa"/>
                         <outlet property="strikesLeftLabel" destination="eOI-at-lYd" id="rc2-Qf-BJf"/>
-                        <segue destination="i8W-zh-sIl" kind="presentation" identifier="scoreToInfo" id="hP9-ZI-DdC"/>
+                        <segue destination="i8W-zh-sIl" kind="presentation" identifier="scoreToKarmaOptions" id="hP9-ZI-DdC"/>
                         <segue destination="Pnr-Ar-hx1" kind="presentation" identifier="goToBanChamber" id="WFZ-lt-Ddb"/>
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="scoreToMain" animates="NO" id="6l6-0s-KYJ"/>
                         <segue destination="Prc-Cd-d7O" kind="show" identifier="scoreToProfile" animates="NO" id="Akc-y1-XXs"/>
@@ -497,105 +497,54 @@
             </objects>
             <point key="canvasLocation" x="-58" y="867"/>
         </scene>
-        <!--Info Screen-->
+        <!--Karma Options-->
         <scene sceneID="eH7-Aa-fyQ">
             <objects>
-                <viewController storyboardIdentifier="InfoScreenViewController" title="Info Screen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="i8W-zh-sIl" customClass="InfoScreenViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KarmaOptionsViewController" title="Karma Options" useStoryboardIdentifierAsRestorationIdentifier="YES" id="i8W-zh-sIl" customClass="KarmaOptionsViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gDk-mC-OhR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoc-tF-m8j">
-                                <rect key="frame" x="138" y="27" width="136" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="C3w-pv-LgW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title=" More Info" image="info.circle.fill" catalog="system">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1P-vw-7NA">
-                                <rect key="frame" x="20" y="117" width="374" height="81.5"/>
-                                <string key="text">On Grapevine, a user's karma is the sum of all of their posts' scores. So, if you create two posts, one with +5 votes and the other with +10, you would have 15 karma.</string>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Store" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0m-qa-580">
+                                <rect key="frame" x="20" y="27" width="126.5" height="33.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Karma" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCQ-s7-V7r">
-                                <rect key="frame" x="173" y="80" width="67.5" height="31.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlike other platforms, your karma can be spent on powers that make the platform more useful. Check them out!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-b9-KcX">
-                                <rect key="frame" x="20" y="171" width="374" height="99.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <string key="userLabel">These points can be spent on special moderating powers: you can unlock the ability to issue strikes on certain users that have posted heavily downvoted content that may be harmful to the community (bullying, spam).</string>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-Ww-FG0">
-                                <rect key="frame" x="20" y="328" width="374" height="72"/>
-                                <string key="text">To prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 24 hours and have their strikes reset.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAz-QW-FeO">
-                                <rect key="frame" x="20" y="398" width="374" height="109"/>
-                                <string key="text">There are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes &amp; Bans" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSK-4B-aKh">
-                                <rect key="frame" x="132.5" y="278" width="149" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="8gg-YX-85P"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sIb-RC-7jG" userLabel="Info Line Stack">
+                                <rect key="frame" x="20" y="69" width="210" height="17"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.open.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mPX-oH-5tG">
+                                        <rect key="frame" x="0.0" y="0.5" width="17" height="15.5"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="VJb-g3-xvu"/>
+                                            <constraint firstAttribute="height" constant="17" id="i7H-g6-hjo"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock special abilities." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zp2-PX-MgI">
+                                        <rect key="frame" x="27" y="0.0" width="183" height="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="eer-Ww-FG0" firstAttribute="top" secondItem="NSK-4B-aKh" secondAttribute="bottom" constant="8" id="0vk-Fq-vtk"/>
-                            <constraint firstItem="NSK-4B-aKh" firstAttribute="top" secondItem="M1P-vw-7NA" secondAttribute="bottom" constant="79.5" id="3b5-sL-2Io"/>
-                            <constraint firstItem="nAz-QW-FeO" firstAttribute="top" secondItem="NSK-4B-aKh" secondAttribute="bottom" constant="78" id="5g3-Jc-Cq5"/>
-                            <constraint firstItem="NSK-4B-aKh" firstAttribute="top" secondItem="duU-b9-KcX" secondAttribute="bottom" constant="7.5" id="Ank-mt-wsP"/>
-                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="duU-b9-KcX" secondAttribute="trailing" constant="20" id="D4K-yd-0jI"/>
-                            <constraint firstItem="nAz-QW-FeO" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="DRg-KT-Rzc"/>
-                            <constraint firstItem="nAz-QW-FeO" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="EE7-cF-c5n"/>
-                            <constraint firstItem="uoc-tF-m8j" firstAttribute="top" secondItem="zIP-8Y-ds3" secondAttribute="top" constant="27" id="FCJ-Qe-zH0"/>
-                            <constraint firstItem="duU-b9-KcX" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="Fa0-v2-usN"/>
-                            <constraint firstItem="duU-b9-KcX" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="H5R-4D-C2b"/>
-                            <constraint firstItem="M1P-vw-7NA" firstAttribute="top" secondItem="UCQ-s7-V7r" secondAttribute="bottom" constant="5.5" id="Mhk-KR-IYS"/>
-                            <constraint firstItem="duU-b9-KcX" firstAttribute="leading" secondItem="eer-Ww-FG0" secondAttribute="leading" id="MqU-Px-t19"/>
-                            <constraint firstItem="eer-Ww-FG0" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="N1O-1d-6kI"/>
-                            <constraint firstItem="NSK-4B-aKh" firstAttribute="top" secondItem="gDk-mC-OhR" secondAttribute="top" constant="278" id="NQE-Pp-Gbd"/>
-                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="M1P-vw-7NA" secondAttribute="trailing" constant="20" id="QxK-eq-Uhk"/>
-                            <constraint firstItem="UCQ-s7-V7r" firstAttribute="top" secondItem="uoc-tF-m8j" secondAttribute="bottom" constant="17" id="S2o-Hx-FXb"/>
-                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="eer-Ww-FG0" secondAttribute="trailing" constant="20" id="XcH-lb-589"/>
-                            <constraint firstItem="uoc-tF-m8j" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" constant="-1" id="YLr-qm-DVu"/>
-                            <constraint firstItem="M1P-vw-7NA" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="Zcg-sC-MwB"/>
-                            <constraint firstItem="NSK-4B-aKh" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="cCb-cX-Ujc"/>
-                            <constraint firstItem="UCQ-s7-V7r" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="cDG-Hf-epN"/>
-                            <constraint firstItem="nAz-QW-FeO" firstAttribute="top" secondItem="eer-Ww-FG0" secondAttribute="bottom" constant="-2" id="cpb-pz-IMo"/>
-                            <constraint firstItem="M1P-vw-7NA" firstAttribute="centerX" secondItem="gDk-mC-OhR" secondAttribute="centerX" id="nC8-50-Veg"/>
-                            <constraint firstItem="zIP-8Y-ds3" firstAttribute="trailing" secondItem="nAz-QW-FeO" secondAttribute="trailing" constant="20" id="tWN-SG-PGr"/>
-                            <constraint firstItem="eer-Ww-FG0" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="ugU-sm-BRe"/>
-                            <constraint firstItem="duU-b9-KcX" firstAttribute="top" secondItem="M1P-vw-7NA" secondAttribute="bottom" constant="-27.5" id="wib-QY-NKu"/>
-                            <constraint firstItem="duU-b9-KcX" firstAttribute="leading" secondItem="M1P-vw-7NA" secondAttribute="leading" id="yxv-Et-EYe"/>
+                            <constraint firstItem="f0m-qa-580" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="SU9-cD-14h"/>
+                            <constraint firstItem="f0m-qa-580" firstAttribute="leading" secondItem="sIb-RC-7jG" secondAttribute="leading" id="X1a-cH-d2c"/>
+                            <constraint firstItem="sIb-RC-7jG" firstAttribute="top" secondItem="f0m-qa-580" secondAttribute="bottom" constant="8.5" id="dUw-UP-Lpj"/>
+                            <constraint firstItem="f0m-qa-580" firstAttribute="top" secondItem="zIP-8Y-ds3" secondAttribute="top" constant="27" id="got-wj-POt"/>
+                            <constraint firstItem="sIb-RC-7jG" firstAttribute="leading" secondItem="zIP-8Y-ds3" secondAttribute="leading" constant="20" id="uuc-vY-4uL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zIP-8Y-ds3"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tan-96-Ror" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="774" y="867"/>
+            <point key="canvasLocation" x="773.91304347826087" y="866.51785714285711"/>
         </scene>
         <!--Comment View Controller-->
         <scene sceneID="agx-wJ-GiS">
@@ -847,11 +796,12 @@
         <image name="info.circle.fill" catalog="system" width="64" height="60"/>
         <image name="k.circle.fill" catalog="system" width="64" height="60"/>
         <image name="location.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="lock.open.fill" catalog="system" width="64" height="56"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
-        <segue reference="cef-IB-uFx"/>
+        <segue reference="kjT-Vd-qTU"/>
     </inferredMetricsTieBreakers>
 </document>
