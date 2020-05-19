@@ -154,10 +154,10 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func colorButton(_ sender: Any) {
-        if ColorButtonVar.titleColor(for: .normal) == Constants.Colors.darkPink {
+        if ColorButtonVar.titleColor(for: .normal) == .black {
             ColorButtonVar.setTitleColor(Constants.Colors.darkPurple, for: .normal)
         } else {
-            ColorButtonVar.setTitleColor(Constants.Colors.darkPink, for: .normal)
+            ColorButtonVar.setTitleColor(.black, for: .normal)
         }
         drawingCanvasView.changeColor()
     }

@@ -90,7 +90,7 @@ class CanvasView: UIView {
     
     func changeColor(){
         if currentColor == Constants.Colors.darkPurple {
-            self.currentColor = Constants.Colors.darkPink
+            self.currentColor = .black
         } else {
             self.currentColor = Constants.Colors.darkPurple
         }

@@ -495,6 +495,11 @@ extension ViewController: PostsManagerDelegate {
             self.ref = ref
             if self.posts.count == 0 {
                 self.alertNoPosts()
+                let noPostsLabel = UILabel()
+                noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
+                noPostsLabel.textAlignment = .center
+                noPostsLabel.text = "Bad Internet or no posts here."
+                self.tableView.tableHeaderView = noPostsLabel
                 self.tableView.tableHeaderView?.isHidden = false
             } else {
                 self.tableView.tableHeaderView = nil
