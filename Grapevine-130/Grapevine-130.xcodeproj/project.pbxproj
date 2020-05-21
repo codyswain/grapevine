@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6322402923FC617A007D05F5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402823FC617A007D05F5 /* User.swift */; };
 		6322402B23FC6398007D05F5 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402A23FC6398007D05F5 /* UserManager.swift */; };
+		636701B724764CCD00F15985 /* ShoutChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636701B624764CCD00F15985 /* ShoutChamberViewController.swift */; };
 		636D067B23FD1FC00065B4FD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CE23F8A93400C3595F /* Constants.swift */; };
 		638C2A122415B9CA006C3FB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2CB23F8A93300C3595F /* ViewController.swift */; };
 		638C2A132415BAFD006C3FB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8659F2D923F8A94100C3595F /* Main.storyboard */; };
@@ -85,6 +86,7 @@
 		6322402E23FC8AA8007D05F5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6322403623FC8B15007D05F5 /* Grapevine-130Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grapevine-130Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6322403A23FC8B15007D05F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		636701B624764CCD00F15985 /* ShoutChamberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoutChamberViewController.swift; sourceTree = "<group>"; };
 		6390F9BE23FF6E4F00D52FF0 /* ScoreManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManagerTest.swift; sourceTree = "<group>"; };
 		6390F9E823FF909700D52FF0 /* Grapevine-130UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Grapevine-130UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6390F9EC23FF909700D52FF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */,
 				83AF1347244BFF6F004AF1B5 /* SwipingController.swift */,
 				8676C0A6246F81F0006C8FB8 /* ProfileViewController.swift */,
+				636701B624764CCD00F15985 /* ShoutChamberViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				86709BD42404BEFD00712ECC /* KarmaOptionsViewController.swift in Sources */,
 				8659F2E823F8A94200C3595F /* Post.swift in Sources */,
 				6322402923FC617A007D05F5 /* User.swift in Sources */,
+				636701B724764CCD00F15985 /* ShoutChamberViewController.swift in Sources */,
 				868528D82443AB6C00B17013 /* StoryManager.swift in Sources */,
 				83AF134A244C080C004AF1B5 /* WalkthroughPageCell.swift in Sources */,
 				83B1219E242EDB6F0034BF73 /* CommentsManager.swift in Sources */,
