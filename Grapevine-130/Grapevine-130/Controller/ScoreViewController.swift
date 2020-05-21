@@ -97,16 +97,19 @@ class ScoreViewController: UIViewController {
         self.view.addSubview(indicator)
     }
     
-    /**
-     Prepares the score screen prior to transitioning.
-     
-     - Parameter sender: Segue initiator
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToBanChamber" {
-            let destinationVC = segue.destination as! BanChamberViewController
-            destinationVC.range = range
-        }
+    /// Displays a popup that let's the user know that they do not have enough points to ban other users.
+    func alertMessageNotEnoughPoints(){
+        let alert = MDCAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.")
+
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        alert.titleIcon = UIImage(systemName: "x.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
+        self.present(alert, animated: true)
     }
 }
 

@@ -882,6 +882,14 @@
             <point key="canvasLocation" x="2365" y="-589"/>
         </scene>
     </scenes>
+<<<<<<< HEAD
+=======
+    <inferredMetricsTieBreakers>
+        <segue reference="Akc-y1-XXs"/>
+        <segue reference="nj9-4R-WLt"/>
+        <segue reference="kjT-Vd-qTU"/>
+    </inferredMetricsTieBreakers>
+>>>>>>> Removed score to ban segue
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
         <image name="Start Apostrophe" width="1024" height="1024"/>
