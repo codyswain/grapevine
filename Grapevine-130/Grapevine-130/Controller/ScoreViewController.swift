@@ -69,6 +69,10 @@ class ScoreViewController: UIViewController {
             let destinationVC = segue.destination as! BanChamberViewController
             destinationVC.range = range
         }
+        if segue.identifier == "goToShoutChamber" {
+            let destinationVC = segue.destination as! ShoutChamberViewController
+            destinationVC.range = range
+        }
     }
     
     /// Displays a popup that let's the user know that they do not have enough points to ban other users.
@@ -91,7 +95,12 @@ class ScoreViewController: UIViewController {
                 self.alertMessageNotEnoughPoints()
             }
         }
-        let action2 = UIAlertAction(title: "[🔒] Shout: Emphasize Post In Feed", style: .default) { (action:UIAlertAction) in
+        let action2 = UIAlertAction(title: "[20] Shout: Emphasize Post In Feed", style: .default) { (action:UIAlertAction) in
+            if self.score >= 20 {
+                self.performSegue(withIdentifier: "goToShoutChamber", sender: self)
+            } else {
+                self.alertMessageNotEnoughPoints()
+            }
         }
         let action3 = UIAlertAction(title: "[🔒] Scream: Notify All In Radius", style: .default) { (action:UIAlertAction) in
         }
@@ -140,7 +149,7 @@ extension ScoreViewController: UserManagerDelegate {
         print("got user")
     }
     
-    func didBanUser(_ userManager: UserManager) {}
+    func didUpdateUser(_ userManager: UserManager) {}
     func userDidFailWithError(error: Error) {
         
     }

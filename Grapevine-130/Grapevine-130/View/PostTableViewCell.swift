@@ -12,6 +12,10 @@ protocol BannedPostTableViewCellDelegate {
     func banPoster(_ cell: UITableViewCell)
 }
 
+protocol ShoutPostTableViewCellDelegate {
+    func shoutPost(_ cell: UITableViewCell)
+}
+
 /// Describes a cell in the posts table
 class PostTableViewCell: UITableViewCell {
     // Objects used to interface with UI
@@ -23,6 +27,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var footer: UIView!
     @IBOutlet weak var deleteButton: UIImageView!
     @IBOutlet weak var banButtonVar: UIButton!
+    @IBOutlet weak var shoutButtonVar: UIButton!
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
@@ -33,6 +38,7 @@ class PostTableViewCell: UITableViewCell {
     var documentId = ""
     var delegate: PostTableViewCellDelegate?
     var banDelegate: BannedPostTableViewCellDelegate?
+    var shoutDelegate: ShoutPostTableViewCellDelegate?
     var deletable = false
     var postType = ""
     
@@ -328,6 +334,10 @@ class PostTableViewCell: UITableViewCell {
     /// Button to ban users from the ban chamber.
     @IBAction func banButton(_ sender: Any) {
         self.banDelegate?.banPoster(self)
+    }
+    
+    @IBAction func shoutButton(_ sender: Any) {
+        self.shoutDelegate?.shoutPost(self)
     }
     
     func createTableCellImage() -> UIImage? {
