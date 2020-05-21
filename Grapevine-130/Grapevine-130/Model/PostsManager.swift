@@ -15,6 +15,7 @@ struct PostsManager {
     /// Hits the /posts endpoint
     let fetchPostsURL = Constants.serverURL + "posts/?"
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
+    let fetchShoutablePostsURL = Constants.serverURL + "shoutChamber/?"
     let createPostURL = Constants.serverURL + "posts"
     let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
     var delegate: PostsManagerDelegate?
@@ -69,6 +70,11 @@ struct PostsManager {
      */
     func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
         let urlString = "\(fetchBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
+        performRequest(with: urlString)
+    }
+    
+    func fetchShoutablePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
+        let urlString = "\(fetchShoutablePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
     }
     

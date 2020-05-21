@@ -165,7 +165,7 @@ extension ScoreViewController: UserManagerDelegate {
         print("got user")
     }
     
-    func didBanUser(_ userManager: UserManager) {}
+    func didUpdateUser(_ userManager: UserManager) {}
     func userDidFailWithError(error: Error) {
         
     }

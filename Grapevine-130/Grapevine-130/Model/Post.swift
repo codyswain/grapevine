@@ -50,4 +50,9 @@ struct Post : Decodable {
      Number of comments
      */
     var comments: Int
+    
+    /**
+     Timestamp of when the "shout" expires
+     */
+    var shoutExpiration: Double?
 }

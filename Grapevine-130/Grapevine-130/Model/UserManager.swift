@@ -10,7 +10,7 @@ import Foundation
 
 protocol UserManagerDelegate {
     func didGetUser(_ userManager: UserManager, user: User)
-    func didBanUser(_ userManager: UserManager)
+    func didUpdateUser(_ userManager: UserManager)
     func userDidFailWithError(error: Error)
 }
 
@@ -20,6 +20,7 @@ struct UserManager {
     /// Hits the /users endpoint.
     let getUserURL = Constants.serverURL + "users/?"
     let banUserURL = Constants.serverURL + "banChamber/banPoster/?"
+    let shoutUserURL = Constants.serverURL + "shoutChamber/shoutPost/?"
     let freeUserURL = Constants.serverURL + "users/freeUser/?"
     
     var delegate: UserManagerDelegate?
@@ -47,6 +48,14 @@ struct UserManager {
     func banUser(poster: String, postID: String) {
         let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)&postID=\(postID)&user=\(Constants.userID)"
         print ("Banning userID: ", poster)
+        performRequest(with: urlString, handleResponse: false)
+    }
+    
+    func shoutPost(poster: String, postID: String) {
+        // Shout outs expire in 24 hours
+        let shoutExpiration = Date().timeIntervalSince1970 + 24*60*60
+        let urlString = "\(shoutUserURL)&poster=\(poster)&time=\(shoutExpiration)&postID=\(postID)&user=\(Constants.userID)"
+        print ("Shouted post: ", postID)
         performRequest(with: urlString, handleResponse: false)
     }
     
@@ -87,7 +96,7 @@ struct UserManager {
                             return
                         } else {
                             print("Banned/free user success")
-                            self.delegate?.didBanUser(self)
+                            self.delegate?.didUpdateUser(self)
                         }
                     }
                 }

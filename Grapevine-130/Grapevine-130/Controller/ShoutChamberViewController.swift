@@ -1,14 +1,13 @@
-
 import UIKit
 import CoreLocation
 import MaterialComponents.MaterialDialogs
 
 /// Manages the main workflow of the ban chamber screen.
-class BanChamberViewController: UIViewController {
+class ShoutChamberViewController: UIViewController {
     // UI variables
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var banLabel: UILabel!
-    @IBOutlet weak var failedBanLabel: UILabel!
+    @IBOutlet weak var shoutLabel: UILabel!
+    @IBOutlet weak var failedShoutLabel: UILabel!
     // Globals
     let locationManager = CLLocationManager()
     var posts: [Post] = []
@@ -28,7 +27,7 @@ class BanChamberViewController: UIViewController {
     }()
     var indicator = UIActivityIndicatorView()
 
-    /// Manges the ban chamber screen.
+    /// Manges the shout out chamber screen.
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -57,7 +56,7 @@ class BanChamberViewController: UIViewController {
         
         // Add scroll to top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
-        banLabel.addGestureRecognizer(tapGestureRecognizer1)
+        shoutLabel.addGestureRecognizer(tapGestureRecognizer1)
     }
     
     /// Displays a loading icon while posts load.
@@ -91,7 +90,7 @@ class BanChamberViewController: UIViewController {
 }
 
 /// Manages the posts table.
-extension BanChamberViewController: UITableViewDataSource {
+extension ShoutChamberViewController: UITableViewDataSource {
     /**
      Tells the table how many cells are needed.
      
@@ -130,8 +129,8 @@ extension BanChamberViewController: UITableViewDataSource {
             cell.deleteButton.isHidden = true
             cell.voteCountLabel.isHidden = true
             cell.shareButton.isHidden = true
-            cell.banButtonVar.isHidden = false
-            cell.shoutButtonVar.isHidden = true
+            cell.banButtonVar.isHidden = true
+            cell.shoutButtonVar.isHidden = false
         }
         
         if (posts[indexPath.row].type == "text"){
@@ -168,14 +167,14 @@ extension BanChamberViewController: UITableViewDataSource {
         // Refresh the display of the cell, now that we've loaded in vote status
         cell.refreshView()
         
-        cell.banDelegate = self
+        cell.shoutDelegate = self
         
         return cell
     }
 }
 
 /// Updates the posts table once posts are sent by the server.
-extension BanChamberViewController: PostsManagerDelegate {
+extension ShoutChamberViewController: PostsManagerDelegate {
     /**
      Reloads the table to reflect the newly retrieved posts.
      
@@ -232,7 +231,7 @@ extension BanChamberViewController: PostsManagerDelegate {
     }
     
     func alertNoPosts(){
-        let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
+        let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the shout out chamber, posts must not be shouted out. No karma was lost.")
         alert.addAction(MDCAlertAction(title: "Ok"))
         alert.titleIcon = UIImage(systemName: "x.circle.fill")
         alert.titleIconTintColor = .black
@@ -247,7 +246,7 @@ extension BanChamberViewController: PostsManagerDelegate {
 }
 
 /// Retrieves user location data and fetches posts.
-extension BanChamberViewController: CLLocationManagerDelegate {
+extension ShoutChamberViewController: CLLocationManagerDelegate {
     /**
      Fetches posts based on current user location.
      */
@@ -256,8 +255,7 @@ extension BanChamberViewController: CLLocationManagerDelegate {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
             print("Location request success")
-            // Set to global ban range for now
-            postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: self.range)
+            postsManager.fetchShoutablePosts(latitude: lat, longitude: lon, range: self.range)
         }
     }
     
@@ -269,26 +267,26 @@ extension BanChamberViewController: CLLocationManagerDelegate {
     }
 }
 
-extension BanChamberViewController: BannedPostTableViewCellDelegate {
+extension ShoutChamberViewController: ShoutPostTableViewCellDelegate {
     /**
     Strikes the poster of the selected post.
     
     - Parameters:
        - cell: Posts table cell of the post whose creator is to be banned
     */
-    func banPoster(_ cell: UITableViewCell) {
+    func shoutPost(_ cell: UITableViewCell) {
         print("inside banPoster")
         
-        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want to ban this user?")
+        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want give a shout out to this post?")
         let action1 = MDCAlertAction(title: "Cancel") { (action) in
             print("You've pressed cancel");
         }
         let action2 = MDCAlertAction(title: "Yes") { (action) in
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
-            let creatorToBeBanned = self.posts[row].poster
-            let postToBeDeleted = self.posts[row].postId
-            self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
+            let creator = self.posts[row].poster
+            let postToBeShoutOut = self.posts[row].postId
+            self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
         }
         alert.addAction(action1)
         alert.addAction(action2)
@@ -303,12 +301,12 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
     }
 }
 
-extension BanChamberViewController: UserManagerDelegate {
+extension ShoutChamberViewController: UserManagerDelegate {
     func didGetUser(_ userManager: UserManager, user: User) {}
     
     func didUpdateUser(_ userManager: UserManager) {
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "banToMain", sender: self)
+            self.performSegue(withIdentifier: "shoutToMain", sender: self)
         }
     }
     
@@ -317,13 +315,13 @@ extension BanChamberViewController: UserManagerDelegate {
         // Scroll to top and refresh posts in the table
         self.scrollToTop()
         DispatchQueue.main.async {
-            self.failedBanLabel.isHidden = false
+            self.failedShoutLabel.isHidden = false
             UIView.animate(withDuration: 2, animations: { () -> Void in
-                self.failedBanLabel.alpha = 0
+                self.failedShoutLabel.alpha = 0
             }, completion: { finished in
                 // Reset the failed ban label
-                self.failedBanLabel.isHidden = true
-                self.failedBanLabel.alpha = 1
+                self.failedShoutLabel.isHidden = true
+                self.failedShoutLabel.alpha = 1
             })
             
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
