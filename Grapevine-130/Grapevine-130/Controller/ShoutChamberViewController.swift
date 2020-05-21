@@ -306,7 +306,7 @@ extension ShoutChamberViewController: UserManagerDelegate {
     
     func didUpdateUser(_ userManager: UserManager) {
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "banToMain", sender: self)
+            self.performSegue(withIdentifier: "shoutToMain", sender: self)
         }
     }
     

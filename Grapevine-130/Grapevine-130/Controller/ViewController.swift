@@ -392,6 +392,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.deleteButton.tintColor = Constants.Colors.lightGrey
         cell.label.font = cell.label.font.withSize(16)
         cell.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
+        cell.label.textColor = .black
         
         if (posts[indexPath.row].type == "text"){
             // Set main body of post cell
@@ -456,7 +457,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if expiry > Date().timeIntervalSince1970 {
                 print("shouted")
                 cell.label.font = cell.label.font.withSize(24)
-                cell.commentAreaButton.backgroundColor = Constants.Colors.lightPurple
+                cell.commentAreaButton.backgroundColor = Constants.Colors.darkPurple
+                cell.label.textColor = .white
             }
         }
         

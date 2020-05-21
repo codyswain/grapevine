@@ -382,10 +382,10 @@
             </objects>
             <point key="canvasLocation" x="775" y="138"/>
         </scene>
-        <!--Shout Chamber-->
+        <!--Ban Chamber-->
         <scene sceneID="V89-fe-fuR">
             <objects>
-                <viewController storyboardIdentifier="BanChamberViewController" title="Shout Chamber" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pnr-Ar-hx1" customClass="BanChamberViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BanChamberViewController" title="Ban Chamber" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pnr-Ar-hx1" customClass="BanChamberViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wjO-wY-Hre">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -790,7 +790,7 @@
         <!--Shout Chamber-->
         <scene sceneID="bSA-bp-Yrk">
             <objects>
-                <viewController storyboardIdentifier="ShoutChamberViewController" title="Shout Chamber" wantsFullScreenLayout="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VgU-GR-isU" customClass="ShoutChamberViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShoutChamberViewController" title="Shout Chamber" wantsFullScreenLayout="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VgU-GR-isU" customClass="ShoutChamberViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0mj-jZ-FB3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -848,10 +848,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="4u8-DX-71e"/>
                     <connections>
-                        <outlet property="failedShoutLabel" destination="TeB-L6-MZI" id="Mxp-wl-dSX"/>
-                        <outlet property="shoutLabel" destination="nHG-Vi-WR2" id="yyX-Sg-i2R"/>
+                        <outlet property="failedShoutLabel" destination="TeB-L6-MZI" id="gZB-HY-GHl"/>
+                        <outlet property="shoutLabel" destination="nHG-Vi-WR2" id="fr2-wr-G4U"/>
                         <outlet property="tableView" destination="mGe-8t-YF7" id="wWd-zt-y9b"/>
-                        <segue destination="BYZ-38-t0r" kind="show" id="ucK-Uc-z0t"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="shoutToMain" id="q4N-vY-ZD4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4w-jz-bTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -863,7 +863,7 @@
         <segue reference="Akc-y1-XXs"/>
         <segue reference="sTt-8x-MlF"/>
         <segue reference="nj9-4R-WLt"/>
-        <segue reference="ucK-Uc-z0t"/>
+        <segue reference="kjT-Vd-qTU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
