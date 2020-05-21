@@ -453,13 +453,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableInteraction()
         }
 
+        // The cell is shoutable
         if let expiry = posts[indexPath.row].shoutExpiration {
             if expiry > Date().timeIntervalSince1970 {
-                print("shouted")
-                cell.label.font = cell.label.font.withSize(24)
-                cell.commentAreaButton.backgroundColor = Constants.Colors.darkPurple
+                print("Showing shouted post!")
+                cell.shoutable = true
+                cell.commentAreaButton.backgroundColor = .black
                 cell.label.textColor = .white
+            } else {
+                cell.shoutable = false
             }
+        } else {
+            cell.shoutable = false
         }
         
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app

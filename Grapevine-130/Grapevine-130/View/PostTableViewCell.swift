@@ -41,6 +41,7 @@ class PostTableViewCell: UITableViewCell {
     var shoutDelegate: ShoutPostTableViewCellDelegate?
     var deletable = false
     var postType = ""
+    var shoutable = false
     
     /**
     Initializes the posts table and adds gestures.
@@ -251,22 +252,24 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect a downvote.
     */
     func setDownvotedColors(){
+        var color = Constants.Colors.veryDarkGrey
+        if shoutable {
+            color = .black
+        }
         commentButton.tintColor = UIColor.white
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
-//        shareButton.isHidden = true
         shareButton.tintColor = .white
-        footer.backgroundColor = Constants.Colors.veryDarkGrey
+        footer.backgroundColor = color
         downvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
-        commentButton.setTitleColor(Constants.Colors.veryDarkGrey, for: .normal)
+        commentButton.setTitleColor(color, for: .normal)
     }
     
     /**
     Modify post colors to reflect no vote.
     */
     func setNeutralColors(){
-        
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
         shareButton.isHidden = false
@@ -283,15 +286,19 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect an upvote.
     */
     func setUpvotedColors(){
+        var color = Constants.Colors.darkPurple
+        if shoutable {
+            color = .black
+        }
         commentButton.tintColor = UIColor.white
         downvoteImageButton.isHidden = true
         upvoteImageButton.isHidden = false
         shareButton.isHidden = false
         shareButton.tintColor = .white
-        footer.backgroundColor = Constants.Colors.darkPurple
+        footer.backgroundColor = color
         upvoteImageButton.tintColor = .white
         voteCountLabel.textColor = .white
-        commentButton.setTitleColor(Constants.Colors.darkPurple, for: .normal)
+        commentButton.setTitleColor(color, for: .normal)
     }
     
     /**

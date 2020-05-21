@@ -5,7 +5,7 @@ import MaterialComponents.MaterialCards
 
 /// Manages control flow of the score screen.
 class KarmaOptionsViewController: UIViewController {
-    fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1 copy"),#imageLiteral(resourceName: "Grapevine Store Card 2 copy"), #imageLiteral(resourceName: "Grapevine Store Card 3 copy")]
+    fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1"),#imageLiteral(resourceName: "Grapevine Store Card 2"), #imageLiteral(resourceName: "Grapevine Store Card 3")]
 
     /// Intializes the score screen.
     override func viewDidLoad() {

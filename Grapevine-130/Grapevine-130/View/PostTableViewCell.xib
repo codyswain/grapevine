@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -143,7 +143,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title=" Shout Out" image="speaker.3.fill" catalog="system">
+                                        <state key="normal" title=" Shout Out" image="radiowaves.right" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -220,7 +220,7 @@
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="flame.fill" catalog="system" width="109" height="128"/>
         <image name="message.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="speaker.3.fill" catalog="system" width="128" height="90"/>
+        <image name="radiowaves.right" catalog="system" width="90" height="128"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
