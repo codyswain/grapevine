@@ -135,6 +135,21 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-WC-9rb">
+                                        <rect key="frame" x="145" y="9" width="134" height="23"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="23" id="KIf-WK-inj"/>
+                                            <constraint firstAttribute="width" constant="134" id="LMH-H3-fek"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title=" Shout Out" image="speaker.3.fill" catalog="system">
+                                            <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="shoutButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NAR-JW-kIf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -143,9 +158,11 @@
                                     <constraint firstAttribute="trailing" secondItem="MfE-6Z-Rk4" secondAttribute="trailing" constant="8" id="Ui8-zx-V22"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="leading" secondItem="oT7-xD-mBw" secondAttribute="trailing" constant="12" id="fux-qZ-eXx"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="jhw-Z1-hPT"/>
+                                    <constraint firstItem="zD4-WC-9rb" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.5" id="kS6-uV-CB5"/>
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.5" id="ksl-U5-yuJ"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.25" id="tnh-bZ-foq"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="vAa-qb-uA6"/>
+                                    <constraint firstItem="zD4-WC-9rb" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="vwr-vX-nqQ"/>
                                     <constraint firstItem="MfE-6Z-Rk4" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="xyo-UY-0Z6"/>
                                     <constraint firstItem="mBG-cM-1KG" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="zU5-5Y-V9e"/>
                                 </constraints>
@@ -190,6 +207,7 @@
                 <outlet property="imageVar" destination="RXq-AR-44P" id="kFF-zA-o0V"/>
                 <outlet property="label" destination="k6Z-o2-oI6" id="iy5-dk-p94"/>
                 <outlet property="shareButton" destination="dbW-Fm-2AJ" id="0DW-B1-CIo"/>
+                <outlet property="shoutButtonVar" destination="zD4-WC-9rb" id="mvr-EY-TnY"/>
                 <outlet property="upvoteImageButton" destination="rZ7-VU-Udm" id="ZwM-jq-LKV"/>
                 <outlet property="voteCountLabel" destination="oT7-xD-mBw" id="Vlw-bz-JuN"/>
             </connections>
@@ -202,6 +220,7 @@
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="flame.fill" catalog="system" width="109" height="128"/>
         <image name="message.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="speaker.3.fill" catalog="system" width="128" height="90"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>

@@ -390,6 +390,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         // Reset cell attributes before reusing
         cell.imageVar.image = nil
         cell.deleteButton.tintColor = Constants.Colors.lightGrey
+        cell.label.font = cell.label.font.withSize(16)
+        cell.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
         
         if (posts[indexPath.row].type == "text"){
             // Set main body of post cell
@@ -439,6 +441,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
+        // Hide the shout button, only for ShoutChamberViewController
+        cell.shoutButtonVar.isHidden = true
         // If the current user created this post, he/she can delete it
         if (Constants.userID == posts[indexPath.row].poster){
             cell.enableDelete()
@@ -446,6 +450,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.disableDelete()
             cell.enableInteraction()
+        }
+
+        if let expiry = posts[indexPath.row].shoutExpiration {
+            if expiry > Date().timeIntervalSince1970 {
+                print("shouted")
+                cell.label.font = cell.label.font.withSize(24)
+                cell.commentAreaButton.backgroundColor = Constants.Colors.lightPurple
+            }
         }
         
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
@@ -670,7 +682,7 @@ extension ViewController: UserManagerDelegate {
         }
     }
     
-    func didBanUser(_ userManager: UserManager) {}
+    func didUpdateUser(_ userManager: UserManager) {}
     
     /**
     Fires if user retrieval fails.

@@ -84,7 +84,7 @@ async function shoutPost(req, res, next) {
 			}
 
 			console.log("boop")
-			t.update(userref, { score: FieldValue.increment(-20)});
+			t.update(userref, { score: FieldValue.increment(-10)});
 			t.update(docref, { shoutExpiration: parseInt(datetime)});
 		})
 	}).then(() => {

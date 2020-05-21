@@ -59,7 +59,7 @@ extension KarmaOptionsViewController: UICollectionViewDelegateFlowLayout, UIColl
         if selectedCell == 0 {
             self.performSegue(withIdentifier: "storeToBanChamber", sender: self)
         } else if selectedCell == 1 {
-            
+            self.performSegue(withIdentifier: "storeToShoutChamber", sender: self)
         } else if selectedCell == 2 {
             
         }
