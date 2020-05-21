@@ -451,59 +451,61 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         
-        // Reset cell attributes before reusing
-        cell.imageVar.image = nil
-        cell.deleteButton.tintColor = Constants.Colors.lightGrey
-        cell.label.font = cell.label.font.withSize(16)
-        cell.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
-        cell.label.textColor = .black
+        cell.makeBasicCell(posts[indexPath.row])
         
-        if (posts[indexPath.row].type == "text"){
-            // Set main body of post cell
-            cell.label.text = posts[indexPath.row].content
-            cell.postType = "text"
-        } else {
-            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
-                let image = UIImage(data: decodedData)!
-                cell.label.text = ""
-                let scale: CGFloat
-                if image.size.width > image.size.height {
-                    scale = cell.imageVar.bounds.width / image.size.width
-                } else {
-                    scale = cell.imageVar.bounds.height / image.size.height
-                }
-                
-                cell.imageVar.image = image
-                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                
-                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-                image.draw(in: rect)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                cell.postType = "image"
-                cell.imageVar.image = newImage
-            }
-        }
+        // Reset cell attributes before reusing
+//        cell.imageVar.image = nil
+//        cell.deleteButton.tintColor = Constants.Colors.lightGrey
+//        cell.label.font = cell.label.font.withSize(16)
+//        cell.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
+//        cell.label.textColor = .black
+        
+//        if (posts[indexPath.row].type == "text"){
+//            // Set main body of post cell
+//            cell.label.text = posts[indexPath.row].content
+//            cell.postType = "text"
+//        } else {
+//            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
+//                let image = UIImage(data: decodedData)!
+//                cell.label.text = ""
+//                let scale: CGFloat
+//                if image.size.width > image.size.height {
+//                    scale = cell.imageVar.bounds.width / image.size.width
+//                } else {
+//                    scale = cell.imageVar.bounds.height / image.size.height
+//                }
+//
+//                cell.imageVar.image = image
+//                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+//                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+//
+//                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+//                image.draw(in: rect)
+//                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//                UIGraphicsEndImageContext()
+//                cell.postType = "image"
+//                cell.imageVar.image = newImage
+//            }
+//        }
         // Set vote count of post cell
-        cell.voteCountLabel.text = String(posts[indexPath.row].votes)
+//        cell.voteCountLabel.text = String(posts[indexPath.row].votes)
         // Set the postID
-        cell.documentId = posts[indexPath.row].postId
+//        cell.documentId = posts[indexPath.row].postId
         // Set vote status
-        cell.currentVoteStatus = posts[indexPath.row].voteStatus
+//        cell.currentVoteStatus = posts[indexPath.row].voteStatus
         // Set flag status
 //        cell.currentFlagStatus = posts[indexPath.row].flagStatus
         // Set number of flags
 //        cell.currentFlagNum = posts[indexPath.row].numFlags
         // Set the comment count number
-        if posts[indexPath.row].comments > 0 {
-            let commentText = cell.getCommentCount(numComments: posts[indexPath.row].comments)
-            cell.commentButton.setTitle(commentText, for: .normal)
-            cell.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            cell.commentButton.setTitle("", for: .normal)
-            cell.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
+//        if posts[indexPath.row].comments > 0 {
+//            let commentText = cell.getCommentCount(numComments: posts[indexPath.row].comments)
+//            cell.commentButton.setTitle(commentText, for: .normal)
+//            cell.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+//        } else {
+//            cell.commentButton.setTitle("", for: .normal)
+//            cell.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+//        }
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
         // Hide the shout button, only for ShoutChamberViewController

@@ -120,8 +120,6 @@ extension ShoutChamberViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         
-        cell.imageVar.image = nil
-        
         DispatchQueue.main.async {
             cell.downvoteImageButton.isHidden = true
             cell.upvoteImageButton.isHidden = true
@@ -133,36 +131,39 @@ extension ShoutChamberViewController: UITableViewDataSource {
             cell.shoutButtonVar.isHidden = false
         }
         
-        if (posts[indexPath.row].type == "text"){
-            // Set main body of post cell
-            cell.label.text = posts[indexPath.row].content
-            cell.postType = "text"
-        } else {
-            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
-                let image = UIImage(data: decodedData)!
-                cell.label.text = ""
-                let scale: CGFloat
-                if image.size.width > image.size.height {
-                    scale = cell.imageVar.bounds.width / image.size.width
-                } else {
-                    scale = cell.imageVar.bounds.height / image.size.height
-                }
-                
-                cell.imageVar.image = image
-                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                
-                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-                image.draw(in: rect)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                cell.postType = "image"
-                cell.imageVar.image = newImage
-            }
-        }
+        cell.makeBasicCell(posts[indexPath.row])
+//        cell.imageVar.image = nil
+        
+//        if (posts[indexPath.row].type == "text"){
+//            // Set main body of post cell
+//            cell.label.text = posts[indexPath.row].content
+//            cell.postType = "text"
+//        } else {
+//            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
+//                let image = UIImage(data: decodedData)!
+//                cell.label.text = ""
+//                let scale: CGFloat
+//                if image.size.width > image.size.height {
+//                    scale = cell.imageVar.bounds.width / image.size.width
+//                } else {
+//                    scale = cell.imageVar.bounds.height / image.size.height
+//                }
+//
+//                cell.imageVar.image = image
+//                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+//                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+//
+//                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+//                image.draw(in: rect)
+//                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//                UIGraphicsEndImageContext()
+//                cell.postType = "image"
+//                cell.imageVar.image = newImage
+//            }
+//        }
     
         // Set the postID
-        cell.documentId = posts[indexPath.row].postId
+//        cell.documentId = posts[indexPath.row].postId
                 
         // Refresh the display of the cell, now that we've loaded in vote status
         cell.refreshView()
