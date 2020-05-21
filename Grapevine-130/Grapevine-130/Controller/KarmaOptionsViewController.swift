@@ -5,7 +5,10 @@ import MaterialComponents.MaterialCards
 
 /// Manages control flow of the score screen.
 class KarmaOptionsViewController: UIViewController {
+    var score = 0
+    var scoreManager = ScoreManager()
     fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1"),#imageLiteral(resourceName: "Grapevine Store Card 2"), #imageLiteral(resourceName: "Grapevine Store Card 3")]
+    // Future options: [🔒] Creative Kit: Fonts & Colors"), [🔒] Juiced: Receive Double Karma"), [🔒] Invest: Share Karma Of Post"), [🔒] Defense: Karma Won't Decrease")
 
     /// Intializes the score screen.
     override func viewDidLoad() {
@@ -57,13 +60,37 @@ extension KarmaOptionsViewController: UICollectionViewDelegateFlowLayout, UIColl
         // do something when item was selected
         let selectedCell = indexPath.row
         if selectedCell == 0 {
-            self.performSegue(withIdentifier: "storeToBanChamber", sender: self)
+            if self.score >= 10 {
+                self.performSegue(withIdentifier: "storeToBanChamber", sender: self)
+            } else {
+                self.alertMessageNotEnoughPoints(pointsNeeded: 10)
+            }
         } else if selectedCell == 1 {
-            self.performSegue(withIdentifier: "storeToShoutChamber", sender: self)
+            if self.score >= 10 {
+                self.performSegue(withIdentifier: "storeToShoutChamber", sender: self)
+            } else {
+                self.alertMessageNotEnoughPoints(pointsNeeded: 10)
+            }
         } else if selectedCell == 2 {
             
         }
     }
+    
+    /// Displays a popup that let's the user know that they do not have enough points to ban other users.
+    func alertMessageNotEnoughPoints(pointsNeeded: Int){
+        let alert = MDCAlertController(title: "Not enough points!", message: "You need \(pointsNeeded - score) more point(s).")
+
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        alert.titleIcon = UIImage(systemName: "x.circle.fill")
+        alert.titleIconTintColor = .black
+        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+        alert.messageFont = UIFont.systemFont(ofSize: 17)
+        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+        alert.cornerRadius = 10
+        self.present(alert, animated: true)
+    }
+
 }
 
 class CustomCell: MDCCardCollectionCell {

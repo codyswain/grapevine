@@ -23,7 +23,7 @@ class ScoreViewController: UIViewController {
      - Parameter sender: Segue initiator
      */
     @IBAction func usePointsButton(_ sender: Any) {
-        alertPurchaseBanPower()
+        self.performSegue(withIdentifier: "scoreToKarmaOptions", sender: self)
     }
     
     /**
@@ -83,67 +83,10 @@ class ScoreViewController: UIViewController {
             let destinationVC = segue.destination as! BanChamberViewController
             destinationVC.range = range
         }
-    }
-    
-    /// Displays a popup that let's the user know that they do not have enough points to ban other users.
-    func alertMessageNotEnoughPoints(){
-        let alert = MDCAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.")
-
-        alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.titleIcon = UIImage(systemName: "x.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
-        self.present(alert, animated: true)
-    }
-
-    /// Displays a popup that let's the user know that they have enough points to ban others and direct them to the ban chamber.
-    func alertPurchaseBanPower(){
-        self.performSegue(withIdentifier: "scoreToKarmaOptions", sender: self)
-//        let action1 = MDCAlertAction(title: "[10] Ban Chamber: Ban Downvoted Posters") { (action) in
-//            if self.score >= 10 {
-//                self.performSegue(withIdentifier: "goToBanChamber", sender: self)
-//            } else {
-//                self.alertMessageNotEnoughPoints()
-//            }
-//        }
-//        let action2 = MDCAlertAction(title: "[🔒] Shout: Emphasize Post In Feed") { (action) in
-//        }
-//        let action3 = MDCAlertAction(title: "[🔒] Scream: Notify All In Radius") { (action) in
-//        }
-//        let action4 = MDCAlertAction(title: "[🔒] Creative Kit: Fonts & Colors") { (action) in
-//        }
-//        let action5 = MDCAlertAction(title: "[🔒] Juiced: Receive Double Karma") { (action) in
-//        }
-//        let action6 = MDCAlertAction(title: "[🔒] Invest: Share Karma Of Post") { (action) in
-//        }
-//        let action7 = MDCAlertAction(title: "[🔒] Defense: Karma Won't Decrease") { (action) in
-//        }
-//        let action8
-//            = MDCAlertAction(title: "Cancel") { (action) in
-//            print("You've pressed cancel");
-//        }
-//        // MCD shows the actions backwards
-//        alert.addAction(action8)
-//        alert.addAction(action7)
-//        alert.addAction(action6)
-//        alert.addAction(action5)
-//        alert.addAction(action4)
-//        alert.addAction(action3)
-//        alert.addAction(action2)
-//        alert.addAction(action1)
-//
-//        alert.titleIcon = UIImage(systemName: "checkmark.circle.fill")
-//        alert.titleIconTintColor = .black
-//        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-//        alert.messageFont = UIFont.systemFont(ofSize: 17)
-//        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-//        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-//        alert.cornerRadius = 10
-//        self.present(alert, animated: true, completion: nil)
+        if segue.identifier == "scoreToKarmaOptions" {
+            let destinationVC = segue.destination as! KarmaOptionsViewController
+            destinationVC.score = self.score
+        }
     }
 }
 
