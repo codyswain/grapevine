@@ -28,8 +28,8 @@ struct PostsManager {
         - longitude: Longitude of the client requesting posts
         - range: Distance around the user to retrieve posts from
     */
-    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, filter: String) {
-        let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&filter=\(filter)"
+    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, activityFilter: String, typeFilter: String) {
+        let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performRequest(with: urlString)
     }
     
@@ -87,8 +87,8 @@ struct PostsManager {
         - range: Distance around the user to retrieve posts from
         - ref: Document id of the last post retrieved from the database in the previous request
      */
-    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, ref: String, filter: String) {
-        let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&filter=\(filter)"
+    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, ref: String, activityFilter: String, typeFilter: String) {
+        let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performMoreRequest(with: urlString)
     }
     
