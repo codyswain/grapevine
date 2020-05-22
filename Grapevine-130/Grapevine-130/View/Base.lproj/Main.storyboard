@@ -411,11 +411,12 @@
                         <segue destination="Pnr-Ar-hx1" kind="presentation" identifier="goToBanChamber" id="WFZ-lt-Ddb"/>
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="scoreToMain" animates="NO" id="6l6-0s-KYJ"/>
                         <segue destination="Prc-Cd-d7O" kind="show" identifier="scoreToProfile" animates="NO" id="Akc-y1-XXs"/>
+                        <segue destination="JOP-em-yKC" kind="presentation" identifier="karmaToCreatePost" modalPresentationStyle="fullScreen" id="DkA-Rn-kG2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1r-Rh-zGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="775" y="138"/>
+            <point key="canvasLocation" x="681" y="342"/>
         </scene>
         <!--Ban Chamber-->
         <scene sceneID="V89-fe-fuR">
@@ -816,11 +817,12 @@
                     <connections>
                         <segue destination="u9k-vM-A2m" kind="show" identifier="profileToKarma" animates="NO" id="gfc-Rj-FGV"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToPosts" animates="NO" id="hoR-89-MDP"/>
+                        <segue destination="JOP-em-yKC" kind="presentation" identifier="profileToCreatePost" modalPresentationStyle="fullScreen" id="UNp-xP-gzv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xBQ-Cl-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1646" y="138"/>
+            <point key="canvasLocation" x="2196" y="159"/>
         </scene>
         <!--Shout Chamber-->
         <scene sceneID="bSA-bp-Yrk">
@@ -912,9 +914,10 @@
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ekl-9A-j9Q"/>
+        <segue reference="Akc-y1-XXs"/>
         <segue reference="WFZ-lt-Ddb"/>
-        <segue reference="nj9-4R-WLt"/>
-        <segue reference="kjT-Vd-qTU"/>
+        <segue reference="gfc-Rj-FGV"/>
+        <segue reference="DkA-Rn-kG2"/>
+        <segue reference="6l6-0s-KYJ"/>
     </inferredMetricsTieBreakers>
 </document>

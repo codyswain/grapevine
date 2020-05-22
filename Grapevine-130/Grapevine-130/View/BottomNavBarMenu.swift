@@ -23,16 +23,26 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
     bottomNavBar.frame = bottomNavBarFrame
     
     // Potential other images: pencil.and.outline, doc.append, quote.bubble, scribble
-    let postTab = UITabBarItem(title: "Posts", image: UIImage(systemName: "scribble"), tag: 0)
-    let karmaTab = UITabBarItem(title: "Karma", image: UIImage(systemName: "k.circle.fill"), tag: 1)
-    let meTab = UITabBarItem(title: "Me", image: UIImage(systemName: "person.circle.fill"), tag: 2)
+//    let postTab = UITabBarItem(title: "Posts", image: UIImage(systemName: "scribble"), tag: 0)
+    let postTab = UITabBarItem(title: "", image: UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), tag: 0)
+//    let karmaTab = UITabBarItem(title: "Karma", image: UIImage(systemName: "k.circle.fill"), tag: 1)
+    let karmaTab = UITabBarItem(title: "", image: UIImage(systemName: "k.circle.fill"), tag: 1)
+    let createTab = UITabBarItem(title: "", image:UIImage(systemName: "plus.circle"), tag: 2)
+//    let chatTab = UITabBarItem(title: "Chat", image:UIImage(systemName: "scribble"), tag: 4)
+    let chatTab = UITabBarItem(title: "", image:UIImage(systemName: "message.circle.fill"), tag: 3)
+//    let meTab = UITabBarItem(title: "Me", image: UIImage(systemName: "person.circle.fill"), tag: 5)
+    let meTab = UITabBarItem(title: "", image: UIImage(systemName: "person.circle.fill"), tag: 4)
 
-    bottomNavBar.items = [postTab, karmaTab, meTab]
+    bottomNavBar.items = [postTab, karmaTab, createTab, chatTab, meTab]
     
     if tab == "Posts" {
         bottomNavBar.selectedItem = postTab
     } else if tab == "Karma" {
         bottomNavBar.selectedItem = karmaTab
+    } else if (tab == ""){
+        // Never actually change to this selection
+    } else if (tab == "chatTab"){
+       //
     } else {
         bottomNavBar.selectedItem = meTab
     }
@@ -43,7 +53,7 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
 }
 
 func bottomNavBarStyling(bottomNavBar: MDCBottomNavigationBar) -> MDCBottomNavigationBar {
-    bottomNavBar.itemTitleFont = UIFont.boldSystemFont(ofSize: 17)
+    bottomNavBar.itemTitleFont = UIFont.boldSystemFont(ofSize: 40)
     bottomNavBar.itemsContentVerticalMargin = 5
     bottomNavBar.backgroundColor = UIColor(white: 1, alpha: 0.97)
     // Ripple effect: this doesn't turn it off for whatever reason
