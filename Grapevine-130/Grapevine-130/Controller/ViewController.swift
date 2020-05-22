@@ -155,11 +155,7 @@ class ViewController: UIViewController {
         return .darkContent
     }
             
-    /**
-     Scrolls to the first post
-     
-     - Parameter tapGestureRegnizer: Tap gesture that fires this function
-     */
+    /// Scrolls to the top of the table
     @objc func scrollToTop()
     {
         let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
@@ -212,13 +208,7 @@ class ViewController: UIViewController {
         alert.addAction(action2)
         alert.addAction(action1)
         
-        alert.titleIcon = UIImage(systemName: "location.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "location.circle.fill")
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -301,13 +291,8 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
-        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        
+        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
         self.present(alert, animated: true)
     }
     
@@ -381,13 +366,7 @@ class ViewController: UIViewController {
     func showFlaggedAlertPopup(){
         let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
         alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
-        alert.titleIcon = UIImage(systemName: "flag")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "flag")
         self.present(alert, animated: true)
     }
     
@@ -626,13 +605,7 @@ extension ViewController: PostsManagerDelegate {
     func alertNoPosts(){
         let alert = MDCAlertController(title: "No posts.", message: "Either bad Internet or no posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
         alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.titleIcon = UIImage(systemName: "x.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
     }
 }

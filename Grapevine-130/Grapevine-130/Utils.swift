@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import CommonCrypto.CommonHMAC
+import MaterialComponents.MaterialDialogs
 
 /**
 Hashes strings with SHA256.
@@ -32,4 +33,14 @@ func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return newImage!
+}
+
+func makePopup(alert: MDCAlertController, image: String) {
+    alert.titleIcon = UIImage(systemName: image)
+    alert.titleIconTintColor = .black
+    alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
+    alert.messageFont = UIFont.systemFont(ofSize: 17)
+    alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+    alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+    alert.cornerRadius = 10
 }

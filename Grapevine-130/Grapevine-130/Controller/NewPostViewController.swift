@@ -240,13 +240,7 @@ class NewPostViewController: UIViewController {
                 
         let action1 = MDCAlertAction(title: "Ok") { (action) in }
         alert.addAction(action1)
-        alert.titleIcon = UIImage(systemName: "x.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true, completion: nil)
 
     }
