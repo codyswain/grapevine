@@ -26,7 +26,8 @@ async function getPosts(req, res, next) {
 	let lat = Number(req.query.lat);
 	let lon = Number(req.query.lon);
   let range = req.query.range;
-  let filterType = req.query.filter;
+  let activityFilter = req.query.activityFilter;
+  let typeFilter = req.query.typeFilter;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	} 
@@ -40,18 +41,45 @@ async function getPosts(req, res, next) {
 	if (range != -1) { // -1 refers to global range
 		console.log("global")
 		// Calculate the lower and upper geohashes to consider
-		const search_box = utils.getGeohashRange(lat, lon, range);
-		query = db.collection('posts')
-      .where("banned", "==", false)
-      .where("geohash", ">=", search_box.lower)
-      .where("geohash", "<=", search_box.upper)
-      .orderBy("geohash")
+    const search_box = utils.getGeohashRange(lat, lon, range);
+    
+    if (typeFilter == "text"){
+      query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("type", "==", "text")
+        .where("geohash", ">=", search_box.lower)
+        .where("geohash", "<=", search_box.upper)
+        .orderBy("geohash")
+    } else if (typeFilter == "art"){
+      query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("type", "==", "image")
+        .where("geohash", ">=", search_box.lower)
+        .where("geohash", "<=", search_box.upper)
+        .orderBy("geohash")
+    } else {
+      query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("geohash", ">=", search_box.lower)
+        .where("geohash", "<=", search_box.upper)
+        .orderBy("geohash")
+    }
 	} else {
-    query = db.collection('posts').where("banned", "==", false)
+    if (typeFilter == "text"){
+      query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("type", "==", "text")
+    } else if (typeFilter == "art"){
+      query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("type", "==", "image")
+    } else {
+      query = db.collection('posts').where("banned", "==", false)
+    }
   }
-
+  
   // Query the db for posts
-  if (filterType == "top"){
+  if (activityFilter == "top"){
     query.orderBy('votes', 'desc')
     .limit(20).get()
     .then((snapshot) => {
@@ -222,7 +250,7 @@ async function morePosts(req, res, next) {
 	let lon = Number(req.query.lon);
 	let range = req.query.range;
   let docRef = req.query.ref;
-  let filterType = req.query.filter;
+  let activityFilter = req.query.filter;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	}
@@ -244,7 +272,7 @@ async function morePosts(req, res, next) {
 		const search_box = utils.getGeohashRange(lat, lon, range);
 
     // Basic request for posts
-    if (filterType == "top"){
+    if (activityFilter == "top"){
       query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
@@ -260,7 +288,7 @@ async function morePosts(req, res, next) {
 					.orderBy('date', 'desc')
     }
 	} else {
-    if (filterType == "top"){
+    if (activityFilter == "top"){
       query = db.collection('posts').where("banned", "==", false).orderBy('votes', 'desc')
     } else {
       query = db.collection('posts').where("banned", "==", false).orderBy('date', 'desc')
@@ -300,7 +328,7 @@ async function morePosts(req, res, next) {
 				posts.push(curPost)
 			});
       // Return the posts to the client
-      if (filterType == "top"){
+      if (activityFilter == "top"){
         posts = posts.sort((a, b) => { return b.votes - a.votes })
       } else {
         posts = posts.sort((a, b) => { return b.date - a.date })

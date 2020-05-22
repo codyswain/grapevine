@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var nearbyLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var postTypeButton: UIButton!
     
     // Globals
     let locationManager = CLLocationManager()
@@ -45,6 +46,10 @@ class ViewController: UIViewController {
     // Add the bottom nav bar, which is done in BottomNavBarMenu.swift
     var bottomNavBar = MDCBottomNavigationBar()
     /// Main control flow that manages the app once the first screen is entered.
+    
+    // Default feed only shows text posts
+    var curPostType: String = "text"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,6 +77,9 @@ class ViewController: UIViewController {
         
         let tapGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(changeRange(tapGestureRecognizer:)))
         rangeButton.addGestureRecognizer(tapGestureRecognizer2)
+        
+        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(changePostType(tapGestureRecognizer:)))
+        postTypeButton.addGestureRecognizer(tapGestureRecognizer3)
         
         // Add floating button programatically 
         prepareFloatingAddButton()
@@ -182,6 +190,32 @@ class ViewController: UIViewController {
         alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
         alert.cornerRadius = 10
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    @objc func changePostType(tapGestureRecognizer: UITapGestureRecognizer){
+        if (curPostType == "text"){
+            postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
+            curPostType = "art"
+            self.scrollToTop()
+            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+            self.tableView.refreshControl?.beginRefreshing()
+            self.refresh()
+        } else if (curPostType == "art"){
+            postTypeButton.setTitle(" All ", for: UIControl.State.normal)
+            curPostType = "all"
+            self.scrollToTop()
+            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+            self.tableView.refreshControl?.beginRefreshing()
+            self.refresh()
+        } else if (curPostType == "all"){
+            postTypeButton.setTitle(" Text", for: UIControl.State.normal)
+            curPostType = "text"
+            self.scrollToTop()
+            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+            self.tableView.refreshControl?.beginRefreshing()
+            self.refresh()
+        }
     }
     
     /// Refresh the main posts view based on current user location.
@@ -363,7 +397,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Latitude, longitude, and range should be the same as the initial posts request
         if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
-            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, filter:currentFilterState)
+            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType)
             print("Getting more posts")
 
             let moreIndicator = UIActivityIndicatorView()
@@ -603,7 +637,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.lon = location.coordinate.longitude
             updateCity()
             print("Location request success")
-            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, filter:self.currentFilterState)
+            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
     }
     
