@@ -827,6 +827,7 @@ extension ViewController: MDCBottomNavigationBarDelegate {
             self.performSegue(withIdentifier: "goToNewPosts", sender: self)
         } else if item.tag == 3 {
             bottomNavBar.selectedItem = bottomNavBar.items[3]
+            self.performSegue(withIdentifier: "postsToChat", sender: self)
         } else if item.tag == 4 {
             bottomNavBar.selectedItem = bottomNavBar.items[4]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)

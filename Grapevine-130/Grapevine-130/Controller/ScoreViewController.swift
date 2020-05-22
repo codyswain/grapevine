@@ -124,11 +124,11 @@ extension ScoreViewController: MDCBottomNavigationBarDelegate {
         } else if item.tag == 2 {
             bottomNavBar.selectedItem = bottomNavBar.items[1]
             self.performSegue(withIdentifier: "karmaToCreatePost", sender: self)
+        } else if item.tag == 3 {
+            bottomNavBar.selectedItem = bottomNavBar.items[3]
+            self.performSegue(withIdentifier: "karmaToChat", sender: self)
         } else if item.tag == 4 {
             bottomNavBar.selectedItem = bottomNavBar.items[4]
-            // Chat page
-        } else if item.tag == 4{
-            bottomNavBar.selectedItem = bottomNavBar.items[5]
             self.performSegue(withIdentifier: "scoreToProfile", sender: self)
         }
     }
