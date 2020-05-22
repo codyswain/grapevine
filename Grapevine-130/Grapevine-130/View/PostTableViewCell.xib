@@ -143,11 +143,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-<<<<<<< HEAD
                                         <state key="normal" title=" Shout Out" image="radiowaves.right" catalog="system">
-=======
-                                        <state key="normal" title=" Shout Out" image="waveform" catalog="system">
->>>>>>> Added generic popup function
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -219,7 +215,6 @@
         </tableViewCell>
     </objects>
     <resources>
-<<<<<<< HEAD
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="64" height="60"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="64" height="60"/>
@@ -227,14 +222,5 @@
         <image name="message.circle.fill" catalog="system" width="64" height="60"/>
         <image name="radiowaves.right" catalog="system" width="44" height="64"/>
         <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
-=======
-        <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="flame.fill" catalog="system" width="109" height="128"/>
-        <image name="message.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="waveform" catalog="system" width="128" height="128"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
->>>>>>> Added generic popup function
     </resources>
 </document>
