@@ -106,7 +106,11 @@ class ViewController: UIViewController {
         let timeDiff = CGFloat(nanoTime) / 1_000_000_000
         prevTime = curTime
         scrollVelocity = posDiff / timeDiff
-        if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
+//        print(scrollVelocity)
+        
+        if (self.originalNavbarPosition == 0){
+            // do nothing
+        } else if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
             // do nothing
         } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
             self.bottomNavBar.frame.origin.y = self.originalNavbarPosition

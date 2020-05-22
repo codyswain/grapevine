@@ -250,7 +250,8 @@ async function morePosts(req, res, next) {
 	let lon = Number(req.query.lon);
 	let range = req.query.range;
   let docRef = req.query.ref;
-  let activityFilter = req.query.filter;
+  let activityFilter = req.query.activityFilter;
+  let typeFilter = req.query.typeFilter;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	}
@@ -273,25 +274,63 @@ async function morePosts(req, res, next) {
 
     // Basic request for posts
     if (activityFilter == "top"){
-      query = db.collection('posts')
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+          .where("geohash", "<=", search_box.upper)
+          .where("type", "==", typeFilter)
+					.orderBy("geohash")
+					.orderBy('votes', 'desc')
+      } else {
+        query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
 					.where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('votes', 'desc')
+      }
     } else {
-      query = db.collection('posts')
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+          .where("geohash", "<=", search_box.upper)
+          .where("type", "==", typeFilter)
+					.orderBy("geohash")
+					.orderBy('date', 'desc')
+      } else {
+        query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
 					.where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('date', 'desc')
+      }
     }
 	} else {
     if (activityFilter == "top"){
-      query = db.collection('posts').where("banned", "==", false).orderBy('votes', 'desc')
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+          .where("banned", "==", false)
+          .where("type", "==", typeFilter)
+          .orderBy('votes', 'desc')
+      } else {
+        query = db.collection('posts')
+          .where("banned", "==", false)
+          .orderBy('votes', 'desc')
+      }
     } else {
-      query = db.collection('posts').where("banned", "==", false).orderBy('date', 'desc')
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("type", "==", typeFilter)
+        .orderBy('date', 'desc')
+      } else {
+        query = db.collection('posts')
+        .where("banned", "==", false)
+        .orderBy('date', 'desc')
+      }
     }
   }
 

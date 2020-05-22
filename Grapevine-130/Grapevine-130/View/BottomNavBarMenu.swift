@@ -30,7 +30,7 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
     let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton"), tag: 2)
     
 //    let chatTab = UITabBarItem(title: "Chat", image:UIImagGrapevine-130/Grapevine-130/Controller/ChatViewController.swift
-    e(systemName: "scribble"), tag: 4)
+//    e(systemName: "scribble"), tag: 4)
     let chatTab = UITabBarItem(title: "", image:UIImage(systemName: "message.circle.fill"), tag: 3)
 //    let meTab = UITabBarItem(title: "Me", image: UIImage(systemName: "person.circle.fill"), tag: 5)
     let meTab = UITabBarItem(title: "", image: UIImage(systemName: "person.circle.fill"), tag: 4)
