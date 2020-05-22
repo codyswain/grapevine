@@ -367,6 +367,12 @@ class PostTableViewCell: UITableViewCell {
         return im
     }
     
+    /**
+    Changes the comment count number into a readable abbreviated string. Large numbers are abbreviated to the nearest hundredth.
+    
+    - Parameter numComments: Number of comments under the post
+    - Returns: Abbreviated string representation of the comment count
+    */
     func getCommentCount(numComments: Int) -> String {
         if numComments >= 1000 {
             let digit = numComments / 1000
@@ -376,5 +382,55 @@ class PostTableViewCell: UITableViewCell {
         } else {
             return "\(numComments)"
         }
+    }
+    
+    func makeBasicCell(post: Post) {
+        // Reset cell attributes before reusing
+        self.imageVar.image = nil
+        self.deleteButton.tintColor = Constants.Colors.lightGrey
+        self.label.font = self.label.font.withSize(16)
+        self.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
+        self.label.textColor = .black
+        
+        // Set main body of post cell
+        if (post.type == "text"){
+            self.label.text = post.content
+            self.postType = "text"
+        } else {
+            if let decodedData = Data(base64Encoded: post.content, options: .ignoreUnknownCharacters) {
+                self.label.text = ""
+                self.postType = "image"
+                self.imageVar.image = decodeImage(imageData: decodedData, width: self.imageVar.bounds.width, height: self.imageVar.bounds.height)
+            }
+        }
+        
+        // Set the document id of the post
+        self.documentId = post.postId
+        
+        // Set vote count of post cell
+        self.voteCountLabel.text = String(post.votes)
+        
+        // Set vote status
+        self.currentVoteStatus = post.voteStatus
+        
+        // Set flag status
+//        self.currentFlagStatus = post.flagStatus
+        
+        // Set number of flags
+//        self.currentFlagNum = post.numFlags
+        
+        // Set the comment count number
+        if post.comments > 0 {
+            // Show number of comments if there are comments
+            let commentText = self.getCommentCount(numComments: post.comments)
+            self.commentButton.setTitle(commentText, for: .normal)
+            self.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        } else {
+            // Show comment symbol if there are no comments
+            self.commentButton.setTitle("", for: .normal)
+            self.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+        }
+        
+        
     }
 }

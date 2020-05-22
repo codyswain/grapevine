@@ -120,9 +120,7 @@ extension BanChamberViewController: UITableViewDataSource {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-        
-        cell.imageVar.image = nil
-        
+                
         DispatchQueue.main.async {
             cell.downvoteImageButton.isHidden = true
             cell.upvoteImageButton.isHidden = true
@@ -134,36 +132,7 @@ extension BanChamberViewController: UITableViewDataSource {
             cell.shoutButtonVar.isHidden = true
         }
         
-        if (posts[indexPath.row].type == "text"){
-            // Set main body of post cell
-            cell.label.text = posts[indexPath.row].content
-            cell.postType = "text"
-        } else {
-            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
-                let image = UIImage(data: decodedData)!
-                cell.label.text = ""
-                let scale: CGFloat
-                if image.size.width > image.size.height {
-                    scale = cell.imageVar.bounds.width / image.size.width
-                } else {
-                    scale = cell.imageVar.bounds.height / image.size.height
-                }
-                
-                cell.imageVar.image = image
-                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                
-                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-                image.draw(in: rect)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                cell.postType = "image"
-                cell.imageVar.image = newImage
-            }
-        }
-    
-        // Set the postID
-        cell.documentId = posts[indexPath.row].postId
+        cell.makeBasicCell(post: posts[indexPath.row])
                 
         // Refresh the display of the cell, now that we've loaded in vote status
         cell.refreshView()
@@ -234,13 +203,7 @@ extension BanChamberViewController: PostsManagerDelegate {
     func alertNoPosts(){
         let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
         alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.titleIcon = UIImage(systemName: "x.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
     }
 
@@ -292,13 +255,7 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
         }
         alert.addAction(action1)
         alert.addAction(action2)
-        alert.titleIcon = UIImage(systemName: "flame.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "flame.fill")
         self.present(alert, animated: true)
     }
 }

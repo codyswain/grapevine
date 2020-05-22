@@ -155,11 +155,7 @@ class ViewController: UIViewController {
         return .darkContent
     }
             
-    /**
-     Scrolls to the first post
-     
-     - Parameter tapGestureRegnizer: Tap gesture that fires this function
-     */
+    /// Scrolls to the top of the table
     @objc func scrollToTop()
     {
         let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
@@ -212,13 +208,7 @@ class ViewController: UIViewController {
         alert.addAction(action2)
         alert.addAction(action1)
         
-        alert.titleIcon = UIImage(systemName: "location.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "location.circle.fill")
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -301,13 +291,8 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
-        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        
+        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
         self.present(alert, animated: true)
     }
     
@@ -381,13 +366,7 @@ class ViewController: UIViewController {
     func showFlaggedAlertPopup(){
         let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
         alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
-        alert.titleIcon = UIImage(systemName: "flag")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "flag")
         self.present(alert, animated: true)
     }
     
@@ -451,63 +430,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         
-        // Reset cell attributes before reusing
-        cell.imageVar.image = nil
-        cell.deleteButton.tintColor = Constants.Colors.lightGrey
-        cell.label.font = cell.label.font.withSize(16)
-        cell.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
-        cell.label.textColor = .black
-        
-        if (posts[indexPath.row].type == "text"){
-            // Set main body of post cell
-            cell.label.text = posts[indexPath.row].content
-            cell.postType = "text"
-        } else {
-            if let decodedData = Data(base64Encoded: posts[indexPath.row].content, options: .ignoreUnknownCharacters) {
-                let image = UIImage(data: decodedData)!
-                cell.label.text = ""
-                let scale: CGFloat
-                if image.size.width > image.size.height {
-                    scale = cell.imageVar.bounds.width / image.size.width
-                } else {
-                    scale = cell.imageVar.bounds.height / image.size.height
-                }
-                
-                cell.imageVar.image = image
-                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                
-                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-                image.draw(in: rect)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                cell.postType = "image"
-                cell.imageVar.image = newImage
-            }
-        }
-        // Set vote count of post cell
-        cell.voteCountLabel.text = String(posts[indexPath.row].votes)
-        // Set the postID
-        cell.documentId = posts[indexPath.row].postId
-        // Set vote status
-        cell.currentVoteStatus = posts[indexPath.row].voteStatus
-        // Set flag status
-//        cell.currentFlagStatus = posts[indexPath.row].flagStatus
-        // Set number of flags
-//        cell.currentFlagNum = posts[indexPath.row].numFlags
-        // Set the comment count number
-        if posts[indexPath.row].comments > 0 {
-            let commentText = cell.getCommentCount(numComments: posts[indexPath.row].comments)
-            cell.commentButton.setTitle(commentText, for: .normal)
-            cell.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
-        } else {
-            cell.commentButton.setTitle("", for: .normal)
-            cell.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
-        }
+        cell.makeBasicCell(post: posts[indexPath.row])
+
         // Hide the ban button, only for BanChamberViewController
         cell.banButtonVar.isHidden = true
+        
         // Hide the shout button, only for ShoutChamberViewController
         cell.shoutButtonVar.isHidden = true
+        
         // If the current user created this post, he/she can delete it
         if (Constants.userID == posts[indexPath.row].poster){
             cell.enableDelete()
@@ -675,13 +605,7 @@ extension ViewController: PostsManagerDelegate {
     func alertNoPosts(){
         let alert = MDCAlertController(title: "No posts.", message: "Either bad Internet or no posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
         alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.titleIcon = UIImage(systemName: "x.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
     }
 }

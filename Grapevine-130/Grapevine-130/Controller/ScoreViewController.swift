@@ -37,13 +37,7 @@ class ScoreViewController: UIViewController {
     @IBAction func infoButton(_ sender: Any) {
         let alert = MDCAlertController(title: "More Information", message: "On Grapevine, karma is the sum of your comments' & posts' votes. Unlike other platforms, your karma can be spent on powers that make the platform more useful. \n\nTo prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 24 hours and have their strikes reset. \n\nThere are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.")
         alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.titleIcon = UIImage(systemName: "info.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "info.circle.fill")
         self.present(alert, animated: true)
     }
         
@@ -97,16 +91,13 @@ class ScoreViewController: UIViewController {
         self.view.addSubview(indicator)
     }
     
-    /**
-     Prepares the score screen prior to transitioning.
-     
-     - Parameter sender: Segue initiator
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToBanChamber" {
-            let destinationVC = segue.destination as! BanChamberViewController
-            destinationVC.range = range
-        }
+    /// Displays a popup that let's the user know that they do not have enough points to ban other users.
+    func alertMessageNotEnoughPoints(){
+        let alert = MDCAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.")
+
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        makePopup(alert: alert, image: "x.circle.fill")
+        self.present(alert, animated: true)
     }
 }
 

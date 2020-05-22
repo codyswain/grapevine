@@ -45,13 +45,7 @@ class CommentViewController: UIViewController {
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
             self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
         })
-        alert.titleIcon = UIImage(systemName: "arrow.uturn.right.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
         self.present(alert, animated: true)
     }
     
@@ -262,13 +256,7 @@ class CommentViewController: UIViewController {
         alert.addAction(MDCAlertAction(title: "Share Comments To Snap"){ (action) in
             self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
         })
-        alert.titleIcon = UIImage(systemName: "heart.circle.fill")
-        alert.titleIconTintColor = .black
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "heart.circle.fill")
         self.present(alert, animated: true)
     }
     

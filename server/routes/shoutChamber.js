@@ -65,6 +65,8 @@ async function getShoutablePosts(req, res, next) {
 
 /**
  * Fetches downvoted posts and updates the user's score.
+ * 
+ * TODO: Check if the post has already been shout out and fail if it still has time left
  */
 async function shoutPost(req, res, next) {
 	let user = req.query.user;
