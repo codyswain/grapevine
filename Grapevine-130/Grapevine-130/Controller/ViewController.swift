@@ -50,6 +50,13 @@ class ViewController: UIViewController {
     // Default feed only shows text posts
     var curPostType: String = "text"
     
+    // Variables to track scroll motion
+    var originalNavbarPosition: CGFloat = 0.0
+    var prevPos: CGFloat = 0.0
+    var prevTime: DispatchTime = DispatchTime.now()
+    var scrollVelocity: CGFloat = 0.0
+    var notScrolling: Bool = true;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,12 +88,31 @@ class ViewController: UIViewController {
         let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(changePostType(tapGestureRecognizer:)))
         postTypeButton.addGestureRecognizer(tapGestureRecognizer3)
         
+//        let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe(gestureRecognizer:)))
+//        view.addGestureRecognizer(swipeGestureRecognizer)
+        
         // Add floating button programatically 
-        prepareFloatingAddButton()
+//        prepareFloatingAddButton()
         
         // Add menu navigation bar programatically 
         bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
         self.view.addSubview(bottomNavBar)
+    }
+    
+    func handleScroll(curPos: CGFloat, curTime: DispatchTime){
+        let posDiff = curPos - prevPos
+        prevPos = curPos
+        let nanoTime = curTime.uptimeNanoseconds - prevTime.uptimeNanoseconds
+        let timeDiff = CGFloat(nanoTime) / 1_000_000_000
+        prevTime = curTime
+        scrollVelocity = posDiff / timeDiff
+        if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
+            // do nothing
+        } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
+            self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+        } else {
+            self.bottomNavBar.frame.origin.y += posDiff
+        }
     }
     
     func prepareTableView(){
@@ -525,6 +551,36 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return configuration
     }
+    
+    
+    // The following three scroll functions allow navbar to hide on scroll
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if (self.originalNavbarPosition == 0.0){
+            self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
+        }
+        self.notScrolling = false
+        self.prevPos = tableView.contentOffset.y
+        self.prevTime = DispatchTime.now()
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.handleScroll(curPos: tableView.contentOffset.y, curTime: DispatchTime.now())
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if (self.scrollVelocity > 0){
+            if (abs(self.originalNavbarPosition-self.bottomNavBar.frame.origin.y) < 20){
+                self.bottomNavBar.isHidden = false
+                self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+            } else {
+                self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+                self.bottomNavBar.isHidden = true
+            }
+        } else {
+            self.bottomNavBar.isHidden = false
+            self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+        }
+        self.notScrolling = true
+    }
+
 }
 
 /// Updates the posts table once posts are sent by the server.
@@ -760,11 +816,20 @@ extension ViewController: CommentViewControllerDelegate {
 
 extension ViewController: MDCBottomNavigationBarDelegate {
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
-        if item.title! == "Posts" {
+        if item.tag == 0 {
+            bottomNavBar.selectedItem = bottomNavBar.items[0]
             scrollToTop()
-        } else if item.title! == "Karma" {
+        } else if item.tag == 1 {
+            bottomNavBar.selectedItem = bottomNavBar.items[1]
             self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
-        } else if item.title! == "Me" {
+        } else if item.tag == 2 {
+            bottomNavBar.selectedItem = bottomNavBar.items[0]
+            self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+        } else if item.tag == 3 {
+            bottomNavBar.selectedItem = bottomNavBar.items[3]
+            self.performSegue(withIdentifier: "postsToChat", sender: self)
+        } else if item.tag == 4 {
+            bottomNavBar.selectedItem = bottomNavBar.items[4]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
     }

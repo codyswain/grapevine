@@ -116,11 +116,19 @@ extension ScoreViewController: UserManagerDelegate {
 
 extension ScoreViewController: MDCBottomNavigationBarDelegate {
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
-        if item.title! == "Posts" {
+        if item.tag == 0  {
+            bottomNavBar.selectedItem = bottomNavBar.items[0]
             self.performSegue(withIdentifier: "scoreToMain", sender: self)
-        } else if item.title! == "Karma" {
-
-        } else if item.title! == "Me" {
+        } else if item.tag == 1 {
+            bottomNavBar.selectedItem = bottomNavBar.items[1]
+        } else if item.tag == 2 {
+            bottomNavBar.selectedItem = bottomNavBar.items[1]
+            self.performSegue(withIdentifier: "karmaToCreatePost", sender: self)
+        } else if item.tag == 3 {
+            bottomNavBar.selectedItem = bottomNavBar.items[3]
+            self.performSegue(withIdentifier: "karmaToChat", sender: self)
+        } else if item.tag == 4 {
+            bottomNavBar.selectedItem = bottomNavBar.items[4]
             self.performSegue(withIdentifier: "scoreToProfile", sender: self)
         }
     }
