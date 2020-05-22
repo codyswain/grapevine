@@ -398,25 +398,9 @@ class PostTableViewCell: UITableViewCell {
             self.postType = "text"
         } else {
             if let decodedData = Data(base64Encoded: post.content, options: .ignoreUnknownCharacters) {
-                let image = UIImage(data: decodedData)!
                 self.label.text = ""
-                let scale: CGFloat
-                if image.size.width > image.size.height {
-                    scale = self.imageVar.bounds.width / image.size.width
-                } else {
-                    scale = self.imageVar.bounds.height / image.size.height
-                }
-                
-                self.imageVar.image = image
-                let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-                let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-                
-                UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-                image.draw(in: rect)
-                let newImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
                 self.postType = "image"
-                self.imageVar.image = newImage
+                self.imageVar.image = decodeImage(imageData: decodedData, width: self.imageVar.bounds.width, height: self.imageVar.bounds.height)
             }
         }
         
