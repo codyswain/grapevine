@@ -14,8 +14,13 @@ class ScoreViewController: UIViewController {
     var scoreManager = ScoreManager()
     var indicator = UIActivityIndicatorView()
     var bottomNavBar = MDCBottomNavigationBar()
+    
+    
     @IBOutlet weak var scoreContainer: UIView!
     fileprivate let pictures = [#imageLiteral(resourceName: "Grapevine Store Card 1"),#imageLiteral(resourceName: "Grapevine Store Card 2"), #imageLiteral(resourceName: "Grapevine Store Card 3")]
+    
+    // Create an instance of UserDefaults that will serve as local storage
+    let userDefaults = UserDefaults.standard
     
     // Future options: [🔒] Creative Kit: Fonts & Colors"), [🔒] Juiced: Receive Double Karma"), [🔒] Invest: Share Karma Of Post"), [🔒] Defense: Karma Won't Decrease")
     
@@ -40,6 +45,7 @@ class ScoreViewController: UIViewController {
         makePopup(alert: alert, image: "info.circle.fill")
         self.present(alert, animated: true)
     }
+
         
     /// Intializes the score screen.
     override func viewDidLoad() {
@@ -51,8 +57,16 @@ class ScoreViewController: UIViewController {
         indicator.backgroundColor = .white
         
         emojiLabel.isHidden = true
-        scoreLabel.isHidden = true
         strikesLeftLabel.isHidden = true
+        
+        scoreLabel.isHidden = false
+        
+        userDefaults.removeObject(forKey: "karma")
+        if (self.userDefaults.string(forKey: "karma") == nil) {
+            self.userDefaults.set(self.score, forKey:"karma")
+        }
+        var localScore = self.userDefaults.string(forKey: "karma")
+        self.scoreLabel.text = localScore
         
         userManager.delegate = self
         userManager.fetchUser()
@@ -101,16 +115,33 @@ class ScoreViewController: UIViewController {
     }
 }
 
+extension UIView {
+    func fadeTransition(_ duration:CFTimeInterval) {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name:
+            CAMediaTimingFunctionName.easeInEaseOut)
+        animation.type = CATransitionType.fade
+        animation.duration = duration
+        layer.add(animation, forKey: CATransitionType.fade.rawValue)
+    }
+}
+
 extension ScoreViewController: UserManagerDelegate {
     func didGetUser(_ userManager: UserManager, user: User) {
         self.score = user.score
+        /// saving the karma for the user in local storage under variable name: karma
+        
         self.emoji = scoreManager.getEmoji(score:self.score)
         self.strikesLeftMessage = scoreManager.getStrikeMessage(strikes:user.strikes)
         
         DispatchQueue.main.async {
             self.indicator.stopAnimating()
             self.emojiLabel.text = self.emoji
+            self.scoreLabel.fadeTransition(0.4)
             self.scoreLabel.text = String(self.score)
+            self.userDefaults.set(self.score, forKey: "karma")
+            
+            
             self.strikesLeftLabel.text = self.strikesLeftMessage
             self.emojiLabel.isHidden = false
             self.scoreLabel.isHidden = false
