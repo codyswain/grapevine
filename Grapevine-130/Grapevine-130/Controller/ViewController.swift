@@ -744,20 +744,31 @@ extension ViewController: CommentViewControllerDelegate {
 
 extension ViewController: MDCBottomNavigationBarDelegate {
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+//        if item.tag == 0 {
+//            bottomNavBar.selectedItem = bottomNavBar.items[0]
+//            scrollToTop()
+//        } else if item.tag == 1 {
+//            bottomNavBar.selectedItem = bottomNavBar.items[1]
+//            self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+//        } else if item.tag == 2 {
+//            bottomNavBar.selectedItem = bottomNavBar.items[0]
+//            self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+//        } else if item.tag == 3 {
+//            bottomNavBar.selectedItem = bottomNavBar.items[3]
+//            self.performSegue(withIdentifier: "postsToChat", sender: self)
+//        } else if item.tag == 4 {
+//            bottomNavBar.selectedItem = bottomNavBar.items[4]
+//            self.performSegue(withIdentifier: "mainToProfile", sender: self)
+//        }
+        
         if item.tag == 0 {
             bottomNavBar.selectedItem = bottomNavBar.items[0]
             scrollToTop()
         } else if item.tag == 1 {
-            bottomNavBar.selectedItem = bottomNavBar.items[1]
-            self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
-        } else if item.tag == 2 {
             bottomNavBar.selectedItem = bottomNavBar.items[0]
             self.performSegue(withIdentifier: "goToNewPosts", sender: self)
-        } else if item.tag == 3 {
-            bottomNavBar.selectedItem = bottomNavBar.items[3]
-            self.performSegue(withIdentifier: "postsToChat", sender: self)
-        } else if item.tag == 4 {
-            bottomNavBar.selectedItem = bottomNavBar.items[4]
+        } else if item.tag == 2 {
+            bottomNavBar.selectedItem = bottomNavBar.items[1]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
     }
