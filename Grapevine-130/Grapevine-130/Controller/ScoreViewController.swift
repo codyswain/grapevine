@@ -51,6 +51,11 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Show user that data is loading
+        self.scoreLabel.text = "⌛..."
+        self.emojiLabel.text = ""
+        self.strikesLeftLabel.text = "Loading karma details!"
+
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
@@ -65,8 +70,6 @@ class ScoreViewController: UIViewController {
         if (self.userDefaults.string(forKey: "karma") == nil) {
             self.userDefaults.set(self.score, forKey:"karma")
         }
-        var localScore = self.userDefaults.string(forKey: "karma")
-        self.scoreLabel.text = localScore
         
         userManager.delegate = self
         userManager.fetchUser()
