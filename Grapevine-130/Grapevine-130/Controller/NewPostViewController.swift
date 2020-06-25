@@ -42,11 +42,11 @@ class NewPostViewController: UIViewController {
         frontTextView.isHidden = false
         
         // Custom "Add" post button within view
-        AddButtonContainingView.layer.cornerRadius = 25
+        AddButtonContainingView.layer.cornerRadius = 10
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.addPostButton))
         AddButtonContainingView.addGestureRecognizer(tapGesture)
         AddButtonContainingView.isUserInteractionEnabled = true
-        
+                
         // Add listeners to keyboard to reposition "Add Post" button
         NotificationCenter.default.addObserver(self, selector: #selector(NewPostViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NewPostViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

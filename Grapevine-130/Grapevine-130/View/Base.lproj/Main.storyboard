@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,8 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Grapevine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
-                                <rect key="frame" x="20" y="46" width="190" height="38.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                                <rect key="frame" x="20" y="46" width="134" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -27,7 +27,7 @@
                                 <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-Vl-gZj">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-Vl-gZj">
                                 <rect key="frame" x="20" y="88" width="374" height="20"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnO-9Q-5Rq">
@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-57.971014492753625" y="137.94642857142856"/>
+            <point key="canvasLocation" x="-235" y="-589"/>
         </scene>
         <!--New Post View Controller-->
         <scene sceneID="UWI-Ib-ljT">
@@ -145,8 +145,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGj-2o-pn6">
-                                <rect key="frame" x="20" y="51" width="182.5" height="33.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add A Post" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGj-2o-pn6">
+                                <rect key="frame" x="20" y="51" width="143.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -225,18 +225,18 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoY-7M-6tP">
-                                <rect key="frame" x="147" y="772" width="120" height="50"/>
+                                <rect key="frame" x="147" y="768" width="120" height="54"/>
                                 <subviews>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q87-iI-8CO">
-                                        <rect key="frame" x="27" y="10.5" width="66" height="29"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <rect key="frame" x="25" y="14" width="70" height="26"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Add" image="arrow.up.circle.fill" catalog="system"/>
+                                        <state key="normal" title="  Add" image="arrow.up.circle.fill" catalog="system"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="1qn-5w-XSc"/>
+                                    <constraint firstAttribute="height" constant="54" id="1qn-5w-XSc"/>
                                     <constraint firstAttribute="width" constant="120" id="koe-Uh-L7C"/>
                                     <constraint firstAttribute="centerX" secondItem="q87-iI-8CO" secondAttribute="centerX" id="u5L-Td-WKH"/>
                                     <constraint firstItem="q87-iI-8CO" firstAttribute="centerY" secondItem="AoY-7M-6tP" secondAttribute="centerY" id="zb6-yj-WQz"/>
@@ -260,7 +260,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title=" Return" image="arrow.up.circle.fill" catalog="system">
+                                <state key="normal" title=" Return" image="arrow.down.circle.fill" catalog="system">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -305,7 +305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9LD-VA-jbl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="728" y="-588"/>
+            <point key="canvasLocation" x="700" y="-589"/>
         </scene>
         <!--Score View Controller-->
         <scene sceneID="Nxh-7k-zKW">
@@ -400,7 +400,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1r-Rh-zGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="900.00000000000011" y="158.70535714285714"/>
+            <point key="canvasLocation" x="1645" y="138"/>
         </scene>
         <!--Ban Chamber-->
         <scene sceneID="V89-fe-fuR">
@@ -471,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wuL-O4-EHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1548" y="-589"/>
+            <point key="canvasLocation" x="1645" y="948"/>
         </scene>
         <!--Ban Screen-->
         <scene sceneID="0wW-yY-ylv">
@@ -516,7 +516,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYB-WN-roc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="867"/>
+            <point key="canvasLocation" x="-236" y="138"/>
         </scene>
         <!--Comment View Controller-->
         <scene sceneID="agx-wJ-GiS">
@@ -720,7 +720,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xl7-SH-pte" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-891.304347826087" y="137.94642857142856"/>
+            <point key="canvasLocation" x="-1320" y="138"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="gVe-b1-jeL">
@@ -730,30 +730,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Posts &amp; Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-WB-RVF">
-                                <rect key="frame" x="30" y="54" width="295" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Vineyard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-WB-RVF">
+                                <rect key="frame" x="20" y="46" width="163" height="34"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYE-te-MuL">
-                                <rect key="frame" x="153" y="437.5" width="108" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nel-4h-eYU">
+                                <rect key="frame" x="20" y="96" width="177" height="177"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="177" id="4u7-kd-tw1"/>
+                                    <constraint firstAttribute="height" constant="177" id="OPC-rM-D5F"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="  Karma" image="k.circle.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="KarmaButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="cgw-NL-XI4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7p-X5-ujl">
+                                <rect key="frame" x="217" y="96" width="177" height="177"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="177" id="kSk-gX-6aH"/>
+                                    <constraint firstAttribute="width" constant="177" id="wsN-XD-1r6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="  Posts" image="tray.full.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="PostsButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="lld-sW-xWV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQu-ni-pqE">
+                                <rect key="frame" x="20" y="293" width="177" height="177"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="177" id="2Ji-0V-aVq"/>
+                                    <constraint firstAttribute="width" constant="177" id="mYz-OJ-Jj0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="  Comments" image="quote.bubble.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="CommentsButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="9iV-oV-LtW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="pYE-te-MuL" firstAttribute="centerX" secondItem="Apx-0p-JQO" secondAttribute="centerX" id="8YZ-jq-WGp"/>
-                            <constraint firstItem="ese-WB-RVF" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="10" id="P9P-RG-GfK"/>
-                            <constraint firstItem="ese-WB-RVF" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="30" id="Xmx-bo-AfA"/>
-                            <constraint firstItem="pYE-te-MuL" firstAttribute="centerY" secondItem="Apx-0p-JQO" secondAttribute="centerY" id="ps9-RE-CiP"/>
+                            <constraint firstItem="S7p-X5-ujl" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="52" id="4pL-Fp-teg"/>
+                            <constraint firstItem="gAf-wN-5CK" firstAttribute="trailing" secondItem="S7p-X5-ujl" secondAttribute="trailing" constant="20" id="6xM-3s-yTN"/>
+                            <constraint firstItem="kQu-ni-pqE" firstAttribute="top" secondItem="Nel-4h-eYU" secondAttribute="bottom" constant="20" id="B3g-63-W6N"/>
+                            <constraint firstItem="kQu-ni-pqE" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="IbN-hT-MA6"/>
+                            <constraint firstItem="ese-WB-RVF" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="2" id="P9P-RG-GfK"/>
+                            <constraint firstItem="S7p-X5-ujl" firstAttribute="leading" secondItem="Nel-4h-eYU" secondAttribute="trailing" constant="20" id="PpY-Eo-srn"/>
+                            <constraint firstItem="ese-WB-RVF" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="Xmx-bo-AfA"/>
+                            <constraint firstItem="S7p-X5-ujl" firstAttribute="leading" secondItem="Nel-4h-eYU" secondAttribute="trailing" constant="20" id="enH-Ad-OEz"/>
+                            <constraint firstItem="Nel-4h-eYU" firstAttribute="top" secondItem="ese-WB-RVF" secondAttribute="bottom" constant="16" id="s7r-2F-hOv"/>
+                            <constraint firstItem="Nel-4h-eYU" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="yX9-g0-2tU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gAf-wN-5CK"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="p9F-dG-yJb"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="MyCommentsButton" destination="kQu-ni-pqE" id="zRI-OQ-XxJ"/>
+                        <outlet property="MyKarmaButton" destination="Nel-4h-eYU" id="Inb-DF-3jR"/>
+                        <outlet property="MyPostsButton" destination="S7p-X5-ujl" id="WSf-3h-dm4"/>
                         <segue destination="u9k-vM-A2m" kind="show" identifier="profileToKarma" animates="NO" id="gfc-Rj-FGV"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToPosts" animates="NO" id="hoR-89-MDP"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="profileToCreatePost" modalPresentationStyle="fullScreen" id="UNp-xP-gzv"/>
@@ -762,7 +812,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xBQ-Cl-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2196" y="159"/>
+            <point key="canvasLocation" x="1646" y="-589"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="Sca-Su-4gf">
@@ -804,7 +854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lqn-8J-rnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3188" y="152"/>
+            <point key="canvasLocation" x="2796" y="116"/>
         </scene>
         <!--Shout Chamber-->
         <scene sceneID="bSA-bp-Yrk">
@@ -879,29 +929,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4w-jz-bTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2365" y="-589"/>
+            <point key="canvasLocation" x="2562" y="948"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="End Apostrophe" width="1024" height="1024"/>
-        <image name="Start Apostrophe" width="1024" height="1024"/>
-        <image name="arrow.up.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrow.uturn.right.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="bolt.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="circle" catalog="system" width="64" height="60"/>
-        <image name="circle.fill" catalog="system" width="64" height="60"/>
-        <image name="heart.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="info.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="location.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="pencil.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="pvQ-TT-cDE"/>
         <segue reference="Akc-y1-XXs"/>
         <segue reference="5Yb-QX-xj6"/>
         <segue reference="DkA-Rn-kG2"/>
-        <segue reference="q4N-vY-ZD4"/>
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="End Apostrophe" width="1024" height="1024"/>
+        <image name="Start Apostrophe" width="1024" height="1024"/>
+        <image name="arrow.down.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="k.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="location.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="quote.bubble.fill" catalog="system" width="128" height="110"/>
+        <image name="tray.full.fill" catalog="system" width="128" height="88"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
 </document>

@@ -15,6 +15,10 @@ import MaterialComponents.MaterialBottomNavigation
 class ProfileViewController: UIViewController {
     var bottomNavBar = MDCBottomNavigationBar()
         
+    @IBOutlet weak var MyCommentsButton: UIButton!
+    @IBOutlet weak var MyPostsButton: UIButton!
+    @IBOutlet weak var MyKarmaButton: UIButton!
+    
     /// Intializes the score screen.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,21 @@ class ProfileViewController: UIViewController {
         // Add menu navigation bar programatically
         bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
         self.view.addSubview(bottomNavBar)
+        
+        // Buttons
+        self.view = styleButton(button: MyCommentsButton, view: self.view)
+        self.view = styleButton(button: MyPostsButton, view: self.view)
+        self.view = styleButton(button: MyKarmaButton, view: self.view)
+    }
+    
+    @IBAction func KarmaButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "profileToKarma", sender: self)
+    }
+    
+    @IBAction func PostsButtonPressed(_ sender: Any) {
+    }
+    
+    @IBAction func CommentsButtonPressed(_ sender: Any) {
     }
 }
 
@@ -32,15 +51,9 @@ extension ProfileViewController: MDCBottomNavigationBarDelegate {
             self.performSegue(withIdentifier: "profileToPosts", sender: self)
         } else if item.tag == 1 {
             bottomNavBar.selectedItem = bottomNavBar.items[1]
-            self.performSegue(withIdentifier: "profileToKarma", sender: self)
-        } else if item.tag == 2 {
-            bottomNavBar.selectedItem = bottomNavBar.items[4]
             self.performSegue(withIdentifier: "profileToCreatePost", sender: self)
-        } else if item.tag == 3 {
-            bottomNavBar.selectedItem = bottomNavBar.items[3]
-            self.performSegue(withIdentifier: "profileToChat", sender: self)
-        } else if item.tag == 4 {
-            bottomNavBar.selectedItem = bottomNavBar.items[4]
+        } else {
+            bottomNavBar.selectedItem = bottomNavBar.items[2]
         }
     }
 }

@@ -253,16 +253,18 @@ class PostTableViewCell: UITableViewCell {
     */
     func setDownvotedColors(){
         var color = Constants.Colors.veryDarkGrey
+        var baseColor: UIColor = .white
         if shoutable {
-            color = .black
+            color = Constants.Colors.yellow
+            baseColor = .white
         }
-        commentButton.tintColor = UIColor.white
+        commentButton.tintColor = baseColor
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
-        shareButton.tintColor = .white
+        shareButton.tintColor = baseColor
         footer.backgroundColor = color
-        downvoteImageButton.tintColor = .white
-        voteCountLabel.textColor = .white
+        downvoteImageButton.tintColor = baseColor
+        voteCountLabel.textColor = baseColor
         commentButton.setTitleColor(color, for: .normal)
     }
     
@@ -270,16 +272,25 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect no vote.
     */
     func setNeutralColors(){
+        var buttonColor = Constants.Colors.lightGrey
+        var footerColor = Constants.Colors.darkGrey
+        var textColor: UIColor = .black
+        if self.shoutable {
+            buttonColor = .white
+            footerColor = Constants.Colors.yellow
+            textColor = .white
+        }
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
         shareButton.isHidden = false
         decideFlagColors()
-        footer.backgroundColor = Constants.Colors.darkGrey
-        upvoteImageButton.tintColor = Constants.Colors.lightGrey
-        downvoteImageButton.tintColor = Constants.Colors.lightGrey
-        shareButton.tintColor = Constants.Colors.lightGrey
-        voteCountLabel.textColor = .black
-        commentButton.setTitleColor(Constants.Colors.darkGrey, for: .normal)
+        footer.backgroundColor = footerColor
+        commentButton.tintColor = buttonColor
+        upvoteImageButton.tintColor = buttonColor
+        downvoteImageButton.tintColor = buttonColor
+        shareButton.tintColor = buttonColor
+        voteCountLabel.textColor = textColor
+        commentButton.setTitleColor(footerColor, for: .normal)
     }
     
     /**
@@ -287,17 +298,19 @@ class PostTableViewCell: UITableViewCell {
     */
     func setUpvotedColors(){
         var color = Constants.Colors.darkPurple
+        var baseColor: UIColor = .white
         if shoutable {
-            color = .black
+            color = Constants.Colors.yellow
+            baseColor = .white
         }
-        commentButton.tintColor = UIColor.white
+        commentButton.tintColor = baseColor
         downvoteImageButton.isHidden = true
         upvoteImageButton.isHidden = false
         shareButton.isHidden = false
-        shareButton.tintColor = .white
+        shareButton.tintColor = baseColor
         footer.backgroundColor = color
-        upvoteImageButton.tintColor = .white
-        voteCountLabel.textColor = .white
+        upvoteImageButton.tintColor = baseColor
+        voteCountLabel.textColor = baseColor
         commentButton.setTitleColor(color, for: .normal)
     }
     

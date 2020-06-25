@@ -175,7 +175,7 @@ class ViewController: UIViewController {
         let action1 = MDCAlertAction(title: "3 miles") { (action) in
             self.range = 3
             self.rangeButton.setTitle( " 3 miles" , for: .normal )
-            self.nearbyLabel.text = "The Grapevine"
+            self.nearbyLabel.text = "Grapevine"
             
             // Scroll to top
             self.scrollToTop()
@@ -452,7 +452,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if expiry > Date().timeIntervalSince1970 {
                 print("Showing shouted post!")
                 cell.shoutable = true
-                cell.commentAreaButton.backgroundColor = .black
+                cell.commentAreaButton.backgroundColor = Constants.Colors.yellow
                 cell.label.textColor = .white
             } else {
                 cell.shoutable = false
