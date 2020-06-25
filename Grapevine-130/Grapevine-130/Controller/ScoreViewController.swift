@@ -60,12 +60,7 @@ class ScoreViewController: UIViewController {
         activityIndicator()
         indicator.startAnimating()
         indicator.backgroundColor = .white
-        
-        emojiLabel.isHidden = true
-        strikesLeftLabel.isHidden = true
-        
-        scoreLabel.isHidden = false
-        
+                        
         userDefaults.removeObject(forKey: "karma")
         if (self.userDefaults.string(forKey: "karma") == nil) {
             self.userDefaults.set(self.score, forKey:"karma")
