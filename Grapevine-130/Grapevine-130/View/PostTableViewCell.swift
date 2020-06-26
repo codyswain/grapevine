@@ -411,9 +411,10 @@ class PostTableViewCell: UITableViewCell {
             self.postType = "text"
         } else {
             if let decodedData = Data(base64Encoded: post.content, options: .ignoreUnknownCharacters) {
+                let imageData = UIImage(data: decodedData)!
                 self.label.text = ""
                 self.postType = "image"
-                self.imageVar.image = decodeImage(imageData: decodedData, width: self.imageVar.bounds.width, height: self.imageVar.bounds.height)
+                self.imageVar.image = resizeImage(image: imageData, newWidth: self.imageVar.bounds.width)
             }
         }
         
