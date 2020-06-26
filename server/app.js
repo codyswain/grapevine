@@ -26,6 +26,7 @@ var interactionsRouter = require('./routes/interactions');
 var commentinteractionsRouter = require('./routes/commentinteractions');
 var banChamberRouter = require('./routes/banChamber');
 var shoutChamberRouter = require('./routes/shoutChamber');
+var myPostsRouter = require('./routes/myPosts');
 
 // Set the app to use Express
 var app = express();
@@ -67,7 +68,7 @@ app.use('/users', usersRouter);
 app.use('/interactions', interactionsRouter);
 app.use('/commentinteractions', commentinteractionsRouter)
 app.use('/banChamber', banChamberRouter);
-app.use('/shoutChamber', shoutChamberRouter);
+app.use('/myPosts', myPostsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
