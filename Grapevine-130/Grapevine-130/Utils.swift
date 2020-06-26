@@ -45,6 +45,27 @@ func makePopup(alert: MDCAlertController, image: String) {
     alert.cornerRadius = 10
 }
 
+func decodeImage(imageData: Data, width: CGFloat, height: CGFloat) -> UIImage {
+    let image = UIImage(data: imageData)!
+    let scale: CGFloat
+    
+    // Scale the image to fit the post cell
+    if image.size.width > image.size.height {
+        scale = width / image.size.width
+    } else {
+        scale = height / image.size.height
+    }
+    
+    let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+    let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    
+    UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+    image.draw(in: rect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage!
+}
+
 func getGradient() -> CAGradientLayer {
     let gradient = CAGradientLayer()
     gradient.type = .axial
@@ -72,24 +93,3 @@ func styleButton(button: UIButton, view: UIView) -> UIView {
     view.layer.insertSublayer(g1, at: 0)
     return view
 }
-
-//func decodeImage(imageData: Data, width: CGFloat, height: CGFloat) -> UIImage {
-//    let image = UIImage(data: imageData)!
-//    let scale: CGFloat
-//    
-//    // Scale the image to fit the post cell
-//    if image.size.width > image.size.height {
-//        scale = width / image.size.width
-//    } else {
-//        scale = height / image.size.height
-//    }
-//    
-//    let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-//    let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-//    
-//    UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-//    image.draw(in: rect)
-//    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-//    UIGraphicsEndImageContext()
-//    return newImage!
-//}

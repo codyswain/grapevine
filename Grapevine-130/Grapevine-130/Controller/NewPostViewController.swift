@@ -82,6 +82,13 @@ class NewPostViewController: UIViewController {
         currentState = "text"
     }
     
+    
+    // Go back to main feed
+    @IBAction func backButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil);
+    }
+    
+    
     /**
      Switches to the screen to create a drawing post.
      
