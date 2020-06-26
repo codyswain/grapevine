@@ -130,7 +130,6 @@
                         <segue destination="u9k-vM-A2m" kind="show" identifier="mainViewToScoreView" animates="NO" id="nj9-4R-WLt"/>
                         <segue destination="nLL-ph-GD5" kind="presentation" identifier="goToComments" id="RYw-X8-5tY"/>
                         <segue destination="Prc-Cd-d7O" kind="show" identifier="mainToProfile" animates="NO" id="ekl-9A-j9Q"/>
-                        <segue destination="bGR-wd-jA6" kind="show" identifier="postsToChat" animates="NO" id="qNP-pk-bh2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -394,7 +393,6 @@
                         <segue destination="BYZ-38-t0r" kind="showDetail" identifier="scoreToMain" animates="NO" id="6l6-0s-KYJ"/>
                         <segue destination="Prc-Cd-d7O" kind="show" identifier="scoreToProfile" animates="NO" id="Akc-y1-XXs"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="karmaToCreatePost" modalPresentationStyle="fullScreen" id="DkA-Rn-kG2"/>
-                        <segue destination="bGR-wd-jA6" kind="show" identifier="karmaToChat" animates="NO" id="pvQ-TT-cDE"/>
                         <segue destination="VgU-GR-isU" kind="show" identifier="scoreToShoutChamber" id="V1j-jE-bCQ"/>
                     </connections>
                 </viewController>
@@ -807,54 +805,12 @@
                         <segue destination="u9k-vM-A2m" kind="show" identifier="profileToKarma" animates="NO" id="gfc-Rj-FGV"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToPosts" animates="NO" id="hoR-89-MDP"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="profileToCreatePost" modalPresentationStyle="fullScreen" id="UNp-xP-gzv"/>
-                        <segue destination="bGR-wd-jA6" kind="show" identifier="profileToChat" animates="NO" id="Ma9-AM-4Nb"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="profileToMyPosts" id="fBJ-JY-2Sp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xBQ-Cl-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1646" y="-589"/>
-        </scene>
-        <!--Chat View Controller-->
-        <scene sceneID="Sca-Su-4gf">
-            <objects>
-                <viewController storyboardIdentifier="ChatViewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bGR-wd-jA6" customClass="ChatViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ezl-Re-9z9">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anonymous Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6GK-q7-ZtU">
-                                <rect key="frame" x="30" y="54" width="226" height="34"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7Q-DI-OWk">
-                                <rect key="frame" x="153" y="437.5" width="108" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="6GK-q7-ZtU" firstAttribute="leading" secondItem="Oyj-Oo-0Vl" secondAttribute="leading" constant="30" id="Oqo-oY-4q1"/>
-                            <constraint firstItem="6GK-q7-ZtU" firstAttribute="top" secondItem="Oyj-Oo-0Vl" secondAttribute="top" constant="10" id="nvQ-wM-as9"/>
-                            <constraint firstItem="U7Q-DI-OWk" firstAttribute="centerY" secondItem="ezl-Re-9z9" secondAttribute="centerY" id="p2Q-dL-WOv"/>
-                            <constraint firstItem="U7Q-DI-OWk" firstAttribute="centerX" secondItem="ezl-Re-9z9" secondAttribute="centerX" id="zV1-SM-tKm"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Oyj-Oo-0Vl"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="OmP-7p-H1K"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="chatToPosts" animates="NO" id="uaU-zl-QZq"/>
-                        <segue destination="JOP-em-yKC" kind="presentation" identifier="chatToCreatePost" modalPresentationStyle="fullScreen" id="wNb-I8-6S7"/>
-                        <segue destination="Prc-Cd-d7O" kind="show" identifier="chatToProfile" animates="NO" id="Q2f-5x-2nS"/>
-                        <segue destination="u9k-vM-A2m" kind="show" identifier="chatToKarma" animates="NO" id="5Yb-QX-xj6"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Lqn-8J-rnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2796" y="116"/>
         </scene>
         <!--Shout Chamber-->
         <scene sceneID="bSA-bp-Yrk">
@@ -933,11 +889,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pvQ-TT-cDE"/>
-        <segue reference="Akc-y1-XXs"/>
-        <segue reference="5Yb-QX-xj6"/>
-        <segue reference="DkA-Rn-kG2"/>
-        <segue reference="cef-IB-uFx"/>
+        <segue reference="ekl-9A-j9Q"/>
+        <segue reference="nj9-4R-WLt"/>
+        <segue reference="NSO-o6-THf"/>
+        <segue reference="fBJ-JY-2Sp"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>

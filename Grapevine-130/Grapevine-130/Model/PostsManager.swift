@@ -14,10 +14,12 @@ struct PostsManager {
     
     /// Hits the /posts endpoint
     let fetchPostsURL = Constants.serverURL + "posts/?"
+    let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
+    let fetchMyPostsURL = Constants.serverURL + "myPosts/?"
+    let fetchMoreMyPostsURL = Constants.serverURL + "myPosts/more/?"
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let fetchShoutablePostsURL = Constants.serverURL + "shoutChamber/?"
     let createPostURL = Constants.serverURL + "posts"
-    let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
     var delegate: PostsManagerDelegate?
         
     /**
@@ -239,4 +241,11 @@ struct PostsManager {
         }
         return ref
     }
+    
+    // Fetch the user's own posts
+    func fetchMyPosts(activityFilter: String, typeFilter: String) {
+        let urlString = "\(fetchMyPostsURL)&user=\(Constants.userID)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
+        performRequest(with: urlString)
+    }
+
 }
