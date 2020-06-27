@@ -21,28 +21,10 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
         bottomNavBarFrame.origin.y -= sender.view.safeAreaInsets.bottom
     }
     bottomNavBar.frame = bottomNavBarFrame
-    
-//    let postTab = UITabBarItem(title: "", image: UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), tag: 0)
-//    let karmaTab = UITabBarItem(title: "", image: UIImage(systemName: "k.circle.fill"), tag: 1)
-//    let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton"), tag: 2)
-//    let chatTab = UITabBarItem(title: "", image:UIImage(systemName: "message.circle.fill"), tag: 3)
-//    let meTab = UITabBarItem(title: "", image: UIImage(systemName: "person.circle.fill"), tag: 4)
-//    bottomNavBar.items = [postTab, karmaTab, createTab, chatTab, meTab]
-//    if tab == "Posts" {
-//        bottomNavBar.selectedItem = postTab
-//    } else if tab == "Karma" {
-//        bottomNavBar.selectedItem = karmaTab
-//    } else if (tab == ""){
-//        // Never actually change to this selection
-//    } else if (tab == "Chat"){
-//       bottomNavBar.selectedItem = chatTab
-//    } else {
-//        bottomNavBar.selectedItem = meTab
-//    }
-    
+        
     let postTab = UITabBarItem(title: "", image: UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), tag: 0)
     let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton"), tag: 1)
-    let meTab = UITabBarItem(title: "", image: UIImage(systemName: "person.circle.fill"), tag: 2)
+    let meTab = UITabBarItem(title: "", image: UIImage(systemName: "ellipsis.circle.fill"), tag: 2) // old icon: person.circle.fill
     bottomNavBar.items = [postTab, createTab, meTab]
     if (tab == "Posts") {
         bottomNavBar.selectedItem = postTab

@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var MyCommentsButton: UIButton!
     @IBOutlet weak var MyPostsButton: UIButton!
     @IBOutlet weak var MyKarmaButton: UIButton!
+    @IBOutlet weak var RulesButton: UIButton!
+    @IBOutlet weak var ContactButton: UIButton!
     
     /// Intializes the score screen.
     override func viewDidLoad() {
@@ -27,10 +29,13 @@ class ProfileViewController: UIViewController {
         bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
         self.view.addSubview(bottomNavBar)
         
-        // Buttons
+        // Button styling
         self.view = styleButton(button: MyCommentsButton, view: self.view)
         self.view = styleButton(button: MyPostsButton, view: self.view)
         self.view = styleButton(button: MyKarmaButton, view: self.view)
+        self.view = styleButton(button: RulesButton, view: self.view)
+        self.view = styleButton(button: ContactButton, view: self.view)
+
     }
     
     @IBAction func KarmaButtonPressed(_ sender: Any) {
@@ -38,10 +43,26 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func PostsButtonPressed(_ sender: Any) {
+        bottomNavBar.selectedItem = bottomNavBar.items[2]
+        self.performSegue(withIdentifier: "profileToMyPosts", sender: self)
     }
     
     @IBAction func CommentsButtonPressed(_ sender: Any) {
     }
+    
+    @IBAction func RulesButtonPressed(_ sender: Any) {
+    }
+    
+    @IBAction func ContactButtonPressed(_ sender: Any) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "profileToMyPosts" {
+            let destinationVC = segue.destination as! ViewController
+            destinationVC.currentMode = "myPosts"
+        }
+    }
+
 }
 
 extension ProfileViewController: MDCBottomNavigationBarDelegate {
@@ -50,7 +71,7 @@ extension ProfileViewController: MDCBottomNavigationBarDelegate {
             bottomNavBar.selectedItem = bottomNavBar.items[0]
             self.performSegue(withIdentifier: "profileToPosts", sender: self)
         } else if item.tag == 1 {
-            bottomNavBar.selectedItem = bottomNavBar.items[1]
+            bottomNavBar.selectedItem = bottomNavBar.items[2]
             self.performSegue(withIdentifier: "profileToCreatePost", sender: self)
         } else {
             bottomNavBar.selectedItem = bottomNavBar.items[2]

@@ -57,27 +57,23 @@ class ViewController: UIViewController {
     var scrollVelocity: CGFloat = 0.0
     var notScrolling: Bool = true;
     
+    // Change the view of the current page
+    var currentMode = "default" // options: default, myPosts
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Check ban status
-        userManager.delegate = self
-        userManager.fetchUser()
         
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
         indicator.backgroundColor = .white
 
-        // Get location
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.requestLocation()
-                
-        // Load table
+        // Prepare table
         prepareTableView()
-        
+
+        // Get the location of the user and posts based on that (if they are not banned)
+        getLocationAndPosts()
+                
         // Add scroll-to-top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
         nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)
@@ -87,16 +83,25 @@ class ViewController: UIViewController {
         
         let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(changePostType(tapGestureRecognizer:)))
         postTypeButton.addGestureRecognizer(tapGestureRecognizer3)
-        
-//        let swipeGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe(gestureRecognizer:)))
-//        view.addGestureRecognizer(swipeGestureRecognizer)
-        
-        // Add floating button programatically 
-//        prepareFloatingAddButton()
-        
-        // Add menu navigation bar programatically 
-        bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
-        self.view.addSubview(bottomNavBar)
+                
+        // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
+        changeAppearanceBasedOnMode()
+    }
+    
+    func getLocationAndPosts(){
+        if currentMode == "default" {
+            // Check ban status
+            userManager.delegate = self
+            userManager.fetchUser()
+            
+            // Get location
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.requestLocation()
+        } else if currentMode == "myPosts" {
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        }
     }
     
     func handleScroll(curPos: CGFloat, curTime: DispatchTime){
@@ -240,7 +245,11 @@ class ViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
-        locationManager.requestLocation() // request new location, which will trigger new posts
+        if currentMode == "default" {
+            locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+        } else {
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        }
     }
     
     /**
@@ -372,6 +381,22 @@ class ViewController: UIViewController {
     
     @IBAction func addButtonPressed(_ sender: UIButton){
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+    }
+    
+    func changeAppearanceBasedOnMode(){
+        if currentMode == "default" {
+            // Add menu navigation bar programatically
+            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
+            self.view.addSubview(bottomNavBar)
+        } else if currentMode == "myPosts" {
+            self.nearbyLabel.text = "My Posts"
+            self.rangeButton.isHidden = true
+            self.filterButton.isHidden = true
+            self.postTypeButton.isHidden = true
+            // Add menu navigation bar programatically
+            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
+            self.view.addSubview(bottomNavBar)
+        }
     }
 }
 
@@ -574,9 +599,6 @@ extension ViewController: PostsManagerDelegate {
             self.posts.append(contentsOf: posts)
             self.ref = ref
             self.tableView.reloadData()
-            
-            //print("reference doc: ", ref)
-            //print("posts: ", posts)
         }
     }
     
@@ -590,16 +612,7 @@ extension ViewController: PostsManagerDelegate {
     }
     
     func didCreatePost() {
-        print("This is what I want to run")
-//        /**
-//        Fires after a new post is created and return processed. This ensures a newly created post will show up.
-//        */
-//        func didCreatePost() {
-//            print("Create post delegate executed. ")
-//            // Refresh posts in the table
-//            self.tableView.refreshControl?.beginRefreshing()
-//            self.refresh()
-//        }
+        return
     }
     
     func alertNoPosts(){
@@ -744,28 +757,21 @@ extension ViewController: CommentViewControllerDelegate {
 
 extension ViewController: MDCBottomNavigationBarDelegate {
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
-//        if item.tag == 0 {
-//            bottomNavBar.selectedItem = bottomNavBar.items[0]
-//            scrollToTop()
-//        } else if item.tag == 1 {
-//            bottomNavBar.selectedItem = bottomNavBar.items[1]
-//            self.performSegue(withIdentifier: "mainViewToScoreView", sender: self)
-//        } else if item.tag == 2 {
-//            bottomNavBar.selectedItem = bottomNavBar.items[0]
-//            self.performSegue(withIdentifier: "goToNewPosts", sender: self)
-//        } else if item.tag == 3 {
-//            bottomNavBar.selectedItem = bottomNavBar.items[3]
-//            self.performSegue(withIdentifier: "postsToChat", sender: self)
-//        } else if item.tag == 4 {
-//            bottomNavBar.selectedItem = bottomNavBar.items[4]
-//            self.performSegue(withIdentifier: "mainToProfile", sender: self)
-//        }
-        
         if item.tag == 0 {
-            bottomNavBar.selectedItem = bottomNavBar.items[0]
-            scrollToTop()
+            if currentMode == "default" {
+                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                scrollToTop()
+            } else if currentMode == "myPosts" {
+                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
+                self.present(freshViewController, animated: true, completion: nil)
+            }
         } else if item.tag == 1 {
-            bottomNavBar.selectedItem = bottomNavBar.items[0]
+            if currentMode == "default" {
+                bottomNavBar.selectedItem = bottomNavBar.items[0]
+            } else if currentMode == "myPosts" {
+                bottomNavBar.selectedItem = bottomNavBar.items[2]
+            }
             self.performSegue(withIdentifier: "goToNewPosts", sender: self)
         } else if item.tag == 2 {
             bottomNavBar.selectedItem = bottomNavBar.items[1]

@@ -27,7 +27,6 @@
 		6390F9FA23FF954300D52FF0 /* UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390F9F923FF954300D52FF0 /* UITest.swift */; };
 		6390FA1423FFA0CC00D52FF0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659F2D423F8A94100C3595F /* Utils.swift */; };
 		63D218522429B23D00960938 /* PostReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D218512429B23D00960938 /* PostReference.swift */; };
-		836CC7632477E14D0017E10C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CC7622477E14D0017E10C /* ChatViewController.swift */; };
 		83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */; };
 		83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1347244BFF6F004AF1B5 /* SwipingController.swift */; };
 		83AF134A244C080C004AF1B5 /* WalkthroughPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */; };
@@ -94,7 +93,6 @@
 		6390FA1923FFA3A400D52FF0 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D218512429B23D00960938 /* PostReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReference.swift; sourceTree = "<group>"; };
 		83347FF32447C91E00EB2BAD /* Grapevine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Grapevine.entitlements; sourceTree = "<group>"; };
-		836CC7622477E14D0017E10C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		83AF1347244BFF6F004AF1B5 /* SwipingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingController.swift; sourceTree = "<group>"; };
 		83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughPageCell.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 				83AF1347244BFF6F004AF1B5 /* SwipingController.swift */,
 				8676C0A6246F81F0006C8FB8 /* ProfileViewController.swift */,
 				636701B624764CCD00F15985 /* ShoutChamberViewController.swift */,
-				836CC7622477E14D0017E10C /* ChatViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -520,7 +517,6 @@
 				6322402B23FC6398007D05F5 /* UserManager.swift in Sources */,
 				83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */,
 				8659F2E223F8A94200C3595F /* SceneDelegate.swift in Sources */,
-				836CC7632477E14D0017E10C /* ChatViewController.swift in Sources */,
 				83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
