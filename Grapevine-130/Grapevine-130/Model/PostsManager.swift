@@ -244,7 +244,7 @@ struct PostsManager {
     
     // Fetch the user's own posts
     func fetchMyPosts(activityFilter: String, typeFilter: String) {
-        let urlString = "\(fetchMyPostsURL)&user=\(Constants.userID)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
+        let urlString = "\(fetchMyPostsURL)&user=\(Constants.userID)"
         performRequest(with: urlString)
     }
 

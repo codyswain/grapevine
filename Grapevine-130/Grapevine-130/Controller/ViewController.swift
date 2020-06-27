@@ -68,12 +68,12 @@ class ViewController: UIViewController {
         indicator.startAnimating()
         indicator.backgroundColor = .white
 
+        // Prepare table
+        prepareTableView()
+
         // Get the location of the user and posts based on that (if they are not banned)
         getLocationAndPosts()
-        
-        // Load table
-        prepareTableView()
-        
+                
         // Add scroll-to-top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
         nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)

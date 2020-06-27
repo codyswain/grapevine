@@ -24,7 +24,7 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
         
     let postTab = UITabBarItem(title: "", image: UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), tag: 0)
     let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton"), tag: 1)
-    let meTab = UITabBarItem(title: "", image: UIImage(systemName: "person.circle.fill"), tag: 2)
+    let meTab = UITabBarItem(title: "", image: UIImage(systemName: "ellipsis.circle.fill"), tag: 2) // old icon: person.circle.fill
     bottomNavBar.items = [postTab, createTab, meTab]
     if (tab == "Posts") {
         bottomNavBar.selectedItem = postTab
