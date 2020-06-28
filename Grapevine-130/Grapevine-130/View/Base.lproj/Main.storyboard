@@ -227,13 +227,14 @@
                                 <rect key="frame" x="147" y="768" width="120" height="54"/>
                                 <subviews>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q87-iI-8CO">
-                                        <rect key="frame" x="25" y="14" width="70" height="26"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="  Add" image="arrow.up.circle.fill" catalog="system"/>
+                                        <rect key="frame" x="22" y="12.5" width="76" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="  Add" image="arrow.up.circle.fill" catalog="system">
+                                            <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="1qn-5w-XSc"/>
                                     <constraint firstAttribute="width" constant="120" id="koe-Uh-L7C"/>
@@ -938,8 +939,8 @@
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
         <image name="bolt.circle.fill" width="128" height="121"/>
+        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
