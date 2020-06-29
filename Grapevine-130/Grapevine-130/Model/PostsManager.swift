@@ -20,6 +20,8 @@ struct PostsManager {
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let fetchShoutablePostsURL = Constants.serverURL + "shoutChamber/?"
     let createPostURL = Constants.serverURL + "posts"
+    let fetchMyCommentsURL = Constants.serverURL + "myComments/?"
+    let fetchMoreMyCommentsURL = Constants.serverURL + "myComments/more/?"
     var delegate: PostsManagerDelegate?
         
     /**
@@ -82,18 +84,22 @@ struct PostsManager {
     
     /**
      Fetches more posts from the database for infinite scrolling.
-     
-     - Parameters:
-        - latitude: Latitude of the client requesting posts
-        - longitude: Longitude of the client requesting posts
-        - range: Distance around the user to retrieve posts from
-        - ref: Document id of the last post retrieved from the database in the previous request
-     */
+    */
     func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, ref: String, activityFilter: String, typeFilter: String) {
         let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performMoreRequest(with: urlString)
     }
     
+    func fetchMoreMyPosts(ref: String) {
+        let urlString = "\(fetchMoreMyPostsURL)&user=\(Constants.userID)&ref=\(ref)"
+        performMoreRequest(with: urlString)
+    }
+    
+    func fetchMoreMyComments(ref: String) {
+        let urlString = "\(fetchMoreMyCommentsURL)&user=\(Constants.userID)&ref=\(ref)"
+        performMoreRequest(with: urlString)
+    }
+
     /**
     Handles a request for posts' information. Modifies `PostManagerDelegate` based on the retrieved data.
 
@@ -245,6 +251,12 @@ struct PostsManager {
     // Fetch the user's own posts
     func fetchMyPosts(activityFilter: String, typeFilter: String) {
         let urlString = "\(fetchMyPostsURL)&user=\(Constants.userID)"
+        performRequest(with: urlString)
+    }
+    
+    // Fetch the user's own comments
+    func fetchMyComments(activityFilter: String, typeFilter: String) {
+        let urlString = "\(fetchMyCommentsURL)&user=\(Constants.userID)"
         performRequest(with: urlString)
     }
 

@@ -856,6 +856,7 @@
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToPosts" animates="NO" id="hoR-89-MDP"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="profileToCreatePost" modalPresentationStyle="fullScreen" id="UNp-xP-gzv"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToMyPosts" id="fBJ-JY-2Sp"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="profileToMyComments" id="ZgP-gY-piW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xBQ-Cl-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -942,7 +943,7 @@
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="gfc-Rj-FGV"/>
         <segue reference="UNp-xP-gzv"/>
-        <segue reference="cef-IB-uFx"/>
+        <segue reference="ZgP-gY-piW"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
@@ -951,8 +952,8 @@
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="bolt.circle.fill" width="128" height="121"/>
         <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="bolt.circle.fill" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>

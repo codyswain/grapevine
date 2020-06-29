@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     var notScrolling: Bool = true;
     
     // Change the view of the current page
-    var currentMode = "default" // options: default, myPosts
+    var currentMode = "default" // options: default, myPosts, myComments
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +101,8 @@ class ViewController: UIViewController {
             locationManager.requestLocation()
         } else if currentMode == "myPosts" {
             postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        } else if currentMode == "myComments" {
+            postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
     }
     
@@ -247,8 +249,10 @@ class ViewController: UIViewController {
     @objc func refresh(){
         if currentMode == "default" {
             locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-        } else {
+        } else if currentMode == "myPosts" {
             postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        } else if currentMode == "myComments" {
+            postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
     }
     
@@ -396,6 +400,14 @@ class ViewController: UIViewController {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
+        } else if currentMode == "myComments" {
+            self.nearbyLabel.text = "My Comments"
+            self.rangeButton.isHidden = true
+            self.filterButton.isHidden = true
+            self.postTypeButton.isHidden = true
+            // Add menu navigation bar programatically
+            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
+            self.view.addSubview(bottomNavBar)
         }
     }
 }
@@ -431,8 +443,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Latitude, longitude, and range should be the same as the initial posts request
         if (self.posts.count - indexPath.row) == 5 && self.canGetMorePosts {
-            postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType)
-            print("Getting more posts")
+            if currentMode == "default" {
+                postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType)
+            } else if currentMode == "myPosts" {
+                postsManager.fetchMoreMyPosts(ref: self.ref)
+            } else if currentMode == "myComments" {
+                postsManager.fetchMoreMyComments(ref: self.ref)
+            }
 
             let moreIndicator = UIActivityIndicatorView()
             moreIndicator.style = UIActivityIndicatorView.Style.medium
@@ -761,7 +778,7 @@ extension ViewController: MDCBottomNavigationBarDelegate {
             if currentMode == "default" {
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
                 scrollToTop()
-            } else if currentMode == "myPosts" {
+            } else { // myPosts or myComments
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
                 let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
                 self.present(freshViewController, animated: true, completion: nil)
@@ -769,7 +786,7 @@ extension ViewController: MDCBottomNavigationBarDelegate {
         } else if item.tag == 1 {
             if currentMode == "default" {
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
-            } else if currentMode == "myPosts" {
+            } else { // myPosts or myComments
                 bottomNavBar.selectedItem = bottomNavBar.items[2]
             }
             self.performSegue(withIdentifier: "goToNewPosts", sender: self)

@@ -78,6 +78,9 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func CommentsButtonPressed(_ sender: Any) {
+        bottomNavBar.selectedItem = bottomNavBar.items[2]
+        self.performSegue(withIdentifier: "profileToMyComments", sender: self)
+
     }
     
     @IBAction func RulesButtonPressed(_ sender: Any) {
@@ -90,6 +93,10 @@ class ProfileViewController: UIViewController {
         if segue.identifier == "profileToMyPosts" {
             let destinationVC = segue.destination as! ViewController
             destinationVC.currentMode = "myPosts"
+        }
+        if segue.identifier == "profileToMyComments" {
+            let destinationVC = segue.destination as! ViewController
+            destinationVC.currentMode = "myComments"
         }
     }
 
