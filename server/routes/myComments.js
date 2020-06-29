@@ -7,24 +7,23 @@ const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
 const default_range = "1"; // Default bounding square half width, in miles
 
 // URL parsing to get info from client
-router.get('/', getMyPosts);
-router.get('/more', getMoreMyPosts);
-// router.get('/comments', getMyComments);
+router.get('/', getMyComments);
+router.get('/more', getMoreMyComments);
 
-async function getMyPosts(req, res, next) {
+async function getMyComments(req, res, next) {
 	let user = req.query.user;
   let activityFilter = req.query.activityFilter;
   let typeFilter = req.query.typeFilter;
 
-	console.log("MyPosts request from user: " + user)
+	console.log("getMyComments request from user: " + user)
 
 	// Get the db object, declared in app.js
   var db = req.app.get('db');
   var query; 
 
-  query = db.collection('posts').where("poster", "==", user)
+  query = db.collection('comments').where("poster", "==", user)
 
-  // Query the db for posts
+  /* Uncomment if you want to be able to sort the comments by top
   if (activityFilter == "top"){
     query.orderBy('votes', 'desc')
     .limit(20).get()
@@ -34,14 +33,12 @@ async function getMyPosts(req, res, next) {
       // Loop through each post returned and add it to our list
       snapshot.forEach((post) => {
         var voteStatus = 0
-        var flagStatus = 0
         var interactions = post.get("interactions")
 
         // TODO: Better solution by putting this in mobile backend
         for (var interacting_user in interactions) {
           if (interacting_user == user) {
             voteStatus = utils.getVote(interactions[user])
-            flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
             break
           }
         }
@@ -49,11 +46,13 @@ async function getMyPosts(req, res, next) {
         // Add the post, ID, and vote status before returning it
         var curPost = post.data()
         curPost.postId = post.id
+        curPost.type = "text"
+        curPost.lat = 0.0
+        curPost.lon = 0.0
+        curPost.comments = 0
         curPost.voteStatus = voteStatus
 		    curPost.flagStatus = flagStatus
-        delete curPost["geohash"]
         delete curPost["interactions"]
-        // delete curPost["inter"]
         posts.push(curPost)
       });
       // Return the posts to the client
@@ -65,6 +64,7 @@ async function getMyPosts(req, res, next) {
       res.send([])
     })
   } else {
+  */
     query.orderBy('date', 'desc')
     .limit(20).get()
     .then((snapshot) => {
@@ -73,14 +73,12 @@ async function getMyPosts(req, res, next) {
       // Loop through each post returned and add it to our list
       snapshot.forEach((post) => {
         var voteStatus = 0
-        var flagStatus = 0
         var interactions = post.get("interactions")
 
         // TODO: Better solution by putting this in mobile backend
         for (var interacting_user in interactions) {
           if (interacting_user == user) {
             voteStatus = utils.getVote(interactions[user])
-            flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
             break
           }
         }
@@ -88,11 +86,12 @@ async function getMyPosts(req, res, next) {
         // Add the post, ID, and vote status before returning it
         var curPost = post.data()
         curPost.postId = post.id
+        curPost.type = "text"
+        curPost.lat = 0.0
+        curPost.lon = 0.0
+        curPost.comments = 0
         curPost.voteStatus = voteStatus
-		    curPost.flagStatus = flagStatus
-        delete curPost["geohash"]
         delete curPost["interactions"]
-        // delete curPost["inter"]
         posts.push(curPost)
       });
       // Return the posts to the client
@@ -100,28 +99,28 @@ async function getMyPosts(req, res, next) {
       res.status(200).send({reference: ref, posts: posts})
     })
     .catch((err) => { 
-      console.log("ERROR looking up post in getMyPosts:" + err)
+      console.log("ERROR looking up post in getMyComments:" + err)
       res.send([])
     })
-  }
+  // }
 }
 
-async function getMoreMyPosts(req, res, next) {
+async function getMoreMyComments(req, res, next) {
 	let user = req.query.user;
   let activityFilter = req.query.activityFilter;
   let typeFilter = req.query.typeFilter;
   let docRef = req.query.ref;
-	console.log("getMoreMyPosts request from user: " + user)
+	console.log("getMoreMyComments request from user: " + user)
 	
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
 
 	// Request the document snapshot of the last post retrieved in the previous request for posts
-	var refquery = db.collection('posts').doc(docRef)
+	var refquery = db.collection('comments').doc(docRef)
 
-  var query;
+  var query = db.collection('comments').where("poster", "==", user).orderBy('date', 'desc')
 
-  // Basic request for posts
+  /* Uncomment if you want to be able to sort the comments by top
   if (activityFilter == "top"){
     if (typeFilter == "art" || typeFilter == "text"){
       query = db.collection('posts')
@@ -149,6 +148,7 @@ async function getMoreMyPosts(req, res, next) {
       .orderBy('date', 'desc')
     }
   }
+  */
 
 	// Get the document snapshot of the last document first
 	refquery.get().then((doc) => {
@@ -159,44 +159,36 @@ async function getMoreMyPosts(req, res, next) {
 
 			snapshot.forEach((post) => {
 				var voteStatus = 0
-				var flagStatus = 0
-	
 				var interactions = post.get("interactions")
 	
-				// TODO: Better solution by putting this in mobile backend
-				for (var interacting_user in interactions) {
-					if (interacting_user == user) {
-						voteStatus = utils.getVote(interactions[user])
-						flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
-						break
-					}
-				}
-	
-				// Add the post, ID, and vote status before returning it
-				var curPost = post.data()
-				curPost.postId = post.id
-				curPost.voteStatus = voteStatus
-				curPost.flagStatus = flagStatus
-				delete curPost["geohash"]
-				delete curPost["interactions"]
-				// delete curPost["inter"]
-				posts.push(curPost)
+        // TODO: Better solution by putting this in mobile backend
+        for (var interacting_user in interactions) {
+          if (interacting_user == user) {
+            voteStatus = utils.getVote(interactions[user])
+            break
+          }
+        }
+
+        // Add the post, ID, and vote status before returning it
+        var curPost = post.data()
+        curPost.postId = post.id
+        curPost.type = "text"
+        curPost.lat = 0.0
+        curPost.lon = 0.0
+        curPost.comments = 0
+        curPost.voteStatus = voteStatus
+        delete curPost["interactions"]
+        posts.push(curPost)
 			});
-      // Return the posts to the client
-      if (activityFilter == "top"){
-        posts = posts.sort((a, b) => { return b.votes - a.votes })
-      } else {
-        posts = posts.sort((a, b) => { return b.date - a.date })
-      }
 			res.status(200).send({reference: ref, posts: posts})
 		})	
 		.catch((err) => { 
-			console.log("ERROR looking up posts in getMoreMyPosts:" + err)
+			console.log("ERROR looking up posts in getMoreMyComments:" + err)
 			res.send([])
 		})	
 	})
 	.catch((err) => { 
-		console.log("ERROR looking up document in getMoreMyPosts:" + err)
+		console.log("ERROR looking up document in getMoreMyComments:" + err)
 		res.send([])
 	})
 	
