@@ -86,10 +86,12 @@ async function getMyComments(req, res, next) {
         // Add the post, ID, and vote status before returning it
         var curPost = post.data()
         curPost.type = "text"
+        curPost.postId = post.id
         curPost.lat = 0.0
         curPost.lon = 0.0
         curPost.comments = 0
         curPost.voteStatus = voteStatus
+        delete curPost["postID"]
         delete curPost["interactions"]
         posts.push(curPost)
       });

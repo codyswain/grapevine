@@ -16,7 +16,7 @@ struct Comment : Decodable {
     let date: Double
     
     // Parent post
-    let postID: String
+    let postId: String
     
     // Hashed device ID of comment creator
     let poster: String
