@@ -736,10 +736,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nel-4h-eYU">
-                                <rect key="frame" x="20" y="101" width="177" height="177"/>
+                                <rect key="frame" x="20" y="100" width="163" height="163"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="177" id="4u7-kd-tw1"/>
-                                    <constraint firstAttribute="height" constant="177" id="OPC-rM-D5F"/>
+                                    <constraint firstAttribute="width" constant="163" id="4u7-kd-tw1"/>
+                                    <constraint firstAttribute="height" constant="163" id="OPC-rM-D5F"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -750,26 +750,11 @@
                                     <action selector="KarmaButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="cgw-NL-XI4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7p-X5-ujl">
-                                <rect key="frame" x="217" y="101" width="177" height="177"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="177" id="kSk-gX-6aH"/>
-                                    <constraint firstAttribute="width" constant="177" id="wsN-XD-1r6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="  Posts" image="tray.full.fill" catalog="system">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="PostsButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="lld-sW-xWV"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQu-ni-pqE">
-                                <rect key="frame" x="20" y="298" width="177" height="177"/>
+                                <rect key="frame" x="20" y="278" width="163" height="163"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="177" id="2Ji-0V-aVq"/>
-                                    <constraint firstAttribute="width" constant="177" id="mYz-OJ-Jj0"/>
+                                    <constraint firstAttribute="height" constant="163" id="2Ji-0V-aVq"/>
+                                    <constraint firstAttribute="width" constant="163" id="mYz-OJ-Jj0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -781,10 +766,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2W-zQ-zfJ">
-                                <rect key="frame" x="217" y="298" width="177" height="177"/>
+                                <rect key="frame" x="198" y="278" width="163" height="163"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="177" id="SBf-xv-Oxf"/>
-                                    <constraint firstAttribute="height" constant="177" id="Vnk-gu-ZM8"/>
+                                    <constraint firstAttribute="width" constant="163" id="SBf-xv-Oxf"/>
+                                    <constraint firstAttribute="height" constant="163" id="Vnk-gu-ZM8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -796,10 +781,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yQG-cf-ANq">
-                                <rect key="frame" x="20" y="495" width="177" height="177"/>
+                                <rect key="frame" x="20" y="456" width="163" height="163"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="177" id="83z-L5-whP"/>
-                                    <constraint firstAttribute="height" constant="177" id="LbF-kl-KG0"/>
+                                    <constraint firstAttribute="width" constant="163" id="83z-L5-whP"/>
+                                    <constraint firstAttribute="height" constant="163" id="LbF-kl-KG0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -810,24 +795,36 @@
                                     <action selector="ContactButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="cMY-fQ-xwX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7p-X5-ujl">
+                                <rect key="frame" x="198" y="100" width="163" height="163"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="163" id="kSk-gX-6aH"/>
+                                    <constraint firstAttribute="width" constant="163" id="wsN-XD-1r6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="  Posts" image="tray.full.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="PostsButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="lld-sW-xWV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="S7p-X5-ujl" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="57" id="4pL-Fp-teg"/>
-                            <constraint firstItem="gAf-wN-5CK" firstAttribute="trailing" secondItem="S7p-X5-ujl" secondAttribute="trailing" constant="20" id="6xM-3s-yTN"/>
-                            <constraint firstItem="kQu-ni-pqE" firstAttribute="top" secondItem="Nel-4h-eYU" secondAttribute="bottom" constant="20" id="B3g-63-W6N"/>
-                            <constraint firstItem="g2W-zQ-zfJ" firstAttribute="leading" secondItem="kQu-ni-pqE" secondAttribute="trailing" constant="20" id="BWk-Mx-u5K"/>
+                            <constraint firstItem="S7p-X5-ujl" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="56" id="4pL-Fp-teg"/>
+                            <constraint firstItem="kQu-ni-pqE" firstAttribute="top" secondItem="Nel-4h-eYU" secondAttribute="bottom" constant="15" id="B3g-63-W6N"/>
+                            <constraint firstItem="g2W-zQ-zfJ" firstAttribute="leading" secondItem="kQu-ni-pqE" secondAttribute="trailing" constant="15" id="BWk-Mx-u5K"/>
                             <constraint firstItem="kQu-ni-pqE" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="IbN-hT-MA6"/>
                             <constraint firstItem="ese-WB-RVF" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="7" id="P9P-RG-GfK"/>
-                            <constraint firstItem="S7p-X5-ujl" firstAttribute="leading" secondItem="Nel-4h-eYU" secondAttribute="trailing" constant="20" id="PpY-Eo-srn"/>
                             <constraint firstItem="yQG-cf-ANq" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="SZo-KP-mfk"/>
                             <constraint firstItem="ese-WB-RVF" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="Xmx-bo-AfA"/>
-                            <constraint firstItem="g2W-zQ-zfJ" firstAttribute="top" secondItem="S7p-X5-ujl" secondAttribute="bottom" constant="20" id="e4i-oJ-EhR"/>
-                            <constraint firstItem="gAf-wN-5CK" firstAttribute="trailing" secondItem="g2W-zQ-zfJ" secondAttribute="trailing" constant="20" id="eZL-Af-DK7"/>
-                            <constraint firstItem="S7p-X5-ujl" firstAttribute="leading" secondItem="Nel-4h-eYU" secondAttribute="trailing" constant="20" id="enH-Ad-OEz"/>
-                            <constraint firstItem="Nel-4h-eYU" firstAttribute="top" secondItem="ese-WB-RVF" secondAttribute="bottom" constant="16" id="s7r-2F-hOv"/>
+                            <constraint firstItem="g2W-zQ-zfJ" firstAttribute="top" secondItem="S7p-X5-ujl" secondAttribute="bottom" constant="15" id="e4i-oJ-EhR"/>
+                            <constraint firstItem="S7p-X5-ujl" firstAttribute="leading" secondItem="Nel-4h-eYU" secondAttribute="trailing" constant="15" id="li2-pX-ZAj"/>
+                            <constraint firstItem="Nel-4h-eYU" firstAttribute="top" secondItem="ese-WB-RVF" secondAttribute="bottom" constant="15" id="s7r-2F-hOv"/>
                             <constraint firstItem="Nel-4h-eYU" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="yX9-g0-2tU"/>
-                            <constraint firstItem="yQG-cf-ANq" firstAttribute="top" secondItem="kQu-ni-pqE" secondAttribute="bottom" constant="20" id="zq6-Nq-thJ"/>
+                            <constraint firstItem="yQG-cf-ANq" firstAttribute="top" secondItem="kQu-ni-pqE" secondAttribute="bottom" constant="15" id="zq6-Nq-thJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gAf-wN-5CK"/>
                     </view>
@@ -840,6 +837,16 @@
                         <outlet property="MyKarmaButton" destination="Nel-4h-eYU" id="Inb-DF-3jR"/>
                         <outlet property="MyPostsButton" destination="S7p-X5-ujl" id="WSf-3h-dm4"/>
                         <outlet property="RulesButton" destination="g2W-zQ-zfJ" id="IH4-JB-T2n"/>
+                        <outlet property="commentsHeight" destination="2Ji-0V-aVq" id="dO0-6P-ZtV"/>
+                        <outlet property="commentsWidth" destination="mYz-OJ-Jj0" id="zup-jj-gX9"/>
+                        <outlet property="contactHeight" destination="LbF-kl-KG0" id="Vet-cg-mg5"/>
+                        <outlet property="contactWidth" destination="83z-L5-whP" id="bmd-nj-xSg"/>
+                        <outlet property="karmaHeight" destination="OPC-rM-D5F" id="H7m-sJ-yYr"/>
+                        <outlet property="karmaWidth" destination="4u7-kd-tw1" id="Kyr-Z9-Xri"/>
+                        <outlet property="postsHeight" destination="kSk-gX-6aH" id="Dc9-2c-PFV"/>
+                        <outlet property="postsWidth" destination="wsN-XD-1r6" id="ZRX-Gj-YRe"/>
+                        <outlet property="rulesHeight" destination="Vnk-gu-ZM8" id="lXq-82-2ZL"/>
+                        <outlet property="rulesWidth" destination="SBf-xv-Oxf" id="flu-Ei-WJA"/>
                         <segue destination="u9k-vM-A2m" kind="show" identifier="profileToKarma" animates="NO" id="gfc-Rj-FGV"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToPosts" animates="NO" id="hoR-89-MDP"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="profileToCreatePost" modalPresentationStyle="fullScreen" id="UNp-xP-gzv"/>
@@ -848,7 +855,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xBQ-Cl-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1646" y="-589"/>
+            <point key="canvasLocation" x="1644.9275362318842" y="-589.28571428571422"/>
         </scene>
         <!--Shout Chamber-->
         <scene sceneID="bSA-bp-Yrk">
