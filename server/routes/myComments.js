@@ -92,7 +92,7 @@ async function getMyComments(req, res, next) {
         curPost.comments = 0
         curPost.voteStatus = voteStatus
         curPost.numFlags = 0
-        
+        curPost.flagStatus = 0
         delete curPost["postID"]
         delete curPost["interactions"]
         posts.push(curPost)

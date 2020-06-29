@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
+import MessageUI
 
 /// Manages control flow of the score screen.
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     var bottomNavBar = MDCBottomNavigationBar()
     
     @IBOutlet weak var MyKarmaButton: UIButton!
@@ -84,9 +85,31 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func RulesButtonPressed(_ sender: Any) {
+        let alert = MDCAlertController(title: "Rules", message: "1. Posting threats, terrorism, harrassment, or stalking will not be allowed and may force law enforcement to be involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason.")
+        alert.addAction(MDCAlertAction(title: "Ok"))
+        makePopup(alert: alert, image: "map.fill")
+        self.present(alert, animated: true)
     }
     
     @IBAction func ContactButtonPressed(_ sender: Any) {
+        let alert = MDCAlertController(title: "Contact", message: "Our email is teamgrapevineofficial@gmail.com and our Instagram is teamgrapevine.")
+        alert.addAction(MDCAlertAction(title: "Cancel"))
+        alert.addAction(MDCAlertAction(title: "Email") { (action) in
+            let url = NSURL(string: "mailto:teamgrapevineofficial@gmail.com")
+            UIApplication.shared.openURL(url! as URL)
+        })
+        alert.addAction(MDCAlertAction(title: "Instagram") { (action) in
+            let appURL = URL(string: "instagram://user?username=teamgrapevine")!
+            let application = UIApplication.shared
+            if application.canOpenURL(appURL){
+                application.open(appURL)
+            } else {
+                let webURL = URL(string: "https://instagram.com/teamgrapevine")!
+                application.open(webURL)
+            }
+        })
+        makePopup(alert: alert, image: "viewfinder.circle.fill")
+        self.present(alert, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -99,7 +122,10 @@ class ProfileViewController: UIViewController {
             destinationVC.currentMode = "myComments"
         }
     }
-
+    
+    private func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 extension ProfileViewController: MDCBottomNavigationBarDelegate {
