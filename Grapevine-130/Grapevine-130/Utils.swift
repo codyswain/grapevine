@@ -66,19 +66,19 @@ func decodeImage(imageData: Data, width: CGFloat, height: CGFloat) -> UIImage {
     return newImage!
 }
 
-func getGradient() -> CAGradientLayer {
+func getGradient(color1: UIColor, color2: UIColor) -> CAGradientLayer {
     let gradient = CAGradientLayer()
     gradient.type = .axial
     gradient.colors = [
-        Constants.Colors.mediumPink.cgColor,
-        Constants.Colors.darkPurple.cgColor,
+        color1.cgColor,
+        color2.cgColor,
     ]
     gradient.startPoint = CGPoint(x: 0, y: 0)
     gradient.endPoint = CGPoint(x: 1, y: 1)
     return gradient
 }
 
-func styleButton(button: UIButton, view: UIView) -> UIView {
+func styleButton(button: UIButton, view: UIView, color1: UIColor, color2: UIColor) -> UIView {
     button.layer.cornerRadius = 10
     button.clipsToBounds = true
     button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -86,7 +86,7 @@ func styleButton(button: UIButton, view: UIView) -> UIView {
     button.setTitleColor(.gray, for: .highlighted)
     button.tintColor = .white
     
-    let g1: CAGradientLayer = getGradient()
+    let g1: CAGradientLayer = getGradient(color1: color1, color2: color2)
     g1.frame = button.frame
     g1.masksToBounds = true
     g1.cornerRadius = 10
