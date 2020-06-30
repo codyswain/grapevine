@@ -85,13 +85,31 @@ class ScoreViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
     }
     
+    class MyCollectionViewFlowLayout : UICollectionViewFlowLayout{
+        override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+            var offsetAdjustment = CGFloat.greatestFiniteMagnitude
+            let horizontalOffset = proposedContentOffset.x
+            let targetRect = CGRect(origin: CGPoint(x: proposedContentOffset.x, y: 0), size: self.collectionView!.bounds.size)
+
+            for layoutAttributes in super.layoutAttributesForElements(in: targetRect)! {
+                let itemOffset = layoutAttributes.frame.origin.x
+                if (abs(itemOffset - horizontalOffset) < abs(offsetAdjustment)) {
+                    offsetAdjustment = itemOffset - horizontalOffset
+                }
+            }
+
+            return CGPoint(x: proposedContentOffset.x + offsetAdjustment - self.collectionView!.bounds.width * 0.055, y: proposedContentOffset.y)
+        }
+    }
+    
     fileprivate let collectionView:UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
+            let layout = MyCollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionView.translatesAutoresizingMaskIntoConstraints = false
             collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "Cell")
-    //        collectionView.isPagingEnabled = true // enabling paging effect
+            collectionView.isPagingEnabled = false // must be disabled for our custom paging
+            collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
             return collectionView
         }()
     
