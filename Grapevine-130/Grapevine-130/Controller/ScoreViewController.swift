@@ -108,7 +108,7 @@ class ScoreViewController: UIViewController {
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionView.translatesAutoresizingMaskIntoConstraints = false
             collectionView.register(CustomCell.self, forCellWithReuseIdentifier: "Cell")
-            collectionView.isPagingEnabled = false // enabling paging effect
+            collectionView.isPagingEnabled = false // must be disabled for our custom paging
             collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
             return collectionView
         }()
