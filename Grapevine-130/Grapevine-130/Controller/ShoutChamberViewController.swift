@@ -21,7 +21,7 @@ class ShoutChamberViewController: UIViewController {
     var lon:CLLocationDegrees = 0.0
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .black
+        refreshControl.tintColor = .label
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
@@ -34,7 +34,7 @@ class ShoutChamberViewController: UIViewController {
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
-        indicator.backgroundColor = .white
+        indicator.backgroundColor = .systemBackground
 
         // Get location
         locationManager.delegate = self
@@ -52,7 +52,7 @@ class ShoutChamberViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
-        tableView.backgroundColor = UIColor.white
+        tableView.backgroundColor = UIColor.systemBackground
         
         // Add scroll to top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
@@ -200,7 +200,10 @@ extension ShoutChamberViewController: PostsManagerDelegate {
     }
     
     func alertNoPosts(){
-        let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the shout out chamber, posts must not be shouted out. No karma was lost.")
+        let alert = MDCAlertController(title: "No posts available to shout.", message: "To show in the shout out chamber, posts must not be shouted out. No karma was lost.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
@@ -241,6 +244,9 @@ extension ShoutChamberViewController: ShoutPostTableViewCellDelegate {
         print("inside banPoster")
         
         let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want give a shout out to this post?")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         let action1 = MDCAlertAction(title: "Cancel") { (action) in
             print("You've pressed cancel");
         }

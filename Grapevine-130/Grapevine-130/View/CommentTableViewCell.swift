@@ -31,8 +31,8 @@ class CommentTableViewCell: UITableViewCell {
         if (voteStatus == 0){
             voteStatus = 1
             voteBackground.backgroundColor = Constants.Colors.darkPurple
-            voteButtonIcon.tintColor = UIColor.white
-            voteButton.setTitleColor(UIColor.white, for: .normal)
+            voteButtonIcon.tintColor = UIColor.systemBackground
+            voteButton.setTitleColor(UIColor.systemBackground, for: .normal)
             commentsManager.performUpvoteRequest(interaction: 1, commentID: commentID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!+1), for: .normal)

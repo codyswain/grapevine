@@ -86,6 +86,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBAction func RulesButtonPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Rules", message: "1. Posting threats, terrorism, harrassment, or stalking will not be allowed and may force law enforcement to be involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "map.fill")
         self.present(alert, animated: true)
@@ -93,6 +96,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBAction func ContactButtonPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Contact", message: "Our email is teamgrapevineofficial@gmail.com and our Instagram is teamgrapevine.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "Email") { (action) in
             let url = NSURL(string: "mailto:teamgrapevineofficial@gmail.com")

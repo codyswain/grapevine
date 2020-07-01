@@ -252,11 +252,11 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect a downvote.
     */
     func setDownvotedColors(){
-        var color = Constants.Colors.veryDarkGrey
-        var baseColor: UIColor = .white
+        var color = UIColor.systemGray2
+        var baseColor: UIColor = .systemBackground
         if shoutable {
             color = Constants.Colors.yellow
-            baseColor = .white
+            baseColor = .systemBackground
         }
         commentButton.tintColor = baseColor
         downvoteImageButton.isHidden = false
@@ -276,9 +276,9 @@ class PostTableViewCell: UITableViewCell {
         var footerColor = UIColor.systemGray5
         var textColor = UIColor.label
         if self.shoutable {
-            buttonColor = .white
+            buttonColor = .systemBackground
             footerColor = Constants.Colors.yellow
-            textColor = .white
+            textColor = .label
         }
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
@@ -298,10 +298,10 @@ class PostTableViewCell: UITableViewCell {
     */
     func setUpvotedColors(){
         var color = Constants.Colors.darkPurple
-        var baseColor: UIColor = .white
+        var baseColor: UIColor = .systemBackground
         if shoutable {
             color = Constants.Colors.yellow
-            baseColor = .white
+            baseColor = .systemBackground
         }
         commentButton.tintColor = baseColor
         downvoteImageButton.isHidden = true
@@ -341,10 +341,10 @@ class PostTableViewCell: UITableViewCell {
     
     func decideFlagColors(){
         if currentFlagStatus == 1 {
-            commentButton.tintColor = .white
+            commentButton.tintColor = .systemBackground
         }
         if currentVoteStatus == -1 {
-            commentButton.tintColor = .white
+            commentButton.tintColor = .systemBackground
         } else {
             commentButton.tintColor = UIColor.systemGray5
         }

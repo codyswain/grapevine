@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     var currentFilterState: String = "new" //Options: "new," "top"
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .black
+        refreshControl.tintColor = .label
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
-        indicator.backgroundColor = .white
+        indicator.backgroundColor = .systemBackground
 
         // Prepare table
         prepareTableView()
@@ -134,7 +134,7 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
-        tableView.backgroundColor = UIColor.white
+        tableView.backgroundColor = UIColor.systemBackground
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
@@ -142,9 +142,9 @@ class ViewController: UIViewController {
     func prepareFloatingAddButton(){
         addButton.accessibilityLabel = "Create"
         addButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        addButton.setImageTintColor(.black, for: .normal)
+        addButton.setImageTintColor(.label, for: .normal)
         addButton.enableRippleBehavior = true
-        addButton.backgroundColor = UIColor(white: 1, alpha: 0.97)
+        addButton.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
         addButton.frame = CGRect(x: view.frame.width - 55 - 20, y: view.frame.height - 80 - 60 - 20, width: 60, height: 60)
         self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         self.view.addSubview(addButton)
@@ -178,6 +178,9 @@ class ViewController: UIViewController {
     {
         /// Displays the possible ranges users can request posts from
         let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
                 
         let action1 = MDCAlertAction(title: "3 miles") { (action) in
             self.range = 3
@@ -285,6 +288,9 @@ class ViewController: UIViewController {
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
         let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             var backgroundImage: UIImage
@@ -378,6 +384,9 @@ class ViewController: UIViewController {
     // Popup when user flags post
     func showFlaggedAlertPopup(){
         let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
         makePopup(alert: alert, image: "flag")
         self.present(alert, animated: true)
@@ -495,7 +504,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 print("Showing shouted post!")
                 cell.shoutable = true
                 cell.commentAreaButton.backgroundColor = Constants.Colors.yellow
-                cell.label.textColor = .white
+                cell.label.textColor = .systemBackground
             } else {
                 cell.shoutable = false
             }
@@ -634,6 +643,9 @@ extension ViewController: PostsManagerDelegate {
     
     func alertNoPosts(){
         let alert = MDCAlertController(title: "No posts.", message: "Either bad Internet or no posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
