@@ -13,7 +13,7 @@ class BanChamberViewController: UIViewController {
     let locationManager = CLLocationManager()
     var posts: [Post] = []
     var ref = ""
-    var range = 3
+    var range = 3.0
     var canGetMorePosts = true
     var postsManager = PostsManager()
     var userManager = UserManager()
@@ -219,7 +219,6 @@ extension BanChamberViewController: CLLocationManagerDelegate {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
             print("Location request success")
-            // Set to global ban range for now
             postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: self.range)
         }
     }
