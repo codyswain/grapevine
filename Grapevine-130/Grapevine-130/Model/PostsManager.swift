@@ -32,7 +32,7 @@ struct PostsManager {
         - longitude: Longitude of the client requesting posts
         - range: Distance around the user to retrieve posts from
     */
-    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, activityFilter: String, typeFilter: String) {
+    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, activityFilter: String, typeFilter: String) {
         let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performRequest(with: urlString)
     }
@@ -72,12 +72,12 @@ struct PostsManager {
         - longitude: Longtitude of the client requesting posts
         - range: Distance around the user to retrieve posts from
      */
-    func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
+    func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double) {
         let urlString = "\(fetchBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
     }
     
-    func fetchShoutablePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int) {
+    func fetchShoutablePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double) {
         let urlString = "\(fetchShoutablePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
         performRequest(with: urlString)
     }
@@ -85,7 +85,7 @@ struct PostsManager {
     /**
      Fetches more posts from the database for infinite scrolling.
     */
-    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Int, ref: String, activityFilter: String, typeFilter: String) {
+    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, ref: String, activityFilter: String, typeFilter: String) {
         let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performMoreRequest(with: urlString)
     }
