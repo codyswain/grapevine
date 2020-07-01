@@ -192,20 +192,20 @@ class ViewController: UIViewController {
         /// Displays the possible ranges users can request posts from
         let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
         
-        let action1 = MDCAlertAction(title: "0.1 miles") { (action) in
-            self.rangeAction(range: 0.1, title: " 0.1 miles")
+        let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
+            self.rangeAction(range: 0.1, title: " 0.1 Miles")
         }
         
-        let action2 = MDCAlertAction(title: "1 miles") { (action) in
-            self.rangeAction(range: 1.0, title: " 1 miles")
+        let action2 = MDCAlertAction(title: "1 Mile") { (action) in
+            self.rangeAction(range: 1.0, title: " 1 Mile")
         }
                 
-        let action3 = MDCAlertAction(title: "3 miles") { (action) in
-            self.rangeAction(range: 3.0, title: " 3 miles")
+        let action3 = MDCAlertAction(title: "3 Miles") { (action) in
+            self.rangeAction(range: 3.0, title: " 3 Miles")
         }
         
-        let action4 = MDCAlertAction(title: "10 miles") { (action) in
-            self.rangeAction(range: 10.0, title: " 10 miles")
+        let action4 = MDCAlertAction(title: "10 Miles") { (action) in
+            self.rangeAction(range: 10.0, title: " 10 Miles")
         }
         
         let action5 = MDCAlertAction(title: "Cancel") { (action) in }
