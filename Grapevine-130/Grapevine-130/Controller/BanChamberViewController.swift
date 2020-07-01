@@ -201,7 +201,7 @@ extension BanChamberViewController: PostsManagerDelegate {
     }
     
     func alertNoPosts(){
-        let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
+        let alert = MDCAlertController(title: "No posts available to remove.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
@@ -242,7 +242,7 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
     func banPoster(_ cell: UITableViewCell) {
         print("inside banPoster")
         
-        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want to ban this user?")
+        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want to suspend this user for 24 hours?")
         let action1 = MDCAlertAction(title: "Cancel") { (action) in
             print("You've pressed cancel");
         }

@@ -77,10 +77,13 @@
                                         <rect key="frame" x="254" y="0.0" width="120" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EsB-jR-aSc">
-                                                <rect key="frame" x="60" y="-0.5" width="59" height="21"/>
+                                                <rect key="frame" x="49" y="-1" width="70" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="9bO-Vm-Cn4"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title=" Text" image="pencil.circle.fill" catalog="system">
+                                                <state key="normal" title=" Text" image="ellipses.bubble.fill" catalog="system">
                                                     <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -134,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-235" y="-589"/>
+            <point key="canvasLocation" x="-236.23188405797103" y="-589.28571428571422"/>
         </scene>
         <!--New Post View Controller-->
         <scene sceneID="UWI-Ib-ljT">
@@ -416,8 +419,8 @@
                                 <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Ban Chamber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nam-61-V75">
-                                <rect key="frame" x="20" y="27" width="233" height="33.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nam-61-V75">
+                                <rect key="frame" x="20" y="27" width="62" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -940,10 +943,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Akc-y1-XXs"/>
+        <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
-        <segue reference="DkA-Rn-kG2"/>
-        <segue reference="6l6-0s-KYJ"/>
+        <segue reference="NSO-o6-THf"/>
+        <segue reference="fBJ-JY-2Sp"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
@@ -956,12 +959,12 @@
         <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="ellipses.bubble.fill" catalog="system" width="128" height="110"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
         <image name="info.circle.fill" catalog="system" width="128" height="121"/>
         <image name="k.circle.fill" catalog="system" width="128" height="121"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="quote.bubble.fill" catalog="system" width="128" height="110"/>
         <image name="tray.full.fill" catalog="system" width="128" height="88"/>
         <image name="viewfinder.circle.fill" catalog="system" width="128" height="121"/>

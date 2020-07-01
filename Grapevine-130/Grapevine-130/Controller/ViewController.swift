@@ -224,6 +224,9 @@ class ViewController: UIViewController {
         if (curPostType == "text"){
             postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
             curPostType = "art"
+            let newIcon = UIImage(systemName: "scribble")
+            postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -231,6 +234,8 @@ class ViewController: UIViewController {
         } else if (curPostType == "art"){
             postTypeButton.setTitle(" All ", for: UIControl.State.normal)
             curPostType = "all"
+            let newIcon = UIImage(systemName: "ellipses.bubble.fill")
+            postTypeButton.setImage(newIcon, for: UIControl.State.normal)
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -238,6 +243,8 @@ class ViewController: UIViewController {
         } else if (curPostType == "all"){
             postTypeButton.setTitle(" Text", for: UIControl.State.normal)
             curPostType = "text"
+            let newIcon = UIImage(systemName: "quote.bubble.fill")
+            postTypeButton.setImage(newIcon, for: UIControl.State.normal)
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -275,6 +282,9 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
+            if currentMode == "myComments" {
+                selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
+            }
             destinationVC.mainPost = selectedPost
             destinationVC.mainPostScreenshot = selectedPostScreenshot
         }
