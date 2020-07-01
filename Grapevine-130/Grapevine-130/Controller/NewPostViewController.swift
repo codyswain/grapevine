@@ -34,10 +34,10 @@ class NewPostViewController: UIViewController {
         postsManager.delegate = self
         
         newPostTextBackground.layer.cornerRadius = 10.0
-        newPostTextBackground.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        newPostTextBackground.backgroundColor = UIColor.systemGray6
         backTextView.textColor = UIColor.lightGray
         drawingCanvasView.layer.cornerRadius = 10.0
-        drawingCanvasView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        drawingCanvasView.backgroundColor = UIColor.systemGray6
         frontTextView.delegate = self
         frontTextView.isHidden = false
         
@@ -123,7 +123,7 @@ class NewPostViewController: UIViewController {
     }
     
     /**
-     Changes the color of the canvas brush to purple.
+     Changes the color of the selected button to purple.
      
      - Parameter button: Button that initiates this action
      */
@@ -134,14 +134,14 @@ class NewPostViewController: UIViewController {
     }
     
     /**
-     Changes the color of the cancas brush to black.
+     Changes the color of the Deselected button to label color (black/white)
      
      - Parameter button: Button that initiates this action
      */
     func deselectedButtonColors(button: UIButton){
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.label, for: .normal)
         button.setImage(UIImage(systemName: "circle", withConfiguration: nil), for: .normal)
-        button.tintColor = .black
+        button.tintColor = .label
     }
     
     /**
@@ -154,10 +154,10 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func colorButton(_ sender: Any) {
-        if ColorButtonVar.titleColor(for: .normal) == .black {
+        if ColorButtonVar.titleColor(for: .normal) == .label {
             ColorButtonVar.setTitleColor(Constants.Colors.darkPurple, for: .normal)
         } else {
-            ColorButtonVar.setTitleColor(.black, for: .normal)
+            ColorButtonVar.setTitleColor(.label, for: .normal)
         }
         drawingCanvasView.changeColor()
     }
@@ -256,7 +256,7 @@ extension NewPostViewController: UITextViewDelegate {
      */
     func textViewDidBeginEditing(_ textView: UITextView){
         backTextView.text = ""
-        frontTextView.textColor = UIColor.black
+        frontTextView.textColor = UIColor.label
     }
     
     /**

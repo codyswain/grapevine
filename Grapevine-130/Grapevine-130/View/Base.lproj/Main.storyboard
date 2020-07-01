@@ -179,7 +179,7 @@
                                         <rect key="frame" x="141" y="0.0" width="0.0" height="21"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="Color">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" red="0.62788689139999998" green="0.22979673740000001" blue="0.9112213254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="colorButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="8H9-cj-OEn"/>
@@ -191,9 +191,9 @@
                                             <constraint firstAttribute="height" constant="21" id="aDL-oG-sVg"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <state key="normal" title=" Clear" image="xmark.circle.fill" catalog="system">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="clearButton:" destination="JOP-em-yKC" eventType="touchUpInside" id="y9o-Xc-bU6"/>
@@ -946,7 +946,7 @@
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="gfc-Rj-FGV"/>
         <segue reference="UNp-xP-gzv"/>
-        <segue reference="cef-IB-uFx"/>
+        <segue reference="YJd-nw-Ils"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
@@ -970,7 +970,7 @@
         <image name="viewfinder.circle.fill" catalog="system" width="128" height="121"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="GrapevinePurple">
-            <color red="0.68365615609999997" green="0.27527600530000002" blue="0.85443073510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68400001525878906" green="0.27500000596046448" blue="0.85399997234344482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

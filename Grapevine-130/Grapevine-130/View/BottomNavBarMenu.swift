@@ -21,6 +21,8 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
         bottomNavBarFrame.origin.y -= sender.view.safeAreaInsets.bottom
     }
     bottomNavBar.frame = bottomNavBarFrame
+    bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
+    bottomNavBar.selectedItemTintColor = UIColor.systemGray2
         
     let postTab = UITabBarItem(title: "", image: UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), tag: 0)
     let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton"), tag: 1)
