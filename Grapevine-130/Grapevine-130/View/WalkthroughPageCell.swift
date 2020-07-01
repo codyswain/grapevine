@@ -39,7 +39,7 @@ class WalkthroughPageCell: UICollectionViewCell {
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        backgroundColor = Constants.Colors.darkGrey
+        backgroundColor = UIColor.systemGray3
         pageImageView.translatesAutoresizingMaskIntoConstraints = false
         pageImageView.contentMode = .scaleAspectFit
         

@@ -272,9 +272,9 @@ class PostTableViewCell: UITableViewCell {
     Modify post colors to reflect no vote.
     */
     func setNeutralColors(){
-        var buttonColor = Constants.Colors.lightGrey
-        var footerColor = Constants.Colors.darkGrey
-        var textColor: UIColor = .black
+        var buttonColor = UIColor.systemGray3
+        var footerColor = UIColor.systemGray5
+        var textColor = UIColor.label
         if self.shoutable {
             buttonColor = .white
             footerColor = Constants.Colors.yellow
@@ -329,14 +329,14 @@ class PostTableViewCell: UITableViewCell {
     Modify flag colors on a post to reflect a flagged status by the user.
     */
     func setFlaggedColors(){
-        commentButton.tintColor = Constants.Colors.veryDarkGrey
+        commentButton.tintColor = UIColor.systemGray2
     }
     
     /**
     Modify flag colors on a post to reflect an un-flagged status by the user.
     */
     func setUnflaggedColors(){
-        commentButton.tintColor = Constants.Colors.lightGrey
+        commentButton.tintColor = UIColor.systemGray5
     }
     
     func decideFlagColors(){
@@ -346,7 +346,7 @@ class PostTableViewCell: UITableViewCell {
         if currentVoteStatus == -1 {
             commentButton.tintColor = .white
         } else {
-            commentButton.tintColor = Constants.Colors.lightGrey
+            commentButton.tintColor = UIColor.systemGray5
         }
         
     }
@@ -400,10 +400,10 @@ class PostTableViewCell: UITableViewCell {
     func makeBasicCell(post: Post) {
         // Reset cell attributes before reusing
         self.imageVar.image = nil
-        self.deleteButton.tintColor = Constants.Colors.lightGrey
+        self.deleteButton.tintColor = UIColor.systemGray5
         self.label.font = self.label.font.withSize(16)
-        self.commentAreaButton.backgroundColor = Constants.Colors.veryLightgrey
-        self.label.textColor = .black
+        self.commentAreaButton.backgroundColor = UIColor.systemGray6
+        self.label.textColor = UIColor.label
         
         // Set main body of post cell
         if (post.type == "text"){

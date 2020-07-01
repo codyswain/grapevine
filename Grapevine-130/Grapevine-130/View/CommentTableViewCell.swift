@@ -40,9 +40,9 @@ class CommentTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewVotes(self, 1, voteStatus)
         } else {
             voteStatus = 0
-            voteBackground.backgroundColor = Constants.Colors.veryLightgrey
-            voteButtonIcon.tintColor = UIColor.black
-            voteButton.setTitleColor(UIColor.black, for: .normal)
+            voteBackground.backgroundColor = UIColor.systemGray6
+            voteButtonIcon.tintColor = UIColor.label
+            voteButton.setTitleColor(UIColor.label, for: .normal)
             commentsManager.performUpvoteRequest(interaction: 0, commentID: commentID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!-1), for: .normal)
