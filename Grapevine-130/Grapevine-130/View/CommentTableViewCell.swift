@@ -25,6 +25,7 @@ class CommentTableViewCell: UITableViewCell {
     var voteStatus: Int = 0
     
     var previouslyPressed: Bool = false
+    var isOwnUsersComment: Bool = false
     
     @IBAction func upvoteCommentPressed(_ sender: UIButton) {
         // do stuff when someone upvotes a comment
