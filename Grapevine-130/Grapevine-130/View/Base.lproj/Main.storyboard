@@ -536,17 +536,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="171"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="End Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="1Ak-ak-dOo">
-                                        <rect key="frame" x="366" y="114" width="17" height="17"/>
+                                        <rect key="frame" x="354" y="91" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="17" id="0xS-GO-ryd"/>
-                                            <constraint firstAttribute="height" constant="17" id="50R-z4-pUw"/>
+                                            <constraint firstAttribute="width" constant="40" id="0xS-GO-ryd"/>
+                                            <constraint firstAttribute="height" constant="40" id="50R-z4-pUw"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="aAy-N9-FHQ">
-                                        <rect key="frame" x="20" y="40" width="17" height="17"/>
+                                        <rect key="frame" x="20" y="40" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="17" id="2Ym-NO-ioS"/>
-                                            <constraint firstAttribute="height" constant="17" id="Kzk-qS-RZL"/>
+                                            <constraint firstAttribute="width" constant="40" id="2Ym-NO-ioS"/>
+                                            <constraint firstAttribute="height" constant="40" id="Kzk-qS-RZL"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The lazy brown fox jumped over the moon" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pam-Cw-fQb">
@@ -574,7 +574,7 @@
                                     <constraint firstItem="c0i-Hx-SUQ" firstAttribute="leading" secondItem="uai-0N-qUo" secondAttribute="leading" constant="20" id="d45-46-nQM"/>
                                     <constraint firstAttribute="bottom" secondItem="1Ak-ak-dOo" secondAttribute="bottom" constant="40" id="h1a-Pl-Rit"/>
                                     <constraint firstItem="c0i-Hx-SUQ" firstAttribute="top" secondItem="uai-0N-qUo" secondAttribute="top" id="vLE-lW-6LV"/>
-                                    <constraint firstItem="1Ak-ak-dOo" firstAttribute="leading" secondItem="Pam-Cw-fQb" secondAttribute="trailing" constant="14" id="z1G-3L-2yl"/>
+                                    <constraint firstItem="1Ak-ak-dOo" firstAttribute="leading" secondItem="Pam-Cw-fQb" secondAttribute="trailing" constant="25" id="z1G-3L-2yl"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
@@ -946,11 +946,11 @@
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="NSO-o6-THf"/>
-        <segue reference="q4N-vY-ZD4"/>
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="End Apostrophe" width="1024" height="1024"/>
-        <image name="Start Apostrophe" width="1024" height="1024"/>
+        <image name="End Apostrophe" width="150" height="150"/>
+        <image name="Start Apostrophe" width="150" height="150"/>
         <image name="arrow.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
