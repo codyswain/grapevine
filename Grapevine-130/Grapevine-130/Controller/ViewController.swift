@@ -10,6 +10,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
+    
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var postTypeButton: UIButton!
     
@@ -482,6 +483,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+//        cell.abilitiesStackView.isHidden = true
+//        cell.abilitiesBackgroundView.isHidden = true
+        cell.abilitiesView.isHidden = true
+        cell.abilitiesBackgroundView.isHidden = true
         
         cell.makeBasicCell(post: posts[indexPath.row])
 

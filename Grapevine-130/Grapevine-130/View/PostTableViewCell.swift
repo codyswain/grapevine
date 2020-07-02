@@ -31,6 +31,11 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var shareButton: UIImageView!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var abilitiesView: UIView!
+    @IBOutlet weak var abilitiesBackgroundView: UIView!
+    var abilitiesToggleIsActive: Bool = false
+    
+    
     let postManager = PostsManager()
     var currentVoteStatus = 0
     var currentFlagStatus = 0
@@ -76,6 +81,17 @@ class PostTableViewCell: UITableViewCell {
         let pressGestureRecognizerOptions = UILongPressGestureRecognizer(target: self, action: #selector(optionsPressed(longPressGestureRecognizer:)))
         commentAreaButton.isUserInteractionEnabled = true
         commentAreaButton.addGestureRecognizer(pressGestureRecognizerOptions)
+        
+        DispatchQueue.main.async {
+            // Round the top corners of the abilities view
+            let path = UIBezierPath(roundedRect:self.abilitiesBackgroundView.bounds,
+                                    byRoundingCorners:[.topLeft, .topRight],
+                                    cornerRadii: CGSize(width: 10, height:  10))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            self.abilitiesBackgroundView.layer.mask = maskLayer
+            self.abilitiesBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        }
     }
     
     /**
@@ -237,11 +253,24 @@ class PostTableViewCell: UITableViewCell {
         
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        if postType == "text" {
-            self.delegate?.showSharePopup("text", createTableCellImage() ?? nil!)
+        if (abilitiesToggleIsActive){
+            abilitiesView.isHidden = true
+            abilitiesBackgroundView.isHidden = true
+            abilitiesToggleIsActive = false
+            print(abilitiesToggleIsActive)
         } else {
-            self.delegate?.showSharePopup("image", createTableCellImage() ?? nil!)
+            abilitiesView.isHidden = false
+            abilitiesBackgroundView.isHidden = false
+            abilitiesToggleIsActive = true
+            print(abilitiesToggleIsActive)
         }
+//        abilitiesStackView.isHidden = false
+//        abilitiesBackgroundView.isHidden = false
+//        if postType == "text" {
+//            self.delegate?.showSharePopup("text", createTableCellImage() ?? nil!)
+//        } else {
+//            self.delegate?.showSharePopup("image", createTableCellImage() ?? nil!)
+//        }
     }
     
     // Segue to view comment screen
