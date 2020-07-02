@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -670,6 +670,7 @@
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="sQi-3s-Zbv" secondAttribute="bottom" constant="2" id="4vD-Wi-sI9"/>
                                             <constraint firstAttribute="bottom" secondItem="mKf-PO-SDo" secondAttribute="bottom" constant="2" id="ABg-Xp-eVy"/>
@@ -682,7 +683,8 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="wN7-hK-svY" firstAttribute="top" secondItem="Gi2-xw-3SB" secondAttribute="top" constant="12" id="GrP-mQ-fdZ"/>
                                     <constraint firstAttribute="trailing" secondItem="wN7-hK-svY" secondAttribute="trailing" constant="16" id="Rug-VL-kP7"/>
@@ -946,7 +948,7 @@
         <segue reference="Akc-y1-XXs"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="DkA-Rn-kG2"/>
-        <segue reference="q4N-vY-ZD4"/>
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="1024" height="1024"/>
@@ -955,8 +957,8 @@
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="bolt.circle.fill" width="128" height="121"/>
         <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="bolt.circle.fill" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
