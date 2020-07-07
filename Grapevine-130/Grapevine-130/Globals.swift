@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 struct Globals {
     struct ViewSettings {
-        static var DarkMode = false
+        static var CurrentMode = UITraitCollection.init().userInterfaceStyle
     }
 }

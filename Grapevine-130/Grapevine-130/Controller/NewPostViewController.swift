@@ -27,7 +27,7 @@ class NewPostViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.DarkMode == true {
+        if Globals.ViewSettings.CurrentMode == .dark {
             return .lightContent
         }
         else{
@@ -42,8 +42,11 @@ class NewPostViewController: UIViewController {
         super.viewDidLoad()
         
         //set dark/light mode
-        if Globals.ViewSettings.DarkMode == true{
+        if Globals.ViewSettings.CurrentMode == .dark {
             super.overrideUserInterfaceStyle = .dark
+        }
+        else {
+            super.overrideUserInterfaceStyle = .light
         }
         
         postsManager.delegate = self
@@ -241,12 +244,14 @@ class NewPostViewController: UIViewController {
                 }
             }
         } else {
+            drawingCanvasView.layer.cornerRadius = 0
             let imData = drawingCanvasView.renderToImage()
             if imData != nil {
                 let image = imData!.jpegData(compressionQuality: 0.5)
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
             }
+            drawingCanvasView.layer.cornerRadius = 10.0
         }
     }
     

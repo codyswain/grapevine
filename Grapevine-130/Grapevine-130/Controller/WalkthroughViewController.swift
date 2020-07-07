@@ -13,7 +13,7 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.DarkMode == true {
+        if Globals.ViewSettings.CurrentMode == .dark {
             return .lightContent
         }
         else{
@@ -25,8 +25,11 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         //set dark/light mode
-        if Globals.ViewSettings.DarkMode == true{
+        if Globals.ViewSettings.CurrentMode == .dark {
             super.overrideUserInterfaceStyle = .dark
+        }
+        else {
+            super.overrideUserInterfaceStyle = .light
         }
         
         collectionView?.backgroundColor = Constants.Colors.darkPurple

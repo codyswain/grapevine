@@ -73,7 +73,7 @@ class CommentViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.DarkMode == true {
+        if Globals.ViewSettings.CurrentMode == .dark {
             return .lightContent
         }
         else{
@@ -85,8 +85,11 @@ class CommentViewController: UIViewController {
         super.viewDidLoad()
         
         //set dark/light mode
-        if Globals.ViewSettings.DarkMode == true{
+        if Globals.ViewSettings.CurrentMode == .dark {
             super.overrideUserInterfaceStyle = .dark
+        }
+        else {
+            super.overrideUserInterfaceStyle = .light
         }
         
         // Show loading symbol

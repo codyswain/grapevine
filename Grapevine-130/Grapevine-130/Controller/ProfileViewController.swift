@@ -41,10 +41,13 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         super.viewDidLoad()
         
         //set dark/light mode and state of toggle switch
-        if Globals.ViewSettings.DarkMode == true || self.traitCollection.userInterfaceStyle == .dark {
+        if Globals.ViewSettings.CurrentMode == .dark {
             super.overrideUserInterfaceStyle = .dark
             DarkModeSwitch.setOn(true, animated: false)
             DarkModeLabel.text = "Dark Mode"
+        }
+        else {
+            super.overrideUserInterfaceStyle = .light
         }
         
         // Add menu navigation bar programatically
@@ -82,7 +85,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.DarkMode == true {
+        if Globals.ViewSettings.CurrentMode == .dark {
             return .lightContent
         }
         else{
@@ -95,7 +98,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         if DarkModeSwitch.isOn{
             DarkModeLabel.text = "Dark Mode"
             super.overrideUserInterfaceStyle = .dark
-            Globals.ViewSettings.DarkMode = true
+            Globals.ViewSettings.CurrentMode = .dark
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
             }
@@ -103,7 +106,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         else{
             DarkModeLabel.text = "Light Mode"
             super.overrideUserInterfaceStyle = .light
-            Globals.ViewSettings.DarkMode = false
+            Globals.ViewSettings.CurrentMode = .light
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
             }
