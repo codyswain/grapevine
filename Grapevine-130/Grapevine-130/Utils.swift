@@ -45,6 +45,7 @@ func makePopup(alert: MDCAlertController, image: String) {
     alert.cornerRadius = 10
 }
 
+/*
 func decodeImage(imageData: Data, width: CGFloat, height: CGFloat) -> UIImage {
     let image = UIImage(data: imageData)!
     let scale: CGFloat
@@ -65,6 +66,7 @@ func decodeImage(imageData: Data, width: CGFloat, height: CGFloat) -> UIImage {
     UIGraphicsEndImageContext()
     return newImage!
 }
+*/
 
 func getGradient(color1: UIColor, color2: UIColor) -> CAGradientLayer {
     let gradient = CAGradientLayer()

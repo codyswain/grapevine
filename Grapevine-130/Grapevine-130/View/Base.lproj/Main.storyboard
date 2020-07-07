@@ -77,10 +77,13 @@
                                         <rect key="frame" x="254" y="0.0" width="120" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EsB-jR-aSc">
-                                                <rect key="frame" x="60" y="-0.5" width="59" height="21"/>
+                                                <rect key="frame" x="49" y="-0.5" width="70" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="9bO-Vm-Cn4"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title=" Text" image="pencil.circle.fill" catalog="system">
+                                                <state key="normal" title=" Text" image="quote.bubble.fill" catalog="system">
                                                     <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -134,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-235" y="-589"/>
+            <point key="canvasLocation" x="-236.23188405797103" y="-589.28571428571422"/>
         </scene>
         <!--New Post View Controller-->
         <scene sceneID="UWI-Ib-ljT">
@@ -417,8 +420,8 @@
                                 <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Ban Chamber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nam-61-V75">
-                                <rect key="frame" x="20" y="27" width="233" height="33.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nam-61-V75">
+                                <rect key="frame" x="20" y="27" width="62" height="33.5"/>
                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -535,19 +538,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="171"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="End Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="1Ak-ak-dOo">
-                                        <rect key="frame" x="366" y="114" width="17" height="17"/>
+                                        <rect key="frame" x="354" y="91" width="40" height="40"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="17" id="0xS-GO-ryd"/>
-                                            <constraint firstAttribute="height" constant="17" id="50R-z4-pUw"/>
+                                            <constraint firstAttribute="width" constant="40" id="0xS-GO-ryd"/>
+                                            <constraint firstAttribute="height" constant="40" id="50R-z4-pUw"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start Apostrophe" translatesAutoresizingMaskIntoConstraints="NO" id="aAy-N9-FHQ">
-                                        <rect key="frame" x="20" y="40" width="17" height="17"/>
+                                        <rect key="frame" x="20" y="40" width="40" height="40"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="17" id="2Ym-NO-ioS"/>
-                                            <constraint firstAttribute="height" constant="17" id="Kzk-qS-RZL"/>
+                                            <constraint firstAttribute="width" constant="40" id="2Ym-NO-ioS"/>
+                                            <constraint firstAttribute="height" constant="40" id="Kzk-qS-RZL"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The lazy brown fox jumped over the moon" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pam-Cw-fQb">
@@ -575,7 +578,7 @@
                                     <constraint firstItem="c0i-Hx-SUQ" firstAttribute="leading" secondItem="uai-0N-qUo" secondAttribute="leading" constant="20" id="d45-46-nQM"/>
                                     <constraint firstAttribute="bottom" secondItem="1Ak-ak-dOo" secondAttribute="bottom" constant="40" id="h1a-Pl-Rit"/>
                                     <constraint firstItem="c0i-Hx-SUQ" firstAttribute="top" secondItem="uai-0N-qUo" secondAttribute="top" id="vLE-lW-6LV"/>
-                                    <constraint firstItem="1Ak-ak-dOo" firstAttribute="leading" secondItem="Pam-Cw-fQb" secondAttribute="trailing" constant="14" id="z1G-3L-2yl"/>
+                                    <constraint firstItem="1Ak-ak-dOo" firstAttribute="leading" secondItem="Pam-Cw-fQb" secondAttribute="trailing" constant="25" id="z1G-3L-2yl"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
@@ -910,8 +913,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nq5-aw-NPv" userLabel="Info Line Stack">
                                 <rect key="frame" x="20" y="69" width="327" height="17"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="hNQ-DG-u5O">
-                                        <rect key="frame" x="0.0" y="0.0" width="17" height="17"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hNQ-DG-u5O">
+                                        <rect key="frame" x="0.0" y="0.5" width="17" height="16"/>
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="17" id="OOJ-Nj-3kL"/>
@@ -966,16 +969,15 @@
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="NSO-o6-THf"/>
-        <segue reference="q4N-vY-ZD4"/>
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="End Apostrophe" width="1024" height="1024"/>
-        <image name="Start Apostrophe" width="1024" height="1024"/>
+        <image name="End Apostrophe" width="150" height="150"/>
+        <image name="Start Apostrophe" width="150" height="150"/>
         <image name="arrow.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="bolt.circle.fill" width="128" height="121"/>
         <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
@@ -984,7 +986,6 @@
         <image name="k.circle.fill" catalog="system" width="128" height="121"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
         <image name="quote.bubble.fill" catalog="system" width="128" height="110"/>
         <image name="tray.full.fill" catalog="system" width="128" height="88"/>
         <image name="viewfinder.circle.fill" catalog="system" width="128" height="121"/>

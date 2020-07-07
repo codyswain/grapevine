@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var posts: [Post] = []
     var ref = ""
     var canGetMorePosts = true
-    var range = 3
+    var range = 3.0
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
     var storyManager = StoryManager()
@@ -183,6 +183,19 @@ class ViewController: UIViewController {
         self.tableView?.setContentOffset(topOffest, animated: true)
     }
     
+    func rangeAction(range: Double, title: String) {
+        self.range = range
+        self.rangeButton.setTitle(title, for: .normal)
+        
+        // Scroll to top
+        self.scrollToTop()
+        self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
+        
+        // Refresh posts in the table
+        self.tableView.refreshControl?.beginRefreshing()
+        self.applyFilter(reset: true)
+    }
+    
     /**
      Allows user to change the post request range
      
@@ -195,39 +208,27 @@ class ViewController: UIViewController {
         alert.backgroundColor = .systemBackground
         alert.titleColor = .label
         alert.messageColor = .label
+        
+        let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
+            self.rangeAction(range: 0.1, title: " 0.1 Miles")
+        }
+        
+        let action2 = MDCAlertAction(title: "1 Mile") { (action) in
+            self.rangeAction(range: 1.0, title: " 1 Mile")
+        }
                 
-        let action1 = MDCAlertAction(title: "3 miles") { (action) in
-            self.range = 3
-            self.rangeButton.setTitle( " 3 miles" , for: .normal )
-            self.nearbyLabel.text = "Grapevine"
-            
-            // Scroll to top
-            self.scrollToTop()
-            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
-            
-            // Refresh posts in the table
-            self.tableView.refreshControl?.beginRefreshing()
-//            self.refresh()
-            self.applyFilter(reset: true)
+        let action3 = MDCAlertAction(title: "3 Miles") { (action) in
+            self.rangeAction(range: 3.0, title: " 3 Miles")
         }
         
-        let action2 = MDCAlertAction(title: "Global") { (action) in
-            self.range = -1
-            self.rangeButton.setTitle( " Global" , for: .normal )
-            self.nearbyLabel.text = "Global Grapevine"
-
-            // Scroll to top
-            self.scrollToTop()
-            self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
-            
-            // Refresh posts in the table
-            self.tableView.refreshControl?.beginRefreshing()
-//            self.refresh()
-            self.applyFilter(reset: true)
+        let action4 = MDCAlertAction(title: "10 Miles") { (action) in
+            self.rangeAction(range: 10.0, title: " 10 Miles")
         }
         
-        let action3 = MDCAlertAction(title: "Cancel") { (action) in }
+        let action5 = MDCAlertAction(title: "Cancel") { (action) in }
         
+        alert.addAction(action5)
+        alert.addAction(action4)
         alert.addAction(action3)
         alert.addAction(action2)
         alert.addAction(action1)
@@ -241,6 +242,9 @@ class ViewController: UIViewController {
         if (curPostType == "text"){
             postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
             curPostType = "art"
+            let newIcon = UIImage(systemName: "scribble")
+            postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -248,6 +252,8 @@ class ViewController: UIViewController {
         } else if (curPostType == "art"){
             postTypeButton.setTitle(" All ", for: UIControl.State.normal)
             curPostType = "all"
+            let newIcon = UIImage(systemName: "ellipses.bubble.fill")
+            postTypeButton.setImage(newIcon, for: UIControl.State.normal)
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -255,6 +261,8 @@ class ViewController: UIViewController {
         } else if (curPostType == "all"){
             postTypeButton.setTitle(" Text", for: UIControl.State.normal)
             curPostType = "text"
+            let newIcon = UIImage(systemName: "quote.bubble.fill")
+            postTypeButton.setImage(newIcon, for: UIControl.State.normal)
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -292,6 +300,9 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
+            if currentMode == "myComments" {
+                selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
+            }
             destinationVC.mainPost = selectedPost
             destinationVC.mainPostScreenshot = selectedPostScreenshot
         }

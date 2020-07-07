@@ -5,7 +5,7 @@ import CoreLocation
 struct Post : Decodable {
     
     /// Body of the post
-    let content: String
+    var content: String
     
     /// Total number of votes on the post
     var votes: Int

@@ -13,7 +13,7 @@ class BanChamberViewController: UIViewController {
     let locationManager = CLLocationManager()
     var posts: [Post] = []
     var ref = ""
-    var range = 3
+    var range = 3.0
     var canGetMorePosts = true
     var postsManager = PostsManager()
     var userManager = UserManager()
@@ -215,7 +215,7 @@ extension BanChamberViewController: PostsManagerDelegate {
     }
     
     func alertNoPosts(){
-        let alert = MDCAlertController(title: "No posts available to ban.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
+        let alert = MDCAlertController(title: "No posts available to remove.", message: "To show in the ban chamber, posts must have -3 votes or less. No karma was lost.")
         alert.backgroundColor = .systemBackground
         alert.titleColor = .label
         alert.messageColor = .label
@@ -236,7 +236,6 @@ extension BanChamberViewController: CLLocationManagerDelegate {
             self.lat = location.coordinate.latitude
             self.lon = location.coordinate.longitude
             print("Location request success")
-            // Set to global ban range for now
             postsManager.fetchBannedPosts(latitude: lat, longitude: lon, range: self.range)
         }
     }
@@ -259,10 +258,12 @@ extension BanChamberViewController: BannedPostTableViewCellDelegate {
     func banPoster(_ cell: UITableViewCell) {
         print("inside banPoster")
         
-        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want to ban this user?")
+
+        let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want to suspend this user for 24 hours?")
         alert.backgroundColor = .systemBackground
         alert.titleColor = .label
         alert.messageColor = .label
+      
         let action1 = MDCAlertAction(title: "Cancel") { (action) in
             print("You've pressed cancel");
         }

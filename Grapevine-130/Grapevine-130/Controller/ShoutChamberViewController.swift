@@ -12,7 +12,7 @@ class ShoutChamberViewController: UIViewController {
     let locationManager = CLLocationManager()
     var posts: [Post] = []
     var ref = ""
-    var range = 3
+    var range = 3.0
     var canGetMorePosts = true
     var postsManager = PostsManager()
     var userManager = UserManager()

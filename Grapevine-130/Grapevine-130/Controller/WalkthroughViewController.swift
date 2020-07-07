@@ -66,8 +66,8 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
             cell.descriptionTextView.isScrollEnabled = false
             cell.continueImageView.image = UIImage(named: "")
         case 1:
-            cell.pageImageView.image = UIImage(named: "Ghost")
-            let attrText = NSMutableAttributedString(string: "an anonymous...", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),  NSAttributedString.Key.foregroundColor: UIColor.white])
+            cell.pageImageView.image = UIImage(named: "Map")
+            let attrText = NSMutableAttributedString(string: "This is your location based,", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),  NSAttributedString.Key.foregroundColor: UIColor.white])
 //            attrText.append(NSAttributedString(string: "\n→", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 26), NSAttributedString.Key.foregroundColor: UIColor.white]))
             cell.descriptionTextView.attributedText = attrText
             cell.descriptionTextView.textAlignment = .center
@@ -77,8 +77,8 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
             cell.descriptionTextView.isScrollEnabled = false
             cell.continueImageView.image = UIImage(named: "")
         case 2:
-            cell.pageImageView.image = UIImage(named: "Map")
-            let attrText = NSMutableAttributedString(string: "location based...", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),  NSAttributedString.Key.foregroundColor: UIColor.white])
+            cell.pageImageView.image = UIImage(named: "Ghost")
+            let attrText = NSMutableAttributedString(string: "anonymous,", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),  NSAttributedString.Key.foregroundColor: UIColor.white])
 //            attrText.append(NSAttributedString(string: "\n→", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 26), NSAttributedString.Key.foregroundColor: UIColor.white]))
             cell.descriptionTextView.attributedText = attrText
             cell.descriptionTextView.textAlignment = .center
@@ -89,7 +89,7 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
             cell.continueImageView.image = UIImage(named: "")
         case 3:
             cell.pageImageView.image = UIImage(named: "Party")
-            cell.descriptionTextView.attributedText = NSMutableAttributedString(string: "social app!", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 26),  NSAttributedString.Key.foregroundColor: UIColor.white])
+            cell.descriptionTextView.attributedText = NSMutableAttributedString(string: "community!", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 26),  NSAttributedString.Key.foregroundColor: UIColor.white])
             cell.descriptionTextView.textAlignment = .center
             cell.descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
             cell.descriptionTextView.isEditable = false

@@ -9,7 +9,7 @@ class ScoreViewController: UIViewController {
     var score = 0
     var emoji: String?
     var strikesLeftMessage:String?
-    var range = 3
+    var range = 3.0
     var userManager = UserManager()
     var scoreManager = ScoreManager()
     var indicator = UIActivityIndicatorView()

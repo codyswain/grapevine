@@ -117,13 +117,23 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func enableInteraction() {
-        self.upvoteImageButton.isHidden = false
-        self.downvoteImageButton.isHidden = false
+        DispatchQueue.main.async {
+            self.upvoteImageButton.isUserInteractionEnabled = true
+            self.downvoteImageButton.isUserInteractionEnabled = true
+            
+            self.upvoteImageButton.image = UIImage(systemName: "arrowtriangle.up.circle.fill")
+            self.downvoteImageButton.image = UIImage(systemName: "arrowtriangle.down.circle.fill")
+        }
     }
     
     func disableInteraction() {
-        self.upvoteImageButton.isHidden = true
-        self.downvoteImageButton.isHidden = true
+        DispatchQueue.main.async {
+            self.upvoteImageButton.isUserInteractionEnabled = false
+            self.downvoteImageButton.isUserInteractionEnabled = false
+            
+            self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
+            self.downvoteImageButton.image = UIImage(systemName: "circle.fill")
+        }
     }
     
     override func layoutSubviews() {
@@ -411,9 +421,10 @@ class PostTableViewCell: UITableViewCell {
             self.postType = "text"
         } else {
             if let decodedData = Data(base64Encoded: post.content, options: .ignoreUnknownCharacters) {
+                let imageData = UIImage(data: decodedData)!
                 self.label.text = ""
                 self.postType = "image"
-                self.imageVar.image = decodeImage(imageData: decodedData, width: self.imageVar.bounds.width, height: self.imageVar.bounds.height)
+                self.imageVar.image = resizeImage(image: imageData, newWidth: self.imageVar.bounds.width)
             }
         }
         
