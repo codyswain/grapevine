@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             DarkModeSwitch.setOn(true, animated: false)
             DarkModeLabel.text = "Dark Mode"
         }
-        else {
+        else if Globals.ViewSettings.CurrentMode == .light {
             super.overrideUserInterfaceStyle = .light
         }
         

@@ -45,7 +45,7 @@ class NewPostViewController: UIViewController {
         if Globals.ViewSettings.CurrentMode == .dark {
             super.overrideUserInterfaceStyle = .dark
         }
-        else {
+        else if Globals.ViewSettings.CurrentMode == .light {
             super.overrideUserInterfaceStyle = .light
         }
         
