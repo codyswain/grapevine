@@ -71,9 +71,23 @@ class CommentViewController: UIViewController {
         return refreshControl
     }()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.DarkMode == true {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set dark/light mode
+        if Globals.ViewSettings.DarkMode == true{
+            super.overrideUserInterfaceStyle = .dark
+        }
         
         // Show loading symbol
         activityIndicator()

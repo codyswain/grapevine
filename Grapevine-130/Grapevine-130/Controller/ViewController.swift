@@ -60,8 +60,23 @@ class ViewController: UIViewController {
     // Change the view of the current page
     var currentMode = "default" // options: default, myPosts, myComments
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.DarkMode == true {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set dark/light mode
+        if Globals.ViewSettings.DarkMode == true{
+            super.overrideUserInterfaceStyle = .dark
+        }
         
         // Show loading symbol
         activityIndicator()
@@ -156,10 +171,6 @@ class ViewController: UIViewController {
         indicator.style = UIActivityIndicatorView.Style.medium
         indicator.center = self.view.center
         self.view.addSubview(indicator)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
     }
             
     /// Scrolls to the top of the table

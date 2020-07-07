@@ -58,6 +58,7 @@
 		868528D82443AB6C00B17013 /* StoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868528D72443AB6C00B17013 /* StoryManager.swift */; };
 		86BE51DD241B62D80012AA14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */; };
 		B34BA4B63B8CD21F341BF5E5 /* Pods_Grapevine_130.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */; };
+		CE2DFB8A24B3E4A400C5EA89 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFB8924B3E4A400C5EA89 /* Globals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		86BE51DC241B62D80012AA14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A33EBA4DC20EEF6C6C62F03D /* Pods_Grapevine_130.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Grapevine_130.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAFD2F6A8E93B87AD264FBEE /* Pods-Grapevine-130.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.debug.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.debug.xcconfig"; sourceTree = "<group>"; };
+		CE2DFB8924B3E4A400C5EA89 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				8659F2CD23F8A93400C3595F /* AppDelegate.swift */,
 				8659F2D423F8A94100C3595F /* Utils.swift */,
 				8659F2CE23F8A93400C3595F /* Constants.swift */,
+				CE2DFB8924B3E4A400C5EA89 /* Globals.swift */,
 				8659F2DE23F8A94200C3595F /* Model */,
 				8659F2D623F8A94100C3595F /* View */,
 				8659F2CA23F8A93300C3595F /* Controller */,
@@ -503,6 +506,7 @@
 				83B121A3242EE82F0034BF73 /* CommentTableViewCell.swift in Sources */,
 				8659F2F323FE27F900C3595F /* ScoreViewController.swift in Sources */,
 				8659F2E823F8A94200C3595F /* Post.swift in Sources */,
+				CE2DFB8A24B3E4A400C5EA89 /* Globals.swift in Sources */,
 				6322402923FC617A007D05F5 /* User.swift in Sources */,
 				636701B724764CCD00F15985 /* ShoutChamberViewController.swift in Sources */,
 				868528D82443AB6C00B17013 /* StoryManager.swift in Sources */,

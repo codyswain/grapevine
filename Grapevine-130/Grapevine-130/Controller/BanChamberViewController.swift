@@ -27,11 +27,26 @@ class BanChamberViewController: UIViewController {
         return refreshControl
     }()
     var indicator = UIActivityIndicatorView()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.DarkMode == true {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    }
 
     /// Manges the ban chamber screen.
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        //set dark/light mode
+        if Globals.ViewSettings.DarkMode == true{
+            super.overrideUserInterfaceStyle = .dark
+        }
+        
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
@@ -66,10 +81,6 @@ class BanChamberViewController: UIViewController {
         indicator.style = UIActivityIndicatorView.Style.medium
         indicator.center = self.view.center
         self.view.addSubview(indicator)
-    }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
     }
         
     /// Refresh the main posts view based on current user location.

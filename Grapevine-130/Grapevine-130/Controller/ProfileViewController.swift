@@ -16,6 +16,9 @@ import MessageUI
 class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     var bottomNavBar = MDCBottomNavigationBar()
     
+    @IBOutlet weak var DarkModeSwitch: UISwitch!
+    @IBOutlet weak var DarkModeLabel: UILabel!
+    
     @IBOutlet weak var MyKarmaButton: UIButton!
     @IBOutlet weak var MyCommentsButton: UIButton!
     @IBOutlet weak var MyPostsButton: UIButton!
@@ -36,7 +39,14 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     /// Intializes the score screen.
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //set dark/light mode and state of toggle switch
+        if Globals.ViewSettings.DarkMode == true || self.traitCollection.userInterfaceStyle == .dark {
+            super.overrideUserInterfaceStyle = .dark
+            DarkModeSwitch.setOn(true, animated: false)
+            DarkModeLabel.text = "Dark Mode"
+        }
+        
         // Add menu navigation bar programatically
         bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
         self.view.addSubview(bottomNavBar)
@@ -46,6 +56,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         // Button styling
         self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple, color2: Constants.Colors.mediumPink)
         self.view = styleButton(button: MyPostsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
@@ -66,6 +77,36 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         } else {
             for w in buttonWidths { w.constant = iPhoneXSize }
             for h in buttonHeights { h.constant = iPhoneXSize }
+        }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.DarkMode == true {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    }
+    
+    @IBAction func DarkModeSwitchPressed(_ sender: Any) {
+        //Changes UI to dark or light mode
+        if DarkModeSwitch.isOn{
+            DarkModeLabel.text = "Dark Mode"
+            super.overrideUserInterfaceStyle = .dark
+            Globals.ViewSettings.DarkMode = true
+            UIView.animate(withDuration: 1.0) {
+                super.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+        else{
+            DarkModeLabel.text = "Light Mode"
+            super.overrideUserInterfaceStyle = .light
+            Globals.ViewSettings.DarkMode = false
+            UIView.animate(withDuration: 1.0) {
+                super.setNeedsStatusBarAppearanceUpdate()
+            }
         }
     }
     

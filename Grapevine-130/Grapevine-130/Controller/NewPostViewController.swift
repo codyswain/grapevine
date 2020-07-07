@@ -25,11 +25,26 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var AddButtonContainingView: UIView!
     @IBOutlet var newPostView: UIView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.DarkMode == true {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    } 
+    
     /**
      Intializes the new post screen.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set dark/light mode
+        if Globals.ViewSettings.DarkMode == true{
+            super.overrideUserInterfaceStyle = .dark
+        }
         
         postsManager.delegate = self
         
