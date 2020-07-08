@@ -6,7 +6,7 @@ const FieldValue = require('firebase-admin').firestore.FieldValue
 
 // URL parsing to get info from client
 router.get('/', getShoutablePosts);
-router.get('/shoutPost', shoutPost);
+router.get('/shoutPost/', shoutPost);
 
 /**
  * Fetches downvoted posts and updates the user's score.
