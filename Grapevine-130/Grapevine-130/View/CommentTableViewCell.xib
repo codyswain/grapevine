@@ -25,7 +25,7 @@
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="W1M-0U-gjB" firstAttribute="top" secondItem="i6V-GN-Nl2" secondAttribute="top" constant="5" id="8Le-gS-HXC"/>
                             <constraint firstAttribute="trailing" secondItem="W1M-0U-gjB" secondAttribute="trailing" constant="20" id="cRf-OJ-pf1"/>
@@ -56,7 +56,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="22m-ll-0uD"/>
                             <constraint firstItem="FTA-K2-MYS" firstAttribute="centerY" secondItem="7jS-zn-QMn" secondAttribute="centerY" constant="0.25" id="4kL-Ey-xda"/>

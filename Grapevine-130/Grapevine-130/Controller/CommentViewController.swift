@@ -38,9 +38,9 @@ class CommentViewController: UIViewController {
     
     @IBAction func shareCommentsPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Share", message: "Share comments with friends!")
-        alert.backgroundColor = .systemBackground
-        alert.titleColor = .label
-        alert.messageColor = .label
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Cancel"){ (action) in })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
@@ -260,9 +260,9 @@ class CommentViewController: UIViewController {
         
     func alertActions(){
         let alert = MDCAlertController(title: "Do Something", message: "Take some action.")
-        alert.backgroundColor = .systemBackground
-        alert.titleColor = .label
-        alert.messageColor = .label
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Cancel", emphasis: .high) { (action) in })
         // Do not allow users to interact with their own posts
         if mainPost!.poster != Constants.userID {

@@ -205,9 +205,9 @@ class ViewController: UIViewController {
     {
         /// Displays the possible ranges users can request posts from
         let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
-        alert.backgroundColor = .systemBackground
-        alert.titleColor = .label
-        alert.messageColor = .label
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
         
         let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
             self.rangeAction(range: 0.1, title: " 0.1 Miles")
@@ -313,9 +313,9 @@ class ViewController: UIViewController {
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
         let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
-        alert.backgroundColor = .systemBackground
-        alert.titleColor = .label
-        alert.messageColor = .label
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             var backgroundImage: UIImage
@@ -409,9 +409,9 @@ class ViewController: UIViewController {
     // Popup when user flags post
     func showFlaggedAlertPopup(){
         let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
-        alert.backgroundColor = .systemBackground
-        alert.titleColor = .label
-        alert.messageColor = .label
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
         makePopup(alert: alert, image: "flag")
         self.present(alert, animated: true)
@@ -668,9 +668,9 @@ extension ViewController: PostsManagerDelegate {
     
     func alertNoPosts(){
         let alert = MDCAlertController(title: "No posts.", message: "Either bad Internet or no posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
-        alert.backgroundColor = .systemBackground
-        alert.titleColor = .label
-        alert.messageColor = .label
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
