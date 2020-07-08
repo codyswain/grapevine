@@ -44,7 +44,7 @@ class PostTableViewCell: UITableViewCell {
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
-    var shoutable: Bool = true      // we don't use this yet
+    var shoutable: Bool = false      // we don't use this yet
     var pushable: Bool = true       // we don't use this yet
     var deletable: Bool = false
     
@@ -286,7 +286,7 @@ class PostTableViewCell: UITableViewCell {
     func setDownvotedColors(){
         var color = UIColor.systemGray2
         var baseColor: UIColor = .systemBackground
-        if shoutable {
+        if self.shoutActive {
             color = Constants.Colors.yellow
             baseColor = .systemBackground
         }
@@ -305,7 +305,7 @@ class PostTableViewCell: UITableViewCell {
         var buttonColor = UIColor.systemGray3
         var footerColor = UIColor.systemGray5
         var textColor = UIColor.label
-        if self.shoutable {
+        if self.shoutActive {
             buttonColor = .systemBackground
             footerColor = Constants.Colors.yellow
             textColor = .label
@@ -327,8 +327,10 @@ class PostTableViewCell: UITableViewCell {
     func setUpvotedColors(){
         var color = Constants.Colors.darkPurple
         var baseColor: UIColor = .systemBackground
-        if shoutable {
+        var footerColor = Constants.Colors.darkPurple
+        if self.shoutable {
             color = Constants.Colors.yellow
+            footerColor = Constants.Colors.yellow
             baseColor = .systemBackground
         }
         commentButton.tintColor = baseColor
@@ -336,7 +338,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteImageButton.isHidden = false
         abilitiesButton.isHidden = false
         abilitiesButton.tintColor = baseColor
-        footer.backgroundColor = color
+        footer.backgroundColor = footerColor
         upvoteImageButton.tintColor = baseColor
         voteCountLabel.textColor = baseColor
         commentButton.setTitleColor(color, for: .normal)
