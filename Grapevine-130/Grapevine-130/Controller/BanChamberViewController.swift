@@ -141,7 +141,7 @@ extension BanChamberViewController: UITableViewDataSource {
             cell.commentButton.isHidden = true
             cell.deleteButton.isHidden = true
             cell.voteCountLabel.isHidden = true
-            cell.shareButton.isHidden = true
+            cell.abilitiesButton.isHidden = true
             cell.banButtonVar.isHidden = false
             cell.shoutButtonVar.isHidden = true
         }

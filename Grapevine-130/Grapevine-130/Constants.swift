@@ -49,10 +49,12 @@ extension UIDevice {
         case iPhones_6Plus_6sPlus_7Plus_8Plus = "iPhone 6 Plus, iPhone 6S Plus, iPhone 7 Plus or iPhone 8 Plus"
         case iPhoneX = "iPhone X"
         case iPhone11 = "iPhone 11"
+        case iPhone11ProMax = "iPhone 11 Pro Max"
         case unknown = "iPadOrUnknown"
     }
 
     var deviceType: DeviceType {
+        print("Height: \(UIScreen.main.nativeBounds.height)")
         switch UIScreen.main.nativeBounds.height {
             case 960:
                 return .iPhone4_4S
@@ -66,6 +68,8 @@ extension UIDevice {
                 return .iPhoneX
             case 1792:
                 return .iPhone11
+            case 2688:
+                return .iPhone11ProMax
             default:
                 return .unknown
             }

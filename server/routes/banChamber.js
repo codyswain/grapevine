@@ -35,8 +35,7 @@ async function getBannablePosts(req, res, next) {
 					.where("geohash", ">=", search_box.lower)
 					.where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
-	}
-
+  }
 	var posts = []
 
 	// Query the db for posts
