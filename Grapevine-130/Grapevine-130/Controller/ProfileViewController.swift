@@ -60,7 +60,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
 
         let iPhoneXSize:CGFloat = 159
         let iPhone11Size:CGFloat = 179
-        if UIDevice.current.deviceType == .iPhone11 || UIDevice.current.deviceType == .iPhones_6Plus_6sPlus_7Plus_8Plus {
+        if UIDevice.current.deviceType == .iPhone11 || UIDevice.current.deviceType == .iPhones_6Plus_6sPlus_7Plus_8Plus || UIDevice.current.deviceType == .iPhone11ProMax{
             for w in buttonWidths { w.constant = iPhone11Size }
             for h in buttonHeights { h.constant = iPhone11Size }
         } else {
