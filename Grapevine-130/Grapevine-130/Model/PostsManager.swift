@@ -24,14 +24,11 @@ struct PostsManager {
     let fetchMoreMyCommentsURL = Constants.serverURL + "myComments/more/?"
     var delegate: PostsManagerDelegate?
         
-    /**
-    Fetches posts from the database.
-     
+    /** Fetches posts from the database.
     - Parameters:
         - latitude: Latitude of the client requesting posts
         - longitude: Longitude of the client requesting posts
-        - range: Distance around the user to retrieve posts from
-    */
+        - range: Distance around the user to retrieve posts from */
     func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, activityFilter: String, typeFilter: String) {
         let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performRequest(with: urlString)
@@ -64,9 +61,7 @@ struct PostsManager {
         task.resume()
     }
     
-    /**
-     Fetches posts that can be banned from the database.
-     
+    /** Fetches posts that can be banned from the database.
      - Parameters:
         - latitude: Latitude of the client requesting posts
         - longitude: Longtitude of the client requesting posts
@@ -82,9 +77,7 @@ struct PostsManager {
         performRequest(with: urlString)
     }
     
-    /**
-     Fetches more posts from the database for infinite scrolling.
-    */
+    /** Fetches more posts from the database for infinite scrolling. */
     func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, ref: String, activityFilter: String, typeFilter: String) {
         let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
         performMoreRequest(with: urlString)
