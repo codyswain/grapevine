@@ -10,6 +10,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
+    
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var postTypeButton: UIButton!
     
@@ -113,16 +114,18 @@ class ViewController: UIViewController {
         let timeDiff = CGFloat(nanoTime) / 1_000_000_000
         prevTime = curTime
         scrollVelocity = posDiff / timeDiff
-//        print(scrollVelocity)
+        // print(scrollVelocity)
         
         if (self.originalNavbarPosition == 0){
-            // do nothing
+            /// do nothing
         } else if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
-            // do nothing
+            /// do nothing
         } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
-            self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
+            // self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
         } else {
-            self.bottomNavBar.frame.origin.y += posDiff
+            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
+            // self.bottomNavBar.frame.origin.y += posDiff
         }
     }
     
@@ -482,6 +485,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+        cell.abilitiesView.isHidden = true
+        cell.abilitiesBackgroundView.isHidden = true
+        cell.user = self.user
         
         cell.makeBasicCell(post: posts[indexPath.row])
 
@@ -500,18 +506,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableInteraction()
         }
 
-        // The cell is shoutable
+        // The cell is shouted
         if let expiry = posts[indexPath.row].shoutExpiration {
             if expiry > Date().timeIntervalSince1970 {
                 print("Showing shouted post!")
-                cell.shoutable = true
+                cell.shoutActive = true
                 cell.commentAreaButton.backgroundColor = Constants.Colors.yellow
                 cell.label.textColor = .white
             } else {
-                cell.shoutable = false
+                cell.shoutActive = false
             }
         } else {
-            cell.shoutable = false
+            cell.shoutActive = false
         }
         
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
@@ -523,7 +529,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    // Context menu
+    /// Context menu (shown on long cell press)
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
@@ -540,7 +546,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    // The following three scroll functions allow navbar to hide on scroll
+    /// The following three scroll functions allow navbar to hide on scroll
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if (self.originalNavbarPosition == 0.0){
             self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
@@ -572,14 +578,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
-    /**
-     Reloads the table to reflect the newly retrieved posts.
-     
+    /** Reloads the table to reflect the newly retrieved posts.
      - Parameters:
         - postManager: `PostManager` object that fetched the psots
         - posts: Array of posts returned by the server
-        - ref: Document id of the last post retrieved from this call
-     */
+        - ref: Document id of the last post retrieved from this call */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
             if ref == "" {
@@ -608,21 +611,16 @@ extension ViewController: PostsManagerDelegate {
         }
     }
     
-    /**
-     Adds auto-retrieved posts to the current list of posts.
-     
+    /** Adds auto-retrieved posts to the current list of posts.
      - Parameters:
         - postManager: `PostManager` object that fetched the posts
         - posts: Array of posts returned by the server
-        - ref: Document if of the last post retrieved from this call
-     */
+        - ref: Document if of the last post retrieved from this call */
     func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
         DispatchQueue.main.async {
             if ref == "" {
-                // Cannot retrieve more
-                self.canGetMorePosts = false
+                self.canGetMorePosts = false /// Cannot retrieve more
             }
-            
             self.tableView.tableFooterView = nil
             self.posts.append(contentsOf: posts)
             self.ref = ref
@@ -630,11 +628,8 @@ extension ViewController: PostsManagerDelegate {
         }
     }
     
-    /**
-     Fires if post fetching fails.
-     
-     - Parameter error: Error returned when trying to fetch posts
-     */
+    /** Fires if post fetching fails.
+     - Parameter error: Error returned when trying to fetch posts */
     func didFailWithError(error: Error){
         print(error)
     }
@@ -653,9 +648,7 @@ extension ViewController: PostsManagerDelegate {
 
 /// Retrieves user location data and fetches posts.
 extension ViewController: CLLocationManagerDelegate {
-    /**
-     Fetches posts based on current user location.
-     */
+    /** Fetches posts based on current user location. */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             self.lat = location.coordinate.latitude
@@ -666,27 +659,93 @@ extension ViewController: CLLocationManagerDelegate {
         }
     }
     
-    /**
-    Fires if location retrieval fails.
-    */
+    /** Fires if location retrieval fails. */
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error)")
     }
 }
 
 /// Update post data.
-extension ViewController: PostTableViewCellDelegate {
+extension ViewController: PostTableViewCellDelegate {    
     func showSharePopup(_ postType: String, _ content: Any) {}
+    
+    /// Fires when user selects an ability
+    func userTappedAbility(_ cell: UITableViewCell, _ ability: String){
+        switch ability {
+        case "burn":
+            let burnCost: Int = 10 // TO-DO: make this global variable
+            var alertMessage: String = "My karma: \(self.user!.score) 💸\nBurn cost: \(burnCost) 💸"
+            var confirmMessage: String = "Confirm "
+            if (self.user!.score >= burnCost){
+                confirmMessage += "✅"
+                alertMessage += "\n\nAre you sure you want to suspend this user for 24 hours?"
+            } else {
+                confirmMessage += "❌"
+                alertMessage += "\n\nInsufficient karma 🙁"
+            }
+            let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
+            let action1 = MDCAlertAction(title: "Cancel") { (action) in
+                print("You've pressed cancel");
+            }
+            alert.addAction(action1)
+            
+            // Check if user can ban
+            if (self.user!.score >= burnCost){
+                let action2 = MDCAlertAction(title: "Yes") { (action) in
+                    let indexPath = self.tableView.indexPath(for: cell)!
+                    let row = indexPath.row
+                    let creatorToBeBanned = self.posts[row].poster
+                    let postToBeDeleted = self.posts[row].postId
+                    self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
+                }
+                alert.addAction(action2)
+            }
+            makePopup(alert: alert, image: "flame.fill")
+            self.present(alert, animated: true)
+        case "shout":
+            let shoutCost: Int = 10 // TO-DO: make this global variable
+            var alertMessage: String = "My karma: \(self.user!.score) 💸\nShout cost: \(shoutCost) 💸"
+            var confirmMessage: String = "Confirm "
+            if (self.user!.score >= shoutCost){
+                confirmMessage += "✅"
+                alertMessage += "\n\nAre you sure you want give a shout out to this post?"
+            } else {
+                confirmMessage += "❌"
+                alertMessage += "\n\nInsufficient karma 🙁"
+            }
+            let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
+            let action1 = MDCAlertAction(title: "Cancel") { (action) in
+                print("You've pressed cancel");
+            }
+            alert.addAction(action1)
+            
+            // Check if user can shout
+            if (self.user!.score >= shoutCost){
+                let action2 = MDCAlertAction(title: "Yes") { (action) in
+                    let indexPath = self.tableView.indexPath(for: cell)!
+                    let row = indexPath.row
+                    let creator = self.posts[row].poster
+                    let postToBeShoutOut = self.posts[row].postId
+                    print("Post to be shouted: ")
+                    print(postToBeShoutOut)
+                    self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+                }
+                alert.addAction(action2)
+            }
+            
+            makePopup(alert: alert, image: "waveform")
+            self.present(alert, animated: true)
+        default:
+            print("Unknown ability: \(ability)...")
+        }
+    }
     
     func viewComments(_ cell: UITableViewCell) {}
     
-    /**
-     Updates votes view on a post.
-     
+    /** Updates votes view on a post.
      - Parameters:
         - newVote: Vote added to post's current number of votes
-        - newVoteStatus: How the user interacted with the post
-     */
+        - newVoteStatus: How the user interacted with the post */
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int) {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
@@ -694,13 +753,10 @@ extension ViewController: PostTableViewCellDelegate {
         posts[row].voteStatus = newVoteStatus
     }
     
-    /**
-     Updates flag status on a post.
-     
+    /** Updates flag status on a post.
      - Parameters:
         - cell: Post cell to be updated
-        - newFlagStatus: New flag status of a post
-     */
+        - newFlagStatus: New flag status of a post */
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int) {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
@@ -713,11 +769,9 @@ extension ViewController: PostTableViewCellDelegate {
         }
     }
 
-    /**
-     Deletes a post.
-     
-     - Parameter cell: Post to be deleted.
-     */
+    /** Deletes a post.
+     - Parameters:
+        - cell: Post to be deleted. */
     func deleteCell(_ cell: UITableViewCell) {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
@@ -732,13 +786,10 @@ extension ViewController: PostTableViewCellDelegate {
 
 /// Manages the `user` object returned by the server.
 extension ViewController: UserManagerDelegate {
-    /**
-     Checks if the user is banned.
-     
+    /** Checks if the user is banned
      - Parameters:
         - userManager: `UserManager` object that fetched the user
-        - user: `User` object returned by the server
-     */
+        - user: `User` object returned by the server */
     func didGetUser(_ userManager: UserManager, user: User){
         DispatchQueue.main.async {
             if userManager.isBanned(strikes: user.strikes, banTime:user.banDate){
@@ -750,9 +801,7 @@ extension ViewController: UserManagerDelegate {
     
     func didUpdateUser(_ userManager: UserManager) {}
     
-    /**
-    Fires if user retrieval fails.
-    */
+    /** Fires if user retrieval fails. */
     func userDidFailWithError(error: Error){
         print(error)
     }
