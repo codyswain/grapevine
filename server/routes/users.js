@@ -6,7 +6,7 @@ var utils = require('../server_utils.js') // NOTE: Relative pathing can break
 // URL parsing to get info from client
 router.get('/', getUser);
 router.get('/freeUser/', freeUser);
-router.get('/getUsersWithinRange/', getUsersWithinRange);
+router.get('/push/', push);
 
 /**
  * Fetches a user from the database based on the url parameters and sends it to the client.
@@ -68,16 +68,17 @@ async function freeUser(req, res, next) {
   })  
 }
 
-async function getUsersWithinRange(req, res, next) {
+async function push(req, res, next) {
   let user = req.query.user;
   let lat = Number(req.query.lat);
   let lon = Number(req.query.lon);
   let range = req.query.range;
+  let postIDToPush = req.query.postID;
   if (typeof(range) == "undefined") { // If range unspecified, use some default one
     range = default_range;
   } 
   range = Number(range);
-  console.log("getUsersWithinRange request from lat: " + lat + " and lon: " + lon + " for users within range:" + range + " from user: " + user)
+  console.log("push request from lat: " + lat + " and lon: " + lon + " for users within range:" + range + " from user: " + user)
 
   // Get the db object, declared in app.js
   var db = req.app.get('db');
@@ -94,24 +95,28 @@ async function getUsersWithinRange(req, res, next) {
     .where("location", "<=", search_box.upper)
     .orderBy("location")
 
+  var content = "Post pushed near you..."
+  db.collection('posts').doc(postIDToPush).get()
+    .then((snapshot) => {
+      content = "Pushed nearby: \"" + snapshot.data().content + "\""
+    })
+    .catch((err) => { 
+      console.log("ERROR looking up post for push in user.js:" + err)
+      res.send([])
+    })
+
   var currentTime = new Date() / 1000
   query.limit(10000).get()
   .then((snapshot) => {
-    let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
-    var users = []
-    // Loop through each post returned and add it to our list
     snapshot.forEach((user) => {
-    // console.log("user :" + JSON.stringify(user))
       var curUser = user.data()
       if (currentTime - curUser.banDate > 86400.0){ // if the user is not banned
-        // curUser.postId = user.id
-        // delete curUser["interactions"]
-        users.push(curUser)
+        utils.pushNotificationHelper1(req, curUser.user, content)
+        
       }
     });
-    // Return the users to the client
-    users = users.sort((a, b) => { return b.date - a.date })
-    res.status(200).send({reference: ref, users: users})
+
+    res.status(200).send()
   })
   .catch((err) => { 
     console.log("ERROR retrieving users in a certain radius in users.js:" + err)
