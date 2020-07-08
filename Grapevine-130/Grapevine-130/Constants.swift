@@ -12,7 +12,7 @@ struct Constants {
     static let userID = SHA256(data:UIDevice.current.identifierForVendor!.uuidString)
     static let serverURL = "https://grapevineapp.herokuapp.com/"
     static let numStrikesToBeBanned = 3
-    static let banLengthInHours = 86400.0 // 48 hours in seconds
+    static let banLengthInHours = 86400.0 // 24 hours in seconds
     static let spamLength = 30.0 // 30 seconds
     struct Colors {
         static let lightPurple = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
