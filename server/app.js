@@ -67,8 +67,9 @@ app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
 app.use('/interactions', interactionsRouter);
-app.use('/commentinteractions', commentinteractionsRouter)
+app.use('/commentinteractions', commentinteractionsRouter);
 app.use('/banChamber', banChamberRouter);
+app.use('/shoutChamber', shoutChamberRouter);
 app.use('/myPosts', myPostsRouter);
 app.use('/myComments', myCommentsRouter);
 

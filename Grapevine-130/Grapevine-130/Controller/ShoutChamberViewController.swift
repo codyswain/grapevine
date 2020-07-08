@@ -126,7 +126,7 @@ extension ShoutChamberViewController: UITableViewDataSource {
             cell.commentButton.isHidden = true
             cell.deleteButton.isHidden = true
             cell.voteCountLabel.isHidden = true
-            cell.shareButton.isHidden = true
+            cell.abilitiesButton.isHidden = true
             cell.banButtonVar.isHidden = true
             cell.shoutButtonVar.isHidden = false
         }
