@@ -38,6 +38,9 @@ class CommentViewController: UIViewController {
     
     @IBAction func shareCommentsPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Share", message: "Share comments with friends!")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Cancel"){ (action) in })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
@@ -63,19 +66,36 @@ class CommentViewController: UIViewController {
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .black
+        refreshControl.tintColor = .label
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.CurrentMode == .dark {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set dark/light mode
+        if Globals.ViewSettings.CurrentMode == .dark {
+            super.overrideUserInterfaceStyle = .dark
+        }
+        else if Globals.ViewSettings.CurrentMode == .light {
+            super.overrideUserInterfaceStyle = .light
+        }
+        
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
-        indicator.backgroundColor = .white
+        indicator.backgroundColor = .systemBackground
         
         // Load table
         tableView.dataSource = self
@@ -240,6 +260,9 @@ class CommentViewController: UIViewController {
         
     func alertActions(){
         let alert = MDCAlertController(title: "Do Something", message: "Take some action.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Cancel", emphasis: .high) { (action) in })
         // Do not allow users to interact with their own posts
         if mainPost!.poster != Constants.userID {
@@ -396,12 +419,12 @@ extension CommentViewController: UITableViewDataSource {
         // Setting styling for liked posts
         if (voteStatus == 1){
             cell.voteBackground.backgroundColor = Constants.Colors.darkPurple
-            cell.voteButton.setTitleColor(UIColor.white, for: .normal)
-            cell.voteButtonIcon.tintColor = UIColor.white
+            cell.voteButton.setTitleColor(UIColor.systemBackground, for: .normal)
+            cell.voteButtonIcon.tintColor = UIColor.systemBackground
         } else {
-            cell.voteBackground.backgroundColor = Constants.Colors.veryLightgrey
-            cell.voteButton.setTitleColor(UIColor.black, for: .normal)
-            cell.voteButtonIcon.tintColor = UIColor.black
+            cell.voteBackground.backgroundColor = .systemGray6
+            cell.voteButton.setTitleColor(UIColor.label, for: .normal)
+            cell.voteButtonIcon.tintColor = UIColor.label
         }
         
         // If the current user created this comment, he/she can delete it

@@ -21,6 +21,8 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
         bottomNavBarFrame.origin.y -= sender.view.safeAreaInsets.bottom
     }
     bottomNavBar.frame = bottomNavBarFrame
+    bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
+    bottomNavBar.selectedItemTintColor = UIColor.systemGray2
         
     let postTab = UITabBarItem(title: "", image: UIImage(systemName: "line.horizontal.3.decrease.circle.fill"), tag: 0)
     let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton"), tag: 1)
@@ -41,7 +43,7 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
 func bottomNavBarStyling(bottomNavBar: MDCBottomNavigationBar) -> MDCBottomNavigationBar {
     bottomNavBar.itemTitleFont = UIFont.boldSystemFont(ofSize: 40)
     bottomNavBar.itemsContentVerticalMargin = 5
-    bottomNavBar.backgroundColor = UIColor(white: 1, alpha: 0.97)
+    bottomNavBar.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
     // Ripple effect: this doesn't turn it off for whatever reason
     bottomNavBar.enableRippleBehavior = false
     return bottomNavBar

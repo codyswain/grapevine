@@ -25,19 +25,37 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var AddButtonContainingView: UIView!
     @IBOutlet var newPostView: UIView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.CurrentMode == .dark {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    } 
+    
     /**
      Intializes the new post screen.
      */
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set dark/light mode
+        if Globals.ViewSettings.CurrentMode == .dark {
+            super.overrideUserInterfaceStyle = .dark
+        }
+        else if Globals.ViewSettings.CurrentMode == .light {
+            super.overrideUserInterfaceStyle = .light
+        }
+        
         postsManager.delegate = self
         
         newPostTextBackground.layer.cornerRadius = 10.0
-        newPostTextBackground.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        newPostTextBackground.backgroundColor = UIColor.systemGray6
         backTextView.textColor = UIColor.lightGray
         drawingCanvasView.layer.cornerRadius = 10.0
-        drawingCanvasView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        drawingCanvasView.backgroundColor = UIColor.systemGray6
         frontTextView.delegate = self
         frontTextView.isHidden = false
         
@@ -123,7 +141,7 @@ class NewPostViewController: UIViewController {
     }
     
     /**
-     Changes the color of the canvas brush to purple.
+     Changes the color of the selected button to purple.
      
      - Parameter button: Button that initiates this action
      */
@@ -134,14 +152,14 @@ class NewPostViewController: UIViewController {
     }
     
     /**
-     Changes the color of the cancas brush to black.
+     Changes the color of the Deselected button to label color (black/white)
      
      - Parameter button: Button that initiates this action
      */
     func deselectedButtonColors(button: UIButton){
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.label, for: .normal)
         button.setImage(UIImage(systemName: "circle", withConfiguration: nil), for: .normal)
-        button.tintColor = .black
+        button.tintColor = .label
     }
     
     /**
@@ -154,10 +172,10 @@ class NewPostViewController: UIViewController {
     }
     
     @IBAction func colorButton(_ sender: Any) {
-        if ColorButtonVar.titleColor(for: .normal) == .black {
+        if ColorButtonVar.titleColor(for: .normal) == .label {
             ColorButtonVar.setTitleColor(Constants.Colors.darkPurple, for: .normal)
         } else {
-            ColorButtonVar.setTitleColor(.black, for: .normal)
+            ColorButtonVar.setTitleColor(.label, for: .normal)
         }
         drawingCanvasView.changeColor()
     }
@@ -226,18 +244,22 @@ class NewPostViewController: UIViewController {
                 }
             }
         } else {
+            drawingCanvasView.layer.cornerRadius = 0
             let imData = drawingCanvasView.renderToImage()
             if imData != nil {
                 let image = imData!.jpegData(compressionQuality: 0.5)
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
             }
+            drawingCanvasView.layer.cornerRadius = 10.0
         }
     }
     
     func spamPopup(){
         let alert = MDCAlertController(title: "Too Much Posting", message: "To prevent potential spamming, we can't let you post that much. Try again later")
-                
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         let action1 = MDCAlertAction(title: "Ok") { (action) in }
         alert.addAction(action1)
         makePopup(alert: alert, image: "x.circle.fill")
@@ -256,7 +278,7 @@ extension NewPostViewController: UITextViewDelegate {
      */
     func textViewDidBeginEditing(_ textView: UITextView){
         backTextView.text = ""
-        frontTextView.textColor = UIColor.black
+        frontTextView.textColor = UIColor.label
     }
     
     /**

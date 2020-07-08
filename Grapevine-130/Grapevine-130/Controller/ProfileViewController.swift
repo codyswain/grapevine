@@ -16,6 +16,9 @@ import MessageUI
 class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     var bottomNavBar = MDCBottomNavigationBar()
     
+    @IBOutlet weak var DarkModeSwitch: UISwitch!
+    @IBOutlet weak var DarkModeLabel: UILabel!
+    
     @IBOutlet weak var MyKarmaButton: UIButton!
     @IBOutlet weak var MyCommentsButton: UIButton!
     @IBOutlet weak var MyPostsButton: UIButton!
@@ -36,7 +39,17 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     /// Intializes the score screen.
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //set dark/light mode and state of toggle switch
+        if Globals.ViewSettings.CurrentMode == .dark {
+            super.overrideUserInterfaceStyle = .dark
+            DarkModeSwitch.setOn(true, animated: false)
+            DarkModeLabel.text = "Dark Mode"
+        }
+        else if Globals.ViewSettings.CurrentMode == .light {
+            super.overrideUserInterfaceStyle = .light
+        }
+        
         // Add menu navigation bar programatically
         bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
         self.view.addSubview(bottomNavBar)
@@ -46,6 +59,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         // Button styling
         self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple, color2: Constants.Colors.mediumPink)
         self.view = styleButton(button: MyPostsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
@@ -69,6 +83,36 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        //Changes colors of status bar so it will be visible in dark or light mode
+        if Globals.ViewSettings.CurrentMode == .dark {
+            return .lightContent
+        }
+        else{
+            return .darkContent
+        }
+    }
+    
+    @IBAction func DarkModeSwitchPressed(_ sender: Any) {
+        //Changes UI to dark or light mode
+        if DarkModeSwitch.isOn{
+            DarkModeLabel.text = "Dark Mode"
+            super.overrideUserInterfaceStyle = .dark
+            Globals.ViewSettings.CurrentMode = .dark
+            UIView.animate(withDuration: 1.0) {
+                super.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+        else{
+            DarkModeLabel.text = "Light Mode"
+            super.overrideUserInterfaceStyle = .light
+            Globals.ViewSettings.CurrentMode = .light
+            UIView.animate(withDuration: 1.0) {
+                super.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+    }
+    
     @IBAction func KarmaButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "profileToKarma", sender: self)
     }
@@ -86,6 +130,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBAction func RulesButtonPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Rules", message: "1. Posting bullying, threats, terrorism, harrassment, or stalking will not be allowed and may force law enforcement to be involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason. \n\n4. You must be at least 18 years old.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "map.fill")
         self.present(alert, animated: true)
@@ -93,6 +140,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBAction func ContactButtonPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Contact", message: "Our email is teamgrapevineofficial@gmail.com and our Instagram is teamgrapevine.")
+        alert.backgroundColor = .systemBackground
+        alert.titleColor = .label
+        alert.messageColor = .label
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "Email") { (action) in
             let url = NSURL(string: "mailto:teamgrapevineofficial@gmail.com")

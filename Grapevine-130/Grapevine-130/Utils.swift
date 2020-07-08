@@ -37,11 +37,11 @@ func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
 
 func makePopup(alert: MDCAlertController, image: String) {
     alert.titleIcon = UIImage(systemName: image)
-    alert.titleIconTintColor = .black
+    alert.titleIconTintColor = .label
     alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
     alert.messageFont = UIFont.systemFont(ofSize: 17)
     alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-    alert.buttonTitleColor = Constants.Colors.extremelyDarkGrey
+    alert.buttonTitleColor = .label
     alert.cornerRadius = 10
 }
 
