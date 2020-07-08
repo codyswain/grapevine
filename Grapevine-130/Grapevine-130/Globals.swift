@@ -12,5 +12,8 @@ import UIKit
 struct Globals {
     struct ViewSettings {
         static var CurrentMode = UITraitCollection.init().userInterfaceStyle
+        static var showNotificationAlert = false
+        static var showLocationAlert = false
     }
+
 }
