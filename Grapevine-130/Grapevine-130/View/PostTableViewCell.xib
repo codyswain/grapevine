@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="210"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VNW-4m-14j">
-                                        <rect key="frame" x="388" y="9.5" width="28" height="27"/>
+                                        <rect key="frame" x="394" y="9.5" width="28" height="27"/>
                                         <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
@@ -62,7 +62,7 @@
                                 <rect key="frame" x="0.0" y="210" width="430" height="46"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mBG-cM-1KG">
-                                        <rect key="frame" x="158" y="3" width="35" height="34"/>
+                                        <rect key="frame" x="161" y="3" width="35" height="34"/>
                                         <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
@@ -74,7 +74,7 @@
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.up.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rZ7-VU-Udm">
-                                        <rect key="frame" x="231.5" y="3" width="35" height="34"/>
+                                        <rect key="frame" x="234.5" y="3" width="35" height="34"/>
                                         <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
@@ -337,13 +337,13 @@
         <image name="ability-burn-blocked" width="76" height="76.5"/>
         <image name="ability-push" width="314" height="314"/>
         <image name="ability-shout" width="314" height="314"/>
-        <image name="arrow.uturn.right.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowtriangle.down.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="arrowtriangle.up.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="bolt.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="flame.fill" catalog="system" width="54" height="64"/>
-        <image name="message.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="radiowaves.right" catalog="system" width="44" height="64"/>
-        <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="flame.fill" catalog="system" width="109" height="128"/>
+        <image name="message.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="radiowaves.right" catalog="system" width="90" height="128"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
     </resources>
 </document>
