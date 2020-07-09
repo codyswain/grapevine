@@ -92,7 +92,6 @@ class ViewController: UIViewController {
 
         // Get the location of the user and posts based on that (if they are not banned)
         getLocationAndPosts()
-                
         // Add scroll-to-top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
         nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)
@@ -105,6 +104,66 @@ class ViewController: UIViewController {
                 
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
+    }
+    
+    
+    //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
+    override func viewDidAppear(_ animated: Bool) {
+        if Globals.ViewSettings.showNotificationAlert {
+            let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
+            alert.backgroundColor = .systemBackground
+            alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)")
+                        Globals.ViewSettings.showNotificationAlert = false
+                    })
+                }
+            })
+            alert.titleColor = .label
+            alert.messageColor = .label
+            alert.buttonTitleColor = .label
+            super.present(alert, animated: true)
+        }
+        if !isLocationAccessEnabled() {
+            let alert = MDCAlertController(title: "Enable Location Services", message: "Grapevine needs your location to work. Since the only identifying information we store is the cryptographic hash of a temporary iPhone ID Apple gives us, we don’t have any way to tie you as a person to your location in a meaningful way even if we wanted to.")
+            alert.backgroundColor = .systemBackground
+            alert.addAction(MDCAlertAction(title: "Enable Location Services") { (action) in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)")
+                    })
+                }
+            })
+            alert.titleColor = .label
+            alert.messageColor = .label
+            alert.buttonTitleColor = .label
+            super.present(alert, animated: true)
+        }
+        getLocationAndPosts()
+    }
+    
+    func isLocationAccessEnabled() -> Bool {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+                case .notDetermined, .restricted, .denied:
+                    print("No Location Access")
+                    return false
+                case .authorizedAlways, .authorizedWhenInUse:
+                    print("Location Access")
+                    return true
+            @unknown default:
+                return false
+            }
+        }
+        else {
+            print("Location services not enabled")
+            return false
+        }
     }
     
     func getLocationAndPosts(){
