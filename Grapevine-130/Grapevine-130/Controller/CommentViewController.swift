@@ -422,7 +422,7 @@ extension CommentViewController: UITableViewDataSource {
             cell.voteButton.setTitleColor(UIColor.systemBackground, for: .normal)
             cell.voteButtonIcon.tintColor = UIColor.systemBackground
         } else {
-            cell.voteBackground.backgroundColor = .systemGray6
+            cell.voteBackground.backgroundColor = UIColor(named: "PostColors")
             cell.voteButton.setTitleColor(UIColor.label, for: .normal)
             cell.voteButtonIcon.tintColor = UIColor.label
         }

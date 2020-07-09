@@ -41,7 +41,7 @@ class CommentTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewVotes(self, 1, voteStatus)
         } else {
             voteStatus = 0
-            voteBackground.backgroundColor = UIColor(named: "Post Colors")
+            voteBackground.backgroundColor = UIColor(named: "PostColors")
             voteButtonIcon.tintColor = UIColor.label
             voteButton.setTitleColor(UIColor.label, for: .normal)
             commentsManager.performUpvoteRequest(interaction: 0, commentID: commentID)
