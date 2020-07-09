@@ -92,7 +92,7 @@
     <resources>
         <image name="hand.thumbsup.fill" catalog="system" width="128" height="124"/>
         <namedColor name="PostColors">
-            <color red="0.96999999999999997" green="0.95999999999999996" blue="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.97000002861022949" green="0.95999997854232788" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

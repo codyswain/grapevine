@@ -810,20 +810,14 @@
                                     <action selector="ContactButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="cMY-fQ-xwX"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qyy-GK-MdG">
-                                <rect key="frame" x="345" y="53" width="49" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="right" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qyy-GK-MdG">
+                                <rect key="frame" x="343" y="53" width="51" height="31"/>
                                 <color key="onTintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="thumbTintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <action selector="DarkModeSwitchPressed:" destination="Prc-Cd-d7O" eventType="valueChanged" id="ThT-Jd-J1K"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Light Mode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-fW-fdi">
-                                <rect key="frame" x="295" y="53" width="42" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7p-X5-ujl">
                                 <rect key="frame" x="198" y="100" width="163" height="163"/>
                                 <constraints>
@@ -839,21 +833,30 @@
                                     <action selector="PostsButtonPressed:" destination="Prc-Cd-d7O" eventType="touchUpInside" id="lld-sW-xWV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Light Mode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-fW-fdi">
+                                <rect key="frame" x="266.5" y="60.5" width="68.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="qyy-GK-MdG" firstAttribute="leading" secondItem="enJ-fW-fdi" secondAttribute="trailing" constant="8" id="3Wm-qb-lv3"/>
+                            <constraint firstItem="enJ-fW-fdi" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="16.5" id="2QX-Cv-UsT"/>
                             <constraint firstItem="S7p-X5-ujl" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="56" id="4pL-Fp-teg"/>
                             <constraint firstItem="kQu-ni-pqE" firstAttribute="top" secondItem="Nel-4h-eYU" secondAttribute="bottom" constant="15" id="B3g-63-W6N"/>
-                            <constraint firstItem="enJ-fW-fdi" firstAttribute="centerY" secondItem="qyy-GK-MdG" secondAttribute="centerY" id="BAo-Pr-JaN"/>
                             <constraint firstItem="g2W-zQ-zfJ" firstAttribute="leading" secondItem="kQu-ni-pqE" secondAttribute="trailing" constant="15" id="BWk-Mx-u5K"/>
                             <constraint firstItem="kQu-ni-pqE" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="IbN-hT-MA6"/>
+                            <constraint firstItem="qyy-GK-MdG" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="9" id="OVp-Ii-X7O"/>
+                            <constraint firstItem="gAf-wN-5CK" firstAttribute="trailing" secondItem="qyy-GK-MdG" secondAttribute="trailing" constant="22" id="OaZ-nC-Mta"/>
                             <constraint firstItem="ese-WB-RVF" firstAttribute="top" secondItem="gAf-wN-5CK" secondAttribute="top" constant="7" id="P9P-RG-GfK"/>
+                            <constraint firstItem="enJ-fW-fdi" firstAttribute="centerY" secondItem="qyy-GK-MdG" secondAttribute="centerY" id="SY0-pP-nbM"/>
                             <constraint firstItem="yQG-cf-ANq" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="SZo-KP-mfk"/>
                             <constraint firstItem="ese-WB-RVF" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="Xmx-bo-AfA"/>
                             <constraint firstItem="g2W-zQ-zfJ" firstAttribute="top" secondItem="S7p-X5-ujl" secondAttribute="bottom" constant="15" id="e4i-oJ-EhR"/>
+                            <constraint firstItem="gAf-wN-5CK" firstAttribute="trailing" secondItem="enJ-fW-fdi" secondAttribute="trailing" constant="79" id="eBo-Bd-5Yu"/>
                             <constraint firstItem="S7p-X5-ujl" firstAttribute="leading" secondItem="Nel-4h-eYU" secondAttribute="trailing" constant="15" id="li2-pX-ZAj"/>
-                            <constraint firstItem="gAf-wN-5CK" firstAttribute="trailing" secondItem="qyy-GK-MdG" secondAttribute="trailing" constant="22" id="qFo-c2-6AP"/>
+                            <constraint firstItem="qyy-GK-MdG" firstAttribute="leading" secondItem="enJ-fW-fdi" secondAttribute="trailing" constant="8" id="qp4-Ta-EKT"/>
                             <constraint firstItem="Nel-4h-eYU" firstAttribute="top" secondItem="ese-WB-RVF" secondAttribute="bottom" constant="15" id="s7r-2F-hOv"/>
                             <constraint firstItem="Nel-4h-eYU" firstAttribute="leading" secondItem="gAf-wN-5CK" secondAttribute="leading" constant="20" id="yX9-g0-2tU"/>
                             <constraint firstItem="yQG-cf-ANq" firstAttribute="top" secondItem="kQu-ni-pqE" secondAttribute="bottom" constant="15" id="zq6-Nq-thJ"/>
@@ -995,7 +998,7 @@
             <color red="0.68400001525878906" green="0.27500000596046448" blue="0.85399997234344482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PostColors">
-            <color red="0.96999999999999997" green="0.95999999999999996" blue="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.97000002861022949" green="0.95999997854232788" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
