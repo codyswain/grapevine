@@ -40,18 +40,23 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //set dark/light mode and state of toggle switch
-        if Globals.ViewSettings.CurrentMode == .dark {
-            super.overrideUserInterfaceStyle = .dark
-            Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
-            Globals.ViewSettings.LabelColor = .white
-            DarkModeSwitch.setOn(true, animated: false)
-            DarkModeLabel.text = "Dark Mode"
-        }
-        else if Globals.ViewSettings.CurrentMode == .light {
-            super.overrideUserInterfaceStyle = .light
-            Globals.ViewSettings.BackgroundColor = .white
-            Globals.ViewSettings.LabelColor = .black
+        
+        // Set the initial state of switch and text
+        let defaults = UserDefaults.standard
+        if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                DarkModeSwitch.setOn(true, animated: true)
+                DarkModeLabel.text = "Dark Mode"
+                Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
+                Globals.ViewSettings.LabelColor = .white
+                super.overrideUserInterfaceStyle = .dark
+            } else {
+                DarkModeSwitch.setOn(false, animated: true)
+                DarkModeLabel.text = "Light Mode"
+                Globals.ViewSettings.BackgroundColor = .white
+                Globals.ViewSettings.LabelColor = .black
+                super.overrideUserInterfaceStyle = .light
+            }
         }
         
         // Add menu navigation bar programatically
@@ -108,6 +113,8 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
             }
+            let defaults = UserDefaults.standard
+            defaults.set("dark", forKey: Globals.userDefaults.themeKey)
         }
         else{
             DarkModeLabel.text = "Light Mode"
@@ -118,6 +125,8 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
             }
+            let defaults = UserDefaults.standard
+            defaults.set("light", forKey: Globals.userDefaults.themeKey)
         }
     }
     

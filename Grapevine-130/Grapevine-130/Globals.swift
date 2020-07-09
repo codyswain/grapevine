@@ -18,5 +18,9 @@ struct Globals {
         static var LabelColor = UIColor.black
         static var showNotificationAlert = false
     }
+    
+    struct userDefaults {
+        static let themeKey = "someStringKey1"
+    }
 
 }
