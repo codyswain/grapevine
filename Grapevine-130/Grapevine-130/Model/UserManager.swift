@@ -21,6 +21,7 @@ struct UserManager {
     let getUserURL = Constants.serverURL + "users/?"
     let banUserURL = Constants.serverURL + "banChamber/banPoster/?"
     let shoutUserURL = Constants.serverURL + "shoutChamber/shoutPost/?"
+    let pushUserURL = Constants.serverURL + "users/push/?"
     let freeUserURL = Constants.serverURL + "users/freeUser/?"
     
     var delegate: UserManagerDelegate?
@@ -36,9 +37,7 @@ struct UserManager {
         return false
     }
     
-    /**
-    Fetches a user's information based on the operating device's unique device id.
-    */
+    /** Fetches a user's information based on the operating device's unique device id.  */
     func fetchUser() {
         let urlString = "\(getUserURL)&user=\(Constants.userID)"
         print ("UserID: ", Constants.userID)
@@ -56,6 +55,13 @@ struct UserManager {
         let shoutExpiration = Date().timeIntervalSince1970 + 24*60*60
         let urlString = "\(shoutUserURL)&poster=\(poster)&time=\(shoutExpiration)&postID=\(postID)&user=\(Constants.userID)"
         print ("Shouted post: ", postID)
+        performRequest(with: urlString, handleResponse: false)
+    }
+    
+    func pushPost(poster: String, postID: String, lat: Double, lon: Double) {
+        print("Pushed post of poster \(poster)")
+        let urlString = "\(pushUserURL)&postID=\(postID)&user=\(Constants.userID)&lat=\(lat)&lon=\(lon)&range=3"
+        print ("Pushed post: ", postID)
         performRequest(with: urlString, handleResponse: false)
     }
     
