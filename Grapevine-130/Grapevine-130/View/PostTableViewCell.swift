@@ -157,6 +157,9 @@ class PostTableViewCell: UITableViewCell {
     
     func disableInteraction() {
         DispatchQueue.main.async {
+            self.setUpvotedColors()
+            self.upvoteImageButton.isHidden = true
+            self.downvoteImageButton.isHidden = true
             self.upvoteImageButton.isUserInteractionEnabled = false
             self.downvoteImageButton.isUserInteractionEnabled = false
             self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
