@@ -16,5 +16,7 @@ struct Globals {
         static var CurrentMode = UIUserInterfaceStyle.light
         static var BackgroundColor = UIColor.systemGray5
         static var LabelColor = UIColor.black
+        static var showNotificationAlert = false
     }
+
 }

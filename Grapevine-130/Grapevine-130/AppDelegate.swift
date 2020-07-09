@@ -39,7 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           .requestAuthorization(options: [.alert, .sound, .badge]) {
             [weak self] granted, error in
             print("Permission granted: \(granted)")
-            guard granted else { return }
+            guard granted else {
+                Globals.ViewSettings.showNotificationAlert = true
+                return
+            }
             self?.getNotificationSettings()
         }
     }
