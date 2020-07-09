@@ -761,6 +761,40 @@ extension ViewController: PostTableViewCellDelegate {
             
             makePopup(alert: alert, image: "waveform")
             self.present(alert, animated: true)
+        case "push":
+            let pushCost: Int = 10 // TO-DO: make this global variable
+            var alertMessage: String = "My karma: \(self.user!.score) 💸\nPush cost: \(pushCost) 💸"
+            var confirmMessage: String = "Confirm "
+            if (self.user!.score >= pushCost){
+                confirmMessage += "✅"
+                alertMessage += "\n\nAre you sure you want to notify everyone in the surrounding area about this post?"
+            } else {
+                confirmMessage += "❌"
+                alertMessage += "\n\nInsufficient karma 🙁"
+            }
+            let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
+            let action1 = MDCAlertAction(title: "Cancel") { (action) in
+                print("You've pressed cancel");
+            }
+            alert.addAction(action1)
+            
+            // Check if user can shout
+            if (self.user!.score >= pushCost){
+                let action2 = MDCAlertAction(title: "Yes") { (action) in
+                    let indexPath = self.tableView.indexPath(for: cell)!
+                    let row = indexPath.row
+                    let creator = self.posts[row].poster
+                    let postToBePushed = self.posts[row].postId
+                    print("Post to be pushed ")
+                    print(postToBePushed)
+                    self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
+                }
+                alert.addAction(action2)
+            }
+            
+            makePopup(alert: alert, image: "waveform")
+            self.present(alert, animated: true)
+            
         default:
             print("Unknown ability: \(ability)...")
         }
