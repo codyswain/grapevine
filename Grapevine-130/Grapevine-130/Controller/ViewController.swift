@@ -182,7 +182,7 @@ class ViewController: UIViewController {
         if currentMode == "default" {
             // Check ban status
             userManager.delegate = self
-            //userManager.fetchUser()
+            userManager.fetchUser()
             
             // Get location
             locationManager.delegate = self
