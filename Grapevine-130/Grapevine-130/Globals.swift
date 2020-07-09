@@ -14,9 +14,13 @@ struct Globals {
         // Until we figure out a better solution, default mode is light mode
         // static var CurrentMode = UITraitCollection.init().userInterfaceStyle
         static var CurrentMode = UIUserInterfaceStyle.light
-        static var BackgroundColor = UIColor.systemGray5
+        static var BackgroundColor = UIColor.white
         static var LabelColor = UIColor.black
         static var showNotificationAlert = false
+    }
+    
+    struct userDefaults {
+        static let themeKey = "someStringKey1"
     }
 
 }

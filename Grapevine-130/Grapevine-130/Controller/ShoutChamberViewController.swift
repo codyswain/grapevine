@@ -41,14 +41,21 @@ class ShoutChamberViewController: UIViewController {
     /// Manges the shout out chamber screen.
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        //set dark/light mode
-        if Globals.ViewSettings.CurrentMode == .dark {
-            super.overrideUserInterfaceStyle = .dark
+        
+        // Set dark/light mode from persistent storage
+        let defaults = UserDefaults.standard
+        if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                super.overrideUserInterfaceStyle = .dark
+                Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
+                Globals.ViewSettings.LabelColor = .white
+            } else {
+                super.overrideUserInterfaceStyle = .light
+                Globals.ViewSettings.BackgroundColor = .white
+                Globals.ViewSettings.LabelColor = .black
+            }
         }
-        else if Globals.ViewSettings.CurrentMode == .light {
-            super.overrideUserInterfaceStyle = .light
-        }
+        
         
         // Show loading symbol
         activityIndicator()
