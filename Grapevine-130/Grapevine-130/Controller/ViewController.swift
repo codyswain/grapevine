@@ -106,12 +106,12 @@ class ViewController: UIViewController {
         changeAppearanceBasedOnMode()
     }
     
-    
+    //Display Enable Notification Message
     //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
     override func viewDidAppear(_ animated: Bool) {
         if Globals.ViewSettings.showNotificationAlert {
             let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
-            alert.backgroundColor = .systemBackground
+            alert.backgroundColor = Globals.ViewSettings.BackgroundColor
             alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
@@ -122,29 +122,35 @@ class ViewController: UIViewController {
                     })
                 }
             })
-            alert.titleColor = .label
-            alert.messageColor = .label
-            alert.buttonTitleColor = .label
+            alert.titleColor = Globals.ViewSettings.LabelColor
+            alert.messageColor = Globals.ViewSettings.LabelColor
+            alert.buttonTitleColor = Globals.ViewSettings.LabelColor
             super.present(alert, animated: true)
         }
         if !isLocationAccessEnabled() {
-            let alert = MDCAlertController(title: "Enable Location Services", message: "Grapevine needs your location to work. Since the only identifying information we store is the cryptographic hash of a temporary iPhone ID Apple gives us, we don’t have any way to tie you as a person to your location in a meaningful way even if we wanted to.")
-            alert.backgroundColor = .systemBackground
-            alert.addAction(MDCAlertAction(title: "Enable Location Services") { (action) in
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)")
-                    })
-                }
-            })
-            alert.titleColor = .label
-            alert.messageColor = .label
-            alert.buttonTitleColor = .label
-            super.present(alert, animated: true)
+            displayLocationAlert()
         }
         getLocationAndPosts()
+    }
+    
+    func displayLocationAlert() {
+        let alert = MDCAlertController(title: "Enable Location Services", message: "Grapevine needs your location to work. Since the only identifying information we store is the cryptographic hash of a temporary iPhone ID Apple gives us, we don’t have any way to tie you as a person to your location in a meaningful way even if we wanted to.")
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
+        alert.addAction(MDCAlertAction(title: "Enable Location Services") { (action) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
+        })
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
+        alert.buttonTitleColor = Globals.ViewSettings.LabelColor
+        super.present(alert, animated: true)
     }
     
     func isLocationAccessEnabled() -> Bool {
@@ -334,6 +340,9 @@ class ViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
+        if !isLocationAccessEnabled() {
+            displayLocationAlert()
+        }
         if currentMode == "default" {
             locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
         } else if currentMode == "myPosts" {
