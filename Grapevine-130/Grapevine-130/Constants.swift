@@ -22,7 +22,7 @@ struct Constants {
         static let darkGrey = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
         static let yellow = UIColor(red:0.96, green:0.82, blue:0.25, alpha:1.0)
         static let veryDarkGrey = UIColor(red:0.47, green:0.47, blue:0.47, alpha:1.0)
-        static let extremelyDarkGrey = UIColor(red:0.2, green:0.2, blue:0.2, alpha:1.0)
+        static let extremelyDarkGrey = UIColor(red:0.1, green:0.1, blue:0.1, alpha:1.0)
         static let mediumPink = UIColor(red:0.77, green:0.28, blue:0.79, alpha:1.0)
         static let darkPink = UIColor(red: 1.00, green: 0.32, blue: 0.51, alpha: 1.00)
     }
