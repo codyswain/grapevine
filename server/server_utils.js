@@ -248,4 +248,4 @@ function pushNotificationHelper2(req, token, body){
   }
 }
 
-module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken, sendPushNotificationToPoster}
+module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken, sendPushNotificationToPoster, pushNotificationHelper1}

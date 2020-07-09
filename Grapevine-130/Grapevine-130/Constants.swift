@@ -12,7 +12,7 @@ struct Constants {
     static let userID = SHA256(data:UIDevice.current.identifierForVendor!.uuidString)
     static let serverURL = "https://grapevineapp.herokuapp.com/"
     static let numStrikesToBeBanned = 3
-    static let banLengthInHours = 86400.0 // 48 hours in seconds
+    static let banLengthInHours = 86400.0 // 24 hours in seconds
     static let spamLength = 30.0 // 30 seconds
     struct Colors {
         static let lightPurple = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
@@ -49,10 +49,12 @@ extension UIDevice {
         case iPhones_6Plus_6sPlus_7Plus_8Plus = "iPhone 6 Plus, iPhone 6S Plus, iPhone 7 Plus or iPhone 8 Plus"
         case iPhoneX = "iPhone X"
         case iPhone11 = "iPhone 11"
+        case iPhone11ProMax = "iPhone 11 Pro Max"
         case unknown = "iPadOrUnknown"
     }
 
     var deviceType: DeviceType {
+        print("Height: \(UIScreen.main.nativeBounds.height)")
         switch UIScreen.main.nativeBounds.height {
             case 960:
                 return .iPhone4_4S
@@ -66,6 +68,8 @@ extension UIDevice {
                 return .iPhoneX
             case 1792:
                 return .iPhone11
+            case 2688:
+                return .iPhone11ProMax
             default:
                 return .unknown
             }

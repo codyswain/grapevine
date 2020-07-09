@@ -65,11 +65,8 @@ struct UserManager {
         performRequest(with: urlString, handleResponse: false)
     }
 
-    /**
-    Handles a request for a user's information. Modifies `UserManagerDelegate` based on the retrieved data.
-
-    - Parameter urlString: The server endpoint with parameters.
-    */
+    /** Handles a request for a user's information. Modifies `UserManagerDelegate` based on the retrieved data.
+     - Parameter urlString: The server endpoint with parameters. */
     func performRequest(with urlString: String, handleResponse: Bool) {
         print ("Sending request urlString: ", urlString)
         if let url = URL(string: urlString) {

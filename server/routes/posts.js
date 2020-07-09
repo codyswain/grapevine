@@ -32,11 +32,14 @@ async function getPosts(req, res, next) {
 		range = default_range;
 	} 
 	range = Number(range);
-
 	console.log("GetPosts request from lat: " + lat + " and lon: " + lon + " for posts within range:" + range + " from user: " + user)
 
-	// Get the db object, declared in app.js
+  // Get the db object, declared in app.js
   var db = req.app.get('db');
+
+  // Update the requesters location (geohash)
+  db.collection("users").doc(user).update({ location: utils.getGeohash(lat, lon) })
+
   var query; 
 	if (range != -1) { // -1 refers to global range
 		console.log("global")
