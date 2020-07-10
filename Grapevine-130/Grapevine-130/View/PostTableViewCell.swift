@@ -1,4 +1,5 @@
 import UIKit
+import MaterialComponents.MaterialCards
 
 protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
@@ -44,7 +45,6 @@ class PostTableViewCell: UITableViewCell {
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
-    var shoutable: Bool = false      // we don't use this yet
     var pushable: Bool = true       // we don't use this yet
     var deletable: Bool = false
     
@@ -287,7 +287,7 @@ class PostTableViewCell: UITableViewCell {
 
     /** Modify post colors to reflect a downvote. */
     func setDownvotedColors(){
-        var color = UIColor.systemGray2
+        var color = Constants.Colors.veryDarkGrey
         var baseColor: UIColor = .systemBackground
         if self.shoutActive {
             color = Constants.Colors.yellow
@@ -311,7 +311,10 @@ class PostTableViewCell: UITableViewCell {
         if self.shoutActive {
             buttonColor = .systemBackground
             footerColor = Constants.Colors.yellow
-            textColor = .label
+            if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+                if (curTheme == "dark") { textColor = .black }
+                else { textColor = .white }
+            }
         }
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
@@ -331,7 +334,7 @@ class PostTableViewCell: UITableViewCell {
         var color = Constants.Colors.darkPurple
         var baseColor: UIColor = .systemBackground
         var footerColor = Constants.Colors.darkPurple
-        if self.shoutable {
+        if self.shoutActive {
             color = Constants.Colors.yellow
             footerColor = Constants.Colors.yellow
             baseColor = .systemBackground

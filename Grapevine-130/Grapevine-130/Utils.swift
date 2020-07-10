@@ -41,8 +41,12 @@ func makePopup(alert: MDCAlertController, image: String) {
     alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
     alert.messageFont = UIFont.systemFont(ofSize: 17)
     alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-    alert.buttonTitleColor = Globals.ViewSettings.LabelColor
     alert.cornerRadius = 10
+    
+    alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+    alert.titleColor = Globals.ViewSettings.LabelColor
+    alert.messageColor = Globals.ViewSettings.LabelColor
+    alert.buttonTitleColor = Globals.ViewSettings.LabelColor
 }
 
 /*

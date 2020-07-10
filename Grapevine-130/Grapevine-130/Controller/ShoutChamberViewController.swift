@@ -223,9 +223,6 @@ extension ShoutChamberViewController: PostsManagerDelegate {
     
     func alertNoPosts(){
         let alert = MDCAlertController(title: "No posts available to shout.", message: "To show in the shout out chamber, posts must not be shouted out. No karma was lost.")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
@@ -266,12 +263,7 @@ extension ShoutChamberViewController: ShoutPostTableViewCellDelegate {
         print("inside banPoster")
         
         let alert = MDCAlertController(title: "Confirm", message: "Are you sure you want give a shout out to this post?")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
-        let action1 = MDCAlertAction(title: "Cancel") { (action) in
-            print("You've pressed cancel");
-        }
+        let action1 = MDCAlertAction(title: "Cancel") { (action) in }
         let action2 = MDCAlertAction(title: "Yes") { (action) in
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
