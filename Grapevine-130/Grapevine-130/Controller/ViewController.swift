@@ -493,9 +493,10 @@ class ViewController: UIViewController {
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted)
             } else {
                 confirmMessage = "Unable to burn..."
-                alertMessage = "\nNot enough karma 🙁"
+                alertMessage = "Not enough karma!"
                 let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
-                makePopup(alert: alert, image: "flame.fill")
+                alert.addAction(MDCAlertAction(title: "Ok"))
+                makePopup(alert: alert, image: "x.circle.fill")
                 self.present(alert, animated: true)
             }
         case "shout":
@@ -506,9 +507,10 @@ class ViewController: UIViewController {
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
             } else {
                 confirmMessage = "Unable to shout..."
-                alertMessage = "\nNot enough karma 🙁"
+                alertMessage = "Not enough karma!"
                 let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
-                makePopup(alert: alert, image: "waveform")
+                alert.addAction(MDCAlertAction(title: "Ok"))
+                makePopup(alert: alert, image: "x.circle.fill")
                 self.present(alert, animated: true)
             }
         case "push":
@@ -519,9 +521,10 @@ class ViewController: UIViewController {
                 self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
             } else {
                 confirmMessage = "Unable to push..."
-                alertMessage = "\nNot enough karma 🙁"
+                alertMessage = "Not enough karma!"
                 let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
-                makePopup(alert: alert, image: "bell.circle.fill")
+                alert.addAction(MDCAlertAction(title: "Ok"))
+                makePopup(alert: alert, image: "x.circle.fill")
                 self.present(alert, animated: true)
             }
             

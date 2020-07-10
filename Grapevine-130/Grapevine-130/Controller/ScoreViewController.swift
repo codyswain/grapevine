@@ -40,7 +40,7 @@ class ScoreViewController: UIViewController {
      - Parameter sender: Segue intiator
      */
     @IBAction func infoButton(_ sender: Any) {
-        let alert = MDCAlertController(title: "Karma & Strikes", message: "Karma is the sum of your comments' & posts' votes. Unlike other platforms, your karma can be spent on powers that make the platform more useful. \n\nTo prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 12 hours and have their strikes reset. \n\nThere are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.")
+        let alert = MDCAlertController(title: "Karma & Strikes", message: "Karma is the sum of your comments' & posts' votes. Unlike other platforms, your karma can be spent on abilities that make the platform more useful. \n\nTo prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 12 hours and have their strikes reset. \n\nThere are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.")
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "info.circle.fill")
         self.present(alert, animated: true)
@@ -235,27 +235,12 @@ extension ScoreViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // do something when item was selected
         let selectedCell = indexPath.row
-        if selectedCell == 0 {
-            if self.score >= 10 {
-                self.performSegue(withIdentifier: "scoreToBanChamber", sender: self)
-            } else {
-                self.alertMessageNotEnoughPoints(pointsNeeded: 10)
-            }
-        } else if selectedCell == 1 {
-            if self.score >= 10 {
-                self.performSegue(withIdentifier: "scoreToShoutChamber", sender: self)
-            } else {
-                self.alertMessageNotEnoughPoints(pointsNeeded: 10)
-            }
-        } else if selectedCell == 2 {
-            
-        }
+        self.alertUseInFeed()
     }
     
     /// Displays a popup that let's the user know that they do not have enough points to ban other users.
-    func alertMessageNotEnoughPoints(pointsNeeded: Int){
-        let alert = MDCAlertController(title: "Not enough points!", message: "You need \(pointsNeeded - score) more point(s).")
-
+    func alertUseInFeed(){
+        let alert = MDCAlertController(title: "To use, go to main feed.", message: "Use these abilities on a specific post.")
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
