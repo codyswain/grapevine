@@ -5,6 +5,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
+    func showAbilitiesView(_ cell: UITableViewCell)
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
@@ -31,6 +32,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var shoutButtonVar: UIButton!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var shareButtonVar: UIButton!
     
     // Abilities
     var abilitiesToggleIsActive: Bool = false
@@ -277,7 +279,15 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
+        self.delegate?.showAbilitiesView(self)
+    }
+    
+    @IBAction func shareButtonPressed(_ sender: Any) {
+        if postType == "text" {
+            self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
+        } else {
+            self.delegate?.showSharePopup(self, "image", createTableCellImage() ?? nil!)
+        }
     }
     
     /// Segue to view comment screen
@@ -287,20 +297,21 @@ class PostTableViewCell: UITableViewCell {
 
     /** Modify post colors to reflect a downvote. */
     func setDownvotedColors(){
-        var color = Constants.Colors.veryDarkGrey
-        var baseColor: UIColor = .systemBackground
+        var footerColor = Constants.Colors.veryDarkGrey
+        var buttonColor: UIColor = .systemBackground
         if self.shoutActive {
-            color = Constants.Colors.yellow
-            baseColor = .systemBackground
+            footerColor = Constants.Colors.yellow
+            buttonColor = .systemBackground
         }
-        commentButton.tintColor = baseColor
+        commentButton.tintColor = buttonColor
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
-        abilitiesButton.tintColor = baseColor
-        footer.backgroundColor = color
-        downvoteImageButton.tintColor = baseColor
-        voteCountLabel.textColor = baseColor
-        commentButton.setTitleColor(color, for: .normal)
+        abilitiesButton.tintColor = buttonColor
+        footer.backgroundColor = footerColor
+        downvoteImageButton.tintColor = buttonColor
+        voteCountLabel.textColor = buttonColor
+        shareButtonVar.tintColor = buttonColor
+        commentButton.setTitleColor(footerColor, for: .normal)
     }
     
     /** Modify post colors to reflect no vote.  */
@@ -325,29 +336,30 @@ class PostTableViewCell: UITableViewCell {
         upvoteImageButton.tintColor = buttonColor
         downvoteImageButton.tintColor = buttonColor
         abilitiesButton.tintColor = buttonColor
+        shareButtonVar.tintColor = buttonColor
         voteCountLabel.textColor = textColor
         commentButton.setTitleColor(footerColor, for: .normal)
     }
     
     /** Modify post colors to reflect an upvote. */
     func setUpvotedColors(){
-        var color = Constants.Colors.darkPurple
-        var baseColor: UIColor = .systemBackground
+        var buttonColor: UIColor = .systemBackground
         var footerColor = Constants.Colors.darkPurple
         if self.shoutActive {
-            color = Constants.Colors.yellow
             footerColor = Constants.Colors.yellow
-            baseColor = .systemBackground
+            footerColor = Constants.Colors.yellow
+            buttonColor = .systemBackground
         }
-        commentButton.tintColor = baseColor
+        commentButton.tintColor = buttonColor
         downvoteImageButton.isHidden = true
         upvoteImageButton.isHidden = false
         abilitiesButton.isHidden = false
-        abilitiesButton.tintColor = baseColor
+        abilitiesButton.tintColor = buttonColor
         footer.backgroundColor = footerColor
-        upvoteImageButton.tintColor = baseColor
-        voteCountLabel.textColor = baseColor
-        commentButton.setTitleColor(color, for: .normal)
+        upvoteImageButton.tintColor = buttonColor
+        voteCountLabel.textColor = buttonColor
+        shareButtonVar.tintColor = buttonColor
+        commentButton.setTitleColor(footerColor, for: .normal)
     }
     
     /** Modify flag colors on a post. */
@@ -495,9 +507,9 @@ class PostTableViewCell: UITableViewCell {
     @objc func shareAbilitySelected(tapGestureRecognizer: UITapGestureRecognizer){
         toggleAbilities()
         if postType == "text" {
-            self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
+            self.delegate?.showAbilitiesView(self)
         } else {
-            self.delegate?.showSharePopup(self, "image", createTableCellImage() ?? nil!)
+            self.delegate?.showAbilitiesView(self)
         }
     }
 }

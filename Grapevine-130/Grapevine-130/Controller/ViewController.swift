@@ -533,6 +533,37 @@ class ViewController: UIViewController {
         
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
+        let heightInPoints = content.size.height
+        let heightInPixels = heightInPoints * content.scale
+        let alert = MDCAlertController(title: "Stories", message: "Share this post!")
+        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+        alert.titleColor = Globals.ViewSettings.LabelColor
+        alert.messageColor = Globals.ViewSettings.LabelColor
+        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToInstagram(backgroundImage, content)
+        })
+        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToSnap(backgroundImage, content)
+        })
+
+        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
+        self.present(alert, animated: true)
+    }
+
+    func showAbilitiesView(_ cell: UITableViewCell){
         // Give haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
@@ -560,35 +591,6 @@ class ViewController: UIViewController {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         selectedPost = posts[row]
-        
-//        let heightInPoints = content.size.height
-//        let heightInPixels = heightInPoints * content.scale
-//        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
-//        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-//        alert.titleColor = Globals.ViewSettings.LabelColor
-//        alert.messageColor = Globals.ViewSettings.LabelColor
-//        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
-//        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
-//            var backgroundImage: UIImage
-//            if self.range == -1 {
-//                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
-//            } else {
-//                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
-//            }
-//            self.storyManager.shareToInstagram(backgroundImage, content)
-//        })
-//        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
-//            var backgroundImage: UIImage
-//            if self.range == -1 {
-//                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
-//            } else {
-//                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
-//            }
-//            self.storyManager.shareToSnap(backgroundImage, content)
-//        })
-//        
-//        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
-//        self.present(alert, animated: true)
     }
     
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
@@ -932,11 +934,7 @@ extension ViewController: CLLocationManagerDelegate {
 }
 
 /// Update post data.
-extension ViewController: PostTableViewCellDelegate {    
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: Any) {
-        
-    }
-    
+extension ViewController: PostTableViewCellDelegate {
     /// Fires when user selects an ability
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String){
         switch ability {

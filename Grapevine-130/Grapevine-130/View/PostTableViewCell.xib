@@ -93,7 +93,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-6Z-Rk4">
                                         <rect key="frame" x="389" y="2" width="33" height="36"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.circle.fill" catalog="system" id="dbW-Fm-2AJ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="asterisk.circle.fill" catalog="system" id="dbW-Fm-2AJ">
                                                 <rect key="frame" x="-3" y="3" width="35" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -150,6 +150,18 @@
                                             <action selector="shoutButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NAR-JW-kIf"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoB-yd-gVe">
+                                        <rect key="frame" x="353" y="5" width="33" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="33" id="9kz-QK-owY"/>
+                                            <constraint firstAttribute="height" constant="33" id="gbl-wj-quQ"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" backgroundImage="arrow.uturn.right.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="shareButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jXZ-1j-7TH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -158,9 +170,11 @@
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="SVI-LJ-p87"/>
                                     <constraint firstItem="zD4-WC-9rb" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="U5R-Ft-klD"/>
                                     <constraint firstAttribute="trailing" secondItem="MfE-6Z-Rk4" secondAttribute="trailing" constant="8" id="Ui8-zx-V22"/>
+                                    <constraint firstItem="MoB-yd-gVe" firstAttribute="top" secondItem="L55-3s-fTy" secondAttribute="top" constant="4.5" id="e1m-DI-LbQ"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="leading" secondItem="oT7-xD-mBw" secondAttribute="trailing" constant="12" id="fux-qZ-eXx"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="jhw-Z1-hPT"/>
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.5" id="ksl-U5-yuJ"/>
+                                    <constraint firstItem="MfE-6Z-Rk4" firstAttribute="leading" secondItem="MoB-yd-gVe" secondAttribute="trailing" constant="3" id="pIU-A2-YC9"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.25" id="tnh-bZ-foq"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="vAa-qb-uA6"/>
                                     <constraint firstItem="MfE-6Z-Rk4" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="xyo-UY-0Z6"/>
@@ -323,6 +337,7 @@
                 <outlet property="imageVar" destination="RXq-AR-44P" id="kFF-zA-o0V"/>
                 <outlet property="label" destination="k6Z-o2-oI6" id="iy5-dk-p94"/>
                 <outlet property="pushButtonView" destination="drf-UI-5vM" id="yUT-bg-g7j"/>
+                <outlet property="shareButtonVar" destination="MoB-yd-gVe" id="LUW-2t-HIi"/>
                 <outlet property="shareButtonView" destination="8Y8-tj-Z2A" id="V9S-oc-SGs"/>
                 <outlet property="shoutButtonVar" destination="zD4-WC-9rb" id="mvr-EY-TnY"/>
                 <outlet property="shoutButtonView" destination="q2D-UF-8X9" id="jbh-IV-6M9"/>
@@ -340,7 +355,7 @@
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="bolt.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="asterisk.circle.fill" catalog="system" width="128" height="121"/>
         <image name="flame.fill" catalog="system" width="109" height="128"/>
         <image name="message.circle.fill" catalog="system" width="128" height="121"/>
         <image name="radiowaves.right" catalog="system" width="90" height="128"/>
