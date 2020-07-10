@@ -115,7 +115,8 @@ async function push(req, res, next) {
         
       }
     });
-
+    // Subtract 50 from karma
+    db.collection("users").doc(user).update({ score: FieldValue.increment(-50)});
     res.status(200).send()
   })
   .catch((err) => { 
