@@ -4,7 +4,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
-    func showSharePopup(_ postType: String, _ content: UIImage)
+    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
 }
@@ -277,7 +277,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        self.delegate?.showSharePopup("text", createTableCellImage() ?? nil!)
+        self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
     }
     
     /// Segue to view comment screen
@@ -492,9 +492,9 @@ class PostTableViewCell: UITableViewCell {
     @objc func shareAbilitySelected(tapGestureRecognizer: UITapGestureRecognizer){
         toggleAbilities()
         if postType == "text" {
-            self.delegate?.showSharePopup("text", createTableCellImage() ?? nil!)
+            self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
         } else {
-            self.delegate?.showSharePopup("image", createTableCellImage() ?? nil!)
+            self.delegate?.showSharePopup(self, "image", createTableCellImage() ?? nil!)
         }
     }
 }
