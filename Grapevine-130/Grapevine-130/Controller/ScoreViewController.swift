@@ -41,11 +41,7 @@ class ScoreViewController: UIViewController {
      */
     @IBAction func infoButton(_ sender: Any) {
         let alert = MDCAlertController(title: "Karma & Strikes", message: "Karma is the sum of your comments' & posts' votes. Unlike other platforms, your karma can be spent on powers that make the platform more useful. \n\nTo prevent bullying, Grapevine institues a strike system. Each user starts off with 0 strikes. If a user reaches 3 strikes, they will be banned for 24 hours and have their strikes reset. \n\nThere are three ways to get strikes. (1) If a post is deemed bullying by our systems/staff, the creator will automatically get 3 strikes and be banned. (2) If a post is heavily downvoted and a different user uses their karma, the offender again gets 3 strikes and is banned. (3) If one upvotes a post that falls under one of the above, they will get a strike.")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
         alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
-        alert.buttonTitleColor = Globals.ViewSettings.LabelColor
         makePopup(alert: alert, image: "info.circle.fill")
         self.present(alert, animated: true)
     }
@@ -152,9 +148,6 @@ class ScoreViewController: UIViewController {
     func alertMessageNotEnoughPoints(){
         let alert = MDCAlertController(title: "Not enough points!", message: "You need \(10 - score) more point(s) to unlock banning powers. Tap the information button at the bottom of the screen for more.")
         
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
@@ -264,16 +257,7 @@ extension ScoreViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         let alert = MDCAlertController(title: "Not enough points!", message: "You need \(pointsNeeded - score) more point(s).")
 
         alert.addAction(MDCAlertAction(title: "Ok"))
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
-        alert.titleIcon = UIImage(systemName: "x.circle.fill")
-        alert.titleIconTintColor = .label
-        alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
-        alert.messageFont = UIFont.systemFont(ofSize: 17)
-        alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
-        alert.buttonTitleColor = UIColor.label
-        alert.cornerRadius = 10
+        makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
     }
 

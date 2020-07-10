@@ -46,13 +46,13 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 DarkModeSwitch.setOn(true, animated: true)
-                DarkModeLabel.text = "Dark Mode"
+                DarkModeLabel.text = "⚫"
                 Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
                 Globals.ViewSettings.LabelColor = .white
                 super.overrideUserInterfaceStyle = .dark
             } else {
                 DarkModeSwitch.setOn(false, animated: true)
-                DarkModeLabel.text = "Light Mode"
+                DarkModeLabel.text = "⚫"
                 Globals.ViewSettings.BackgroundColor = .white
                 Globals.ViewSettings.LabelColor = .black
                 super.overrideUserInterfaceStyle = .light
@@ -105,7 +105,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBAction func DarkModeSwitchPressed(_ sender: Any) {
         //Changes UI to dark or light mode
         if DarkModeSwitch.isOn{
-            DarkModeLabel.text = "Dark Mode"
+            DarkModeLabel.text = "⚫"
             super.overrideUserInterfaceStyle = .dark
             Globals.ViewSettings.CurrentMode = .dark
             Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
@@ -117,7 +117,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             defaults.set("dark", forKey: Globals.userDefaults.themeKey)
         }
         else{
-            DarkModeLabel.text = "Light Mode"
+            DarkModeLabel.text = "⚫"
             super.overrideUserInterfaceStyle = .light
             Globals.ViewSettings.CurrentMode = .light
             Globals.ViewSettings.BackgroundColor = .white
@@ -147,9 +147,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBAction func RulesButtonPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Rules", message: "1. Posting bullying, threats, terrorism, harrassment, or stalking will not be allowed and may force law enforcement to be involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason. \n\n4. You must be at least 18 years old.")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "map.fill")
         self.present(alert, animated: true)
@@ -157,9 +154,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBAction func ContactButtonPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Contact", message: "Our email is teamgrapevineofficial@gmail.com and our Instagram is teamgrapevine.")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "Email") { (action) in
             let url = NSURL(string: "mailto:teamgrapevineofficial@gmail.com")

@@ -263,9 +263,6 @@ class NewPostViewController: UIViewController {
     
     func spamPopup(){
         let alert = MDCAlertController(title: "Too Much Posting", message: "To prevent potential spamming, we can't let you post that much. Try again later")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
         let action1 = MDCAlertAction(title: "Ok") { (action) in }
         alert.addAction(action1)
         makePopup(alert: alert, image: "x.circle.fill")

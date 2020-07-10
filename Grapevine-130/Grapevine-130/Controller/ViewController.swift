@@ -154,7 +154,6 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if Globals.ViewSettings.showNotificationAlert {
             let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
-            alert.backgroundColor = Globals.ViewSettings.BackgroundColor
             alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
                 guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
@@ -165,9 +164,7 @@ class ViewController: UIViewController {
                     })
                 }
             })
-            alert.titleColor = Globals.ViewSettings.LabelColor
-            alert.messageColor = Globals.ViewSettings.LabelColor
-            alert.buttonTitleColor = Globals.ViewSettings.LabelColor
+            makePopup(alert: alert, image: "bell.circle.fill")
             super.present(alert, animated: true)
         }
         if !isLocationAccessEnabled() {
@@ -177,10 +174,7 @@ class ViewController: UIViewController {
     }
     
     func displayLocationAlert() {
-        let alert = MDCAlertController(title: "Enable Location Services", message: "Grapevine needs your location to work. Since the only identifying information we store is the cryptographic hash of a temporary iPhone ID Apple gives us, we don’t have any way to tie you as a person to your location in a meaningful way even if we wanted to.")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
+        let alert = MDCAlertController(title: "Enable Location Services", message: "Grapevine needs your location to work. The only personal identifying we store is the cryptographic hash of a temporary iPhone ID Apple gives us.")
         alert.addAction(MDCAlertAction(title: "Enable Location Services") { (action) in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
@@ -190,9 +184,8 @@ class ViewController: UIViewController {
                 })
             }
         })
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
-        alert.buttonTitleColor = Globals.ViewSettings.LabelColor
+        alert.addAction(MDCAlertAction(title: "Done") { (action) in })
+        makePopup(alert: alert, image: "location.circle.fill")
         super.present(alert, animated: true)
     }
     
@@ -316,10 +309,6 @@ class ViewController: UIViewController {
     {
         /// Displays the possible ranges users can request posts from
         let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
-        
         let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
             self.rangeAction(range: 0.1, title: " 0.1 Miles")
         }
@@ -446,7 +435,7 @@ class ViewController: UIViewController {
         currentAbilityDescription.text = "Delete this post and ban the creator for 24 hours. Only for posts with <= -3 votes. \n\nCost: 10 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
         applyAbilityButton.image = UIImage(named: "burn-button")
         currentAbility = "burn"
-        
+
         if (selectedPost!.votes < -3 && selectedPost!.poster != self.user!.user){
         } else {
             applyAbilityButton.alpha = 0.4
@@ -665,9 +654,6 @@ class ViewController: UIViewController {
     // Popup when user flags post
     func showFlaggedAlertPopup(){
         let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
         alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
         makePopup(alert: alert, image: "flag")
         self.present(alert, animated: true)
@@ -873,7 +859,7 @@ extension ViewController: PostsManagerDelegate {
                 let noPostsLabel = UILabel()
                 noPostsLabel.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.tableView.bounds.width, height: CGFloat(44))
                 noPostsLabel.textAlignment = .center
-                noPostsLabel.text = "Bad Internet or no posts here."
+                noPostsLabel.text = "Nothing to show or bad Internet 🙁"
                 self.tableView.tableHeaderView = noPostsLabel
                 self.tableView.tableHeaderView?.isHidden = false
             } else {
@@ -915,10 +901,7 @@ extension ViewController: PostsManagerDelegate {
     }
     
     func alertNoPosts(){
-        let alert = MDCAlertController(title: "No posts.", message: "Either bad Internet or no posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
+        let alert = MDCAlertController(title: "No posts.", message: "No posts in the current range. \n\nIf you believe this is an error, please contact teamgrapevine on Instagram or email teamgrapevineofficial@gmail.com")
         alert.addAction(MDCAlertAction(title: "Ok"))
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
@@ -1087,12 +1070,20 @@ extension ViewController: PostTableViewCellDelegate {
      - Parameters:
         - cell: Post to be deleted. */
     func deleteCell(_ cell: UITableViewCell) {
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let row = indexPath.row
-        let docIDtoDelete = posts[row].postId
-        postsManager.deletePost(postID: docIDtoDelete)
-        posts.remove(at: row)
-        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        let alert = MDCAlertController(title: "Are you sure?", message: "Deleting a post is permanent. The post's score will still count towards your karma.")
+
+        alert.addAction(MDCAlertAction(title: "Cancel"))
+        alert.addAction(MDCAlertAction(title: "I'm Sure, Delete"){ (action) in
+            let indexPath = self.tableView.indexPath(for: cell)!
+            let row = indexPath.row
+            let docIDtoDelete = self.posts[row].postId
+            self.postsManager.deletePost(postID: docIDtoDelete)
+            self.posts.remove(at: row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        })
+
+        makePopup(alert: alert, image: "x.circle.fill")
+        self.present(alert, animated: true)
     }
     
     
