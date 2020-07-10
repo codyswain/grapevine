@@ -28,7 +28,7 @@ struct UserManager {
     
     func isBanned(strikes:Int, banTime: Double) -> Bool {
         let timeDiff = Date().timeIntervalSince1970 - banTime
-        if strikes >= Constants.numStrikesToBeBanned && timeDiff < Constants.banLengthInHours {
+        if strikes >= Constants.numStrikesToBeBanned && timeDiff < Constants.banLengthInSeconds {
             // reset strikes
             return true
         } else if strikes >= Constants.numStrikesToBeBanned {
@@ -51,8 +51,8 @@ struct UserManager {
     }
     
     func shoutPost(poster: String, postID: String) {
-        // Shout outs expire in 24 hours
-        let shoutExpiration = Date().timeIntervalSince1970 + 24*60*60
+        // Shout outs expire in 3 hours
+        let shoutExpiration = Date().timeIntervalSince1970 + 6*60*60
         let urlString = "\(shoutUserURL)&poster=\(poster)&time=\(shoutExpiration)&postID=\(postID)&user=\(Constants.userID)"
         print ("Shouted post: ", postID)
         performRequest(with: urlString, handleResponse: false)

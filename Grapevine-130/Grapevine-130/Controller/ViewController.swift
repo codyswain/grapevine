@@ -108,7 +108,7 @@ class ViewController: UIViewController {
         }
         
         // Set opacity of the background for abilities
-        abilitiesBackgroundView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.95)
+        abilitiesBackgroundView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.98)
         
         // Show loading symbol
         activityIndicator()
@@ -417,12 +417,11 @@ class ViewController: UIViewController {
         pushButton.alpha = 1.0
         burnButton.alpha = 0.4
         shoutButton.alpha = 0.4
-        burnAbilityIndicator.alpha = 0.4
         currentAbilityTitle.text = "Push"
         applyAbilityButton.alpha = 1.0
-        burnAbilityIndicator.isHidden = true
         applyAbilityButton.isUserInteractionEnabled = true
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. \n\nCost: 50 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user!.score)."
+        applyAbilityButton.isHidden = false
         applyAbilityButton.image = UIImage(named: "push-button")
         currentAbility = "push"
     }
@@ -430,34 +429,42 @@ class ViewController: UIViewController {
         burnButton.alpha = 1.0
         pushButton.alpha = 0.4
         shoutButton.alpha = 0.4
-        burnAbilityIndicator.alpha = 1.0
-        currentAbilityTitle.text = "Ban"
-        currentAbilityDescription.text = "Delete this post and ban the creator for 24 hours. Only for posts with <= -3 votes. \n\nCost: 10 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        currentAbilityTitle.text = "Burn"
         applyAbilityButton.image = UIImage(named: "burn-button")
         currentAbility = "burn"
-
         if (selectedPost!.votes < -3 && selectedPost!.poster != self.user!.user){
+            currentAbilityDescription.text = "Delete this post and ban the creator for 12 hours. Only for posts with <= -3 votes. Costs 10 karma; you have \(self.user!.score)."
+            applyAbilityButton.isHidden = false
+            burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
         } else {
-            applyAbilityButton.alpha = 0.4
-            applyAbilityButton.isUserInteractionEnabled = false
-            burnAbilityIndicator.isHidden = false
+            currentAbilityDescription.text = "This post needs to have <= -3 votes to be burnt. Burning deletes the post and bans the creator for 12 hours."
+            applyAbilityButton.isHidden = true
+            burnButton.image = #imageLiteral(resourceName: "burn-disabled-square-icon")
         }
     }
     @objc func shoutButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
         shoutButton.alpha = 1.0
         burnButton.alpha = 0.4
         pushButton.alpha = 0.4
-        burnAbilityIndicator.alpha = 0.4
         applyAbilityButton.alpha = 1.0
-        burnAbilityIndicator.isHidden = true
+        applyAbilityButton.isHidden = false
         applyAbilityButton.isUserInteractionEnabled = true
         currentAbilityTitle.text = "Shout"
-        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling. \n\nCost: 10 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user!.score)."
         applyAbilityButton.image = UIImage(named: "shout-button")
         currentAbility = "shout"
     }
     
     func exitAbilities(){
+        // give haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
+        // reset selected buttons
+        burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
+        applyAbilityButton.image = UIImage(named: "push-button")
+        applyAbilityButton.alpha = 1.0
+        
         abilitiesBackgroundView.isHidden = true
         abilitiesBackgroundView.isUserInteractionEnabled = false
         
@@ -485,8 +492,8 @@ class ViewController: UIViewController {
                 let postToBeDeleted = self.selectedPost!.postId
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted)
             } else {
-                confirmMessage = "Burn failed ❌"
-                alertMessage = "\nInsufficient karma 🙁"
+                confirmMessage = "Unable to burn..."
+                alertMessage = "\nNot enough karma 🙁"
                 let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
                 makePopup(alert: alert, image: "flame.fill")
                 self.present(alert, animated: true)
@@ -498,8 +505,8 @@ class ViewController: UIViewController {
                 let postToBeShoutOut = self.selectedPost!.postId
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
             } else {
-                confirmMessage = "Shout failed ❌"
-                alertMessage = "\nInsufficient karma 🙁"
+                confirmMessage = "Unable to shout..."
+                alertMessage = "\nNot enough karma 🙁"
                 let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
                 makePopup(alert: alert, image: "waveform")
                 self.present(alert, animated: true)
@@ -511,10 +518,10 @@ class ViewController: UIViewController {
                 let postToBePushed = self.selectedPost!.postId
                 self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
             } else {
-                confirmMessage = "Push failed ❌"
-                alertMessage = "\nInsufficient karma 🙁"
+                confirmMessage = "Unable to push..."
+                alertMessage = "\nNot enough karma 🙁"
                 let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
-                makePopup(alert: alert, image: "waveform")
+                makePopup(alert: alert, image: "bell.circle.fill")
                 self.present(alert, animated: true)
             }
             
@@ -526,7 +533,10 @@ class ViewController: UIViewController {
         
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
-        // Remove t
+        // Give haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
         burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
@@ -543,18 +553,14 @@ class ViewController: UIViewController {
         pushButton.alpha = 1.0
         burnButton.alpha = 0.4
         shoutButton.alpha = 0.4
-        burnAbilityIndicator.alpha = 0.4
         currentAbilityTitle.text = "Push"
         currentAbility = "push"
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. \n\nCost: 50 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user!.score) karma."
         
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         selectedPost = posts[row]
-        burnAbilityIndicator.isHidden = true
         
-        
-
 //        let heightInPoints = content.size.height
 //        let heightInPixels = heightInPoints * content.scale
 //        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
@@ -773,8 +779,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if expiry > Date().timeIntervalSince1970 {
                 print("Showing shouted post!")
                 cell.shoutActive = true
-                cell.commentAreaButton.backgroundColor = Constants.Colors.yellow
-                cell.label.textColor = .systemBackground
             } else {
                 cell.shoutActive = false
             }
