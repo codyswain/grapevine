@@ -277,7 +277,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        toggleAbilities()
+        self.delegate?.showSharePopup("text", createTableCellImage() ?? nil!)
     }
     
     /// Segue to view comment screen

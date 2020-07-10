@@ -27,6 +27,25 @@
                                 <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
+                            <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XbE-eE-8Ro" userLabel="Abilities View">
+                                <rect key="frame" x="0.0" y="116" width="414" height="780"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-70" translatesAutoresizingMaskIntoConstraints="NO" id="030-S8-zGF" userLabel="Abilities Stack View">
+                                <rect key="frame" x="12" y="253" width="390" height="390"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapevine Store 1" translatesAutoresizingMaskIntoConstraints="NO" id="lg2-ib-3cj">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="177"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapevine Store 2" translatesAutoresizingMaskIntoConstraints="NO" id="7fG-nk-nLF">
+                                        <rect key="frame" x="0.0" y="107" width="390" height="176"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapevine Store 3" translatesAutoresizingMaskIntoConstraints="NO" id="6YM-MI-IXG">
+                                        <rect key="frame" x="0.0" y="213" width="390" height="177"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-Vl-gZj">
                                 <rect key="frame" x="20" y="88" width="374" height="20"/>
                                 <subviews>
@@ -107,13 +126,17 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="030-S8-zGF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="5TF-8C-Gsy"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AKw-6J-Ol6"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="3.5" id="ApH-ui-kWg"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="mqc-Vl-gZj" secondAttribute="bottom" constant="8" id="Atc-D3-EwL"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="H4I-PK-gZR"/>
+                            <constraint firstItem="030-S8-zGF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N73-fs-b4X"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="72" id="Nl4-Mj-zrt"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="PmI-EH-W4p"/>
                             <constraint firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="Sc6-LX-fUD"/>
+                            <constraint firstItem="030-S8-zGF" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="T5r-lk-jcn"/>
+                            <constraint firstAttribute="trailing" secondItem="030-S8-zGF" secondAttribute="trailing" constant="12" id="T8v-TE-FhY"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="hAr-TB-Hy5"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xBL-NT-KQy"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZ5-dy-vHo"/>
@@ -123,10 +146,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="rQz-x8-cJq"/>
                     <connections>
+                        <outlet property="abilitiesBackgroundView" destination="XbE-eE-8Ro" id="q7g-W3-bNn"/>
+                        <outlet property="abilitiesStackView" destination="030-S8-zGF" id="XpP-Tm-2N7"/>
+                        <outlet property="burnButton" destination="7fG-nk-nLF" id="47E-R1-Bi3"/>
                         <outlet property="filterButton" destination="jhO-Gx-aTh" id="X38-kj-7KK"/>
                         <outlet property="nearbyLabel" destination="Rbx-yL-B51" id="ZWZ-kO-IZB"/>
                         <outlet property="postTypeButton" destination="EsB-jR-aSc" id="NPJ-gy-tEJ"/>
+                        <outlet property="pushButton" destination="lg2-ib-3cj" id="C9d-E3-ZQ8"/>
                         <outlet property="rangeButton" destination="QMB-UL-9TV" id="ZU9-E3-0v2"/>
+                        <outlet property="shoutButton" destination="6YM-MI-IXG" id="BC4-Gw-aEY"/>
                         <outlet property="tableView" destination="aGv-vy-wu6" id="ZPL-Wv-6J8"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="goToNewPosts" modalPresentationStyle="fullScreen" id="NSO-o6-THf"/>
                         <segue destination="JfH-1x-7cI" kind="presentation" identifier="banScreen" modalPresentationStyle="fullScreen" id="hTd-kG-DaY"/>
@@ -326,7 +354,7 @@
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOI-at-lYd">
-                                <rect key="frame" x="139.5" y="712.5" width="135" height="20.5"/>
+                                <rect key="frame" x="139.5" y="761.5" width="135" height="20.5"/>
                                 <accessibility key="accessibilityConfiguration" identifier="scoreStrikes"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="CL0-02-aqm"/>
@@ -900,22 +928,22 @@
             <objects>
                 <viewController storyboardIdentifier="ShoutChamberViewController" title="Shout Chamber" wantsFullScreenLayout="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VgU-GR-isU" customClass="ShoutChamberViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0mj-jZ-FB3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mGe-8t-YF7">
-                                <rect key="frame" x="0.0" y="138" width="414" height="709"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="748"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give a Shout Out!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHG-Vi-WR2">
-                                <rect key="frame" x="20" y="71" width="227.5" height="33.5"/>
+                                <rect key="frame" x="20" y="27" width="227.5" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nq5-aw-NPv" userLabel="Info Line Stack">
-                                <rect key="frame" x="20" y="113" width="327" height="17"/>
+                                <rect key="frame" x="20" y="69" width="327" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hNQ-DG-u5O">
                                         <rect key="frame" x="0.0" y="0.5" width="17" height="16"/>
@@ -971,12 +999,15 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
-        <segue reference="gfc-Rj-FGV"/>
-        <segue reference="UNp-xP-gzv"/>
-        <segue reference="ZgP-gY-piW"/>
+        <segue reference="nj9-4R-WLt"/>
+        <segue reference="NSO-o6-THf"/>
+        <segue reference="YJd-nw-Ils"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>
+        <image name="Grapevine Store 1" width="761" height="177"/>
+        <image name="Grapevine Store 2" width="761" height="176"/>
+        <image name="Grapevine Store 3" width="761" height="177"/>
         <image name="Start Apostrophe" width="150" height="150"/>
         <image name="arrow.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>

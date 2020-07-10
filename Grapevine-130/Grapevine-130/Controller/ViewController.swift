@@ -13,6 +13,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var postTypeButton: UIButton!
+    @IBOutlet weak var abilitiesBackgroundView: UIView!
+    @IBOutlet weak var abilitiesStackView: UIStackView!
+    @IBOutlet weak var pushButton: UIImageView!
+    @IBOutlet weak var burnButton: UIImageView!
+    @IBOutlet weak var shoutButton: UIImageView!
     
     // Globals
     let locationManager = CLLocationManager()
@@ -387,34 +392,37 @@ class ViewController: UIViewController {
         
     ///Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ postType: String, _ content: UIImage){
-        let heightInPoints = content.size.height
-        let heightInPixels = heightInPoints * content.scale
-        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
-        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
-        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToInstagram(backgroundImage, content)
-        })
-        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToSnap(backgroundImage, content)
-        })
-        
-        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
-        self.present(alert, animated: true)
+        abilitiesBackgroundView.isHidden = false
+        abilitiesStackView.isHidden = false
+
+//        let heightInPoints = content.size.height
+//        let heightInPixels = heightInPoints * content.scale
+//        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
+//        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+//        alert.titleColor = Globals.ViewSettings.LabelColor
+//        alert.messageColor = Globals.ViewSettings.LabelColor
+//        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+//        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
+//            var backgroundImage: UIImage
+//            if self.range == -1 {
+//                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
+//            } else {
+//                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
+//            }
+//            self.storyManager.shareToInstagram(backgroundImage, content)
+//        })
+//        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+//            var backgroundImage: UIImage
+//            if self.range == -1 {
+//                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+//            } else {
+//                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
+//            }
+//            self.storyManager.shareToSnap(backgroundImage, content)
+//        })
+//        
+//        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
+//        self.present(alert, animated: true)
     }
     
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
