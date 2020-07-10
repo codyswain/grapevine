@@ -13,6 +13,22 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var postTypeButton: UIButton!
+    @IBOutlet weak var abilitiesBackgroundView: UIView!
+    @IBOutlet weak var abilitiesStackView: UIStackView!
+    
+    @IBOutlet weak var pushButton: UIImageView!
+    @IBOutlet weak var burnButton: UIImageView!
+    @IBOutlet weak var shoutButton: UIImageView!
+    
+    @IBOutlet weak var pushButtonView: UIView!
+    @IBOutlet weak var burnButtonView: UIView!
+    @IBOutlet weak var shoutButtonView: UIView!
+    
+    @IBOutlet weak var currentAbilityTitle: UILabel!
+    @IBOutlet weak var currentAbilityDescription: UITextView!
+    @IBOutlet weak var applyAbilityButton: UIImageView!
+    
+    @IBOutlet weak var burnAbilityIndicator: UIImageView!
     
     // Globals
     let locationManager = CLLocationManager()
@@ -61,6 +77,9 @@ class ViewController: UIViewController {
     // Change the view of the current page
     var currentMode = "default" // options: default, myPosts, myComments
     
+    // Variables for tracking current select ability
+    var currentAbility: String = "push"
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         //Changes colors of status bar so it will be visible in dark or light mode
         if Globals.ViewSettings.CurrentMode == .dark {
@@ -88,6 +107,9 @@ class ViewController: UIViewController {
             }
         }
         
+        // Set opacity of the background for abilities
+        abilitiesBackgroundView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.95)
+        
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
@@ -108,6 +130,21 @@ class ViewController: UIViewController {
         let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(changePostType(tapGestureRecognizer:)))
         postTypeButton.addGestureRecognizer(tapGestureRecognizer3)
                 
+        let tapGestureRecognizerPush = UITapGestureRecognizer(target: self, action: #selector(pushButtonTapped(tapGestureRecognizer:)))
+        pushButton.addGestureRecognizer(tapGestureRecognizerPush)
+        
+        let tapGestureRecognizerBurn = UITapGestureRecognizer(target: self, action: #selector(burnButtonTapped(tapGestureRecognizer:)))
+        burnButton.addGestureRecognizer(tapGestureRecognizerBurn)
+        
+        let tapGestureRecognizerShout = UITapGestureRecognizer(target: self, action: #selector(shoutButtonTapped(tapGestureRecognizer:)))
+        shoutButton.addGestureRecognizer(tapGestureRecognizerShout)
+        
+        let tapGestureRecognizerExitAbility = UITapGestureRecognizer(target: self, action: #selector(abilitiesViewTapped(tapGestureRecognizer:)))
+        abilitiesBackgroundView.addGestureRecognizer(tapGestureRecognizerExitAbility)
+        
+        let tapGestureRecognizerApplyAbility = UITapGestureRecognizer(target: self, action: #selector(applyAbilityTapped(tapGestureRecognizer:)))
+        applyAbilityButton.addGestureRecognizer(tapGestureRecognizerApplyAbility)
+        
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
     }
@@ -373,34 +410,179 @@ class ViewController: UIViewController {
             destinationVC.mainPostScreenshot = selectedPostScreenshot
         }
     }
+    
+    
+    
+    @objc func pushButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
+        pushButton.alpha = 1.0
+        burnButton.alpha = 0.4
+        shoutButton.alpha = 0.4
+        burnAbilityIndicator.alpha = 0.4
+        currentAbilityTitle.text = "Push"
+        applyAbilityButton.alpha = 1.0
+        burnAbilityIndicator.isHidden = true
+        applyAbilityButton.isUserInteractionEnabled = true
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. \n\nCost: 50 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        applyAbilityButton.image = UIImage(named: "push-button")
+        currentAbility = "push"
+    }
+    @objc func burnButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
+        burnButton.alpha = 1.0
+        pushButton.alpha = 0.4
+        shoutButton.alpha = 0.4
+        burnAbilityIndicator.alpha = 1.0
+        currentAbilityTitle.text = "Ban"
+        currentAbilityDescription.text = "Delete this post and ban the creator for 24 hours. Only for posts with <= -3 votes. \n\nCost: 10 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        applyAbilityButton.image = UIImage(named: "burn-button")
+        currentAbility = "burn"
+
+        if (selectedPost!.votes < -3 && selectedPost!.poster != self.user!.user){
+        } else {
+            applyAbilityButton.alpha = 0.4
+            applyAbilityButton.isUserInteractionEnabled = false
+            burnAbilityIndicator.isHidden = false
+        }
+    }
+    @objc func shoutButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
+        shoutButton.alpha = 1.0
+        burnButton.alpha = 0.4
+        pushButton.alpha = 0.4
+        burnAbilityIndicator.alpha = 0.4
+        applyAbilityButton.alpha = 1.0
+        burnAbilityIndicator.isHidden = true
+        applyAbilityButton.isUserInteractionEnabled = true
+        currentAbilityTitle.text = "Shout"
+        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling. \n\nCost: 10 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        applyAbilityButton.image = UIImage(named: "shout-button")
+        currentAbility = "shout"
+    }
+    
+    func exitAbilities(){
+        abilitiesBackgroundView.isHidden = true
+        abilitiesBackgroundView.isUserInteractionEnabled = false
+        
+        abilitiesStackView.isHidden = true
+        abilitiesStackView.isUserInteractionEnabled = false
+        
+        applyAbilityButton.isHidden = true
+        applyAbilityButton.isUserInteractionEnabled = false
+    }
+    
+    // For detecting when user wants to exit
+    @objc func abilitiesViewTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        exitAbilities()
+    }
+    
+    @objc func applyAbilityTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        print("Apply: \(currentAbility)")
+        var alertMessage: String = ""
+        var confirmMessage: String = ""
+        switch currentAbility {
+        case "burn":
+            let burnCost: Int = 10 // TO-DO: make this global variable
+            if (self.user!.score >= burnCost){
+                let creator = self.selectedPost!.poster
+                let postToBeDeleted = self.selectedPost!.postId
+                self.userManager.banUser(poster: creator, postID: postToBeDeleted)
+            } else {
+                confirmMessage = "Burn failed ❌"
+                alertMessage = "\nInsufficient karma 🙁"
+                let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
+                makePopup(alert: alert, image: "flame.fill")
+                self.present(alert, animated: true)
+            }
+        case "shout":
+            let shoutCost: Int = 10 // TO-DO: make this global variable
+            if (self.user!.score >= shoutCost){
+                let creator = self.selectedPost!.poster
+                let postToBeShoutOut = self.selectedPost!.postId
+                self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+            } else {
+                confirmMessage = "Shout failed ❌"
+                alertMessage = "\nInsufficient karma 🙁"
+                let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
+                makePopup(alert: alert, image: "waveform")
+                self.present(alert, animated: true)
+            }
+        case "push":
+            let pushCost: Int = 50 // TO-DO: make this global variable
+            if (self.user!.score >= pushCost){
+                let creator = self.selectedPost!.poster
+                let postToBePushed = self.selectedPost!.postId
+                self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
+            } else {
+                confirmMessage = "Push failed ❌"
+                alertMessage = "\nInsufficient karma 🙁"
+                let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
+                makePopup(alert: alert, image: "waveform")
+                self.present(alert, animated: true)
+            }
+            
+        default:
+            print("Unknown ability: \(currentAbility)...")
+        }
+        exitAbilities()
+    }
         
     ///Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(_ postType: String, _ content: UIImage){
-        let heightInPoints = content.size.height
-        let heightInPixels = heightInPoints * content.scale
-        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
-        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
-        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToInstagram(backgroundImage, content)
-        })
-        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToSnap(backgroundImage, content)
-        })
+    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
+        // Remove t
+        burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         
-        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
-        self.present(alert, animated: true)
+        abilitiesBackgroundView.isHidden = false
+        abilitiesBackgroundView.isUserInteractionEnabled = true
+        
+        abilitiesStackView.isHidden = false
+        abilitiesStackView.isUserInteractionEnabled = true
+        
+        applyAbilityButton.isHidden = false
+        applyAbilityButton.isUserInteractionEnabled = true
+        
+        pushButton.alpha = 1.0
+        burnButton.alpha = 0.4
+        shoutButton.alpha = 0.4
+        burnAbilityIndicator.alpha = 0.4
+        currentAbilityTitle.text = "Push"
+        currentAbility = "push"
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. \n\nCost: 50 karma 💸\n\nSpendable karma: \(self.user!.score) 💸"
+        
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        selectedPost = posts[row]
+        burnAbilityIndicator.isHidden = true
+        
+        
+
+//        let heightInPoints = content.size.height
+//        let heightInPixels = heightInPoints * content.scale
+//        let alert = MDCAlertController(title: "Stories", message: "Share post as a story!")
+//        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
+//        alert.titleColor = Globals.ViewSettings.LabelColor
+//        alert.messageColor = Globals.ViewSettings.LabelColor
+//        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+//        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
+//            var backgroundImage: UIImage
+//            if self.range == -1 {
+//                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
+//            } else {
+//                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
+//            }
+//            self.storyManager.shareToInstagram(backgroundImage, content)
+//        })
+//        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+//            var backgroundImage: UIImage
+//            if self.range == -1 {
+//                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+//            } else {
+//                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
+//            }
+//            self.storyManager.shareToSnap(backgroundImage, content)
+//        })
+//        
+//        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
+//        self.present(alert, animated: true)
     }
     
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
@@ -747,7 +929,9 @@ extension ViewController: CLLocationManagerDelegate {
 
 /// Update post data.
 extension ViewController: PostTableViewCellDelegate {    
-    func showSharePopup(_ postType: String, _ content: Any) {}
+    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: Any) {
+        
+    }
     
     /// Fires when user selects an ability
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String){
@@ -757,11 +941,10 @@ extension ViewController: PostTableViewCellDelegate {
             var alertMessage: String = "My karma: \(self.user!.score) 💸\nBurn cost: \(burnCost) 💸"
             var confirmMessage: String = "Confirm "
             if (self.user!.score >= burnCost){
-                confirmMessage += "✅"
-                alertMessage += "\n\nAre you sure you want to suspend this user for 24 hours?"
+                
             } else {
-                confirmMessage += "❌"
-                alertMessage += "\n\nInsufficient karma 🙁"
+                confirmMessage = "❌"
+                alertMessage = "\n\nInsufficient karma 🙁"
             }
             let alert = MDCAlertController(title: confirmMessage, message: alertMessage)
             let action1 = MDCAlertAction(title: "Cancel") { (action) in
@@ -930,6 +1113,10 @@ extension ViewController: UserManagerDelegate {
 }
 
 extension ViewController: CommentViewControllerDelegate {
+    func showSharePopup(_ postType: String, _ content: UIImage) {
+        
+    }
+    
     func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int) {
         var row = 0
         if let i = posts.firstIndex(where: { $0.postId == post.postId }) {
