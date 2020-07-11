@@ -771,7 +771,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.shoutButtonVar.isHidden = true
         
         // If the current user created this post, he/she can delete it
-        if (Constants.userID == posts[indexPath.row].poster){
+        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
             cell.enableDelete()
             cell.disableInteraction()
         } else {
