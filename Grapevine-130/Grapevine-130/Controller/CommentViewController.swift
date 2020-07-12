@@ -417,6 +417,13 @@ extension CommentViewController: UITableViewDataSource {
 //                cell.disableDelete()
 //            }
         
+        //If the current user created this comment, s/he can't upvote it
+        if (Constants.userID == comments[indexPath.row].poster) {
+            cell.isOwnUsersComment = true
+            cell.voteButton.isEnabled = false
+            cell.voteButtonIcon.isHidden = true
+        }
+        
         // Ensure cell can communicate with this view controller
         cell.delegate = self
         
