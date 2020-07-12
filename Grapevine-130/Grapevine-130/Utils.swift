@@ -37,16 +37,16 @@ func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
 
 func makePopup(alert: MDCAlertController, image: String) {
     alert.titleIcon = UIImage(systemName: image)
-    alert.titleIconTintColor = Globals.ViewSettings.LabelColor
+    alert.titleIconTintColor = Globals.ViewSettings.labelColor
     alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
     alert.messageFont = UIFont.systemFont(ofSize: 17)
     alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
     alert.cornerRadius = 10
     
-    alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-    alert.titleColor = Globals.ViewSettings.LabelColor
-    alert.messageColor = Globals.ViewSettings.LabelColor
-    alert.buttonTitleColor = Globals.ViewSettings.LabelColor
+    alert.backgroundColor = Globals.ViewSettings.backgroundColor
+    alert.titleColor = Globals.ViewSettings.labelColor
+    alert.messageColor = Globals.ViewSettings.labelColor
+    alert.buttonTitleColor = Globals.ViewSettings.labelColor
 }
 
 /*
@@ -98,4 +98,40 @@ func styleButton(button: UIButton, view: UIView, color1: UIColor, color2: UIColo
     g1.cornerRadius = 10
     view.layer.insertSublayer(g1, at: 0)
     return view
+}
+
+//set light or dark theme according to presets
+func setTheme(curView: UIViewController){
+    let defaults = UserDefaults.standard
+    if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey) {
+        if (curTheme == "dark") {
+            curView.overrideUserInterfaceStyle = .dark
+            Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
+            Globals.ViewSettings.labelColor = .white
+        } else {
+            curView.overrideUserInterfaceStyle = .light
+            Globals.ViewSettings.backgroundColor = .white
+            Globals.ViewSettings.labelColor = .black
+        }
+    }
+    else {
+        curView.overrideUserInterfaceStyle = .light
+        Globals.ViewSettings.backgroundColor = .white
+        Globals.ViewSettings.labelColor = .black
+    }
+}
+
+func setStatusBarStyle() -> UIStatusBarStyle {
+    let defaults = UserDefaults.standard
+    if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey) {
+        if (curTheme == "dark") {
+            return .lightContent
+        }
+        else {
+            return .darkContent
+        }
+    }
+    else {
+        return .darkContent
+    }
 }

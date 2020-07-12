@@ -46,13 +46,7 @@ class ScoreViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.CurrentMode == .dark {
-            return .lightContent
-        }
-        else{
-            return .darkContent
-        }
+        return setStatusBarStyle()
     }
         
     /// Intializes the score screen.
@@ -60,18 +54,7 @@ class ScoreViewController: UIViewController {
         super.viewDidLoad()
         
         // Set dark/light mode from persistent storage
-        let defaults = UserDefaults.standard
-        if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
-            if (curTheme == "dark") {
-                super.overrideUserInterfaceStyle = .dark
-                Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
-                Globals.ViewSettings.LabelColor = .white
-            } else {
-                super.overrideUserInterfaceStyle = .light
-                Globals.ViewSettings.BackgroundColor = .white
-                Globals.ViewSettings.LabelColor = .black
-            }
-        }
+        setTheme(curView: self)
         
         // Show user that data is loading
         self.scoreLabel.text = "..."

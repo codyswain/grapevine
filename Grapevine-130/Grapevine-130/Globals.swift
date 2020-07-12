@@ -13,9 +13,9 @@ struct Globals {
     struct ViewSettings {
         // Until we figure out a better solution, default mode is light mode
         // static var CurrentMode = UITraitCollection.init().userInterfaceStyle
-        static var CurrentMode = UIUserInterfaceStyle.light
-        static var BackgroundColor = UIColor.white
-        static var LabelColor = UIColor.black
+        static var currentMode = UIUserInterfaceStyle.light
+        static var backgroundColor = UIColor.white
+        static var labelColor = UIColor.black
         static var showNotificationAlert = false
     }
     

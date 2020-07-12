@@ -79,33 +79,16 @@ class ViewController: UIViewController {
     
     // Variables for tracking current select ability
     var currentAbility: String = "push"
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.CurrentMode == .dark {
-            return .lightContent
-        }
-        else{
-            return .darkContent
-        }
+        return setStatusBarStyle()
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set dark/light mode from persistent storage
-        let defaults = UserDefaults.standard
-        if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
-            if (curTheme == "dark") {
-                super.overrideUserInterfaceStyle = .dark
-                Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
-                Globals.ViewSettings.LabelColor = .white
-            } else {
-                super.overrideUserInterfaceStyle = .light
-                Globals.ViewSettings.BackgroundColor = .white
-                Globals.ViewSettings.LabelColor = .black
-            }
-        }
+        setTheme(curView: self)
         
         // Set opacity of the background for abilities
         abilitiesBackgroundView.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.98)
@@ -563,9 +546,9 @@ class ViewController: UIViewController {
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
         let alert = MDCAlertController(title: "Stories", message: "Share this post!")
-        alert.backgroundColor = Globals.ViewSettings.BackgroundColor
-        alert.titleColor = Globals.ViewSettings.LabelColor
-        alert.messageColor = Globals.ViewSettings.LabelColor
+        alert.backgroundColor = Globals.ViewSettings.backgroundColor
+        alert.titleColor = Globals.ViewSettings.labelColor
+        alert.messageColor = Globals.ViewSettings.labelColor
         alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
             var backgroundImage: UIImage

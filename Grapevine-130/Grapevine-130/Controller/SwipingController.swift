@@ -12,23 +12,17 @@ import UIKit
 class SwipingController: UICollectionViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.CurrentMode == .dark {
-            return .lightContent
-        }
-        else{
-            return .darkContent
-        }
+        return setStatusBarStyle()
     }
     
     override func viewDidLoad(){
         super.viewDidLoad()
         
         //set dark/light mode
-        if Globals.ViewSettings.CurrentMode == .dark {
+        if Globals.ViewSettings.currentMode == .dark {
             super.overrideUserInterfaceStyle = .dark
         }
-        else if Globals.ViewSettings.CurrentMode == .light {
+        else if Globals.ViewSettings.currentMode == .light {
             super.overrideUserInterfaceStyle = .light
         }
         

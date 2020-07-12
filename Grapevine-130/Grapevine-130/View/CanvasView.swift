@@ -92,10 +92,10 @@ class CanvasView: UIView {
         
     //sets dark/light mode
         var pencilColor = UIColor.label
-        if Globals.ViewSettings.CurrentMode == .dark {
+        if Globals.ViewSettings.currentMode == .dark {
             pencilColor = .white
         }
-        else if Globals.ViewSettings.CurrentMode == .light {
+        else if Globals.ViewSettings.currentMode == .light {
             pencilColor = .black
         }
         
