@@ -150,27 +150,47 @@ class ViewController: UIViewController {
     }
     
     //Display Enable Notification Message
+    //You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
     //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
     override func viewDidAppear(_ animated: Bool) {
         if Globals.ViewSettings.showNotificationAlert {
-            let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
-            alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
-
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                        print("Settings opened: \(success)")
-                        Globals.ViewSettings.showNotificationAlert = false
-                    })
-                }
-            })
-            makePopup(alert: alert, image: "bell.circle.fill")
-            super.present(alert, animated: true)
+            displayNotificationAlert()
+            Globals.ViewSettings.showNotificationAlert = false
+            return //cannot display 2 MDC alerts at the same time.
+                   //displayNotificationAlert() handles the case of both notifications needing to be displaued and will also display location alert
         }
-        if !isLocationAccessEnabled() {
+        if !isLocationAccessEnabled() { //if it is just the location alert, display it.
             displayLocationAlert()
         }
-        getLocationAndPosts()
+    }
+    
+    func displayNotificationAlert() {
+        let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
+        alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                    Globals.ViewSettings.showNotificationAlert = false
+                    self.dismiss(animated: true, completion: {
+                        if !self.isLocationAccessEnabled() {
+                            self.displayLocationAlert()
+                        }
+                    })
+                })
+            }
+        })
+        alert.addAction(MDCAlertAction(title: "Done") { (action) in
+            self.dismiss(animated: true, completion: {
+                if !self.isLocationAccessEnabled() {
+                    self.displayLocationAlert()
+                }
+            })
+        })
+        makePopup(alert: alert, image: "info.circle.fill")
+        self.present(alert, animated: true)
+
     }
     
     func displayLocationAlert() {
@@ -199,6 +219,7 @@ class ViewController: UIViewController {
                     print("Location Access")
                     return true
             @unknown default:
+                print("Location Access Authorization Status Error")
                 return false
             }
         }
@@ -376,6 +397,9 @@ class ViewController: UIViewController {
             displayLocationAlert()
         }
         if currentMode == "default" {
+            if !isLocationAccessEnabled() {
+                displayLocationAlert()
+            }
             locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
         } else if currentMode == "myPosts" {
             postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
