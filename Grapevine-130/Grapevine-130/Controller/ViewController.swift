@@ -201,10 +201,13 @@ class ViewController: UIViewController {
             if UIApplication.shared.canOpenURL(settingsUrl) {
                 UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
                     print("Settings opened: \(success)")
+                    self.getLocationAndPosts()
                 })
             }
         })
-        alert.addAction(MDCAlertAction(title: "Done") { (action) in })
+        alert.addAction(MDCAlertAction(title: "Done") { (action) in
+            self.refresh()
+        })
         makePopup(alert: alert, image: "location.circle.fill")
         super.present(alert, animated: true)
     }
@@ -393,9 +396,6 @@ class ViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
-        if !isLocationAccessEnabled() {
-            displayLocationAlert()
-        }
         if currentMode == "default" {
             if !isLocationAccessEnabled() {
                 displayLocationAlert()
