@@ -112,7 +112,7 @@ async function getPosts(req, res, next) {
   query.get().then((snapshot) => {
     let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
     if (snapshot.docs.length-1 >= 20){
-      ref = snapshot.docs[19].id
+      ref = snapshot.docs[20].id
     }
     var posts = []
 
@@ -144,10 +144,10 @@ async function getPosts(req, res, next) {
     // Return the posts to the client
     if (activityFilter == "top"){
       posts = posts.sort((a, b) => { return b.votes - a.votes })
-      posts = posts.slice(0, 20)
+      posts = posts.slice(0, 19)
     } else {
       posts = posts.sort((a, b) => { return b.date - a.date })
-      posts = posts.slice(0, 20)
+      posts = posts.slice(0, 19)
     }
     res.status(200).send({reference: ref, posts: posts})
   })	
