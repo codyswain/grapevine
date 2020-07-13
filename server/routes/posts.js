@@ -110,11 +110,9 @@ async function getPosts(req, res, next) {
 
   // Get the document snapshot of the last document first
   query.get().then((snapshot) => {
-    let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
-    if (snapshot.docs.length-1 >= 20){
-      ref = snapshot.docs[20].id
-    }
+
     var posts = []
+    var ref;
 
     snapshot.forEach((post) => {
       var voteStatus = 0
@@ -144,10 +142,17 @@ async function getPosts(req, res, next) {
     // Return the posts to the client
     if (activityFilter == "top"){
       posts = posts.sort((a, b) => { return b.votes - a.votes })
-      posts = posts.slice(0, 19)
+      posts = posts.size >= 20 ? posts.slice(0, 20) : posts
+      console.log(posts.length)
+      ref = posts[posts.size - 1].postId
     } else {
       posts = posts.sort((a, b) => { return b.date - a.date })
-      posts = posts.slice(0, 19)
+      posts = posts.length >= 20 ? posts.slice(0, 20) : posts
+      ref = posts[posts.length - 1].postId
+
+      // Get index of post with docRef (last post from previous request)
+    var postIdx = posts.map(function(e) { return e.postId; }).indexOf(ref);
+    console.log("Post index: ", postIdx)
     }
     res.status(200).send({reference: ref, posts: posts})
   })	
@@ -260,10 +265,6 @@ async function morePosts(req, res, next) {
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
 
-	// Request the document snapshot of the last post retrieved in the previous request for posts
-	var refquery = db.collection('posts')
-				  .doc(docRef)
-
   var query;
 	if (range != -1) { // -1 refers to global range
 		// Calculate the lower and upper geohashes to consider
@@ -331,55 +332,79 @@ async function morePosts(req, res, next) {
     }
   }
 
-	// Get the document snapshot of the last document first
-	refquery.get().then((doc) => {
-		// Query for more posts started after the retrieved snapshot
-		query.startAfter(doc).limit(20).get().then((snapshot) => {
-			let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
-			var posts = []
+  // Get the document snapshot of the last document first
+  query.get().then((snapshot) => {
+    var posts = []
+    var ref;
 
-			snapshot.forEach((post) => {
-				var voteStatus = 0
-				var flagStatus = 0
-	
-				var interactions = post.get("interactions")
-	
-				// TODO: Better solution by putting this in mobile backend
-				for (var interacting_user in interactions) {
-					if (interacting_user == user) {
-						voteStatus = utils.getVote(interactions[user])
-						flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
-						break
-					}
-				}
-	
-				// Add the post, ID, and vote status before returning it
-				var curPost = post.data()
-				curPost.postId = post.id
-				curPost.voteStatus = voteStatus
-				curPost.flagStatus = flagStatus
-				delete curPost["geohash"]
-				delete curPost["interactions"]
-				// delete curPost["inter"]
-				posts.push(curPost)
-			});
-      // Return the posts to the client
-      if (activityFilter == "top"){
-        posts = posts.sort((a, b) => { return b.votes - a.votes })
-      } else {
-        posts = posts.sort((a, b) => { return b.date - a.date })
+    snapshot.forEach((post) => {
+      var voteStatus = 0
+      var flagStatus = 0
+
+      var interactions = post.get("interactions")
+
+      // TODO: Better solution by putting this in mobile backend
+      for (var interacting_user in interactions) {
+        if (interacting_user == user) {
+          voteStatus = utils.getVote(interactions[user])
+          flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+          break
+        }
       }
-			res.status(200).send({reference: ref, posts: posts})
-		})	
-		.catch((err) => { 
-			console.log("ERROR looking up posts in posts.js:" + err)
-			res.send([])
-		})	
-	})
-	.catch((err) => { 
-		console.log("ERROR looking up document in posts.js:" + err)
-		res.send([])
-	})
+
+      // Add the post, ID, and vote status before returning it
+      var curPost = post.data()
+      curPost.postId = post.id
+      curPost.voteStatus = voteStatus
+      curPost.flagStatus = flagStatus
+      delete curPost["geohash"]
+      delete curPost["interactions"]
+      // delete curPost["inter"]
+      posts.push(curPost)
+    });
+
+    // Return the posts to the client
+    if (activityFilter == "top"){
+      posts = posts.sort((a, b) => { return b.votes - a.votes })
+
+      // Get index of post with docRef (last post from previous request)
+      var postIdx = posts.map(function(e) { return e.postId; }).indexOf(docRef);
+
+      // Get the next 20 posts
+      if (posts.length >= postIdx + 21){
+        ref = posts[postIdx + 20].postId
+        posts = posts.slice(postIdx + 1, postIdx + 21)
+      } else if (posts.length >= postIdx + 1){
+        ref = posts[posts.length - 1].postId
+        posts = posts.slice(postIdx + 1, posts.length)
+      } else {
+        ref = posts[posts.length - 1].postId
+        posts = []
+      }
+      
+    } else {
+      posts = posts.sort((a, b) => { return b.date - a.date })
+      // Get index of post with docRef (last post from previous request)
+      var postIdx = posts.map(function(e) { return e.postId; }).indexOf(docRef);
+
+      // Get the next 20 posts
+      if (posts.length >= postIdx + 21){
+        ref = posts[postIdx + 20].postId
+        posts = posts.slice(postIdx + 1, postIdx + 21)
+      } else if (posts.length >= postIdx + 1){
+        ref = posts[posts.length - 1].postId
+        posts = posts.slice(postIdx + 1, posts.length)
+      } else {
+        ref = posts[posts.length - 1].postId
+        posts = []
+      }
+    }
+    res.status(200).send({reference: ref, posts: posts})
+  })	
+  .catch((err) => { 
+    console.log("ERROR looking up posts in posts.js:" + err)
+    res.send([])
+  })
 	
 }
 
