@@ -389,7 +389,7 @@ async function morePosts(req, res, next) {
         ref = posts[posts.length - 1].postId
         posts = posts.slice(postIdx + 1, posts.length)
       } else {
-        ref = posts[posts.length - 1].postId
+        ref = ""
         posts = []
       }
     }
