@@ -42,125 +42,116 @@ async function getPosts(req, res, next) {
 
   var query; 
 	if (range != -1) { // -1 refers to global range
-		console.log("global")
 		// Calculate the lower and upper geohashes to consider
-    const search_box = utils.getGeohashRange(lat, lon, range);
-    
-    if (typeFilter == "text"){
-      query = db.collection('posts')
-        .where("banned", "==", false)
-        .where("type", "==", "text")
-        .where("geohash", ">=", search_box.lower)
-        .where("geohash", "<=", search_box.upper)
-        .orderBy("geohash")
-    } else if (typeFilter == "art"){
-      query = db.collection('posts')
-        .where("banned", "==", false)
-        .where("type", "==", "image")
-        .where("geohash", ">=", search_box.lower)
-        .where("geohash", "<=", search_box.upper)
-        .orderBy("geohash")
+		const search_box = utils.getGeohashRange(lat, lon, range);
+
+    // Basic request for posts
+    if (activityFilter == "top"){
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+          .where("geohash", "<=", search_box.upper)
+          .where("type", "==", typeFilter)
+					.orderBy("geohash")
+					.orderBy('votes', 'desc')
+      } else {
+        query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+					.orderBy('votes', 'desc')
+      }
     } else {
-      query = db.collection('posts')
-        .where("banned", "==", false)
-        .where("geohash", ">=", search_box.lower)
-        .where("geohash", "<=", search_box.upper)
-        .orderBy("geohash")
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+          .where("geohash", "<=", search_box.upper)
+          .where("type", "==", typeFilter)
+					.orderBy("geohash")
+          .orderBy('date', 'desc')
+        console.log("This is getting run")
+      } else {
+        query = db.collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+					.orderBy('date', 'desc')
+      }
     }
 	} else {
-    if (typeFilter == "text"){
-      query = db.collection('posts')
-        .where("banned", "==", false)
-        .where("type", "==", "text")
-    } else if (typeFilter == "art"){
-      query = db.collection('posts')
-        .where("banned", "==", false)
-        .where("type", "==", "image")
+    if (activityFilter == "top"){
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+          .where("banned", "==", false)
+          .where("type", "==", typeFilter)
+          .orderBy('votes', 'desc')
+      } else {
+        query = db.collection('posts')
+          .where("banned", "==", false)
+          .orderBy('votes', 'desc')
+      }
     } else {
-      query = db.collection('posts').where("banned", "==", false)
+      if (typeFilter == "art" || typeFilter == "text"){
+        query = db.collection('posts')
+        .where("banned", "==", false)
+        .where("type", "==", typeFilter)
+        .orderBy('date', 'desc')
+      } else {
+        query = db.collection('posts')
+        .where("banned", "==", false)
+        .orderBy('date', 'desc')
+      }
     }
   }
-  
-  // Query the db for posts
-  if (activityFilter == "top"){
-    query.orderBy('votes', 'desc')
-    .limit(20).get()
-    .then((snapshot) => {
-      let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
-      var posts = []
-      // Loop through each post returned and add it to our list
-      snapshot.forEach((post) => {
-        var voteStatus = 0
-        var flagStatus = 0
-        var interactions = post.get("interactions")
 
-        // TODO: Better solution by putting this in mobile backend
-        for (var interacting_user in interactions) {
-          if (interacting_user == user) {
-            voteStatus = utils.getVote(interactions[user])
-            flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
-            break
-          }
+  // Get the document snapshot of the last document first
+  query.get().then((snapshot) => {
+    let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
+    var posts = []
+
+    snapshot.forEach((post) => {
+      var voteStatus = 0
+      var flagStatus = 0
+
+      var interactions = post.get("interactions")
+
+      // TODO: Better solution by putting this in mobile backend
+      for (var interacting_user in interactions) {
+        if (interacting_user == user) {
+          voteStatus = utils.getVote(interactions[user])
+          flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+          break
         }
+      }
 
-        // Add the post, ID, and vote status before returning it
-        var curPost = post.data()
-        curPost.postId = post.id
-        curPost.voteStatus = voteStatus
-		curPost.flagStatus = flagStatus
-        delete curPost["geohash"]
-        delete curPost["interactions"]
-        // delete curPost["inter"]
-        posts.push(curPost)
-      });
-      // Return the posts to the client
+      // Add the post, ID, and vote status before returning it
+      var curPost = post.data()
+      curPost.postId = post.id
+      curPost.voteStatus = voteStatus
+      curPost.flagStatus = flagStatus
+      delete curPost["geohash"]
+      delete curPost["interactions"]
+      // delete curPost["inter"]
+      posts.push(curPost)
+    });
+    // Return the posts to the client
+    if (activityFilter == "top"){
       posts = posts.sort((a, b) => { return b.votes - a.votes })
-      res.status(200).send({reference: ref, posts: posts})
-    })
-    .catch((err) => { 
-      console.log("ERROR looking up post in posts.js:" + err)
-      res.send([])
-    })
-  } else {
-    query.orderBy('date', 'desc')
-    .limit(20).get()
-    .then((snapshot) => {
-      let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
-      var posts = []
-      // Loop through each post returned and add it to our list
-      snapshot.forEach((post) => {
-        var voteStatus = 0
-        var flagStatus = 0
-        var interactions = post.get("interactions")
-
-        // TODO: Better solution by putting this in mobile backend
-        for (var interacting_user in interactions) {
-          if (interacting_user == user) {
-            voteStatus = utils.getVote(interactions[user])
-            flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
-            break
-          }
-        }
-
-        // Add the post, ID, and vote status before returning it
-        var curPost = post.data()
-        curPost.postId = post.id
-        curPost.voteStatus = voteStatus
-		curPost.flagStatus = flagStatus
-        delete curPost["geohash"]
-        delete curPost["interactions"]
-        // delete curPost["inter"]
-        posts.push(curPost)
-      });
-      // Return the posts to the client
+      posts = posts.slice(0, 20)
+    } else {
       posts = posts.sort((a, b) => { return b.date - a.date })
-      res.status(200).send({reference: ref, posts: posts})
-    })
-    .catch((err) => { 
-      console.log("ERROR looking up post in posts.js:" + err)
-      res.send([])
-    })
-  }
+      posts = posts.slice(0, 20)
+    }
+    res.status(200).send({reference: ref, posts: posts})
+  })	
+  .catch((err) => { 
+    console.log("ERROR looking up posts in posts.js:" + err)
+    res.send([])
+  })	
 }
 
 /*
