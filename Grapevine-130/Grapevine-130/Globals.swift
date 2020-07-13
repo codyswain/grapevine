@@ -20,7 +20,10 @@ struct Globals {
     }
     
     struct userDefaults {
-        static let themeKey = "someStringKey1"
+        static let themeKey = "someStringKey1" // string value
+        static let rangeKey = "rangeKey"  // string
+        static let filterKey = "filterKey"  // string
+        static let postTypeKey = "postTypeKey"  // string
     }
 
 }
