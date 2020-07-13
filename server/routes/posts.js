@@ -367,7 +367,7 @@ async function morePosts(req, res, next) {
       if (posts.length >= postIdx + 21){
         ref = posts[postIdx + 20].postId
         posts = posts.slice(postIdx + 1, postIdx + 21)
-      } else if (posts.length >= postIdx + 1){
+      } else if (posts.length >= postIdx + 2){
         ref = posts[posts.length - 1].postId
         posts = posts.slice(postIdx + 1, posts.length)
       } else {
@@ -384,7 +384,7 @@ async function morePosts(req, res, next) {
       if (posts.length >= postIdx + 21){
         ref = posts[postIdx + 20].postId
         posts = posts.slice(postIdx + 1, postIdx + 21)
-      } else if (posts.length >= postIdx + 1){
+      } else if (posts.length >= postIdx + 2){
         ref = posts[posts.length - 1].postId
         posts = posts.slice(postIdx + 1, posts.length)
       } else {
