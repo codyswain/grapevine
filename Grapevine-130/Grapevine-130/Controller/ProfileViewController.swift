@@ -42,22 +42,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         
         
         // Set the initial state of switch and text
-        let defaults = UserDefaults.standard
-        if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
-            if (curTheme == "dark") {
-                DarkModeSwitch.setOn(true, animated: true)
-                DarkModeLabel.text = "⚫"
-                Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
-                Globals.ViewSettings.LabelColor = .white
-                super.overrideUserInterfaceStyle = .dark
-            } else {
-                DarkModeSwitch.setOn(false, animated: true)
-                DarkModeLabel.text = "⚫"
-                Globals.ViewSettings.BackgroundColor = .white
-                Globals.ViewSettings.LabelColor = .black
-                super.overrideUserInterfaceStyle = .light
-            }
-        }
+        initializeTheme()
         
         // Add menu navigation bar programatically
         bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
@@ -92,14 +77,34 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         }
     }
     
+    func initializeTheme() {
+        let defaults = UserDefaults.standard
+        if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                DarkModeSwitch.setOn(true, animated: true)
+                DarkModeLabel.text = "⚫"
+                Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
+                Globals.ViewSettings.labelColor = .white
+                super.overrideUserInterfaceStyle = .dark
+            } else {
+                DarkModeSwitch.setOn(false, animated: true)
+                DarkModeLabel.text = "⚫"
+                Globals.ViewSettings.backgroundColor = .white
+                Globals.ViewSettings.labelColor = .black
+                super.overrideUserInterfaceStyle = .light
+            }
+        }
+        else {
+            DarkModeSwitch.setOn(false, animated: true)
+            DarkModeLabel.text = "⚫"
+            Globals.ViewSettings.backgroundColor = .white
+            Globals.ViewSettings.labelColor = .black
+            super.overrideUserInterfaceStyle = .light
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        //Changes colors of status bar so it will be visible in dark or light mode
-        if Globals.ViewSettings.CurrentMode == .dark {
-            return .lightContent
-        }
-        else{
-            return .darkContent
-        }
+        return setStatusBarStyle()
     }
     
     @IBAction func DarkModeSwitchPressed(_ sender: Any) {
@@ -107,26 +112,26 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         if DarkModeSwitch.isOn{
             DarkModeLabel.text = "⚫"
             super.overrideUserInterfaceStyle = .dark
-            Globals.ViewSettings.CurrentMode = .dark
-            Globals.ViewSettings.BackgroundColor = Constants.Colors.extremelyDarkGrey
-            Globals.ViewSettings.LabelColor = .white
+            Globals.ViewSettings.currentMode = .dark
+            Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
+            Globals.ViewSettings.labelColor = .white
+            let defaults = UserDefaults.standard
+            defaults.set("dark", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
             }
-            let defaults = UserDefaults.standard
-            defaults.set("dark", forKey: Globals.userDefaults.themeKey)
         }
         else{
             DarkModeLabel.text = "⚫"
             super.overrideUserInterfaceStyle = .light
-            Globals.ViewSettings.CurrentMode = .light
-            Globals.ViewSettings.BackgroundColor = .white
-            Globals.ViewSettings.LabelColor = .black
+            Globals.ViewSettings.currentMode = .light
+            Globals.ViewSettings.backgroundColor = .white
+            Globals.ViewSettings.labelColor = .black
+            let defaults = UserDefaults.standard
+            defaults.set("light", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
             }
-            let defaults = UserDefaults.standard
-            defaults.set("light", forKey: Globals.userDefaults.themeKey)
         }
     }
     
