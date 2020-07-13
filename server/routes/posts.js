@@ -111,6 +111,9 @@ async function getPosts(req, res, next) {
   // Get the document snapshot of the last document first
   query.get().then((snapshot) => {
     let ref = snapshot.size == 0 ? "" : snapshot.docs[snapshot.docs.length-1].id
+    if (snapshot.docs.length-1 >= 20){
+      ref = snapshot.docs[19].id
+    }
     var posts = []
 
     snapshot.forEach((post) => {
