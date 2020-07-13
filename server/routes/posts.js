@@ -109,7 +109,6 @@ async function getPosts(req, res, next) {
 
   // Get the document snapshot of the last document first
   query.get().then((snapshot) => {
-
     var posts = []
     var ref;
 
@@ -141,8 +140,8 @@ async function getPosts(req, res, next) {
     // Return the posts to the client
     if (activityFilter == "top"){
       posts = posts.sort((a, b) => { return b.votes - a.votes })
-      posts = posts.size >= 20 ? posts.slice(0, 20) : posts
-      ref = posts[posts.size - 1].postId
+      posts = posts.length >= 20 ? posts.slice(0, 20) : posts
+      ref = posts[posts.length - 1].postId
     } else {
       posts = posts.sort((a, b) => { return b.date - a.date })
       posts = posts.length >= 20 ? posts.slice(0, 20) : posts
@@ -372,7 +371,7 @@ async function morePosts(req, res, next) {
         ref = posts[posts.length - 1].postId
         posts = posts.slice(postIdx + 1, posts.length)
       } else {
-        ref = posts[posts.length - 1].postId
+        ref = ""
         posts = []
       }
       
