@@ -72,7 +72,6 @@ async function getPosts(req, res, next) {
           .where("type", "==", typeFilter)
 					.orderBy("geohash")
           .orderBy('date', 'desc')
-        console.log("This is getting run")
       } else {
         query = db.collection('posts')
 					.where("banned", "==", false)
@@ -143,16 +142,11 @@ async function getPosts(req, res, next) {
     if (activityFilter == "top"){
       posts = posts.sort((a, b) => { return b.votes - a.votes })
       posts = posts.size >= 20 ? posts.slice(0, 20) : posts
-      console.log(posts.length)
       ref = posts[posts.size - 1].postId
     } else {
       posts = posts.sort((a, b) => { return b.date - a.date })
       posts = posts.length >= 20 ? posts.slice(0, 20) : posts
-      ref = posts[posts.length - 1].postId
-
-      // Get index of post with docRef (last post from previous request)
-    var postIdx = posts.map(function(e) { return e.postId; }).indexOf(ref);
-    console.log("Post index: ", postIdx)
+      ref = posts[posts.length - 1].postId    
     }
     res.status(200).send({reference: ref, posts: posts})
   })	
