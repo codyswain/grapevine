@@ -97,6 +97,9 @@ class ViewController: UIViewController {
         activityIndicator()
         indicator.startAnimating()
         indicator.backgroundColor = .systemBackground
+        
+        //Load user defaults into post filters
+        setInitialPostFilters()
 
         // Prepare table
         prepareTableView()
@@ -294,6 +297,60 @@ class ViewController: UIViewController {
         self.tableView?.setContentOffset(topOffest, animated: true)
     }
     
+    func setInitialPostFilters() {
+        let defaults = UserDefaults.standard //Save range for next load
+        if let rangeType = defaults.string(forKey: Globals.userDefaults.rangeKey) {
+            switch rangeType {
+            case " 0.1 Miles":
+                self.range = 0.1
+                self.rangeButton.setTitle(rangeType, for: .normal)
+            case " 1 Mile":
+                self.range = 1.0
+                self.rangeButton.setTitle(rangeType, for: .normal)
+            case " 10 Miles":
+                self.range = 10.0
+                self.rangeButton.setTitle(rangeType, for: .normal)
+            default: //3 miles
+                self.range = 3.0
+                self.rangeButton.setTitle(rangeType, for: .normal)
+            }
+        }
+        if let postType = defaults.string(forKey: Globals.userDefaults.postTypeKey) {
+            switch postType {
+            case "art":
+                postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
+                curPostType = "art"
+                let newIcon = UIImage(systemName: "scribble")
+                postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+            case "all":
+                postTypeButton.setTitle(" All ", for: UIControl.State.normal)
+                curPostType = "all"
+                let newIcon = UIImage(systemName: "ellipses.bubble.fill")
+                postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+            default : //text
+                postTypeButton.setTitle(" Text", for: UIControl.State.normal)
+                curPostType = "text"
+                let newIcon = UIImage(systemName: "quote.bubble.fill")
+                postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+            }
+        }
+        if let filterType = defaults.string(forKey: Globals.userDefaults.filterKey) {
+            switch filterType {
+                case "top":
+                    self.currentFilterState = "top"
+                    filterButton.setTitle(" Best", for: UIControl.State.normal)
+                    let newIcon = UIImage(systemName: "star.circle.fill")
+                    filterButton.setImage(newIcon, for: UIControl.State.normal)
+                default : //new
+                    self.currentFilterState = "new"
+                    filterButton.setTitle(" Newest", for: UIControl.State.normal)
+                    let newIcon = UIImage(systemName: "bolt.circle.fill")
+                    filterButton.setImage(newIcon, for: UIControl.State.normal)
+            }
+        }
+        
+    }
+    
     func rangeAction(range: Double, title: String) {
         self.range = range
         self.rangeButton.setTitle(title, for: .normal)
@@ -316,20 +373,25 @@ class ViewController: UIViewController {
     {
         /// Displays the possible ranges users can request posts from
         let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
+        let defaults = UserDefaults.standard //Save range for next load
         let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
             self.rangeAction(range: 0.1, title: " 0.1 Miles")
+            defaults.set(" 0.1 Miles", forKey: Globals.userDefaults.rangeKey)
         }
         
         let action2 = MDCAlertAction(title: "1 Mile") { (action) in
             self.rangeAction(range: 1.0, title: " 1 Mile")
+            defaults.set(" 1 Mile", forKey: Globals.userDefaults.rangeKey)
         }
                 
         let action3 = MDCAlertAction(title: "3 Miles") { (action) in
             self.rangeAction(range: 3.0, title: " 3 Miles")
+            defaults.set(" 3 Miles", forKey: Globals.userDefaults.rangeKey)
         }
         
         let action4 = MDCAlertAction(title: "10 Miles") { (action) in
             self.rangeAction(range: 10.0, title: " 10 Miles")
+            defaults.set(" 10 Miles", forKey: Globals.userDefaults.rangeKey)
         }
         
         let action5 = MDCAlertAction(title: "Cancel") { (action) in }
@@ -346,11 +408,13 @@ class ViewController: UIViewController {
     
     
     @objc func changePostType(tapGestureRecognizer: UITapGestureRecognizer){
+        let defaults = UserDefaults.standard //Save post typle for next load
         if (curPostType == "text"){
             postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
             curPostType = "art"
             let newIcon = UIImage(systemName: "scribble")
             postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+            defaults.set("art", forKey: Globals.userDefaults.postTypeKey)
 
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
@@ -361,6 +425,8 @@ class ViewController: UIViewController {
             curPostType = "all"
             let newIcon = UIImage(systemName: "ellipses.bubble.fill")
             postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+            defaults.set("all", forKey: Globals.userDefaults.postTypeKey)
+            
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -370,6 +436,8 @@ class ViewController: UIViewController {
             curPostType = "text"
             let newIcon = UIImage(systemName: "quote.bubble.fill")
             postTypeButton.setImage(newIcon, for: UIControl.State.normal)
+            defaults.set("text", forKey: Globals.userDefaults.postTypeKey)
+            
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
@@ -659,6 +727,8 @@ class ViewController: UIViewController {
         filterButton.setTitle(" Best", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "star.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
+        let defaults = UserDefaults.standard //Save filter for next load
+        defaults.set("top", forKey: Globals.userDefaults.filterKey)
         self.refresh()
     }
     func filterToNewPosts(){
@@ -666,6 +736,8 @@ class ViewController: UIViewController {
         filterButton.setTitle(" Newest", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "bolt.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
+        let defaults = UserDefaults.standard //Save filter for next load
+        defaults.set("new", forKey: Globals.userDefaults.filterKey)
         self.refresh()
     }
     
