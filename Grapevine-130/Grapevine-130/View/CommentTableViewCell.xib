@@ -25,9 +25,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aab-BY-b6B">
+                                <rect key="frame" x="507" y="5.5" width="20" height="19"/>
+                                <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="VGS-Ly-rDK"/>
+                                    <constraint firstAttribute="height" constant="20" id="ryN-vl-grh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" name="PostColors"/>
                         <constraints>
+                            <constraint firstItem="aab-BY-b6B" firstAttribute="top" secondItem="i6V-GN-Nl2" secondAttribute="top" constant="5" id="0CT-6Y-ae4"/>
                             <constraint firstItem="W1M-0U-gjB" firstAttribute="top" secondItem="i6V-GN-Nl2" secondAttribute="top" constant="5" id="8Le-gS-HXC"/>
                             <constraint firstAttribute="trailing" secondItem="W1M-0U-gjB" secondAttribute="trailing" constant="20" id="cRf-OJ-pf1"/>
                             <constraint firstItem="W1M-0U-gjB" firstAttribute="leading" secondItem="i6V-GN-Nl2" secondAttribute="leading" constant="10" id="k12-sA-uKq"/>
@@ -74,12 +86,14 @@
                     <constraint firstItem="gJy-EZ-yeJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="KmQ-eL-74U"/>
                     <constraint firstAttribute="trailing" secondItem="i6V-GN-Nl2" secondAttribute="trailing" constant="20" id="b36-uF-MU1"/>
                     <constraint firstItem="7jS-zn-QMn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="cMd-lA-oFh"/>
+                    <constraint firstAttribute="trailing" secondItem="aab-BY-b6B" secondAttribute="trailing" constant="28" id="kGn-wX-7hH"/>
                     <constraint firstItem="7jS-zn-QMn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="vhg-Pe-c7A"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="contentView" destination="H2p-sc-9uM" id="zZ5-9Y-Kk8"/>
+                <outlet property="deleteButton" destination="aab-BY-b6B" id="Zfi-18-lQT"/>
                 <outlet property="label" destination="W1M-0U-gjB" id="hXt-79-xYH"/>
                 <outlet property="messageBackground" destination="i6V-GN-Nl2" id="ho4-yZ-4jh"/>
                 <outlet property="voteBackground" destination="7jS-zn-QMn" id="Z7n-aC-QKI"/>
@@ -91,6 +105,7 @@
     </objects>
     <resources>
         <image name="hand.thumbsup.fill" catalog="system" width="128" height="124"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="PostColors">
             <color red="0.97000002861022949" green="0.95999997854232788" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

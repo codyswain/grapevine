@@ -66,6 +66,33 @@ struct CommentsManager {
         }
     }
     
+    func deleteComment(commentID: String){
+        let json: [String: Any] = ["commentID": commentID]
+        print("commentid: ",commentID)
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        // Create delete request
+        let url = URL(string: Constants.serverURL + "comments")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        // insert json data to the request
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                self.delegate?.didFailWithError(error: error!)
+                print("DELETE req error")
+                return
+            }
+            if let safeData = data {
+                print("DELETE req returned: \(safeData)")
+            }
+        }
+        task.resume()
+    }
+    
     func performPOSTRequest(text: String, postID: String){
         let json: [String: Any] = [
             "text":text,
