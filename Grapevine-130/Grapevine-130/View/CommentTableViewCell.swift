@@ -10,6 +10,7 @@ import UIKit
 
 protocol CommentTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
+    func deleteCell( _ cell: UITableViewCell)
 }
 
 class CommentTableViewCell: UITableViewCell {
@@ -19,13 +20,31 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var voteBackground: UIView!
     @IBOutlet weak var voteButton: UIButton!
     @IBOutlet weak var voteButtonIcon: UIImageView!
+    @IBOutlet weak var deleteButton: UIImageView!
     var delegate: CommentTableViewCellDelegate?
     
     var commentID: String = ""
+    var documentId: String = ""
     var voteStatus: Int = 0
     
     var previouslyPressed: Bool = false
     var isOwnUsersComment: Bool = false
+    
+    /** Enable deletion of a comment. */
+    func enableDelete(){
+        // Set up delete button
+        print("Deletable: \(documentId)")
+        let tapGestureRecognizerDelete = UITapGestureRecognizer(target: self, action: #selector(deleteCommentPressed(tapGestureRecognizer:)))
+        deleteButton.isUserInteractionEnabled = true
+        deleteButton.addGestureRecognizer(tapGestureRecognizerDelete)
+        deleteButton.isHidden = false
+    }
+    
+    /** Disable deletion of a post. */
+    func disableDelete(){
+        print("Not deletable: \(documentId)")
+        deleteButton.isHidden = true
+    }
     
     @IBAction func upvoteCommentPressed(_ sender: UIButton) {
         // do stuff when someone upvotes a comment
@@ -65,4 +84,11 @@ class CommentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    /** Deletes a `comment`.
+     - Parameter tapGestureRecognizer: Gesture performed by the user */
+    @objc func deleteCommentPressed(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        deleteButton.tintColor = Constants.Colors.darkPurple
+        self.delegate?.deleteCell(self)
+    }
 }

@@ -6,6 +6,7 @@ const FieldValue = require('firebase-admin').firestore.FieldValue
 // URL parsing to get info from client
 router.get('/', getComments);
 router.post('/', createComment);
+router.delete('/', deleteComment);
 
 /**
  * Fetches comments from the database based on the url parameters and sends them to the client.
@@ -95,6 +96,23 @@ async function createComment(req, res, next) {
 	})
 
 	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(1) })
+}
+
+async function deleteComment(req, res, next) {
+  var db = req.app.get('db');
+  commentID = req.body.commentId
+  console.log(`Attempting to delete: ${commentID}`)
+
+	db.collection("comments").doc(commentID).delete()
+	.catch((err) => {
+		console.log("ERROR deleteing comment : " + err)
+		res.status(400).send()
+	})
+	.then(() => {
+		res.status(200).send("Successfully deleted comment " + commentID);
+  })
+
+
 }
 
 module.exports = router;

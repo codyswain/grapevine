@@ -410,18 +410,17 @@ extension CommentViewController: UITableViewDataSource {
             cell.voteButtonIcon.tintColor = UIColor.label
         }
         
-        // If the current user created this comment, he/she can delete it
-//            if (Constants.userID == posts[indexPath.row].poster){
-//                cell.enableDelete()
-//            } else {
-//                cell.disableDelete()
-//            }
-        
         //If the current user created this comment, s/he can't upvote it
         if (Constants.userID == comments[indexPath.row].poster) {
             cell.isOwnUsersComment = true
             cell.voteButton.isEnabled = false
             cell.voteButtonIcon.isHidden = true
+            
+            // If the current user created this post, he/she can delete it
+            cell.enableDelete()
+        }
+        else {
+            cell.disableDelete()
         }
         
         // Ensure cell can communicate with this view controller
@@ -475,5 +474,25 @@ extension CommentViewController: CommentTableViewCellDelegate {
         let row = indexPath.row
         comments[row].votes = comments[row].votes + newVote
         comments[row].voteStatus = newVoteStatus
+    }
+    
+    /** Deletes a comment.
+    - Parameters:
+       - cell: Comment to be deleted. */
+    func deleteCell(_ cell: UITableViewCell) {
+        let alert = MDCAlertController(title: "Are you sure?", message: "Deleting a comment is permanent. The comment's score will still count towards your karma.")
+
+        alert.addAction(MDCAlertAction(title: "Cancel"))
+        alert.addAction(MDCAlertAction(title: "I'm Sure, Delete"){ (action) in
+            let indexPath = self.tableView.indexPath(for: cell)!
+            let row = indexPath.row
+            let docIDtoDelete = self.comments[row].commentID
+            self.commentsManager.deleteComment(commentID: docIDtoDelete)
+            self.comments.remove(at: row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        })
+
+        makePopup(alert: alert, image: "x.circle.fill")
+        self.present(alert, animated: true)
     }
 }
