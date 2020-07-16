@@ -67,7 +67,7 @@ struct CommentsManager {
     }
     
     func deleteComment(commentID: String){
-        let json: [String: Any] = ["commentID": commentID]
+        let json: [String: Any] = ["commentId": commentID]
         print("commentid: ",commentID)
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
