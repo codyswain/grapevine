@@ -100,8 +100,8 @@ async function createComment(req, res, next) {
 
 async function deleteComment(req, res, next) {
   var db = req.app.get('db');
-  commentID = req.body.commentId
-  postID = req.body.postId
+  let commentID = req.body.commentId
+  let postID = req.body.postId
   console.log(`Attempting to delete: ${commentID}`)
 
 	db.collection("comments").doc(commentID).delete()
