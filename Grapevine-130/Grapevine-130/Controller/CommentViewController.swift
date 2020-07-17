@@ -487,7 +487,8 @@ extension CommentViewController: CommentTableViewCellDelegate {
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
             let docIDtoDelete = self.comments[row].commentID
-            self.commentsManager.deleteComment(commentID: docIDtoDelete)
+            let postIDtoDecrement = self.comments[row].postID
+            self.commentsManager.deleteComment(commentID: docIDtoDelete, postID: postIDtoDecrement)
             self.comments.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         })

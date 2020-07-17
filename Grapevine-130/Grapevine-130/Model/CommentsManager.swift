@@ -66,9 +66,13 @@ struct CommentsManager {
         }
     }
     
-    func deleteComment(commentID: String){
-        let json: [String: Any] = ["commentId": commentID]
+    func deleteComment(commentID: String, postID: String){
+        let json: [String: Any] = [
+            "commentId": commentID,
+            "postId": postID
+        ]
         print("commentid: ",commentID)
+        print("postid: ", postID)
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         // Create delete request
