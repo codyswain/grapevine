@@ -101,6 +101,7 @@ async function createComment(req, res, next) {
 async function deleteComment(req, res, next) {
   var db = req.app.get('db');
   commentID = req.body.commentId
+  let postID = db.collection("comments").doc(commentID).field(postID)
   console.log(`Attempting to delete: ${commentID}`)
 
 	db.collection("comments").doc(commentID).delete()
@@ -111,7 +112,7 @@ async function deleteComment(req, res, next) {
 	.then(() => {
 		res.status(200).send("Successfully deleted comment " + commentID);
   })
-
+	db.collection("posts").doc(postID).update({ comments: FieldValue.decrement(1) })
 
 }
 
