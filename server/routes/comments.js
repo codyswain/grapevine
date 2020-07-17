@@ -112,7 +112,7 @@ async function deleteComment(req, res, next) {
 	.then(() => {
 		res.status(200).send("Successfully deleted comment " + commentID);
   })
-	db.collection("posts").doc(postID).update({ comments: FieldValue.decrement(1) })
+	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(-1) })
 }
 
 module.exports = router;
