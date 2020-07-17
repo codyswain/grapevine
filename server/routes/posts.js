@@ -11,6 +11,7 @@ router.get('/', getPosts);
 router.get('/more', morePosts);
 router.post('/', createPost);
 router.delete('/', deletePost);
+router.put('/', decrementPost);
 
 /**
  * Fetches posts from the database based on the url parameters and sends them to the client.
@@ -237,6 +238,24 @@ async function deletePost(req, res, next) {
   })
 
 
+}
+
+async function decrementPost(req, res, next) {
+  var db = req.app.get('db');
+  postID = req.body.postId
+  console.log(`Attempting to update number of comments for: ${postID}`)
+	
+	var numComments = db.collection("posts").doc(postID).comments().decrement(1)
+	db.collection("posts").doc(postID).update({
+		comments: numComments
+	})
+	.catch((err) => {
+		console.log("ERROR deleteing comment : " + err)
+		res.status(400).send()
+	})
+	.then(() => {
+		res.status(200).send("Successfully decremented post " + postID);
+  })
 }
 
 async function morePosts(req, res, next) {
