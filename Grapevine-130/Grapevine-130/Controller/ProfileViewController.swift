@@ -112,7 +112,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         if DarkModeSwitch.isOn{
             DarkModeLabel.text = "⚫"
             super.overrideUserInterfaceStyle = .dark
-            Globals.ViewSettings.currentMode = .dark
             Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
             Globals.ViewSettings.labelColor = .white
             let defaults = UserDefaults.standard
@@ -124,7 +123,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         else{
             DarkModeLabel.text = "⚫"
             super.overrideUserInterfaceStyle = .light
-            Globals.ViewSettings.currentMode = .light
             Globals.ViewSettings.backgroundColor = .white
             Globals.ViewSettings.labelColor = .black
             let defaults = UserDefaults.standard

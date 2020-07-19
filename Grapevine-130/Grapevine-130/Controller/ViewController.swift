@@ -143,7 +143,7 @@ class ViewController: UIViewController {
             displayNotificationAlert()
             Globals.ViewSettings.showNotificationAlert = false
             return //cannot display 2 MDC alerts at the same time.
-                   //displayNotificationAlert() handles the case of both notifications needing to be displaued and will also display location alert
+                   //displayNotificationAlert() handles the case of both notifications needing to be displayed and will also display location alert
         }
         if !isLocationAccessEnabled() { //if it is just the location alert, display it.
             displayLocationAlert()
@@ -317,13 +317,13 @@ class ViewController: UIViewController {
         }
         if let postType = defaults.string(forKey: Globals.userDefaults.postTypeKey) {
             switch postType {
-            case "art":
-                postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
-                curPostType = "art"
+            case "image":
+                postTypeButton.setTitle(" Art", for: UIControl.State.normal)
+                curPostType = "image"
                 let newIcon = UIImage(systemName: "scribble")
                 postTypeButton.setImage(newIcon, for: UIControl.State.normal)
             case "all":
-                postTypeButton.setTitle(" All ", for: UIControl.State.normal)
+                postTypeButton.setTitle(" All", for: UIControl.State.normal)
                 curPostType = "all"
                 let newIcon = UIImage(systemName: "ellipses.bubble.fill")
                 postTypeButton.setImage(newIcon, for: UIControl.State.normal)
@@ -410,18 +410,18 @@ class ViewController: UIViewController {
     @objc func changePostType(tapGestureRecognizer: UITapGestureRecognizer){
         let defaults = UserDefaults.standard //Save post typle for next load
         if (curPostType == "text"){
-            postTypeButton.setTitle(" Art ", for: UIControl.State.normal)
-            curPostType = "art"
+            postTypeButton.setTitle(" Art", for: UIControl.State.normal)
+            curPostType = "image"
             let newIcon = UIImage(systemName: "scribble")
             postTypeButton.setImage(newIcon, for: UIControl.State.normal)
-            defaults.set("art", forKey: Globals.userDefaults.postTypeKey)
+            defaults.set("image", forKey: Globals.userDefaults.postTypeKey)
 
             self.scrollToTop()
             self.tableView?.contentOffset = CGPoint(x: 0, y: -((self.tableView?.refreshControl?.frame.height)!))
             self.tableView.refreshControl?.beginRefreshing()
             self.refresh()
-        } else if (curPostType == "art"){
-            postTypeButton.setTitle(" All ", for: UIControl.State.normal)
+        } else if (curPostType == "image"){
+            postTypeButton.setTitle(" All", for: UIControl.State.normal)
             curPostType = "all"
             let newIcon = UIImage(systemName: "ellipses.bubble.fill")
             postTypeButton.setImage(newIcon, for: UIControl.State.normal)
