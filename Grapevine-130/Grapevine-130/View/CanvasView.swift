@@ -90,17 +90,8 @@ class CanvasView: UIView {
     
     func changeColor(){
         
-    //sets dark/light mode
-        var pencilColor = UIColor.label
-        if Globals.ViewSettings.currentMode == .dark {
-            pencilColor = .white
-        }
-        else if Globals.ViewSettings.currentMode == .light {
-            pencilColor = .black
-        }
-        
         if currentColor == Constants.Colors.darkPurple {
-            self.currentColor = pencilColor
+            self.currentColor = Globals.ViewSettings.labelColor
         } else {
             self.currentColor = Constants.Colors.darkPurple
         }
