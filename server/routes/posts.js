@@ -64,7 +64,7 @@ async function getPosts(req, res, next) {
 					.orderBy('votes', 'desc')
       }
     } else {
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
@@ -83,7 +83,7 @@ async function getPosts(req, res, next) {
     }
 	} else {
     if (activityFilter == "top"){
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
           .where("banned", "==", false)
           .where("type", "==", typeFilter)
@@ -94,7 +94,7 @@ async function getPosts(req, res, next) {
           .orderBy('votes', 'desc')
       }
     } else {
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
         .where("banned", "==", false)
         .where("type", "==", typeFilter)
@@ -265,7 +265,7 @@ async function morePosts(req, res, next) {
 
     // Basic request for posts
     if (activityFilter == "top"){
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
@@ -282,7 +282,7 @@ async function morePosts(req, res, next) {
 					.orderBy('votes', 'desc')
       }
     } else {
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
@@ -301,7 +301,7 @@ async function morePosts(req, res, next) {
     }
 	} else {
     if (activityFilter == "top"){
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
           .where("banned", "==", false)
           .where("type", "==", typeFilter)
@@ -312,7 +312,7 @@ async function morePosts(req, res, next) {
           .orderBy('votes', 'desc')
       }
     } else {
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
         .where("banned", "==", false)
         .where("type", "==", typeFilter)
