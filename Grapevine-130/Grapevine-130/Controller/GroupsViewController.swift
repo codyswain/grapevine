@@ -12,15 +12,22 @@ import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
 import MessageUI
 
+protocol GroupsViewControllerDelegate {
+    func groupSelected(_ cell: UITableViewCell)
+}
+
 /// Manages control flow of the score screen.
 class GroupsViewController: UIViewController {
 
     //MARK: Properties
     
+    @IBOutlet weak var joinGroupButton: UIButton!
+    @IBOutlet weak var creatGroupButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     var groups: [Group] = []
     var groupsManager = GroupsManager()
+    var delegate: ViewControllerDelegate?
     
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -37,13 +44,18 @@ class GroupsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set dark/light mode
         setTheme(curView: self)
+        
+        //Set button styling
+        creatGroupButton.layer.cornerRadius = 10
+        joinGroupButton.layer.cornerRadius = 10
         
         //load the table
         tableView.dataSource = self
         tableView.refreshControl = refresher
         tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = 50
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         //load the sample data
@@ -54,7 +66,9 @@ class GroupsViewController: UIViewController {
 
     @IBAction func createGroupButton(_ sender: Any) {
         print("DEBUGGING: Create group button pressed")
-        let alert = UIAlertController(title: "New Group", message: "You are about to create an anonymous group chat. Enter an interesting name for your group chat below", preferredStyle: .alert)
+        let title = "New Group"
+        let message = "You are about to create an anonymous group chat. Enter an interesting name for your group chat below"
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         alert.addTextField { (textField) in
             textField.placeholder = "Group Name"
@@ -66,11 +80,11 @@ class GroupsViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        let attributedString1 = NSAttributedString(string: "Title", attributes: [
+        let attributedString1 = NSAttributedString(string: title, attributes: [
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15), //your font here
             NSAttributedString.Key.foregroundColor : Globals.ViewSettings.labelColor
         ])
-        let attributedString2 = NSAttributedString(string: "Message", attributes: [
+        let attributedString2 = NSAttributedString(string: message, attributes: [
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12), //your font here
             NSAttributedString.Key.foregroundColor : Globals.ViewSettings.labelColor
         ])
@@ -96,7 +110,7 @@ class GroupsViewController: UIViewController {
     //MARK: Private Methods
      
     private func loadSampleGroups() {
-        let group1 = Group(groupID: "testGroup1ID", groupName: "testGroup1", ownerID: "testOwnerId1")
+        let group1 = Group(groupID: "testGroup1ID", groupName: "testGroup1aqzwsxedcrfvtgbyhnuybgtvfcrdxesedrcftvgybgtfcrdxesedrftvgybhungfdcrxessxedcrftvgybhunbgvfcdxsdcrftvgybhunbgvftxesxedrcftvgybhunijhbgvftcdrxsedcrftvgbyhunjinhbgvfcdxssexdrcftvgybhungfvtcdrxsedcrftvygbuhnbgfcdxsdrcftvgybhun", ownerID: "testOwnerId1")
         let group2 = Group(groupID: "testGroup2ID", groupName: "testGroup2", ownerID: "testOwnerId2")
         let group3 = Group(groupID: "testGroup2ID", groupName: "testGroup3", ownerID: "testOwnerId3")
         
@@ -110,10 +124,6 @@ extension GroupsViewController: UITableViewDataSource {
             return groups.count
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        print("You selected cell #\(indexPath.row)!")
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! GroupTableViewCell
         
@@ -121,9 +131,9 @@ extension GroupsViewController: UITableViewDataSource {
         cell.groupLabel.text = group.groupName
         
         if group.ownerID == Constants.userID {
-            cell.deleteButton.isHidden = false
+            cell.enableDelete()
         } else {
-            cell.deleteButton.isHidden = true
+            cell.disableDelete()
         }
         
         return cell
@@ -179,5 +189,13 @@ extension GroupsViewController: GroupTableViewCellDelegate {
 
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
+    }
+    
+    func groupSelected(_ cell: UITableViewCell) {
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        let groupName = self.groups[row].groupName
+        let groupID = self.groups[row].groupID
+        self.delegate?.setGroupView(groupName: groupName, groupID: groupID)
     }
 }

@@ -4,6 +4,10 @@ import MaterialComponents.MaterialBottomNavigation
 import MaterialComponents.MaterialButtons
 import MaterialComponents.MaterialButtons_Theming
 
+protocol ViewControllerDelegate {
+    func setGroupView(groupName: String, groupID: String)
+}
+
 /// Manages the main workflow.
 class ViewController: UIViewController {
     // UI variables
@@ -36,6 +40,8 @@ class ViewController: UIViewController {
     var ref = ""
     var canGetMorePosts = true
     var range = 3.0
+    var groupName = ""
+    var groupID = ""
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
     var storyManager = StoryManager()
@@ -779,7 +785,10 @@ class ViewController: UIViewController {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
+        } else if currentMode == "group" {
+            self.nearbyLabel.text = groupName
         }
+        
     }
 }
 
@@ -1252,5 +1261,13 @@ extension ViewController: MDCBottomNavigationBarDelegate {
             bottomNavBar.selectedItem = bottomNavBar.items[1]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
+    }
+}
+
+extension ViewController: ViewControllerDelegate {
+    func setGroupView(groupName: String, groupID: String) {
+        self.currentMode = "group"
+        self.groupName = groupName
+        self.groupID = groupID
     }
 }
