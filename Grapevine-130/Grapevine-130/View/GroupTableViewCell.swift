@@ -15,6 +15,7 @@ class GroupTableViewCell: UITableViewCell {
 
     //MARK: Properties
     
+    @IBOutlet weak var cellBackground: UIView!
     @IBOutlet weak var groupLabel: UILabel!
     @IBOutlet weak var checkmark: UIImageView!
     @IBOutlet weak var deleteButton: UIImageView!
@@ -46,12 +47,17 @@ class GroupTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        cellBackground.layer.cornerRadius = 10
+        cellBackground.layer.borderColor = .init(srgbRed: 0.62, green: 0.27, blue: 0.90, alpha: 1.0)
+        cellBackground.backgroundColor = .systemBackground
+        cellBackground.layer.borderWidth = 1
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        checkmark.isHidden = !selected
     }
     
 }

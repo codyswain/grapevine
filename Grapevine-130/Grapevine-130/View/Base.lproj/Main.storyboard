@@ -22,7 +22,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-aX-7fs">
                                         <rect key="frame" x="131.5" y="6" width="151.5" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                        <color key="textColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="rPv-8a-VmG">
@@ -45,7 +44,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="PostColors"/>
                                 <constraints>
                                     <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="8" id="2Iy-49-goQ"/>
                                     <constraint firstAttribute="height" constant="120" id="9F8-cx-UhQ"/>

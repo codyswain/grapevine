@@ -6,6 +6,7 @@ struct Constants {
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "PostTableViewCell"
     static let commentsCellNibName = "CommentTableViewCell"
+    static let groupsCellNibName = "GroupTableViewCell"
     static let deviceType = UIDevice.current.deviceType
     static let numberOfPostsPerBatch = 20
     static let numberOfCharactersPerPost = 280
