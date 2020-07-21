@@ -35,6 +35,8 @@
 		83B121A3242EE82F0034BF73 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */; };
 		83B121A4242EE82F0034BF73 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B121A2242EE82F0034BF73 /* CommentTableViewCell.xib */; };
 		83B21CDE24C6A7610087BABA /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B21CDD24C6A7610087BABA /* GroupsViewController.swift */; };
+		83B21CE024C6AEB50087BABA /* GroupsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B21CDF24C6AEB50087BABA /* GroupsManager.swift */; };
+		83B21CE224C6B1280087BABA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B21CE124C6B1280087BABA /* Group.swift */; };
 		83F26B0C24294F6F0056F719 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F26B0B24294F6F0056F719 /* CommentViewController.swift */; };
 		83F26B0D242950FB0056F719 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F26B0B24294F6F0056F719 /* CommentViewController.swift */; };
 		8609D27B240CF16100A4328E /* KarmaAbilitiesViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609D27A240CF16100A4328E /* KarmaAbilitiesViewerViewController.swift */; };
@@ -103,6 +105,8 @@
 		83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		83B121A2242EE82F0034BF73 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		83B21CDD24C6A7610087BABA /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		83B21CDF24C6AEB50087BABA /* GroupsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsManager.swift; sourceTree = "<group>"; };
+		83B21CE124C6B1280087BABA /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		83F26B0B24294F6F0056F719 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		8609D27A240CF16100A4328E /* KarmaAbilitiesViewerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KarmaAbilitiesViewerViewController.swift; sourceTree = "<group>"; };
 		8659F2C923F8A93300C3595F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 			children = (
 				83B1219F242EDD610034BF73 /* Comment.swift */,
 				83B1219D242EDB6F0034BF73 /* CommentsManager.swift */,
+				83B21CDF24C6AEB50087BABA /* GroupsManager.swift */,
+				83B21CE124C6B1280087BABA /* Group.swift */,
 				8659F2DF23F8A94200C3595F /* Post.swift */,
 				8659F2E023F8A94200C3595F /* PostsManager.swift */,
 				8659F2F023FE264400C3595F /* ScoreManager.swift */,
@@ -512,6 +518,7 @@
 				8659F2E823F8A94200C3595F /* Post.swift in Sources */,
 				CE2DFB8A24B3E4A400C5EA89 /* Globals.swift in Sources */,
 				6322402923FC617A007D05F5 /* User.swift in Sources */,
+				83B21CE024C6AEB50087BABA /* GroupsManager.swift in Sources */,
 				636701B724764CCD00F15985 /* ShoutChamberViewController.swift in Sources */,
 				868528D82443AB6C00B17013 /* StoryManager.swift in Sources */,
 				83AF134A244C080C004AF1B5 /* WalkthroughPageCell.swift in Sources */,
@@ -524,6 +531,7 @@
 				83B121A0242EDD610034BF73 /* Comment.swift in Sources */,
 				6322402B23FC6398007D05F5 /* UserManager.swift in Sources */,
 				83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */,
+				83B21CE224C6B1280087BABA /* Group.swift in Sources */,
 				8659F2E223F8A94200C3595F /* SceneDelegate.swift in Sources */,
 				83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */,
 			);

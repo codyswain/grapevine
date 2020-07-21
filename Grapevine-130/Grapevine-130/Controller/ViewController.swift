@@ -489,7 +489,6 @@ class ViewController: UIViewController {
             destinationVC.mainPost = selectedPost
             destinationVC.mainPostScreenshot = selectedPostScreenshot
         }
-        
     }
     
     

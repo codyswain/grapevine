@@ -18,9 +18,42 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVS-35-Mau">
                                 <rect key="frame" x="0.0" y="44" width="414" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-aX-7fs">
+                                        <rect key="frame" x="131.5" y="6" width="151.5" height="36"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <color key="textColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="rPv-8a-VmG">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="70"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-XG-JwQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="207" height="70"/>
+                                                <state key="normal" title="Create Group"/>
+                                                <connections>
+                                                    <action selector="createGroupButton:" destination="CIV-rF-mZI" eventType="touchUpInside" id="S1q-dJ-bcG"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMt-tm-7wG">
+                                                <rect key="frame" x="207" y="0.0" width="207" height="70"/>
+                                                <state key="normal" title="Join Group"/>
+                                                <connections>
+                                                    <action selector="joinGroupButton:" destination="CIV-rF-mZI" eventType="touchUpInside" id="20J-iU-Nhj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="8" id="2Iy-49-goQ"/>
                                     <constraint firstAttribute="height" constant="120" id="9F8-cx-UhQ"/>
+                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="leading" secondItem="DVS-35-Mau" secondAttribute="leading" id="OUZ-in-Tv6"/>
+                                    <constraint firstAttribute="trailing" secondItem="rPv-8a-VmG" secondAttribute="trailing" id="Oyp-Ky-6Nt"/>
+                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="top" secondItem="DVS-35-Mau" secondAttribute="top" constant="6" id="ra4-Ja-6eA"/>
+                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="centerX" secondItem="DVS-35-Mau" secondAttribute="centerX" id="s2j-DR-ggA"/>
+                                    <constraint firstAttribute="bottom" secondItem="rPv-8a-VmG" secondAttribute="bottom" id="wlx-bh-has"/>
                                 </constraints>
                             </view>
                         </subviews>
