@@ -19,8 +19,9 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var groupLabel: UILabel!
     @IBOutlet weak var checkmark: UIImageView!
     @IBOutlet weak var deleteButton: UIImageView!
-    var delegate: GroupsViewControllerDelegate?
-    var tableDelegate: GroupTableViewCellDelegate?
+    var delegate: GroupTableViewCellDelegate?
+    
+    //MARK: Cell Toggle Functions
     
     func enableDelete(){
         //enable post to be deleted by unhiding and enabling button
@@ -36,43 +37,31 @@ class GroupTableViewCell: UITableViewCell {
         deleteButton.isUserInteractionEnabled = true
     }
     
-    /** Deletes a `group`.
-     - Parameter tapGestureRecognizer: Gesture performed by the user */
-    @objc func deleteGroupPressed(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+    //MARK: Cell Interactions
+    
+    @objc func deleteGroupPressed(tapGestureRecognizer: UITapGestureRecognizer) {
+        //Indicates interaction with delete button and sends function call to GroupTableViewCellDelegate
         deleteButton.tintColor = Constants.Colors.darkPurple
-        self.tableDelegate?.deleteCell(self)
+        self.delegate?.deleteCell(self)
     }
     
-    //sends info about selected group to delegate
-    @objc func groupTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        self.delegate?.groupSelected(self)
-    }
+    //MARK: Initialization
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        //Styling
+        
+        // Initialize the styling of the cells
         cellBackground.layer.cornerRadius = 10
         cellBackground.layer.borderColor = .init(srgbRed: 0.62, green: 0.27, blue: 0.90, alpha: 1.0)
         cellBackground.backgroundColor = Globals.ViewSettings.backgroundColor
         checkmark.backgroundColor = Globals.ViewSettings.backgroundColor
         cellBackground.layer.borderWidth = 1
-        
-        //Enable Selection (TableViewCell.didSelectIndexAt not working)
-        let tapGestureRecognizerSelect = UITapGestureRecognizer(target: self, action: #selector(groupTapped(tapGestureRecognizer:)))
-        groupLabel.isUserInteractionEnabled = true
-        groupLabel.addGestureRecognizer(tapGestureRecognizerSelect)
-        checkmark.isUserInteractionEnabled = true
-        checkmark.addGestureRecognizer(tapGestureRecognizerSelect)
     }
-    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        // Configures the appearance of the cell when it is selected
         checkmark.isHidden = !selected
         if selected {
             cellBackground.backgroundColor = Globals.ViewSettings.backgroundColor.darker(by: 10)
@@ -82,13 +71,12 @@ class GroupTableViewCell: UITableViewCell {
             checkmark.backgroundColor = Globals.ViewSettings.backgroundColor
         }
         
-        self.delegate?.groupSelected(self)
-        
     }
     
 }
 
 extension UIColor {
+    // Utility extension for setting the colors of selected cells. Makes a UIColor loighter or darker by a specified percentage
 
     func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
         return self.adjust(by: abs(percentage) )

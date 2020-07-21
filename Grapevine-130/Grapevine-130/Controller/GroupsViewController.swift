@@ -12,10 +12,6 @@ import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
 import MessageUI
 
-protocol GroupsViewControllerDelegate {
-    func groupSelected(_ cell: UITableViewCell)
-}
-
 /// Manages control flow of the score screen.
 class GroupsViewController: UIViewController {
 
@@ -53,6 +49,7 @@ class GroupsViewController: UIViewController {
         
         //load the table
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.refreshControl = refresher
         tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 50
@@ -119,9 +116,13 @@ class GroupsViewController: UIViewController {
     
 }
 
-extension GroupsViewController: UITableViewDataSource {
+extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return groups.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
