@@ -14,7 +14,20 @@ import MessageUI
 
 /// Manages control flow of the score screen.
 class GroupsViewController: UIViewController {
+    
+    //MARK: Properties
+    
+    @IBOutlet weak var tableView: UITableView!
+//    var groups: [Group] = []
+//    var groupsManager = GroupsManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    //MARK: Private Methods
+     
+    private func loadSampleGroups() {
+        
     }
 }
