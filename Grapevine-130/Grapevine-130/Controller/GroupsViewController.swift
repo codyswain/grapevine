@@ -15,12 +15,18 @@ import MessageUI
 /// Manages control flow of the score screen.
 class GroupsViewController: UIViewController {
     
+
+    //MARK: Properties
     
+    @IBOutlet weak var tableView: UITableView!
+//    var groups: [Group] = []
+//    var groupsManager = GroupsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+
     @IBAction func createGroupButton(_ sender: Any) {
         print("DEBUGGING: Create group button pressed")
     }
@@ -46,6 +52,9 @@ extension ViewController: GroupsManagerDelegate{
         print(groupID)
         print(groupName)
     }
-    
-    
+    //MARK: Private Methods
+     
+    private func loadSampleGroups() {
+        
+    }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6275B8AA24C6B950001705F6 /* GroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B8A824C6B950001705F6 /* GroupTableViewCell.xib */; };
+		6275B8AB24C6B950001705F6 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275B8A924C6B950001705F6 /* GroupTableViewCell.swift */; };
 		6322402923FC617A007D05F5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402823FC617A007D05F5 /* User.swift */; };
 		6322402B23FC6398007D05F5 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402A23FC6398007D05F5 /* UserManager.swift */; };
 		636701B724764CCD00F15985 /* ShoutChamberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636701B624764CCD00F15985 /* ShoutChamberViewController.swift */; };
@@ -83,6 +85,8 @@
 
 /* Begin PBXFileReference section */
 		1A6FDDC054EB8A12618A5FA8 /* Pods-Grapevine-130.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.release.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.release.xcconfig"; sourceTree = "<group>"; };
+		6275B8A824C6B950001705F6 /* GroupTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupTableViewCell.xib; sourceTree = "<group>"; };
+		6275B8A924C6B950001705F6 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		6322402823FC617A007D05F5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6322402A23FC6398007D05F5 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		6322402E23FC8AA8007D05F5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -213,6 +217,8 @@
 				8659F2D923F8A94100C3595F /* Main.storyboard */,
 				83B121A1242EE82F0034BF73 /* CommentTableViewCell.swift */,
 				83B121A2242EE82F0034BF73 /* CommentTableViewCell.xib */,
+				6275B8A924C6B950001705F6 /* GroupTableViewCell.swift */,
+				6275B8A824C6B950001705F6 /* GroupTableViewCell.xib */,
 				8659F2DB23F8A94100C3595F /* PostTableViewCell.swift */,
 				8659F2DC23F8A94100C3595F /* PostTableViewCell.xib */,
 				86709BD724072CCB00712ECC /* CanvasView.swift */,
@@ -420,6 +426,7 @@
 				8659F2E623F8A94200C3595F /* PostTableViewCell.xib in Resources */,
 				86BE51DD241B62D80012AA14 /* GoogleService-Info.plist in Resources */,
 				8659F2CF23F8A93400C3595F /* Assets.xcassets in Resources */,
+				6275B8AA24C6B950001705F6 /* GroupTableViewCell.xib in Resources */,
 				8659F2E423F8A94200C3595F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +519,7 @@
 				8659F2D223F8A93400C3595F /* AppDelegate.swift in Sources */,
 				8676C0A7246F81F0006C8FB8 /* ProfileViewController.swift in Sources */,
 				83F26B0C24294F6F0056F719 /* CommentViewController.swift in Sources */,
+				6275B8AB24C6B950001705F6 /* GroupTableViewCell.swift in Sources */,
 				8659F2E923F8A94200C3595F /* PostsManager.swift in Sources */,
 				83B121A3242EE82F0034BF73 /* CommentTableViewCell.swift in Sources */,
 				8659F2F323FE27F900C3595F /* ScoreViewController.swift in Sources */,
