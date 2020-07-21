@@ -2,8 +2,8 @@
 //  GroupTableViewCell.swift
 //  
 //
-//  Created by Kelsey Lieberman on 7/20/20.
-//
+//  Created by Kelsey Lieberman, Cody Swain on 7/20/20.
+//  Copyright © 2020 Anthony Humay. All rights reserved.
 
 import UIKit
 

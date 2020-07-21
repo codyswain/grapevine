@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVS-35-Mau">
-                                <rect key="frame" x="0.0" y="44" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-aX-7fs">
                                         <rect key="frame" x="131.5" y="6" width="151.5" height="36"/>
@@ -45,7 +45,6 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="8" id="2Iy-49-goQ"/>
@@ -73,7 +72,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZZf-M2-IKl"/>
                     <connections>
-                        <outlet property="groupsTableView" destination="7ph-sa-z3T" id="7sa-rb-06a"/>
+                        <outlet property="tableView" destination="7ph-sa-z3T" id="ntp-bc-uur"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yQS-kG-YSu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

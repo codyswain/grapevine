@@ -19,8 +19,8 @@ class GroupsViewController: UIViewController {
     //MARK: Properties
     
     @IBOutlet weak var tableView: UITableView!
-//    var groups: [Group] = []
-//    var groupsManager = GroupsManager()
+    var groups: [Group] = []
+    var groupsManager = GroupsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +36,27 @@ class GroupsViewController: UIViewController {
         print("DEBUGGING: Join group button pressed")
     }
     
+    //MARK: Private Methods
+     
+    private func loadSampleGroups() {
+        
+    }
+    
 }
 
-extension ViewController: GroupsManagerDelegate{
+extension GroupsViewController: GroupsManagerDelegate{
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+    
+    func didUpdateGroups(_ groupManager: GroupsManager, groups: [Group]) {
+        print("To Do")
+    }
+    
+    func didCreateGroup() {
+        print("To Do")
+    }
+    
     
     /// Fires when groups are fetched
     /// TO-DO: load this data into groups table
@@ -51,10 +69,5 @@ extension ViewController: GroupsManagerDelegate{
     func didCreateGroup(groupID: String, groupName: String) {
         print(groupID)
         print(groupName)
-    }
-    //MARK: Private Methods
-     
-    private func loadSampleGroups() {
-        
     }
 }
