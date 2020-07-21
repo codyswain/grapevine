@@ -135,6 +135,11 @@ class ViewController: UIViewController {
         changeAppearanceBasedOnMode()
     }
     
+    @IBAction func groupsButton(_ sender: Any) {
+        print("hello")
+        
+    }
+    
     //Display Enable Notification Message
     //You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
     //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
@@ -484,6 +489,7 @@ class ViewController: UIViewController {
             destinationVC.mainPost = selectedPost
             destinationVC.mainPostScreenshot = selectedPostScreenshot
         }
+        
     }
     
     
