@@ -12,6 +12,10 @@ import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
 import MessageUI
 
+protocol GroupsViewControllerDelegate {
+    func setGroupsView(groupName: String, groupID: String)
+}
+
 /// Manages control flow of the score screen.
 class GroupsViewController: UIViewController {
 
@@ -23,7 +27,7 @@ class GroupsViewController: UIViewController {
     
     var groups: [Group] = []
     var groupsManager = GroupsManager()
-    var delegate: ViewControllerDelegate?
+    var delegate: GroupsViewControllerDelegate?
     
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -36,6 +40,8 @@ class GroupsViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
     }
+    
+    //MARK: View Initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +66,7 @@ class GroupsViewController: UIViewController {
         
     }
     
+    //MARK: Cell Interaction Methods
 
     @IBAction func createGroupButton(_ sender: Any) {
         print("DEBUGGING: Create group button pressed")
@@ -116,13 +123,18 @@ class GroupsViewController: UIViewController {
     
 }
 
+//MARK: Table View Control
+
 extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return groups.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            
+            let row = indexPath.row
+            let groupName = self.groups[row].groupName
+            let groupID = self.groups[row].groupID
+            self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -142,6 +154,8 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     
     
 }
+
+//MARK: Delegate Extensions
 
 extension GroupsViewController: GroupsManagerDelegate {
     func didFailWithError(error: Error) {
@@ -172,9 +186,7 @@ extension GroupsViewController: GroupsManagerDelegate {
 }
 
 extension GroupsViewController: GroupTableViewCellDelegate {
-    /** Deletes a group.
-    - Parameters:
-       - cell: Group to be deleted. */
+    //Deletes group from the table and calls function in groupsManager to delete group from database
     func deleteCell(_ cell: UITableViewCell) {
         let alert = MDCAlertController(title: "Are you sure?", message: "Deleting a comment is permanent. The comment's score will still count towards your karma.")
 
@@ -190,13 +202,5 @@ extension GroupsViewController: GroupTableViewCellDelegate {
 
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
-    }
-    
-    func groupSelected(_ cell: UITableViewCell) {
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let row = indexPath.row
-        let groupName = self.groups[row].groupName
-        let groupID = self.groups[row].groupID
-        self.delegate?.setGroupView(groupName: groupName, groupID: groupID)
     }
 }

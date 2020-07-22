@@ -21,7 +21,7 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var deleteButton: UIImageView!
     var delegate: GroupTableViewCellDelegate?
     
-    //MARK: Cell Toggle Functions
+    //MARK: Cell Utility Methods
     
     func enableDelete(){
         //enable post to be deleted by unhiding and enabling button
@@ -37,7 +37,7 @@ class GroupTableViewCell: UITableViewCell {
         deleteButton.isUserInteractionEnabled = true
     }
     
-    //MARK: Cell Interactions
+    //MARK: Cell Interaction Methods
     
     @objc func deleteGroupPressed(tapGestureRecognizer: UITapGestureRecognizer) {
         //Indicates interaction with delete button and sends function call to GroupTableViewCellDelegate
@@ -45,7 +45,7 @@ class GroupTableViewCell: UITableViewCell {
         self.delegate?.deleteCell(self)
     }
     
-    //MARK: Initialization
+    //MARK: Cell Initialization
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -74,6 +74,8 @@ class GroupTableViewCell: UITableViewCell {
     }
     
 }
+
+//MARK: Extensions
 
 extension UIColor {
     // Utility extension for setting the colors of selected cells. Makes a UIColor loighter or darker by a specified percentage

@@ -96,8 +96,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
-                                <rect key="frame" x="20" y="46" width="134" height="38.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine zesxrdctfvygbuhgvftcdrxdcftvygbuhnijhubgyvftcrdtfvygbuhnijmok" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                                <rect key="frame" x="20" y="46" width="275" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
@@ -302,7 +302,7 @@
                                 <state key="normal" title=" Groups 👪 "/>
                                 <connections>
                                     <action selector="groupsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n2W-hC-Xvo"/>
-                                    <segue destination="CIV-rF-mZI" kind="show" id="x86-cT-Ng5"/>
+                                    <segue destination="CIV-rF-mZI" kind="show" identifier="goToGroups" id="x86-cT-Ng5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -329,8 +329,10 @@
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="leading" secondItem="aGv-vy-wu6" secondAttribute="leading" id="fgc-7t-v6N"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="hAr-TB-Hy5"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hps-AJ-5Ly"/>
+                            <constraint firstItem="lLt-R3-CiW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="303" id="my2-uP-wju"/>
                             <constraint firstItem="lLt-R3-CiW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="nIv-2S-RS6"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="top" secondItem="aGv-vy-wu6" secondAttribute="top" id="nXh-FQ-QTm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rbx-yL-B51" secondAttribute="trailing" constant="119" id="tAi-J7-0RW"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xBL-NT-KQy"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="xzW-XI-Ta1"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZ5-dy-vHo"/>
