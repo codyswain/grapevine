@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     var ref = ""
     var canGetMorePosts = true
     var range = 3.0
-    var groupName = ""
+    var groupName = "Grapevine"
     var groupID = ""
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
@@ -51,7 +51,6 @@ class ViewController: UIViewController {
     var user: User?
     var userManager = UserManager()
     var scoreManager = ScoreManager()
-    var postTableCell = PostTableViewCell()
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var currentCity:String = "me" // "Anonymous said near me"
@@ -398,6 +397,7 @@ class ViewController: UIViewController {
         if segue.identifier == "goToGroups" {
             let destinationVC = segue.destination as! GroupsViewController
             destinationVC.delegate = self
+            destinationVC.selectedGroup = self.groupName
         }
     }
     
@@ -576,6 +576,7 @@ class ViewController: UIViewController {
             self.view.addSubview(bottomNavBar)
         } else if currentMode == "group" {
             self.nearbyLabel.text = groupName
+            self.rangeButton.isHidden = true
         }
         
     }

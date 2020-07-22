@@ -96,7 +96,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine zesxrdctfvygbuhgvftcdrxdcftvygbuhnijhubgyvftcrdtfvygbuhnijmok" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine " textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
                                 <rect key="frame" x="20" y="46" width="275" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -235,7 +235,6 @@
                                                 </state>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="QMB-UL-9TV" firstAttribute="leading" secondItem="hnO-9Q-5Rq" secondAttribute="leading" id="1Om-z0-hZb"/>
                                             <constraint firstAttribute="width" constant="120" id="LEh-Du-BIH"/>
@@ -258,7 +257,6 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="jhO-Gx-aTh" firstAttribute="centerX" secondItem="iF2-oT-rZi" secondAttribute="centerX" id="dhN-nV-dYE"/>
                                             <constraint firstItem="jhO-Gx-aTh" firstAttribute="centerY" secondItem="iF2-oT-rZi" secondAttribute="centerY" id="jQY-kO-bUj"/>
@@ -283,7 +281,6 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="EsB-jR-aSc" secondAttribute="trailing" constant="1" id="f85-dC-YOv"/>
                                             <constraint firstAttribute="width" constant="120" id="pxh-gd-CD9"/>

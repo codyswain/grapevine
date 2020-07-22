@@ -26,6 +26,7 @@ class GroupsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var groups: [Group] = []
+    var selectedGroup = ""
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
@@ -39,6 +40,22 @@ class GroupsViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
+    }
+    
+    //Dim background of ViewController so you can see top of this view
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        UIView.animate(withDuration: 0.5) {
+            self.presentingViewController?.view.backgroundColor = .systemGray5
+        }
+    }
+    
+    //Un-dim background of ViewController when GroupsView is closed
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        UIView.animate(withDuration: 0.5) {
+            self.presentingViewController?.view.backgroundColor = .systemBackground
+        }
     }
     
     //MARK: View Initialization
@@ -61,6 +78,10 @@ class GroupsViewController: UIViewController {
         tableView.rowHeight = 50
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
+        //Grapevine is the default group
+        let grapevine = Group(groupID: "Grapevine", groupName: "Grapevine", ownerID: "Grapevine")
+        groups += [grapevine]
+        
         //load the sample data
         loadSampleGroups()
         
@@ -76,6 +97,13 @@ class GroupsViewController: UIViewController {
 
         alert.addTextField { (textField) in
             textField.placeholder = "Group Name"
+            textField.textColor = .label
+            textField.tintColor = .systemGray2
+            textField.backgroundColor = .systemGray2
+            textField.keyboardAppearance = .dark
+            textField.keyboardType = .default
+            textField.autocorrectionType = .default
+            textField.clearButtonMode = .whileEditing
         }
 
         alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { [weak alert] (_) in
@@ -92,9 +120,10 @@ class GroupsViewController: UIViewController {
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12), //your font here
             NSAttributedString.Key.foregroundColor : Globals.ViewSettings.labelColor
         ])
-        
-        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = Globals.ViewSettings.backgroundColor
-        alert.view.tintColor = Globals.ViewSettings.labelColor
+        let backgroundLayer = alert.view.subviews.first?.subviews.first?.subviews.first
+        backgroundLayer?.backgroundColor = Globals.ViewSettings.backgroundColor
+        backgroundLayer?.traverseRadius(0)
+        //alert.view.tintColor = Globals.ViewSettings.labelColor
         alert.setValue(attributedString1, forKey: "attributedTitle")
         alert.setValue(attributedString2, forKey: "attributedMessage")
         
@@ -104,6 +133,10 @@ class GroupsViewController: UIViewController {
     
     @IBAction func joinGroupButton(_ sender: Any) {
         print("DEBUGGING: Join group button pressed")
+        let alert = MDCAlertController(title: "Join Group", message: "Enter your one-time group code to join")
+        alert.addAction(MDCAlertAction(title: "Done"))
+        makePopup(alert: alert, image: "person.3")
+        self.present(alert, animated: true)
     }
     
     @objc func refresh(){
@@ -126,6 +159,7 @@ class GroupsViewController: UIViewController {
 //MARK: Table View Control
 
 extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return groups.count
     }
@@ -133,6 +167,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let row = indexPath.row
             let groupName = self.groups[row].groupName
+            self.selectedGroup = groupName
             let groupID = self.groups[row].groupID
             self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
     }
@@ -147,6 +182,10 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableDelete()
         } else {
             cell.disableDelete()
+        }
+        
+        if group.groupName == self.selectedGroup {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
         }
         
         return cell
@@ -202,5 +241,17 @@ extension GroupsViewController: GroupTableViewCellDelegate {
 
         makePopup(alert: alert, image: "x.circle.fill")
         self.present(alert, animated: true)
+    }
+}
+
+//MARK: Utility Extensions
+
+extension UIView {
+    func traverseRadius(_ radius: Float) {
+        layer.cornerRadius = CGFloat(radius)
+
+        for subview: UIView in subviews {
+            subview.traverseRadius(radius)
+        }
     }
 }
