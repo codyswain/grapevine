@@ -423,6 +423,12 @@ extension CommentViewController: UITableViewDataSource {
             cell.disableDelete()
         }
         
+        //Jeremy's comment. Should be green to show he is special
+        let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
+        if comments[indexPath.row].poster == JeremysID {
+            cell.messageBackground.backgroundColor = .green
+        }
+        
         // Ensure cell can communicate with this view controller
         cell.delegate = self
         

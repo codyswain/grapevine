@@ -870,6 +870,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.shoutActive = false
         }
         
+        //Jeremy is the poster, make green to show he is special
+        let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
+        if posts[indexPath.row].poster == JeremysID {
+            cell.commentAreaButton.backgroundColor = .green
+        }
+        
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
         cell.delegate = self
         
