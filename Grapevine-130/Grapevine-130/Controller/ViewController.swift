@@ -1283,6 +1283,15 @@ extension ViewController: MDCBottomNavigationBarDelegate {
 
 extension ViewController: GroupsViewControllerDelegate {
     func setGroupsView(groupName: String, groupID: String) {
+        if groupName == "Grapevine" {
+            self.currentMode = "default"
+            self.groupName = groupName
+            self.groupID = groupID
+            self.nearbyLabel.text = groupName
+            self.rangeButton.isHidden = false
+            changeAppearanceBasedOnMode()
+            return
+        }
         self.currentMode = "group"
         self.groupName = groupName
         self.groupID = groupID

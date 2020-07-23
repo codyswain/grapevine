@@ -87,30 +87,24 @@ class GroupsViewController: UIViewController {
         
     }
     
-    //MARK: Cell Interaction Methods
-
-    @IBAction func createGroupButton(_ sender: Any) {
-        print("DEBUGGING: Create group button pressed")
-        let title = "New Group"
-        let message = "You are about to create an anonymous group chat. Enter an interesting name for your group chat below"
+    //MARK: Utility Methods
+    
+    //Creates and Presentat a popup that takes user input
+    func showAlertWithInput(title: String, message: String, placeholder: String, completion: @escaping (_ text: String?) -> Void ) {
+        
+        var inputText = ""
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        alert.addTextField { (textField) in
-            textField.placeholder = "Group Name"
-            textField.textColor = .label
-            textField.tintColor = .systemGray2
-            textField.backgroundColor = .systemGray2
-            textField.keyboardAppearance = .dark
-            textField.keyboardType = .default
-            textField.autocorrectionType = .default
-            textField.clearButtonMode = .whileEditing
-        }
-
-        alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { [weak alert] (_) in
-            let textField = alert?.textFields![0]
-            print("Text field: \(String(describing: textField!.text))")
+        setTheme(curView: alert)
+        alert.addTextField(configurationHandler: { (textField) -> Void in textField.placeholder = placeholder})
+        alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) -> Void in
+            let textOfTask = alert.textFields![0] as UITextField
+            inputText = textOfTask.text!
+            completion(inputText)
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            completion(nil)
+        }))
         
         let attributedString1 = NSAttributedString(string: title, attributes: [
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15), //your font here
@@ -120,23 +114,57 @@ class GroupsViewController: UIViewController {
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12), //your font here
             NSAttributedString.Key.foregroundColor : Globals.ViewSettings.labelColor
         ])
-        let backgroundLayer = alert.view.subviews.first?.subviews.first?.subviews.first
-        backgroundLayer?.backgroundColor = Globals.ViewSettings.backgroundColor
-        backgroundLayer?.traverseRadius(0)
-        //alert.view.tintColor = Globals.ViewSettings.labelColor
         alert.setValue(attributedString1, forKey: "attributedTitle")
         alert.setValue(attributedString2, forKey: "attributedMessage")
         
         self.present(alert, animated: true, completion: nil)
     }
     
+    //MARK: Cell Interaction Methods
+
+    @IBAction func createGroupButton(_ sender: Any) {
+        print("DEBUGGING: Create group button pressed")
+        var newGroupName = ""
+        showAlertWithInput(title: "New Group", message: "You are about to create an anonymous group chat. Enter an interesting name for your group chat below", placeholder: "Group Name") { (text) in
+            // handle completion result
+            if let inputText = text {
+                newGroupName = inputText
+                print("New Group Name: ", newGroupName)
+                //dont let them name their group grapevine
+                if newGroupName.trimmingCharacters(in: .whitespacesAndNewlines).caseInsensitiveCompare("Grapevine") == ComparisonResult.orderedSame {
+                    let alert = MDCAlertController(title: "Invalid Group Name", message: "Grapevine is our name. You can't use that.")
+                    alert.addAction(MDCAlertAction(title: "Ok"))
+                    makePopup(alert: alert, image: "Grapes")
+                    self.present(alert, animated: true)
+                }
+                //Maybe to do: check valid group names
+                
+                //TO DO: Send new group to database
+                
+                
+                
+                
+            }
+        }
+    }
+    
     
     @IBAction func joinGroupButton(_ sender: Any) {
         print("DEBUGGING: Join group button pressed")
-        let alert = MDCAlertController(title: "Join Group", message: "Enter your one-time group code to join")
-        alert.addAction(MDCAlertAction(title: "Done"))
-        makePopup(alert: alert, image: "person.3")
-        self.present(alert, animated: true)
+        var groupCode = ""
+        showAlertWithInput(title: "Join Group", message: "Enter your one-time group code to join an anonymous group", placeholder: "Group code") { (text) in
+            // handle completion result
+            if let inputText = text {
+                groupCode = inputText
+                print("Group Code: ", groupCode)
+                
+                //TO DO: Check database for group with join code matching input and authprize user
+                
+                
+                //TO DO: If Authorized, add group to My Groups Table
+                
+            }
+        }
     }
     
     @objc func refresh(){
