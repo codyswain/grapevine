@@ -171,21 +171,10 @@ class ViewController: UIViewController {
                 UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
                     print("Settings opened: \(success)")
                     Globals.ViewSettings.showNotificationAlert = false
-                    self.dismiss(animated: true, completion: {
-                        if !self.isLocationAccessEnabled() {
-                            self.displayLocationAlert()
-                        }
-                    })
                 })
             }
         })
-        alert.addAction(MDCAlertAction(title: "Done") { (action) in
-            self.dismiss(animated: true, completion: {
-                if !self.isLocationAccessEnabled() {
-                    self.displayLocationAlert()
-                }
-            })
-        })
+        alert.addAction(MDCAlertAction(title: "Done"))
         makePopup(alert: alert, image: "info.circle.fill")
         self.present(alert, animated: true)
 
@@ -200,6 +189,11 @@ class ViewController: UIViewController {
                 UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
                     print("Settings opened: \(success)")
                     self.getLocationAndPosts()
+                    self.dismiss(animated: true, completion: {
+                        if Globals.ViewSettings.showNotificationAlert {
+                            self.displayNotificationAlert()
+                        }
+                    })
                 })
             }
         })
@@ -213,20 +207,42 @@ class ViewController: UIViewController {
     func isLocationAccessEnabled() -> Bool {
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
-                case .notDetermined, .restricted, .denied:
+                case .notDetermined:
+                    print("Location Access Not Yet determined")
+                    return false
+                case .restricted, .denied:
                     print("No Location Access")
                     return false
                 case .authorizedAlways, .authorizedWhenInUse:
                     print("Location Access")
                     return true
-            @unknown default:
-                print("Location Access Authorization Status Error")
-                return false
+                @unknown default:
+                    print("Location Access Authorization Status Error")
+                    return false
             }
         }
         else {
             print("Location services not enabled")
             return false
+        }
+    }
+    
+    //Called if equest for location fails
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error)")
+    }
+    
+    //Called if location status changed, and when location manager initiated
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if !isLocationAccessEnabled() && CLLocationManager.authorizationStatus() != .notDetermined {
+            displayLocationAlert()
+        } else if CLLocationManager.authorizationStatus() != .notDetermined{
+            //  If location access is enabled, this will make the call to show notification alert if not already enabled. Otherwise, if location is not enabled, show notification alert is called by completion handler of show location alert because two alets cannot be shown at the same time
+            if Globals.ViewSettings.showNotificationAlert {
+                displayNotificationAlert()
+                Globals.ViewSettings.showNotificationAlert = false
+            }
+            self.refresh()
         }
     }
     
@@ -877,15 +893,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Hide the shout button, only for ShoutChamberViewController
         cell.shoutButtonVar.isHidden = true
-        
-        // If the current user created this post, he/she can delete it
-        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
-            cell.enableDelete()
-            cell.disableInteraction()
-        } else {
-            cell.disableDelete()
-            cell.enableInteraction()
-        }
 
         // The cell is shouted
         if let expiry = posts[indexPath.row].shoutExpiration {
@@ -899,11 +906,41 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.shoutActive = false
         }
         
+        //Jeremy is the poster, make green to show he is special
+        let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
+        let JeremysLastAnonymousPostDate = 1595486441.830924 //This was the date of his most recent post at the time of adding this feature so that all his previous posts remain normal colors
+        if posts[indexPath.row].poster == JeremysID && posts[indexPath.row].date > JeremysLastAnonymousPostDate {
+            cell.commentAreaButton.backgroundColor = .green
+        }
+        
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
         cell.delegate = self
         
         // Refresh the display of the cell, now that we've loaded in vote status
         cell.refreshView()
+        
+        ///TO-DO fix refreshview so it is only refreshing what is necessary (post colors, not certain user interactions, etc)
+        
+        // If the current user created this post, he/she can delete it
+        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
+            cell.enableDelete()
+            cell.disableInteraction()
+        } else {
+            cell.disableDelete()
+            cell.enableInteraction()
+        }
+        
+        // If currentmode is my comments then they don't need the cell footer
+        if currentMode == "myComments" {
+            cell.footer.isHidden = true
+        }
+        
+        // Don't let users use abilities on their own posts
+        if Constants.userID == posts[indexPath.row].poster {
+            cell.disableAbilities()
+        } else {
+            cell.enableAbilities()
+        }
         
         return cell
     }
@@ -1038,11 +1075,6 @@ extension ViewController: CLLocationManagerDelegate {
             print("Location request success")
             postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
-    }
-    
-    /** Fires if location retrieval fails. */
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location error: \(error)")
     }
 }
 
