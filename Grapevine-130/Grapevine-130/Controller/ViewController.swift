@@ -4,8 +4,15 @@ import MaterialComponents.MaterialBottomNavigation
 import MaterialComponents.MaterialButtons
 import MaterialComponents.MaterialButtons_Theming
 
+protocol ViewControllerDelegate {
+    func setGroupView(groupName: String, groupID: String)
+}
+
 /// Manages the main workflow.
 class ViewController: UIViewController {
+    
+    //MARK: Properties
+    
     // UI variables
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
@@ -36,13 +43,14 @@ class ViewController: UIViewController {
     var ref = ""
     var canGetMorePosts = true
     var range = 3.0
+    var groupName = "Grapevine"
+    var groupID = ""
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
     var storyManager = StoryManager()
     var user: User?
     var userManager = UserManager()
     var scoreManager = ScoreManager()
-    var postTableCell = PostTableViewCell()
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var currentCity:String = "me" // "Anonymous said near me"
@@ -83,6 +91,8 @@ class ViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
     }
+    
+    //MARK: View Initialization
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,6 +144,23 @@ class ViewController: UIViewController {
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
     }
+    
+    //Display Enable Notification Message
+    //You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
+    //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
+    override func viewDidAppear(_ animated: Bool) {
+        if Globals.ViewSettings.showNotificationAlert {
+            displayNotificationAlert()
+            Globals.ViewSettings.showNotificationAlert = false
+            return //cannot display 2 MDC alerts at the same time.
+                   //displayNotificationAlert() handles the case of both notifications needing to be displayed and will also display location alert
+        }
+        if !isLocationAccessEnabled() { //if it is just the location alert, display it.
+            displayLocationAlert()
+        }
+    }
+    
+    //MARK: View Utilities
     
     func displayNotificationAlert() {
         let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
@@ -290,13 +317,6 @@ class ViewController: UIViewController {
         indicator.center = self.view.center
         self.view.addSubview(indicator)
     }
-            
-    /// Scrolls to the top of the table
-    @objc func scrollToTop()
-    {
-        let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
-        self.tableView?.setContentOffset(topOffest, animated: true)
-    }
     
     func setInitialPostFilters() {
         let defaults = UserDefaults.standard //Save range for next load
@@ -363,6 +383,233 @@ class ViewController: UIViewController {
         // Refresh posts in the table
         self.tableView.refreshControl?.beginRefreshing()
         self.applyFilter(reset: true)
+    }
+    
+    /**
+     Update user information when a user segues to a new screen.
+     
+     - Parameters:
+        - segue: New screen to transition to
+        - sender: Segue initiator
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToNewPosts" {
+            let destinationVC = segue.destination as! NewPostViewController
+            destinationVC.lat = self.lat
+            destinationVC.lon = self.lon
+        }
+        if segue.identifier == "mainViewToScoreView" {
+            let destinationVC = segue.destination as! ScoreViewController
+            destinationVC.range = range
+        }
+        if segue.identifier == "goToComments" {
+            let destinationVC = segue.destination as! CommentViewController
+            if currentMode == "myComments" {
+                selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
+            }
+            destinationVC.mainPost = selectedPost
+            destinationVC.mainPostScreenshot = selectedPostScreenshot
+        }
+        if segue.identifier == "goToGroups" {
+            let destinationVC = segue.destination as! GroupsViewController
+            destinationVC.delegate = self
+            destinationVC.selectedGroup = self.groupName
+        }
+    }
+    
+    func exitAbilities(){
+        // give haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
+        // reset selected buttons
+        burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
+        applyAbilityButton.image = UIImage(named: "push-button")
+        applyAbilityButton.alpha = 1.0
+        
+        abilitiesBackgroundView.isHidden = true
+        abilitiesBackgroundView.isUserInteractionEnabled = false
+        
+        abilitiesStackView.isHidden = true
+        abilitiesStackView.isUserInteractionEnabled = false
+        
+        applyAbilityButton.isHidden = true
+        applyAbilityButton.isUserInteractionEnabled = false
+    }
+        
+    ///Displays the sharing popup, so users can share a post to Snapchat.
+    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
+        let heightInPoints = content.size.height
+        let heightInPixels = heightInPoints * content.scale
+        let alert = MDCAlertController(title: "Stories", message: "Share this post!")
+        alert.backgroundColor = Globals.ViewSettings.backgroundColor
+        alert.titleColor = Globals.ViewSettings.labelColor
+        alert.messageColor = Globals.ViewSettings.labelColor
+        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToInstagram(backgroundImage, content)
+        })
+        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+            var backgroundImage: UIImage
+            if self.range == -1 {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
+            } else {
+                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
+            }
+            self.storyManager.shareToSnap(backgroundImage, content)
+        })
+
+        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
+        self.present(alert, animated: true)
+    }
+
+    func showAbilitiesView(_ cell: UITableViewCell){
+        // Give haptic feedback
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
+        burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        
+        abilitiesBackgroundView.isHidden = false
+        abilitiesBackgroundView.isUserInteractionEnabled = true
+        
+        abilitiesStackView.isHidden = false
+        abilitiesStackView.isUserInteractionEnabled = true
+        
+        applyAbilityButton.isHidden = false
+        applyAbilityButton.isUserInteractionEnabled = true
+        
+        pushButton.alpha = 1.0
+        burnButton.alpha = 0.4
+        shoutButton.alpha = 0.4
+        currentAbilityTitle.text = "Push"
+        currentAbility = "push"
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user!.score) karma."
+        
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        selectedPost = posts[row]
+    }
+    
+    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
+        print("Segue to comment view occurs here")
+        let indexPath = self.tableView.indexPath(for: cell)!
+        let row = indexPath.row
+        selectedPost = posts[row]
+        selectedPostScreenshot = postScreenshot
+        self.performSegue(withIdentifier: "goToComments", sender: self)
+    }
+    
+    // For sharing to stories
+    func updateCity() {
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: lat, longitude: lon)
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            if placeMark?.subLocality != nil {
+                self.currentCity = (placeMark?.subLocality)!
+            } else if placeMark?.locality != nil {
+                self.currentCity = (placeMark?.locality)!
+            } else {
+                self.currentCity = "me"
+            }
+        })
+    }
+    
+    func applyFilter(reset: Bool){
+        if reset {
+            if (currentFilterState == "new"){ // was showing new, change to top
+                filterToNewPosts()
+            } else if (currentFilterState == "top"){ // was showing top, change to new
+                 filterToTopPosts()
+            }
+        } else {
+            if (currentFilterState == "new"){ // was showing new, change to top
+                filterToTopPosts()
+            } else if (currentFilterState == "top"){ // was showing top, change to new
+                filterToNewPosts()
+            }
+        }
+    }
+    
+    func filterToTopPosts(){
+        self.currentFilterState = "top"
+        filterButton.setTitle(" Best", for: UIControl.State.normal)
+        let newIcon = UIImage(systemName: "star.circle.fill")
+        filterButton.setImage(newIcon, for: UIControl.State.normal)
+        let defaults = UserDefaults.standard //Save filter for next load
+        defaults.set("top", forKey: Globals.userDefaults.filterKey)
+        self.refresh()
+    }
+    func filterToNewPosts(){
+        self.currentFilterState = "new"
+        filterButton.setTitle(" Newest", for: UIControl.State.normal)
+        let newIcon = UIImage(systemName: "bolt.circle.fill")
+        filterButton.setImage(newIcon, for: UIControl.State.normal)
+        let defaults = UserDefaults.standard //Save filter for next load
+        defaults.set("new", forKey: Globals.userDefaults.filterKey)
+        self.refresh()
+    }
+    
+    // Popup when user flags post
+    func showFlaggedAlertPopup(){
+        let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
+        alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
+        makePopup(alert: alert, image: "flag")
+        self.present(alert, animated: true)
+    }
+    
+    func changeAppearanceBasedOnMode(){
+        if currentMode == "default" {
+            // Add menu navigation bar programatically
+            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
+            self.view.addSubview(bottomNavBar)
+        } else if currentMode == "myPosts" {
+            self.nearbyLabel.text = "My Posts"
+            self.rangeButton.isHidden = true
+            self.filterButton.isHidden = true
+            self.postTypeButton.isHidden = true
+            // Add menu navigation bar programatically
+            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
+            self.view.addSubview(bottomNavBar)
+        } else if currentMode == "myComments" {
+            self.nearbyLabel.text = "My Comments"
+            self.rangeButton.isHidden = true
+            self.filterButton.isHidden = true
+            self.postTypeButton.isHidden = true
+            // Add menu navigation bar programatically
+            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
+            self.view.addSubview(bottomNavBar)
+        } else if currentMode == "group" {
+            self.nearbyLabel.text = groupName
+            self.rangeButton.isHidden = true
+        }
+        
+    }
+    
+    //MARK: View Interaction Methods
+    
+    ///Scrolls to top of table
+    @objc func scrollToTop() {
+        let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
+        self.tableView?.setContentOffset(topOffest, animated: true)
+    }
+    
+    //Called when a user taps the groups button
+    @IBAction func groupsButton(_ sender: Any) {
+        print("going to groups")
+        self.performSegue(withIdentifier: "goToGroups", sender: self)
+        
     }
     
     /**
@@ -460,35 +707,6 @@ class ViewController: UIViewController {
         }
     }
     
-    /**
-     Update user information when a user segues to a new screen.
-     
-     - Parameters:
-        - segue: New screen to transition to
-        - sender: Segue initiator
-     */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToNewPosts" {
-            let destinationVC = segue.destination as! NewPostViewController
-            destinationVC.lat = self.lat
-            destinationVC.lon = self.lon
-        }
-        if segue.identifier == "mainViewToScoreView" {
-            let destinationVC = segue.destination as! ScoreViewController
-            destinationVC.range = range
-        }
-        if segue.identifier == "goToComments" {
-            let destinationVC = segue.destination as! CommentViewController
-            if currentMode == "myComments" {
-                selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            }
-            destinationVC.mainPost = selectedPost
-            destinationVC.mainPostScreenshot = selectedPostScreenshot
-        }
-    }
-    
-    
-    
     @objc func pushButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
         pushButton.alpha = 1.0
         burnButton.alpha = 0.4
@@ -529,26 +747,6 @@ class ViewController: UIViewController {
         currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user!.score)."
         applyAbilityButton.image = UIImage(named: "shout-button")
         currentAbility = "shout"
-    }
-    
-    func exitAbilities(){
-        // give haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-
-        // reset selected buttons
-        burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
-        applyAbilityButton.image = UIImage(named: "push-button")
-        applyAbilityButton.alpha = 1.0
-        
-        abilitiesBackgroundView.isHidden = true
-        abilitiesBackgroundView.isUserInteractionEnabled = false
-        
-        abilitiesStackView.isHidden = true
-        abilitiesStackView.isUserInteractionEnabled = false
-        
-        applyAbilityButton.isHidden = true
-        applyAbilityButton.isUserInteractionEnabled = false
     }
     
     // For detecting when user wants to exit
@@ -609,95 +807,6 @@ class ViewController: UIViewController {
         }
         exitAbilities()
     }
-        
-    ///Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
-        let heightInPoints = content.size.height
-        let heightInPixels = heightInPoints * content.scale
-        let alert = MDCAlertController(title: "Stories", message: "Share this post!")
-        alert.backgroundColor = Globals.ViewSettings.backgroundColor
-        alert.titleColor = Globals.ViewSettings.labelColor
-        alert.messageColor = Globals.ViewSettings.labelColor
-        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
-        alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createInstaBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToInstagram(backgroundImage, content)
-        })
-        alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
-            var backgroundImage: UIImage
-            if self.range == -1 {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
-            } else {
-                backgroundImage = self.storyManager.createBackgroundImage(postType, self.currentCity, heightInPixels)!
-            }
-            self.storyManager.shareToSnap(backgroundImage, content)
-        })
-
-        makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
-        self.present(alert, animated: true)
-    }
-
-    func showAbilitiesView(_ cell: UITableViewCell){
-        // Give haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-        
-        burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
-        shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
-        pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
-        
-        abilitiesBackgroundView.isHidden = false
-        abilitiesBackgroundView.isUserInteractionEnabled = true
-        
-        abilitiesStackView.isHidden = false
-        abilitiesStackView.isUserInteractionEnabled = true
-        
-        applyAbilityButton.isHidden = false
-        applyAbilityButton.isUserInteractionEnabled = true
-        
-        pushButton.alpha = 1.0
-        burnButton.alpha = 0.4
-        shoutButton.alpha = 0.4
-        currentAbilityTitle.text = "Push"
-        currentAbility = "push"
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user!.score) karma."
-        
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let row = indexPath.row
-        selectedPost = posts[row]
-    }
-    
-    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
-        print("Segue to comment view occurs here")
-        let indexPath = self.tableView.indexPath(for: cell)!
-        let row = indexPath.row
-        selectedPost = posts[row]
-        selectedPostScreenshot = postScreenshot
-        self.performSegue(withIdentifier: "goToComments", sender: self)
-    }
-    
-    // For sharing to stories
-    func updateCity() {
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: lat, longitude: lon)
-        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-            // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            if placeMark?.subLocality != nil {
-                self.currentCity = (placeMark?.subLocality)!
-            } else if placeMark?.locality != nil {
-                self.currentCity = (placeMark?.locality)!
-            } else {
-                self.currentCity = "me"
-            }
-        })
-    }
     
     @IBAction func filterPosts(_ sender: Any) {
         // Scroll to top
@@ -707,77 +816,12 @@ class ViewController: UIViewController {
         applyFilter(reset: false)
     }
     
-    func applyFilter(reset: Bool){
-        if reset {
-            if (currentFilterState == "new"){ // was showing new, change to top
-                filterToNewPosts()
-            } else if (currentFilterState == "top"){ // was showing top, change to new
-                 filterToTopPosts()
-            }
-        } else {
-            if (currentFilterState == "new"){ // was showing new, change to top
-                filterToTopPosts()
-            } else if (currentFilterState == "top"){ // was showing top, change to new
-                filterToNewPosts()
-            }
-        }
-    }
-    
-    func filterToTopPosts(){
-        self.currentFilterState = "top"
-        filterButton.setTitle(" Best", for: UIControl.State.normal)
-        let newIcon = UIImage(systemName: "star.circle.fill")
-        filterButton.setImage(newIcon, for: UIControl.State.normal)
-        let defaults = UserDefaults.standard //Save filter for next load
-        defaults.set("top", forKey: Globals.userDefaults.filterKey)
-        self.refresh()
-    }
-    func filterToNewPosts(){
-        self.currentFilterState = "new"
-        filterButton.setTitle(" Newest", for: UIControl.State.normal)
-        let newIcon = UIImage(systemName: "bolt.circle.fill")
-        filterButton.setImage(newIcon, for: UIControl.State.normal)
-        let defaults = UserDefaults.standard //Save filter for next load
-        defaults.set("new", forKey: Globals.userDefaults.filterKey)
-        self.refresh()
-    }
-    
-    // Popup when user flags post
-    func showFlaggedAlertPopup(){
-        let alert = MDCAlertController(title: "Post Flagged", message: "Sorry about that. Please email teamgrapevineofficial@gmail.com if this is urgently serious.")
-        alert.addAction(MDCAlertAction(title: "Ok"){ (action) in })
-        makePopup(alert: alert, image: "flag")
-        self.present(alert, animated: true)
-    }
-    
     @IBAction func addButtonPressed(_ sender: UIButton){
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
     }
-    
-    func changeAppearanceBasedOnMode(){
-        if currentMode == "default" {
-            // Add menu navigation bar programatically
-            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
-            self.view.addSubview(bottomNavBar)
-        } else if currentMode == "myPosts" {
-            self.nearbyLabel.text = "My Posts"
-            self.rangeButton.isHidden = true
-            self.filterButton.isHidden = true
-            self.postTypeButton.isHidden = true
-            // Add menu navigation bar programatically
-            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
-            self.view.addSubview(bottomNavBar)
-        } else if currentMode == "myComments" {
-            self.nearbyLabel.text = "My Comments"
-            self.rangeButton.isHidden = true
-            self.filterButton.isHidden = true
-            self.postTypeButton.isHidden = true
-            // Add menu navigation bar programatically
-            bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
-            self.view.addSubview(bottomNavBar)
-        }
-    }
 }
+
+//MARK: Table View Control
 
 /// Manages the posts table.
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -947,6 +991,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
 }
+
+//MARK: Delegate Extensions
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
@@ -1264,5 +1310,23 @@ extension ViewController: MDCBottomNavigationBarDelegate {
             bottomNavBar.selectedItem = bottomNavBar.items[1]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
+    }
+}
+
+extension ViewController: GroupsViewControllerDelegate {
+    func setGroupsView(groupName: String, groupID: String) {
+        if groupName == "Grapevine" {
+            self.currentMode = "default"
+            self.groupName = groupName
+            self.groupID = groupID
+            self.nearbyLabel.text = groupName
+            self.rangeButton.isHidden = false
+            changeAppearanceBasedOnMode()
+            return
+        }
+        self.currentMode = "group"
+        self.groupName = groupName
+        self.groupID = groupID
+        changeAppearanceBasedOnMode()
     }
 }

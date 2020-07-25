@@ -195,6 +195,14 @@ function updatePushNotificationToken(req, userID, body){
   var setWithMerge = userRef.set({"pushNotificationToken": token}, { merge: true });
 }
 
+// Generate string of random characters and numbers
+function randomString(length) {
+  let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
+
 // Get user id from post id
 function sendPushNotificationToPoster(req, postID, body){
   var db = req.app.get('db');
@@ -248,4 +256,23 @@ function pushNotificationHelper2(req, token, body){
   }
 }
 
-module.exports = {getCoordBox, getGeohashRange, getGeohash, UPVOTE, DOWNVOTE, FLAG, toggleInteraction, getVote, getFlag, updateFlagCount, updateVoteCount, getFlagLimit, deletePostComments, hasInteraction, updatePushNotificationToken, sendPushNotificationToPoster, pushNotificationHelper1}
+module.exports = {
+  getCoordBox, 
+  getGeohashRange, 
+  getGeohash, 
+  UPVOTE, 
+  DOWNVOTE, 
+  FLAG, 
+  toggleInteraction, 
+  getVote, 
+  getFlag, 
+  updateFlagCount, 
+  updateVoteCount, 
+  getFlagLimit, 
+  deletePostComments, 
+  hasInteraction, 
+  randomString,
+  updatePushNotificationToken, 
+  sendPushNotificationToPoster, 
+  pushNotificationHelper1
+}
