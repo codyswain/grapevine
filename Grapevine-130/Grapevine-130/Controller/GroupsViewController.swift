@@ -262,19 +262,6 @@ extension GroupsViewController: GroupsManagerDelegate {
             self.present(alert, animated: true)
         }
     }
-    
-    /// Fires when groups are fetched
-    /// TO-DO: load this data into groups table
-    func didUpdateGroups(groups: [Group]) {
-        print(groups)
-    }
-    
-    /// Fires when a user creates a group
-    /// TO-DO: segue to feed and load in group
-    func didCreateGroup(groupID: String, groupName: String) {
-        print(groupID)
-        print(groupName)
-    }
 }
 
 extension GroupsViewController: GroupTableViewCellDelegate {
