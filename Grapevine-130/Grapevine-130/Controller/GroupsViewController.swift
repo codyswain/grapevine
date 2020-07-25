@@ -85,6 +85,7 @@ class GroupsViewController: UIViewController {
         //load the sample data
         loadSampleGroups()
         
+        groupsManager.delegate = self
     }
     
     //MARK: Utility Methods
@@ -155,7 +156,7 @@ class GroupsViewController: UIViewController {
                 print("Group Code: ", groupCode)
                 
                 //TO DO: Check database for group with join code matching input and authprize user
-                
+                self.groupsManager.joinGroup(key: groupCode, userID: Constants.userID)
                 
                 //TO DO: If Authorized, add group to My Groups Table
                 
@@ -230,13 +231,15 @@ extension GroupsViewController: GroupsManagerDelegate {
     }
     
     func didUpdateGroups(_ groupManager: GroupsManager, groups: [Group]) {
-        print("To Do")
+        print("UPDATE")
+        DispatchQueue.main.async {
+            self.refresher.endRefreshing()
+        }
     }
     
-    func didCreateGroup() {
-        print("To Do")
+    func didJoinGroup(){
+        
     }
-    
     
     /// Fires when groups are fetched
     /// TO-DO: load this data into groups table

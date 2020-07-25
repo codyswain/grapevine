@@ -17,11 +17,14 @@ protocol GroupsManagerDelegate {
     // TO-DO: pass back groupID and groupName
     // then pop it into the table, so you don't have to re-query posts
     func didCreateGroup()
+    
+    func didJoinGroup()
 }
 
 struct GroupsManager {
     let fetchGroupsURL = Constants.serverURL + "groups/?"
     let createGroupURL = Constants.serverURL + "groups"
+    let joinGroupURL = Constants.serverURL + "groups/key/?"
     var delegate: GroupsManagerDelegate?
     
     /// Fetch the groups a user belongs to
@@ -33,6 +36,11 @@ struct GroupsManager {
     /// Create a group
     func createGroup(groupName: String, ownerID: String){
         performPOSTRequest(groupName: groupName, ownerID: ownerID)
+    }
+    
+    func joinGroup(key: String, userID: String){
+        let url = "\(joinGroupURL)&userID=\(userID)&key=\(key)"
+        performRequestJoinGroup(with: url, requestType: "join")
     }
     
     // TO-DO: can performRequest and performPOSTRequest be consolidated??
@@ -52,6 +60,24 @@ struct GroupsManager {
                         print("Request returned and processed \(ref.groups) groups")
                         self.delegate?.didUpdateGroups(self, groups: ref.groups)
                     }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func performRequestJoinGroup(with urlString: String, requestType: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            print("Sent request URL: \(url)")
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    self.delegate?.didFailWithError(error: error!)
+                    return
+                }
+                if let safeData = data {
+                    print("Request returned and processed \(safeData)")
+                    self.delegate?.didJoinGroup()
                 }
             }
             task.resume()
