@@ -147,6 +147,18 @@ class PostTableViewCell: UITableViewCell {
         print("Not deletable: \(documentId)")
         deleteButton.isHidden = true
     }
+    //show and enable abilities button
+    func enableAbilities() {
+        abilitiesButton.isUserInteractionEnabled = true
+        abilitiesButton.isHidden = false
+    }
+    
+    //hide and disable abilities button
+    func disableAbilities() {
+        abilitiesButton.isUserInteractionEnabled = false
+        abilitiesButton.isHidden = true
+    }
+    
     
     func enableInteraction() {
         DispatchQueue.main.async {
@@ -329,7 +341,6 @@ class PostTableViewCell: UITableViewCell {
         }
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
-        abilitiesButton.isHidden = false
         decideFlagColors()
         footer.backgroundColor = footerColor
         commentButton.tintColor = buttonColor
@@ -353,7 +364,6 @@ class PostTableViewCell: UITableViewCell {
         commentButton.tintColor = buttonColor
         downvoteImageButton.isHidden = true
         upvoteImageButton.isHidden = false
-        abilitiesButton.isHidden = false
         abilitiesButton.tintColor = buttonColor
         footer.backgroundColor = footerColor
         upvoteImageButton.tintColor = buttonColor
