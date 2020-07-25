@@ -180,6 +180,7 @@ class GroupsViewController: UIViewController {
     @IBAction func addMembersPressed(_ sender: Any) {
         let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
         makePopup(alert: alert, image: "person.badge.plus")
+        self.present(alert, animated: true)
     }
     
     @objc func refresh(){
@@ -192,7 +193,7 @@ class GroupsViewController: UIViewController {
     private func loadSampleGroups() {
         let group1 = Group(id: "testGroup1ID", name: "testGroup1aqzwsxedcrfvtgbyhnuybgtvfcrdxesedrcftvgybgtfcrdxesedrftvgybhungfdcrxessxedcrftvgybhunbgvfcdxsdcrftvgybhunbgvftxesxedrcftvgybhunijhbgvftcdrxsedcrftvgbyhunjinhbgvfcdxssexdrcftvgybhungfvtcdrxsedcrftvygbuhnbgfcdxsdrcftvgybhun", ownerID: "testOwnerId1")
         let group2 = Group(id: "testGroup2ID", name: "testGroup2", ownerID: "testOwnerId2")
-        let group3 = Group(id: "testGroup2ID", name: "testGroup3", ownerID: "testOwnerId3")
+        let group3 = Group(id: "testGroup2ID", name: "testGroup3", ownerID: "8ab5db019b47ea48ca178316c469bde21b444d8a40f3aee7cea20f6ba0887e77")
         
         groups += [group1, group2, group3]
     }
@@ -210,9 +211,9 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
             let group = self.groups[indexPath.row]
-            let groupName = group.groupName
+            let groupName = group.name
             self.selectedGroup = groupName
-            let groupID = group.groupID
+            let groupID = group.id
             self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
             if group.ownerID == Constants.userID {
                 showAddMembers()
