@@ -16,14 +16,12 @@ protocol GroupsManagerDelegate {
     
     // TO-DO: pass back groupID and groupName
     // then pop it into the table, so you don't have to re-query posts
-    func didCreateGroup(groupID: String)
+    func didCreateGroup()
 }
 
 struct GroupsManager {
-//    let fetchGroupsURL = Constants.serverURL + "groups/?"
-//    let createGroupURL = Constants.serverURL + "groups"
-    let fetchGroupsURL = Constants.testServerURL + "groups/?"
-    let createGroupURL = Constants.testServerURL + "groups"
+    let fetchGroupsURL = Constants.serverURL + "groups/?"
+    let createGroupURL = Constants.serverURL + "groups"
     var delegate: GroupsManagerDelegate?
     
     /// Fetch the groups a user belongs to
@@ -34,46 +32,13 @@ struct GroupsManager {
     
     /// Create a group
     func createGroup(groupName: String, ownerID: String){
-        let url = "\(createGroupURL)&ownerID=\(ownerID)&groupName=\(groupName)"
-        performRequest(with: url, requestType: "create")
+        performPOSTRequest(groupName: groupName, ownerID: ownerID)
     }
     
     // TO-DO: can performRequest and performPOSTRequest be consolidated??
     
     /// This is currently used to fetch groups (GET request)
     func performRequest(with urlString: String, requestType: String) {
-//        if let url = URL(string: urlString) {
-//            let session = URLSession(configuration: .default)
-//            print("Sent request URL: \(url)")
-//            let task = session.dataTask(with: url) { (data, response, error) in
-//                if error != nil {
-//                    self.delegate?.didFailWithError(error: error!)
-//                    return
-//                }
-//                if let safeData = data {
-//                    if (requestType == "fetch"){
-//                        print("Request returned: groups fetched")
-//                        if let groups = self.parseJSON(safeData) {
-//                            self.delegate?.didUpdateGroups(self, groups: groups)
-//                            print("Request returned and processed \(groups.count) groups")
-//                            print(groups)
-//                        }
-//                    } else if (requestType == "create"){
-//                        print(safeData)
-////                        if let data = safeData {
-////                            print(safeData)
-////                        }
-////                        if let groupID = self.parseJSON(safeData) {
-////                            self.delegate?.didCreateGroup(groupID: groupID)
-////                            print("Request returned and processed group with ID: \(groupID)")
-////                        }
-//                    }
-//                }
-//            }
-//            task.resume()
-//        }
-        
-        
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             print("Sent request URL: \(url)")
@@ -83,9 +48,9 @@ struct GroupsManager {
                     return
                 }
                 if let safeData = data {
-                    if let groups = self.parseJSON(safeData) {
-                        self.delegate?.didUpdateGroups(self, groups: groups)
-                        print("Request returned and processed \(groups) posts")
+                    if let ref = self.parseJSON(safeData) {
+                        print("Request returned and processed \(ref.groups) groups")
+                        self.delegate?.didUpdateGroups(self, groups: ref.groups)
                     }
                 }
             }
@@ -117,23 +82,21 @@ struct GroupsManager {
             }
             if let safeData = data {
                 print("Comment POST req returned: \(safeData)")
-                self.delegate?.didCreateGroup(groupID: "hghhh")
+                self.delegate?.didCreateGroup()
                 return
             }
         }
         task.resume()
     }
     
-    // TO-DO: modularize this function because currently it is being used
-    // in multiple different *Manager.swift files
-    func parseJSON(_ data: Data) -> [Group]? {
+    func parseJSON(_ data: Data) -> GroupReference? {
         let decoder = JSONDecoder()
-        var groups : [Group] = []
+        var ref = GroupReference(groups: [])
         do {
-            groups = try decoder.decode(Array<Group>.self, from: data)
+            ref = try decoder.decode(GroupReference.self, from: data)
         } catch {
             delegate?.didFailWithError(error: error)
         }
-        return groups
+        return ref
     }
 }

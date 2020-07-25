@@ -10,10 +10,10 @@ import Foundation
 
 struct Group : Decodable {
     // Unique identifier for a group
-    let groupID: String
+    let id: String
     
     // User defined name for the group
-    let groupName: String
+    let name: String
     
     // Hashed device ID of group owner
     let ownerID: String
