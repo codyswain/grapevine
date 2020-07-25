@@ -25,7 +25,7 @@ async function createGroup(req, res, next) {
 	.then(ref => {
     console.log('CREATED group with ID: ', ref.id);
     db.collection("users").doc(userID).update({ groups: FieldValue.arrayUnion(ref.id) })
-    res.status(200).send(ref.id);
+    res.status(200).send({groupID: ref.id});
 	})
 	.catch((err) => {
 		console.log("ERROR creating group: " + err)
@@ -58,7 +58,7 @@ async function fetchGroups(req, res, next){
         ownerID: ref1.data().ownerID
       })
     }
-    res.status(200).send(groups)
+    res.status(200).send({groups: groups})
   }
 }
 
@@ -73,7 +73,7 @@ async function createGroupKey(req, res, next){
   db.collection("keys").doc(newKey).set({groupID : groupID})
   .then(ref => {
     console.log(`CREATED key: ${newKey} for groupID: ${groupID}`);
-    res.status(200).send(newKey);
+    res.status(200).send({key: newKey});
 	})
 	.catch((err) => {
 		console.log("ERROR creating group key: " + err)
@@ -98,7 +98,7 @@ async function consumeKey(req, res, next){
       console.log(`SUCCESSFULLY VALIDATED and REMOVED key: ${key}. ADDING userID: ${userID} to group: ${groupID}`);
       db.collection("groups").doc(groupID).update({ members: FieldValue.arrayUnion(userID) })
       db.collection("users").doc(userID).update({ groups: FieldValue.arrayUnion(groupID) }, {merge: true})
-      res.status(200).send(groupID)
+      res.status(200).send({groupID: groupID})
     }).catch(function(error) {
       console.log(`SUCCESSFULLY VALIDATED key: ${key} for groupID: ${groupID}`);
       console.error("Error removing document: ", error);
