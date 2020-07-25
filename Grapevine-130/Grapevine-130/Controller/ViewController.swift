@@ -849,15 +849,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Hide the shout button, only for ShoutChamberViewController
         cell.shoutButtonVar.isHidden = true
-        
-        // If the current user created this post, he/she can delete it
-        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
-            cell.enableDelete()
-            cell.disableInteraction()
-        } else {
-            cell.disableDelete()
-            cell.enableInteraction()
-        }
 
         // The cell is shouted
         if let expiry = posts[indexPath.row].shoutExpiration {
@@ -883,6 +874,29 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Refresh the display of the cell, now that we've loaded in vote status
         cell.refreshView()
+        
+        ///TO-DO fix refreshview so it is only refreshing what is necessary (post colors, not certain user interactions, etc)
+        
+        // If the current user created this post, he/she can delete it
+        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
+            cell.enableDelete()
+            cell.disableInteraction()
+        } else {
+            cell.disableDelete()
+            cell.enableInteraction()
+        }
+        
+        // If currentmode is my comments then they don't need the cell footer
+        if currentMode == "myComments" {
+            cell.footer.isHidden = true
+        }
+        
+        // Don't let users use abilities on their own posts
+        if Constants.userID == posts[indexPath.row].poster {
+            cell.disableAbilities()
+        } else {
+            cell.enableAbilities()
+        }
         
         return cell
     }
