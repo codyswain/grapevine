@@ -33,6 +33,8 @@ class GroupsViewController: UIViewController {
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
+    let grapevine = Group(id: "Grapevine", name: "Grapevine", ownerID: "Grapevine")
+    
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -83,13 +85,8 @@ class GroupsViewController: UIViewController {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         //Grapevine is the default group
-        let grapevine = Group(id: "Grapevine", name: "Grapevine", ownerID: "Grapevine")
-        groups += [grapevine]
-        
-        //load the sample data
-        loadSampleGroups()
-        
         groupsManager.delegate = self
+        groupsManager.fetchGroups(userID: Constants.userID)
     }
     
     //MARK: Utility Methods
@@ -155,7 +152,6 @@ class GroupsViewController: UIViewController {
                 }
                 // Maybe to do: check valid group names
                 self.groupsManager.createGroup(groupName: newGroupName, ownerID: Constants.userID)
-                //TO DO: Send new group to database
             }
         }
     }
@@ -186,17 +182,6 @@ class GroupsViewController: UIViewController {
         //refresh groups
         groupsManager.fetchGroups(userID: Constants.userID)
     }
-    
-    //MARK: Private Methods
-     
-    private func loadSampleGroups() {
-        let group1 = Group(id: "testGroup1ID", name: "testGroup1aqzwsxedcrfvtgbyhnuybgtvfcrdxesedrcftvgybgtfcrdxesedrftvgybhungfdcrxessxedcrftvgybhunbgvfcdxsdcrftvgybhunbgvftxesxedrcftvgybhunijhbgvftcdrxsedcrftvgbyhunjinhbgvfcdxssexdrcftvgybhungfvtcdrxsedcrftvygbuhnbgfcdxsdrcftvgybhun", ownerID: "testOwnerId1")
-        let group2 = Group(id: "testGroup2ID", name: "testGroup2", ownerID: "testOwnerId2")
-        let group3 = Group(id: "LCLei5idTrWTiXyikTBE", name: "artichoke", ownerID: "8ab5db019b47ea48ca178316c469bde21b444d8a40f3aee7cea20f6ba0887e77")
-        
-        groups += [group1, group2, group3]
-    }
-    
 }
 
 //MARK: Table View Control
@@ -207,6 +192,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
             return groups.count
     }
     
+    //Called when user selects row in table
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let group = self.groups[indexPath.row]
             let groupName = group.name
@@ -227,11 +213,11 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         let group = groups[indexPath.row]
         cell.groupLabel.text = group.name
         
-        if group.ownerID == Constants.userID {
-            cell.enableDelete()
-        } else {
-            cell.disableDelete()
-        }
+//        if group.ownerID == Constants.userID {
+//            cell.enableDelete()
+//        } else {
+//            cell.disableDelete()
+//        }
         
         if group.name == self.selectedGroup {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
@@ -248,6 +234,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 extension GroupsViewController: GroupsManagerDelegate {
     func didCreateGroup() {
         print("Created group")
+        self.refresh()
     }
     
     func didFailWithError(error: Error) {
@@ -258,11 +245,14 @@ extension GroupsViewController: GroupsManagerDelegate {
         print("UPDATE")
         DispatchQueue.main.async {
             self.refresher.endRefreshing()
+            self.groups = groups
+            self.groups.insert(contentsOf: [self.grapevine], at: 0)
+            self.tableView.reloadData()
         }
     }
     
     func didJoinGroup(){
-        
+        self.refresh()  
     }
     
     func didCreateKey(){
