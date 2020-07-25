@@ -870,6 +870,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.shoutActive = false
         }
         
+        //Jeremy is the poster, make green to show he is special
+        let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
+        let JeremysLastAnonymousPostDate = 1595486441.830924 //This was the date of his most recent post at the time of adding this feature so that all his previous posts remain normal colors
+        if posts[indexPath.row].poster == JeremysID && posts[indexPath.row].date > JeremysLastAnonymousPostDate {
+            cell.commentAreaButton.backgroundColor = .green
+        }
+        
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
         cell.delegate = self
         
