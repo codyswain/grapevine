@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     var range = 3.0
     var groupName = "Grapevine"
     var groupID = ""
+    var groupsManager = GroupsManager()
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
     var storyManager = StoryManager()
@@ -590,7 +591,7 @@ class ViewController: UIViewController {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
-        } else if currentMode == "group" {
+        } else if currentMode == "groups" {
             self.nearbyLabel.text = groupName
             self.rangeButton.isHidden = true
         }
@@ -860,6 +861,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 postsManager.fetchMoreMyPosts(ref: self.ref)
             } else if currentMode == "myComments" {
                 postsManager.fetchMoreMyComments(ref: self.ref)
+            } else if currentMode == "groups" {
+                // Fetch posts from current group from database
             }
 
             let moreIndicator = UIActivityIndicatorView()
@@ -1324,7 +1327,7 @@ extension ViewController: GroupsViewControllerDelegate {
             changeAppearanceBasedOnMode()
             return
         }
-        self.currentMode = "group"
+        self.currentMode = "groups"
         self.groupName = groupName
         self.groupID = groupID
         changeAppearanceBasedOnMode()
