@@ -5,7 +5,7 @@ const FieldValue = require('firebase-admin').firestore.FieldValue
 
 router.post('/', createGroup);          // Create a group 
 router.get('/', fetchGroups);           // Fetch groups for a given member 
-router.post('/key', createGroupKey);    // Create a key so a new user can join a group
+router.get('/key', createGroupKey);    // Create a key so a new user can join a group
 router.get('/key', consumeKey);         // Consume a key and return the groupID
 
 /* POST /groups

@@ -29,6 +29,7 @@ class GroupsViewController: UIViewController {
     
     var groups: [Group] = []
     var selectedGroup = ""
+    var selectedGroupID = ""
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
@@ -178,9 +179,7 @@ class GroupsViewController: UIViewController {
         }
     }
     @IBAction func addMembersPressed(_ sender: Any) {
-        let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
-        makePopup(alert: alert, image: "person.badge.plus")
-        self.present(alert, animated: true)
+        self.groupsManager.createInviteKey(groupID: self.selectedGroupID)
     }
     
     @objc func refresh(){
@@ -193,7 +192,7 @@ class GroupsViewController: UIViewController {
     private func loadSampleGroups() {
         let group1 = Group(id: "testGroup1ID", name: "testGroup1aqzwsxedcrfvtgbyhnuybgtvfcrdxesedrcftvgybgtfcrdxesedrftvgybhungfdcrxessxedcrftvgybhunbgvfcdxsdcrftvgybhunbgvftxesxedrcftvgybhunijhbgvftcdrxsedcrftvgbyhunjinhbgvfcdxssexdrcftvgybhungfvtcdrxsedcrftvygbuhnbgfcdxsdrcftvgybhun", ownerID: "testOwnerId1")
         let group2 = Group(id: "testGroup2ID", name: "testGroup2", ownerID: "testOwnerId2")
-        let group3 = Group(id: "testGroup2ID", name: "testGroup3", ownerID: "8ab5db019b47ea48ca178316c469bde21b444d8a40f3aee7cea20f6ba0887e77")
+        let group3 = Group(id: "LCLei5idTrWTiXyikTBE", name: "artichoke", ownerID: "8ab5db019b47ea48ca178316c469bde21b444d8a40f3aee7cea20f6ba0887e77")
         
         groups += [group1, group2, group3]
     }
@@ -209,9 +208,9 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
             let group = self.groups[indexPath.row]
             let groupName = group.name
+            self.selectedGroupID = group.id
             self.selectedGroup = groupName
             let groupID = group.id
             self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
@@ -264,6 +263,14 @@ extension GroupsViewController: GroupsManagerDelegate {
     
     func didJoinGroup(){
         
+    }
+    
+    func didCreateKey(){
+        DispatchQueue.main.async {
+            let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
+            makePopup(alert: alert, image: "person.badge.plus")
+            self.present(alert, animated: true)
+        }
     }
     
     /// Fires when groups are fetched
