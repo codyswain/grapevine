@@ -21,6 +21,8 @@ class GroupsViewController: UIViewController {
 
     //MARK: Properties
     
+    @IBOutlet weak var addMembersView: UIView!
+    @IBOutlet weak var addMembersButton: UIButton!
     @IBOutlet weak var joinGroupButton: UIButton!
     @IBOutlet weak var creatGroupButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -69,6 +71,7 @@ class GroupsViewController: UIViewController {
         //Set button styling
         creatGroupButton.layer.cornerRadius = 10
         joinGroupButton.layer.cornerRadius = 10
+        addMembersButton.layer.cornerRadius = 10
         
         //load the table
         tableView.dataSource = self
@@ -120,6 +123,17 @@ class GroupsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    // Show or hide the add members button
+    func showAddMembers() {
+        addMembersView.isHidden = false
+        addMembersButton.isHidden = false
+    }
+    
+    func hideAddMembers() {
+        addMembersView.isHidden = true
+        addMembersButton.isHidden = true
+    }
+    
     //MARK: Cell Interaction Methods
 
     @IBAction func createGroupButton(_ sender: Any) {
@@ -162,6 +176,10 @@ class GroupsViewController: UIViewController {
             }
         }
     }
+    @IBAction func addMembersPressed(_ sender: Any) {
+        let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
+        makePopup(alert: alert, image: "person.badge.plus")
+    }
     
     @objc func refresh(){
         //refresh groups
@@ -189,11 +207,16 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let row = indexPath.row
-            let groupName = self.groups[row].groupName
+            let group = self.groups[indexPath.row]
+            let groupName = group.groupName
             self.selectedGroup = groupName
-            let groupID = self.groups[row].groupID
+            let groupID = group.groupID
             self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
+            if group.ownerID == Constants.userID {
+                showAddMembers()
+            } else {
+                hideAddMembers()
+            }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
