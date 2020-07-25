@@ -135,21 +135,6 @@ class ViewController: UIViewController {
         changeAppearanceBasedOnMode()
     }
     
-    //Display Enable Notification Message
-    //You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
-    //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
-    override func viewDidAppear(_ animated: Bool) {
-        if Globals.ViewSettings.showNotificationAlert {
-            displayNotificationAlert()
-            Globals.ViewSettings.showNotificationAlert = false
-            return //cannot display 2 MDC alerts at the same time.
-                   //displayNotificationAlert() handles the case of both notifications needing to be displayed and will also display location alert
-        }
-        if !isLocationAccessEnabled() { //if it is just the location alert, display it.
-            displayLocationAlert()
-        }
-    }
-    
     func displayNotificationAlert() {
         let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
         alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
@@ -159,21 +144,10 @@ class ViewController: UIViewController {
                 UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
                     print("Settings opened: \(success)")
                     Globals.ViewSettings.showNotificationAlert = false
-                    self.dismiss(animated: true, completion: {
-                        if !self.isLocationAccessEnabled() {
-                            self.displayLocationAlert()
-                        }
-                    })
                 })
             }
         })
-        alert.addAction(MDCAlertAction(title: "Done") { (action) in
-            self.dismiss(animated: true, completion: {
-                if !self.isLocationAccessEnabled() {
-                    self.displayLocationAlert()
-                }
-            })
-        })
+        alert.addAction(MDCAlertAction(title: "Done"))
         makePopup(alert: alert, image: "info.circle.fill")
         self.present(alert, animated: true)
 
@@ -188,6 +162,11 @@ class ViewController: UIViewController {
                 UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
                     print("Settings opened: \(success)")
                     self.getLocationAndPosts()
+                    self.dismiss(animated: true, completion: {
+                        if Globals.ViewSettings.showNotificationAlert {
+                            self.displayNotificationAlert()
+                        }
+                    })
                 })
             }
         })
@@ -201,20 +180,42 @@ class ViewController: UIViewController {
     func isLocationAccessEnabled() -> Bool {
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
-                case .notDetermined, .restricted, .denied:
+                case .notDetermined:
+                    print("Location Access Not Yet determined")
+                    return false
+                case .restricted, .denied:
                     print("No Location Access")
                     return false
                 case .authorizedAlways, .authorizedWhenInUse:
                     print("Location Access")
                     return true
-            @unknown default:
-                print("Location Access Authorization Status Error")
-                return false
+                @unknown default:
+                    print("Location Access Authorization Status Error")
+                    return false
             }
         }
         else {
             print("Location services not enabled")
             return false
+        }
+    }
+    
+    //Called if equest for location fails
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error)")
+    }
+    
+    //Called if location status changed, and when location manager initiated
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if !isLocationAccessEnabled() && CLLocationManager.authorizationStatus() != .notDetermined {
+            displayLocationAlert()
+        } else if CLLocationManager.authorizationStatus() != .notDetermined{
+            //  If location access is enabled, this will make the call to show notification alert if not already enabled. Otherwise, if location is not enabled, show notification alert is called by completion handler of show location alert because two alets cannot be shown at the same time
+            if Globals.ViewSettings.showNotificationAlert {
+                displayNotificationAlert()
+                Globals.ViewSettings.showNotificationAlert = false
+            }
+            self.refresh()
         }
     }
     
@@ -1014,11 +1015,6 @@ extension ViewController: CLLocationManagerDelegate {
             print("Location request success")
             postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
-    }
-    
-    /** Fires if location retrieval fails. */
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location error: \(error)")
     }
 }
 
