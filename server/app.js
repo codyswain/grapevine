@@ -18,7 +18,7 @@ var options = {
 };
 var apnProvider = new apn.Provider(options);
 
-// These are the files that control endpoints the actual endpoints
+// Routing
 var postsRouter = require('./routes/posts');
 var commentsRouter = require('./routes/comments');
 var usersRouter = require('./routes/users');
@@ -28,6 +28,7 @@ var banChamberRouter = require('./routes/banChamber');
 var shoutChamberRouter = require('./routes/shoutChamber');
 var myPostsRouter = require('./routes/myPosts');
 var myCommentsRouter = require('./routes/myComments');
+var groupsRouter = require('./routes/groups');
 
 // Set the app to use Express
 var app = express();
@@ -72,6 +73,7 @@ app.use('/banChamber', banChamberRouter);
 app.use('/shoutChamber', shoutChamberRouter);
 app.use('/myPosts', myPostsRouter);
 app.use('/myComments', myCommentsRouter);
+app.use('/groups', groupsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
