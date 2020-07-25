@@ -137,13 +137,9 @@ class GroupsViewController: UIViewController {
                     makePopup(alert: alert, image: "Grapes")
                     self.present(alert, animated: true)
                 }
-                //Maybe to do: check valid group names
-                
+                // Maybe to do: check valid group names
+                self.groupsManager.createGroup(groupName: newGroupName, ownerID: Constants.userID)
                 //TO DO: Send new group to database
-                
-                
-                
-                
             }
         }
     }
@@ -225,6 +221,10 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: Delegate Extensions
 
 extension GroupsViewController: GroupsManagerDelegate {
+    func didCreateGroup(groupID: String) {
+        print("Created group")
+    }
+    
     func didFailWithError(error: Error) {
         print(error)
     }

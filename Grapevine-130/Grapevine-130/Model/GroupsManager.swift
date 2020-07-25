@@ -16,38 +16,64 @@ protocol GroupsManagerDelegate {
     
     // TO-DO: pass back groupID and groupName
     // then pop it into the table, so you don't have to re-query posts
-    func didCreateGroup()
+    func didCreateGroup(groupID: String)
 }
 
 struct GroupsManager {
-    let fetchGroupsURL = Constants.serverURL + "groups/?"
-    let createGroupURL = Constants.serverURL + "groups"
+//    let fetchGroupsURL = Constants.serverURL + "groups/?"
+//    let createGroupURL = Constants.serverURL + "groups"
+    let fetchGroupsURL = Constants.testServerURL + "groups/?"
+    let createGroupURL = Constants.testServerURL + "groups"
     var delegate: GroupsManagerDelegate?
     
     /// Fetch the groups a user belongs to
-    // TO-DO: implement server side routing
     func fetchGroups(userID: String){
-        let urlString = "\(fetchGroupsURL)&userID=\(userID)"
-        performRequest(with: urlString)
+        let url = "\(fetchGroupsURL)&userID=\(userID)"
+        performRequest(with: url, requestType: "fetch")
     }
     
     /// Create a group
-    // TO-DO: implement server side routing
     func createGroup(groupName: String, ownerID: String){
-        /**
-         Fires of performPOSTRequest which creates a group
-        - Parameters:
-        - groupName: Name of group as defined by a user
-        - ownerID: User ID of the creator of the group
-        - Returns: The uniquely generated group ID
-        */
-        performPOSTRequest(groupName: groupName, ownerID: ownerID)
+        let url = "\(createGroupURL)&ownerID=\(ownerID)&groupName=\(groupName)"
+        performRequest(with: url, requestType: "create")
     }
     
     // TO-DO: can performRequest and performPOSTRequest be consolidated??
     
     /// This is currently used to fetch groups (GET request)
-    func performRequest(with urlString: String) {
+    func performRequest(with urlString: String, requestType: String) {
+//        if let url = URL(string: urlString) {
+//            let session = URLSession(configuration: .default)
+//            print("Sent request URL: \(url)")
+//            let task = session.dataTask(with: url) { (data, response, error) in
+//                if error != nil {
+//                    self.delegate?.didFailWithError(error: error!)
+//                    return
+//                }
+//                if let safeData = data {
+//                    if (requestType == "fetch"){
+//                        print("Request returned: groups fetched")
+//                        if let groups = self.parseJSON(safeData) {
+//                            self.delegate?.didUpdateGroups(self, groups: groups)
+//                            print("Request returned and processed \(groups.count) groups")
+//                            print(groups)
+//                        }
+//                    } else if (requestType == "create"){
+//                        print(safeData)
+////                        if let data = safeData {
+////                            print(safeData)
+////                        }
+////                        if let groupID = self.parseJSON(safeData) {
+////                            self.delegate?.didCreateGroup(groupID: groupID)
+////                            print("Request returned and processed group with ID: \(groupID)")
+////                        }
+//                    }
+//                }
+//            }
+//            task.resume()
+//        }
+        
+        
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             print("Sent request URL: \(url)")
@@ -57,10 +83,9 @@ struct GroupsManager {
                     return
                 }
                 if let safeData = data {
-                    print("Request returned: groups fetched")
                     if let groups = self.parseJSON(safeData) {
                         self.delegate?.didUpdateGroups(self, groups: groups)
-                        print("Request returned and processed \(groups.count) groups")
+                        print("Request returned and processed \(groups) posts")
                     }
                 }
             }
@@ -92,7 +117,7 @@ struct GroupsManager {
             }
             if let safeData = data {
                 print("Comment POST req returned: \(safeData)")
-                self.delegate?.didCreateGroup()
+                self.delegate?.didCreateGroup(groupID: "hghhh")
                 return
             }
         }

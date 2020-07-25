@@ -1,142 +1,111 @@
 var express = require('express');
 var router = express.Router();
-var utils = require('../server_utils.js') // NOTE: Relative pathing can break
+var utils = require('../server_utils.js'); // NOTE: Relative pathing can break
 const FieldValue = require('firebase-admin').firestore.FieldValue
 
-// URL parsing to get info from client
-router.get('/', getGroups);
-router.post('/', createGroup);
+router.post('/', createGroup);          // Create a group 
+router.get('/', fetchGroups);           // Fetch groups for a given member 
+router.post('/key', createGroupKey);    // Create a key so a new user can join a group
+router.get('/key', consumeKey);         // Consume a key and return the groupID
 
-/** 
- * Fetches groups from the database based on the url parameters and sends them to the client.
- */
-/*
-GET /comments
-Input parameter Names: userID
-Output: Groups (unordered)
-*/
-
-// TO-DO: return groups ordered by most used ?
-// need to track which ones are being used
-
-async function getGroups(req, res, next) {
-  let user = req.query.userID
-	console.log("GET /groups request for userId: " + userID)
-
-	// Get the db object, declared in app.js
-  var db = req.app.get('db');
-  
-  // 1. Fetch list of groups from user data
-  // 2. Fetch group names and groupID
-
-  // Query the db and return a list of groups
-  // each group is composed of an ownerID, groupID, and groupName
-  var userRef = db.collection('users').doc(user)
-  var groupsRef = db.collection('groups')
-  userRef.get().then((doc) => {
-    console.log("/groups getGroups() fired");
-    var userData = doc.data()
-    var usersGroups = // groups a user is a part of 
-
-  }).catch((err) => {
-    console.log("Error /groups getGroups(): ", error);
-  });
-
-
-// Get the document snapshot of the last document first
-refquery.get().then((doc) => {
-  // Query for more posts started after the retrieved snapshot
-  query.startAfter(doc).limit(20).get().then((snapshot) => {
-    
-
-	// Query the db for posts
-	db.collection('groups')
-		.where("postID", "==", postID)
-		.orderBy("date", 'asc').get()
-		.then((snapshot) => {
-      var comments = []
-      
-			// Loop through each comment returned and add it to our list
-			snapshot.forEach((comment) => {
-        var curComment = comment.data()
-        curComment.commentID = comment.id
-       
-        var interactions = comment.get("interactions")
-
-        // TODO: Better solution by putting this in mobile backend
-        curComment.voteStatus = 0
-				for (var interacting_user in interactions) {
-					if (interacting_user == userID) {
-						curComment.voteStatus = interactions[userID]
-						break
-					}
-        }
-        
-        comments.push(curComment)
-      });
-      
-			// Return comments to client
-			res.status(200).send(comments)
-		})
-		.catch((err) => { 
-			console.log("ERROR looking up comments in comment.js: " + err)
-			res.send([])
-		})
-}
-
-
-/*
-POST /comments
-Description: Post request including details of comment
-Input parameter Names: content, userID, date
-Output: None
-*/
-async function createComment(req, res, next) {
-  var db = req.app.get('db');  
-  console.log(req.body.text)
-
-	// Text post creation logic
-  let postID = req.body.postID
-  userComment = {
-    content : req.body.text,
-    poster : req.body.userID,
-    postID : postID,
-    votes : 0,
-    date : req.body.date,
-    interactions: {},
+/* POST /groups
+Description: Post request includes the following
+Input parameter Names: poster ID, group name
+Output: groupID */
+async function createGroup(req, res, next) {
+  var db = req.app.get('db')
+  let userID = req.query.ownerID
+  let groupName = req.query.groupName
+  group = {
+    name : groupName,
+    ownerID : userID,
+    members: [userID]
   };
-
-	db.collection("comments").add(userComment)
+	db.collection("groups").add(group)
 	.then(ref => {
-    // Send push notification to creator of post
-    var body = "Someone commented on your post 👀";
-    utils.sendPushNotificationToPoster(req, req.body.postID, body);
-	  console.log('Added document with ID: ', ref.id);
-		res.status(200).send(ref.id);
+    console.log('CREATED group with ID: ', ref.id);
+    db.collection("users").doc(userID).update({ groups: FieldValue.arrayUnion(ref.id) })
+    res.status(200).send(ref.id);
 	})
 	.catch((err) => {
-		console.log("ERROR storing comment: " + err)
+		console.log("ERROR creating group: " + err)
 		res.status(400).send()
 	})
-
-	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(1) })
 }
 
-async function deleteComment(req, res, next) {
+/* GET /groups
+Description: Get request retrieves the groups a user is a member of
+Input parameter Names: userID
+Output: list of groups */
+async function fetchGroups(req, res, next){
   var db = req.app.get('db');
-  let commentID = req.body.commentId
-  let postID = req.body.postId
-  console.log(`Attempting to delete: ${commentID}`)
+  let userID = req.query.userID;
+  var groups = [];
 
-	db.collection("comments").doc(commentID).delete()
+  // Fetch group id's from user doc
+  // Fetch group names from group collection
+  // TODO: Add in  error handling try/catch/finally
+  let userRef = await db.collection('users').doc(userID).get();
+  let fetchedGroups = userRef.data().groups
+  if (fetchedGroups === undefined || fetchedGroups.length == 0){
+    res.status(200).send([])
+  } else {
+    for (const groupID of fetchedGroups){
+      let ref1 = await db.collection('groups').doc(groupID).get()
+      groups.push({
+        name: ref1.data().name,
+        id: groupID,
+        ownerID: ref1.data().ownerID
+      })
+    }
+    res.status(200).send(groups)
+  }
+}
+
+/* POST /groups/key
+Description: Generates a new key which allows access to join a group
+Input parameter Names: groupID
+Output: 4 charater key */
+async function createGroupKey(req, res, next){
+  var db = req.app.get('db')
+  let groupID = req.query.groupID
+  let newKey = utils.randomString(4);
+  db.collection("keys").doc(newKey).set({groupID : groupID})
+  .then(ref => {
+    console.log(`CREATED key: ${newKey} for groupID: ${groupID}`);
+    res.status(200).send(newKey);
+	})
 	.catch((err) => {
-		console.log("ERROR deleteing comment : " + err)
+		console.log("ERROR creating group key: " + err)
 		res.status(400).send()
 	})
-	.then(() => {
-		res.status(200).send("Successfully deleted comment " + commentID);
-  })
-	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(-1) })
+}
+
+/* GET /groups/key
+Description: Consumes a key, adding the user to a group
+Input parameter Names: groupID
+Output: 4 charater key */
+async function consumeKey(req, res, next){
+  var db = req.app.get('db')
+  let userID = req.query.userID
+  let key = req.query.key
+  var docRef = db.collection("keys").doc(key);
+
+  // Validate that the key corresponds to a group then remove it
+  docRef.get().then(function(doc) {
+    var groupID = doc.data().groupID
+    docRef.delete().then(function() {
+      console.log(`SUCCESSFULLY VALIDATED and REMOVED key: ${key}. ADDING userID: ${userID} to group: ${groupID}`);
+      db.collection("groups").doc(groupID).update({ members: FieldValue.arrayUnion(userID) })
+      db.collection("users").doc(userID).update({ groups: FieldValue.arrayUnion(groupID) }, {merge: true})
+      res.status(200).send(groupID)
+    }).catch(function(error) {
+      console.log(`SUCCESSFULLY VALIDATED key: ${key} for groupID: ${groupID}`);
+      console.error("Error removing document: ", error);
+    });
+  }).catch(function(error) {
+    console.log(`Error validating key ${key}: `, error);
+  });
 }
 
 module.exports = router;
