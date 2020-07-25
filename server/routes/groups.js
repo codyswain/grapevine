@@ -14,8 +14,8 @@ Input parameter Names: poster ID, group name
 Output: groupID */
 async function createGroup(req, res, next) {
   var db = req.app.get('db')
-  let userID = req.query.ownerID
-  let groupName = req.query.groupName
+  let userID = req.body.ownerID
+  let groupName = req.body.groupName
   group = {
     name : groupName,
     ownerID : userID,

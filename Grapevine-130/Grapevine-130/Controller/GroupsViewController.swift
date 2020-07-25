@@ -82,12 +82,13 @@ class GroupsViewController: UIViewController {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         //Grapevine is the default group
-        let grapevine = Group(groupID: "Grapevine", groupName: "Grapevine", ownerID: "Grapevine")
+        let grapevine = Group(id: "Grapevine", name: "Grapevine", ownerID: "Grapevine")
         groups += [grapevine]
         
         //load the sample data
         loadSampleGroups()
         
+        groupsManager.delegate = self
     }
     
     //MARK: Utility Methods
@@ -169,7 +170,7 @@ class GroupsViewController: UIViewController {
                 print("Group Code: ", groupCode)
                 
                 //TO DO: Check database for group with join code matching input and authprize user
-                
+                self.groupsManager.joinGroup(key: groupCode, userID: Constants.userID)
                 
                 //TO DO: If Authorized, add group to My Groups Table
                 
@@ -189,9 +190,9 @@ class GroupsViewController: UIViewController {
     //MARK: Private Methods
      
     private func loadSampleGroups() {
-        let group1 = Group(groupID: "testGroup1ID", groupName: "testGroup1aqzwsxedcrfvtgbyhnuybgtvfcrdxesedrcftvgybgtfcrdxesedrftvgybhungfdcrxessxedcrftvgybhunbgvfcdxsdcrftvgybhunbgvftxesxedrcftvgybhunijhbgvftcdrxsedcrftvgbyhunjinhbgvfcdxssexdrcftvgybhungfvtcdrxsedcrftvygbuhnbgfcdxsdrcftvgybhun", ownerID: "testOwnerId1")
-        let group2 = Group(groupID: "testGroup2ID", groupName: "testGroup2", ownerID: "testOwnerId2")
-        let group3 = Group(groupID: "testGroup2ID", groupName: "testGroup3", ownerID: "testOwnerId3")
+        let group1 = Group(id: "testGroup1ID", name: "testGroup1aqzwsxedcrfvtgbyhnuybgtvfcrdxesedrcftvgybgtfcrdxesedrftvgybhungfdcrxessxedcrftvgybhunbgvfcdxsdcrftvgybhunbgvftxesxedrcftvgybhunijhbgvftcdrxsedcrftvgbyhunjinhbgvfcdxssexdrcftvgybhungfvtcdrxsedcrftvygbuhnbgfcdxsdrcftvgybhun", ownerID: "testOwnerId1")
+        let group2 = Group(id: "testGroup2ID", name: "testGroup2", ownerID: "testOwnerId2")
+        let group3 = Group(id: "testGroup2ID", name: "testGroup3", ownerID: "testOwnerId3")
         
         groups += [group1, group2, group3]
     }
@@ -207,6 +208,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
             let group = self.groups[indexPath.row]
             let groupName = group.groupName
             self.selectedGroup = groupName
@@ -223,7 +225,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! GroupTableViewCell
         
         let group = groups[indexPath.row]
-        cell.groupLabel.text = group.groupName
+        cell.groupLabel.text = group.name
         
         if group.ownerID == Constants.userID {
             cell.enableDelete()
@@ -231,7 +233,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.disableDelete()
         }
         
-        if group.groupName == self.selectedGroup {
+        if group.name == self.selectedGroup {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
         }
         
@@ -244,7 +246,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: Delegate Extensions
 
 extension GroupsViewController: GroupsManagerDelegate {
-    func didCreateGroup(groupID: String) {
+    func didCreateGroup() {
         print("Created group")
     }
     
@@ -253,13 +255,15 @@ extension GroupsViewController: GroupsManagerDelegate {
     }
     
     func didUpdateGroups(_ groupManager: GroupsManager, groups: [Group]) {
-        print("To Do")
+        print("UPDATE")
+        DispatchQueue.main.async {
+            self.refresher.endRefreshing()
+        }
     }
     
-    func didCreateGroup() {
-        print("To Do")
+    func didJoinGroup(){
+        
     }
-    
     
     /// Fires when groups are fetched
     /// TO-DO: load this data into groups table
@@ -284,7 +288,7 @@ extension GroupsViewController: GroupTableViewCellDelegate {
         alert.addAction(MDCAlertAction(title: "I'm Sure, Delete"){ (action) in
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
-            let groupIDtoDelete = self.groups[row].groupID
+            let groupIDtoDelete = self.groups[row].id
 //            self.groupsManager.deleteGroup(groupID: groupIDtoDelete)
             self.groups.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
