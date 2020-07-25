@@ -19,12 +19,14 @@ protocol GroupsManagerDelegate {
     func didCreateGroup()
     
     func didJoinGroup()
+    func didCreateKey()
 }
 
 struct GroupsManager {
     let fetchGroupsURL = Constants.serverURL + "groups/?"
     let createGroupURL = Constants.serverURL + "groups"
     let joinGroupURL = Constants.serverURL + "groups/key/?"
+    let createGroupKeyURL = Constants.serverURL + "groups/key/?"
     var delegate: GroupsManagerDelegate?
     
     /// Fetch the groups a user belongs to
@@ -41,6 +43,11 @@ struct GroupsManager {
     func joinGroup(key: String, userID: String){
         let url = "\(joinGroupURL)&userID=\(userID)&key=\(key)"
         performRequestJoinGroup(with: url, requestType: "join")
+    }
+    
+    func createInviteKey(groupID: String){
+        let url = "\(createGroupKeyURL)&groupID=\(groupID)"
+        performRequestGenerateKey(with: url, requestType: "key")
     }
     
     // TO-DO: can performRequest and performPOSTRequest be consolidated??
@@ -78,6 +85,25 @@ struct GroupsManager {
                 if let safeData = data {
                     print("Request returned and processed \(safeData)")
                     self.delegate?.didJoinGroup()
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func performRequestGenerateKey(with urlString: String, requestType: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            print("Sent request URL: \(url)")
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    self.delegate?.didFailWithError(error: error!)
+                    return
+                }
+                if let safeData = data {
+                    let outputStr  = String(data: safeData, encoding: String.Encoding.utf8)! as String
+                    print("Request returned and processed \(outputStr)")
+                    self.delegate?.didCreateKey()
                 }
             }
             task.resume()

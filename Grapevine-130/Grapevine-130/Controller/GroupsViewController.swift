@@ -29,6 +29,7 @@ class GroupsViewController: UIViewController {
     
     var groups: [Group] = []
     var selectedGroup = ""
+    var selectedGroupID = ""
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
@@ -174,9 +175,7 @@ class GroupsViewController: UIViewController {
         }
     }
     @IBAction func addMembersPressed(_ sender: Any) {
-        let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
-        makePopup(alert: alert, image: "person.badge.plus")
-        self.present(alert, animated: true)
+        self.groupsManager.createInviteKey(groupID: self.selectedGroupID)
     }
     
     @objc func refresh(){
@@ -195,9 +194,9 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     
     //Called when user selects row in table
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
             let group = self.groups[indexPath.row]
             let groupName = group.name
+            self.selectedGroupID = group.id
             self.selectedGroup = groupName
             let groupID = group.id
             self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
@@ -253,7 +252,28 @@ extension GroupsViewController: GroupsManagerDelegate {
     }
     
     func didJoinGroup(){
-        self.refresh()
+        self.refresh()  
+    }
+    
+    func didCreateKey(){
+        DispatchQueue.main.async {
+            let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
+            makePopup(alert: alert, image: "person.badge.plus")
+            self.present(alert, animated: true)
+        }
+    }
+    
+    /// Fires when groups are fetched
+    /// TO-DO: load this data into groups table
+    func didUpdateGroups(groups: [Group]) {
+        print(groups)
+    }
+    
+    /// Fires when a user creates a group
+    /// TO-DO: segue to feed and load in group
+    func didCreateGroup(groupID: String, groupName: String) {
+        print(groupID)
+        print(groupName)
     }
 }
 
