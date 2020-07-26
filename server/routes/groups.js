@@ -8,8 +8,6 @@ router.get('/', fetchGroups);           // Fetch groups for a given member
 router.get('/keygen', createGroupKey);    // Create a key so a new user can join a group
 router.get('/key', consumeKey);         // Consume a key and return the groupID
 
-router.get('/', getComments);           // Get groups for given member
-
 /* POST /groups
 Description: Post request includes the following
 Input parameter Names: poster ID, group name
@@ -62,36 +60,6 @@ async function fetchGroups(req, res, next){
     }
     res.status(200).send({groups : groups})
   }
-}
-
-//Get groups
-async function getGroups(req, res, next) {
-  let userID = req.query.userID
-	console.log("GET /groups request with postID: " + postID)
-
-	// Get the db object, declared in app.js
-	var db = req.app.get('db');
-
-	// Query the db for posts
-	db.collection("groups")
-		.where("members", "array-contains", userID)
-		.orderBy("date", 'desc').get()
-		.then((snapshot) => {
-      var groups = []
-      
-			// Loop through each comment returned and add it to our list
-			snapshot.forEach((group) => {
-        var curGroup = group.data()
-        curGroup.groupID = group.id
-        groups.push(curGroup)
-      });
-		// Return groups to client
-		res.status(200).send(groups)
-		})
-		.catch((err) => { 
-			console.log("ERROR looking up groups in groups.js: " + err)
-			res.send([])
-		})
 }
 
 /* POST /groups/key
