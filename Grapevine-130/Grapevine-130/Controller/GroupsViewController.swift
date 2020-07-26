@@ -30,6 +30,7 @@ class GroupsViewController: UIViewController {
     var groups: [Group] = []
     var selectedGroup = ""
     var selectedGroupID = ""
+    var groupCreated = false
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
@@ -234,6 +235,7 @@ extension GroupsViewController: GroupsManagerDelegate {
     func didCreateGroup() {
         print("Created group")
         self.refresh()
+        self.groupCreated = true
     }
     
     func didFailWithError(error: Error) {
@@ -247,13 +249,10 @@ extension GroupsViewController: GroupsManagerDelegate {
             self.groups = [self.grapevine]
             self.groups += groups
             self.tableView.reloadData()
-<<<<<<< Updated upstream
-=======
             if self.groupCreated == true {
                 self.selectedGroup = self.groups.last!.name //select new group when it is created
                 self.groupCreated = false
             }
->>>>>>> Stashed changes
         }
     }
     
