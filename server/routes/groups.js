@@ -58,7 +58,7 @@ async function fetchGroups(req, res, next){
         ownerID: ref1.data().ownerID
       })
     }
-    res.status(200).send({groups : groups})
+    res.status(200).send(groups)
   }
 }
 
