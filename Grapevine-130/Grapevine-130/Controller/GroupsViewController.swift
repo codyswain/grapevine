@@ -181,8 +181,7 @@ class GroupsViewController: UIViewController {
     
     @objc func refresh(){
         //refresh groups
-        //groupsManager.getGroups(userID: Constants.userID)
-        groupsManager.getGroups(userID: Constants.userID)
+        groupsManager.fetchGroups(userID: Constants.userID)
     }
 }
 
