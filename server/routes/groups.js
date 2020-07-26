@@ -86,7 +86,7 @@ async function getGroups(req, res, next) {
         groups.push(curGroup)
       });
 		// Return groups to client
-		res.status(200).json(groups)
+		res.status(200).send(groups)
 		})
 		.catch((err) => { 
 			console.log("ERROR looking up groups in groups.js: " + err)
