@@ -34,7 +34,7 @@ class GroupsViewController: UIViewController {
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
-    let grapevine = Group(id: "Grapevine", name: "Grapevine", ownerID: "Grapevine", members: ["everyone"], date: 0)
+    let grapevine = Group(id: "Grapevine", name: "Grapevine", ownerID: "Grapevine")
     
     // Define Refresher
     lazy var refresher: UIRefreshControl = {

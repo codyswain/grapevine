@@ -55,7 +55,6 @@ struct CommentsManager {
                     return
                 }
                 if let safeData = data {
-                    print(response as Any)
                     print("Request returned")
                     if let comments = self.parseJSON(safeData) {
                         self.delegate?.didUpdateComments(self, comments: comments)
