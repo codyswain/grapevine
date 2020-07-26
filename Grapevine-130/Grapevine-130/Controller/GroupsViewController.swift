@@ -87,7 +87,8 @@ class GroupsViewController: UIViewController {
         
         //Grapevine is the default group
         groupsManager.delegate = self
-        groupsManager.fetchGroups(userID: Constants.userID)
+        //groupsManager.fetchGroups(userID: Constants.userID)
+        groupsManager.getGroups(userID: Constants.userID)
     }
     
     //MARK: Utility Methods
