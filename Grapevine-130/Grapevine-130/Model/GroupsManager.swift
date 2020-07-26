@@ -38,7 +38,7 @@ struct GroupsManager {
     /// Get Groups (kelsey temporary fix needs review)
     func getGroups(userID: String) {
         let url = "\(fetchGroupsURL)&userID=\(userID)"
-        performRequest(with: url, requestType: "fetch")
+        performRequest(with: url, requestType: "GET")
     }
     
     /// Create a group
@@ -62,16 +62,17 @@ struct GroupsManager {
     func performRequest(with urlString: String, requestType: String) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
-            print("Sent request URL: \(url)")
+
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     self.delegate?.didFailWithError(error: error!)
                     return
                 }
                 if let safeData = data {
-                    if let ref = self.parseJSON(safeData) {
-                        print("Request returned and processed \(ref.groups) groups")
-                        self.delegate?.didUpdateGroups(self, groups: ref.groups)
+                    print(response as Any)
+                    if let groups = self.parseJSON(safeData) {
+                        print("Request returned and processed \(groups.count) groups")
+                        self.delegate?.didUpdateGroups(self, groups: groups)
                     }
                 }
             }
@@ -120,7 +121,8 @@ struct GroupsManager {
     func performPOSTRequest(groupName: String, ownerID: String){
         let json: [String: Any] = [
             "ownerID": ownerID,
-            "groupName": groupName
+            "groupName": groupName,
+            "date": Date().timeIntervalSince1970
         ]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
@@ -147,14 +149,26 @@ struct GroupsManager {
         task.resume()
     }
     
-    func parseJSON(_ data: Data) -> GroupReference? {
+//    func parseJSON(_ data: Data) -> GroupReference? {
+//        let decoder = JSONDecoder()
+//        var ref = GroupReference(groups: [])
+//        do {
+//            ref = try decoder.decode(GroupReference.self, from: data)
+//        } catch {
+//            delegate?.didFailWithError(error: error)
+//        }
+//        return ref
+//    }
+    
+    func parseJSON(_ data: Data) -> [Group]? {
+        print(data.base64EncodedString())
         let decoder = JSONDecoder()
-        var ref = GroupReference(groups: [])
+        var groups : [Group] = []
         do {
-            ref = try decoder.decode(GroupReference.self, from: data)
+            groups = try decoder.decode([Group].self, from: data)
         } catch {
             delegate?.didFailWithError(error: error)
         }
-        return ref
+        return groups
     }
 }

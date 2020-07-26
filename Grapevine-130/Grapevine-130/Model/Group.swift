@@ -17,4 +17,8 @@ struct Group : Decodable {
     
     // Hashed device ID of group owner
     let ownerID: String
+    
+    let members: Array<String>
+    
+    let date: Double
 }
