@@ -63,6 +63,7 @@ struct GroupsManager {
                     return
                 }
                 if let safeData = data {
+                    print(response as Any)
                     if let ref = self.parseJSON(safeData) {
                         print("Request returned and processed \(ref.groups) groups")
                         self.delegate?.didUpdateGroups(self, groups: ref.groups)

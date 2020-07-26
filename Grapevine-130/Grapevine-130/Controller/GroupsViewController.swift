@@ -83,8 +83,7 @@ class GroupsViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = 50
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
-        //Grapevine is the default group
+
         groupsManager.delegate = self
         groupsManager.fetchGroups(userID: Constants.userID)
     }
@@ -245,9 +244,16 @@ extension GroupsViewController: GroupsManagerDelegate {
         print("UPDATE")
         DispatchQueue.main.async {
             self.refresher.endRefreshing()
-            self.groups = groups
-            self.groups.insert(contentsOf: [self.grapevine], at: 0)
+            self.groups = [self.grapevine]
+            self.groups += groups
             self.tableView.reloadData()
+<<<<<<< Updated upstream
+=======
+            if self.groupCreated == true {
+                self.selectedGroup = self.groups.last!.name //select new group when it is created
+                self.groupCreated = false
+            }
+>>>>>>> Stashed changes
         }
     }
     
