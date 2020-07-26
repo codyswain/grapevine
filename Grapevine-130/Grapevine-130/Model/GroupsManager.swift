@@ -1,5 +1,5 @@
 //
-//  GroupsManager.swift
+//  CommentsManager.swift
 //  Grapevine-130
 //
 //  Created by Cody Swain, Kelsey Lieberman on July 20th.
@@ -129,11 +129,11 @@ struct GroupsManager {
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 self.delegate?.didFailWithError(error: error!)
-                print("Group POST req error")
+                print("Comment POST req error")
                 return
             }
             if let safeData = data {
-                print("Group POST req returned: \(safeData)")
+                print("Comment POST req returned: \(safeData)")
                 self.delegate?.didCreateGroup()
                 return
             }

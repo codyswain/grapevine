@@ -30,7 +30,6 @@ class GroupsViewController: UIViewController {
     var groups: [Group] = []
     var selectedGroup = ""
     var selectedGroupID = ""
-    var groupCreated = false
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
     
@@ -221,7 +220,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 //        }
         
         if group.name == self.selectedGroup {
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
         }
         
         return cell
@@ -236,7 +235,6 @@ extension GroupsViewController: GroupsManagerDelegate {
     func didCreateGroup() {
         print("Created group")
         self.refresh()
-        groupCreated = true
     }
     
     func didFailWithError(error: Error) {
@@ -250,10 +248,6 @@ extension GroupsViewController: GroupsManagerDelegate {
             self.groups = groups
             self.groups.insert(contentsOf: [self.grapevine], at: 0)
             self.tableView.reloadData()
-            if self.groupCreated == true {
-                self.selectedGroup = groups.last!.name //select new group when it is created
-                self.groupCreated = false
-            }
         }
     }
     
@@ -273,7 +267,7 @@ extension GroupsViewController: GroupsManagerDelegate {
 extension GroupsViewController: GroupTableViewCellDelegate {
     //Deletes group from the table and calls function in groupsManager to delete group from database
     func deleteCell(_ cell: UITableViewCell) {
-        let alert = MDCAlertController(title: "Are you sure?", message: "Deleting a group is permanent!")
+        let alert = MDCAlertController(title: "Are you sure?", message: "Deleting a comment is permanent. The comment's score will still count towards your karma.")
 
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "I'm Sure, Delete"){ (action) in
