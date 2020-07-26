@@ -8,7 +8,7 @@ router.get('/', fetchGroups);           // Fetch groups for a given member
 router.get('/keygen', createGroupKey);    // Create a key so a new user can join a group
 router.get('/key', consumeKey);         // Consume a key and return the groupID
 
-router.get('/', getComments);           // Get groups for given member
+router.get('/', getGroups);           // Get groups for given member
 
 /* POST /groups
 Description: Post request includes the following
