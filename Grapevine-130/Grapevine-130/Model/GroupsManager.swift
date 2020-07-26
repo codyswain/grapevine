@@ -35,12 +35,6 @@ struct GroupsManager {
         performRequest(with: url, requestType: "fetch")
     }
     
-    /// Get Groups (kelsey temporary fix needs review)
-    func getGroups(userID: String) {
-        let url = "\(fetchGroupsURL)&userID=\(userID)"
-        performRequest(with: url, requestType: "fetch")
-    }
-    
     /// Create a group
     func createGroup(groupName: String, ownerID: String){
         performPOSTRequest(groupName: groupName, ownerID: ownerID)
