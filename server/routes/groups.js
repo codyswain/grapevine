@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var utils = require('../server_utils.js'); // NOTE: Relative pathing can break
+var utils = require('../server_utils.js') // NOTE: Relative pathing can break
 const FieldValue = require('firebase-admin').firestore.FieldValue
 
 router.post('/', createGroup);          // Create a group 
