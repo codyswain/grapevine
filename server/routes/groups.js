@@ -66,7 +66,7 @@ async function fetchGroups(req, res, next){
 
 //Get groups
 async function getGroups(req, res, next) {
-	let userID = req.query.userID
+  let userID = req.query.userID
 	console.log("GET /groups request with postID: " + postID)
 
 	// Get the db object, declared in app.js
@@ -77,23 +77,21 @@ async function getGroups(req, res, next) {
 		.where("members", "array-contains", userID)
 		.orderBy("date", 'desc').get()
 		.then((snapshot) => {
-		
-		var groups = []
-		
-		// Loop through each group returned and add it to our list
-		snapshot.forEach((group) => {
-			var curGroup = group.data()
-			curGroup.groupID = group.id
-			groups.push(curGroup)
-		});
-		
+      var groups = []
+      
+			// Loop through each comment returned and add it to our list
+			snapshot.forEach((group) => {
+        var curGroup = group.data()
+        curGroup.groupID = group.id
+        groups.push(curGroup)
+      });
 		// Return groups to client
-		res.status(200).send({ groups: groups })
-	})
+		res.status(200).json(groups)
+		})
 		.catch((err) => { 
-		console.log("ERROR looking up groups in groups.js: " + err)
-		res.send([])
-	})
+			console.log("ERROR looking up groups in groups.js: " + err)
+			res.send([])
+		})
 }
 
 /* POST /groups/key
