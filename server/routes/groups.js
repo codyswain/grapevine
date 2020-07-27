@@ -10,6 +10,8 @@ router.post('/posts', createPost);	// Create post in a group
 router.get('/', fetchGroups);           // Fetch groups for a given member 
 router.get('/keygen', createGroupKey);    // Create a key so a new user can join a group
 router.get('/key', consumeKey);         // Consume a key and return the groupID
+router.get('/posts', getPosts);		//Get all Posts from a group
+router.get('/posts/more', morePosts);	//Get more posts from a group for infinite scrolling
 
 /* POST /groups
 Description: Post request includes the following
@@ -178,6 +180,207 @@ async function consumeKey(req, res, next){
   }).catch(function(error) {
     console.log(`Error validating key ${key}: `, error);
   });
+}
+
+/* GET /groups/posts
+Description: Get request including userID, latitude and longitude of user location, AND GROUPID
+Input parameter Names: user, lat, lon, groupID
+Output: 20 posts ordered by recency returned as posts.
+*/
+async function getPosts(req, res, next) {
+	let user = req.query.user;
+	let groupID = req.query.groupID;
+	let activityFilter = req.query.activityFilter;
+	let typeFilter = req.query.typeFilter;
+	console.log("GetPosts request from groupID: " + groupID + " for user " + user)
+
+  	// Get the db object, declared in app.js
+  	var db = req.app.get('db');
+
+  	var query; 
+
+    	// Basic request for posts
+    	if (activityFilter == "top"){
+		if (typeFilter == "art" || typeFilter == "text"){
+        		query = db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+          			.where("type", "==", typeFilter)
+				.orderBy('votes', 'desc')
+		} else {
+			db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+				.orderBy('votes', 'desc')
+		}
+	} else {
+		if (typeFilter == "image" || typeFilter == "text"){
+			query = db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+          			.where("type", "==", typeFilter)
+				.orderBy('date', 'desc')
+		} else {
+        		query = db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+				.orderBy('date', 'desc')
+		}
+	}
+	
+	// Get the document snapshot of the last document first
+	query.get().then((snapshot) => {
+		var posts = []
+		var ref;
+		
+		snapshot.forEach((post) => {
+			var voteStatus = 0
+			var flagStatus = 0
+			var interactions = post.get("interactions")
+			
+			// TODO: Better solution by putting this in mobile backend
+			for (var interacting_user in interactions) {
+				if (interacting_user == user) {
+					voteStatus = utils.getVote(interactions[user])
+					flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+					break
+				}
+			}
+			
+			// Add the post, ID, and vote status before returning it
+			var curPost = post.data()
+			curPost.postId = post.id
+			curPost.voteStatus = voteStatus
+			curPost.flagStatus = flagStatus
+			delete curPost["geohash"]
+			delete curPost["interactions"]
+			// delete curPost["inter"]
+			posts.push(curPost)
+		});
+		// Return the posts to the client
+		if (activityFilter == "top"){
+			posts = posts.sort((a, b) => { return b.votes - a.votes })
+			posts = posts.length >= 20 ? posts.slice(0, 20) : posts
+			ref = posts[posts.length - 1].postId
+		} else {
+			posts = posts.sort((a, b) => { return b.date - a.date })
+			posts = posts.length >= 20 ? posts.slice(0, 20) : posts
+			ref = posts[posts.length - 1].postId    
+		}
+		res.status(200).send({reference: ref, posts: posts})
+	})
+		.catch((err) => { 
+		console.log("ERROR looking up posts in posts.js:" + err)
+		res.send([])
+	})
+}
+
+
+async function morePosts(req, res, next) {
+	let docRef = req.query.ref;
+	let user = req.query.user;
+	let groupID = req.query.groupID;
+	let activityFilter = req.query.activityFilter;
+	let typeFilter = req.query.typeFilter;
+	console.log("GetMorePosts request from groupID: " + groupID + " for user " + user)
+
+  	// Get the db object, declared in app.js
+  	var db = req.app.get('db');
+
+  	var query; 
+
+    	// Basic request for posts
+    	if (activityFilter == "top"){
+		if (typeFilter == "art" || typeFilter == "text"){
+        		query = db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+          			.where("type", "==", typeFilter)
+				.orderBy('votes', 'desc')
+		} else {
+			db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+				.orderBy('votes', 'desc')
+		}
+	} else {
+		if (typeFilter == "image" || typeFilter == "text"){
+			query = db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+          			.where("type", "==", typeFilter)
+				.orderBy('date', 'desc')
+		} else {
+        		query = db.collection('groups').doc(groupID).collection('posts')
+				.where("banned", "==", false)
+				.orderBy('date', 'desc')
+		}
+	}
+	
+	// Get the document snapshot of the last document first
+	query.get().then((snapshot) => {
+		var posts = []
+		var ref;
+		
+		snapshot.forEach((post) => {
+			var voteStatus = 0
+			var flagStatus = 0
+			var interactions = post.get("interactions")
+			
+			// TODO: Better solution by putting this in mobile backend
+			for (var interacting_user in interactions) {
+				if (interacting_user == user) {
+					voteStatus = utils.getVote(interactions[user])
+					flagStatus = utils.getFlag(interactions[user]) ? 1 : 0
+					break
+				}
+			}
+			
+			// Add the post, ID, and vote status before returning it
+			var curPost = post.data()
+			curPost.postId = post.id
+			curPost.voteStatus = voteStatus
+			curPost.flagStatus = flagStatus
+			delete curPost["geohash"]
+			delete curPost["interactions"]
+			// delete curPost["inter"]
+			posts.push(curPost)
+		});
+
+    // Return the posts to the client
+    if (activityFilter == "top"){
+	    posts = posts.sort((a, b) => { return b.votes - a.votes })
+	    
+	    // Get index of post with docRef (last post from previous request)
+	    var postIdx = posts.map(function(e) { return e.postId; }).indexOf(docRef);
+	    
+	    // Get the next 20 posts
+	    if (posts.length >= postIdx + 21){
+		    ref = posts[postIdx + 20].postId
+		    posts = posts.slice(postIdx + 1, postIdx + 21)
+	    } else if (posts.length >= postIdx + 2){
+		    ref = posts[posts.length - 1].postId
+		    posts = posts.slice(postIdx + 1, posts.length)
+	    } else {
+		    ref = ""
+		    posts = []
+	    }
+    } else {
+	    posts = posts.sort((a, b) => { return b.date - a.date })
+	    // Get index of post with docRef (last post from previous request)
+	    var postIdx = posts.map(function(e) { return e.postId; }).indexOf(docRef);
+	    
+	    // Get the next 20 posts
+	    if (posts.length >= postIdx + 21){
+		    ref = posts[postIdx + 20].postId
+		    posts = posts.slice(postIdx + 1, postIdx + 21)
+	    } else if (posts.length >= postIdx + 2){
+		    ref = posts[posts.length - 1].postId
+		    posts = posts.slice(postIdx + 1, posts.length)
+	    } else {
+		    ref = ""
+		    posts = []
+	    }
+    }
+		res.status(200).send({reference: ref, posts: posts})
+	})
+		.catch((err) => {
+		console.log("ERROR looking up posts in posts.js:" + err)
+		res.send([])
+	})
 }
 
 module.exports = router;
