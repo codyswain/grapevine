@@ -3,7 +3,8 @@ var router = express.Router();
 var utils = require('../server_utils.js'); // NOTE: Relative pathing can break
 const FieldValue = require('firebase-admin').firestore.FieldValue
 
-router.post('/', createGroup);          // Create a group 
+router.post('/', createGroup);          // Create a group
+router.post('/posts', createPost);	// Create post in a group
 router.get('/', fetchGroups);           // Fetch groups for a given member 
 router.get('/keygen', createGroupKey);    // Create a key so a new user can join a group
 router.get('/key', consumeKey);         // Consume a key and return the groupID
@@ -31,6 +32,72 @@ async function createGroup(req, res, next) {
 		console.log("ERROR creating group: " + err)
 		res.status(400).send()
 	})
+}
+
+/* POST /groups/posts
+Description: Post request includes the following
+Input parameter Names: content, poster, votes, date, type, lat, lon, numFlags
+Output: None */
+async function createPost(req, res, next) {
+	var db = req.app.get('db');  
+	console.log("createGroupsPost request of type: " + req.body.type + " and req.body.userID: " + req.body.userID + " and req.body.groupID: " + req.body.groupID)
+	// Text post creation logic
+	if (req.body.type == 'text') {
+		let toxic_result = await perspective.analyze(req.body.text);
+		console.log("Toxicity score " + toxic_result.attributeScores.TOXICITY.summaryScore.value)
+		userPost = {
+			content : req.body.text,
+      			poster : req.body.userID,
+			votes : 0,
+			date : req.body.date,
+			type : req.body.type,
+			lat : req.body.latitude,
+			lon : req.body.longitude,
+			groupID : req.body.groupID,
+			numFlags : 0,
+			geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
+			interactions: {},
+			toxicity: toxic_result.attributeScores.TOXICITY.summaryScore.value,
+			banned: false,
+			comments: 0
+		};
+	}
+
+	// Image/drawing creation logic
+	if (req.body.type == 'image') {
+		console.log("Setting user post as image")
+		userPost = {
+			content: req.body.text, // TODO: Hacky solution max of 1MB
+			poster : req.body.userID,
+			votes : 0,
+			date : req.body.date,
+			type : req.body.type,
+			lat : req.body.latitude,
+			lon : req.body.longitude,
+			groupID : req.body.groupID,
+			numFlags : 0,
+			geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
+			interactions: {},
+			toxicity: 1, // Just default to the worst for images
+			banned: false,
+			comments: 0
+		};
+  }
+
+	await db.collection('groups').doc(groupID).collection('posts').add(userPost)
+	.then(ref => {
+    // update push notification token for APNS requests
+    token = req.body.pushNotificationToken
+    utils.updatePushNotificationToken(req, req.body.userID, token)
+	  console.log('Added document with ID: ', ref.id);
+		res.status(200).send(ref.id);
+	})
+	.catch((err) => {
+		console.log("ERROR storing post : " + err)
+		res.status(400).send()
+  })
+  
+
 }
 
 /* GET /groups
