@@ -19,14 +19,14 @@ protocol GroupsManagerDelegate {
     func didCreateGroup()
     
     func didJoinGroup()
-    func didCreateKey()
+    func didCreateKey(key: String)
 }
 
 struct GroupsManager {
     let fetchGroupsURL = Constants.serverURL + "groups/?"
     let createGroupURL = Constants.serverURL + "groups"
     let joinGroupURL = Constants.serverURL + "groups/key/?"
-    let createGroupKeyURL = Constants.serverURL + "groups/key/?"
+    let createGroupKeyURL = Constants.serverURL + "groups/keygen/?"
     var delegate: GroupsManagerDelegate?
     
     /// Fetch the groups a user belongs to
@@ -102,9 +102,14 @@ struct GroupsManager {
                     return
                 }
                 if let safeData = data {
-                    let outputStr  = String(data: safeData, encoding: String.Encoding.utf8)! as String
-                    print("Request returned and processed \(outputStr)")
-                    self.delegate?.didCreateKey()
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: safeData, options: []) as? [String : Any]
+                        let key = json?["key"] as? String
+                        print("Request returned and processed \(key ?? "ERROR")")
+                        self.delegate?.didCreateKey(key: key ?? "ERROR")
+                    } catch {
+                        self.delegate?.didCreateKey(key: "ERROR")
+                    }
                 }
             }
             task.resume()

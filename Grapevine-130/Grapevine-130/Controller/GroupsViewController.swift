@@ -232,6 +232,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: Delegate Extensions
 
 extension GroupsViewController: GroupsManagerDelegate {
+    
     func didCreateGroup() {
         print("Created group")
         self.refresh()
@@ -260,9 +261,9 @@ extension GroupsViewController: GroupsManagerDelegate {
         self.refresh()  
     }
     
-    func didCreateKey(){
+    func didCreateKey(key: String){
         DispatchQueue.main.async {
-            let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
+            let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!\n\n\(key)")
             makePopup(alert: alert, image: "person.badge.plus")
             self.present(alert, animated: true)
         }
