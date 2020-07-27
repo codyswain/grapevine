@@ -155,7 +155,7 @@ class GroupsViewController: UIViewController {
                     return
                 }
             
-                // Maybe to do: check valid group names
+                // TO-DO: More valid group name checking
                 self.groupsManager.createGroup(groupName: newGroupName, ownerID: Constants.userID)
             }
         }
