@@ -20,6 +20,7 @@ struct PostsManager {
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let fetchShoutablePostsURL = Constants.serverURL + "shoutChamber/?"
     let createPostURL = Constants.serverURL + "posts"
+    let createGroupsPostURL = Constants.serverURL + "groups/posts"
     let fetchMyCommentsURL = Constants.serverURL + "myComments/?"
     let fetchMoreMyCommentsURL = Constants.serverURL + "myComments/more/?"
     var delegate: PostsManagerDelegate?
@@ -154,7 +155,7 @@ struct PostsManager {
         - longitude: Longitude of the post creator
         - postType: The type of post that is being sent
     */
-    func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String) {
+    func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String, groupID: String = "Grapevine") {
         // Get most up to date notification token
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let pushNotificationToken = appDelegate.pushNotificationToken
@@ -167,12 +168,16 @@ struct PostsManager {
             "type": postType,
             "latitude": latitude,
             "longitude": longitude,
+            "groupID": groupID,
         ]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
         // create post request
-        let url = URL(string:createPostURL)!
+        var url =  URL(string:createPostURL)!
+        if groupID != "Grapevine" {
+            url = URL(string: createGroupsPostURL)!
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
 

@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     var canGetMorePosts = true
     var range = 3.0
     var groupName = "Grapevine"
-    var groupID = ""
+    var groupID = "Grapevine"
     var groupsManager = GroupsManager()
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
@@ -398,6 +398,8 @@ class ViewController: UIViewController {
             let destinationVC = segue.destination as! NewPostViewController
             destinationVC.lat = self.lat
             destinationVC.lon = self.lon
+            destinationVC.groupName = self.groupName
+            destinationVC.groupID = self.groupID
         }
         if segue.identifier == "mainViewToScoreView" {
             let destinationVC = segue.destination as! ScoreViewController
@@ -863,6 +865,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 postsManager.fetchMoreMyComments(ref: self.ref)
             } else if currentMode == "groups" {
                 // Fetch posts from current group from database
+                groupsManager.fetchMoreGroupPosts(groupID: self.groupID)
             }
 
             let moreIndicator = UIActivityIndicatorView()
@@ -1327,9 +1330,11 @@ extension ViewController: GroupsViewControllerDelegate {
             changeAppearanceBasedOnMode()
             return
         }
-        self.currentMode = "groups"
-        self.groupName = groupName
-        self.groupID = groupID
-        changeAppearanceBasedOnMode()
+        else {
+            self.currentMode = "groups"
+            self.groupName = groupName
+            self.groupID = groupID
+            changeAppearanceBasedOnMode()
+        }
     }
 }

@@ -24,10 +24,24 @@ protocol GroupsManagerDelegate {
 
 struct GroupsManager {
     let fetchGroupsURL = Constants.serverURL + "groups/?"
+    let fetchMoreGroupPostsURL = Constants.serverURL + "groups/posts/more?"
+    let fetchGroupPostsURL = Constants.serverURL + "groups/posts/?"
     let createGroupURL = Constants.serverURL + "groups"
     let joinGroupURL = Constants.serverURL + "groups/key/?"
     let createGroupKeyURL = Constants.serverURL + "groups/key/?"
+    let createGroupPostURL = Constants.serverURL + "groups"
     var delegate: GroupsManagerDelegate?
+    
+    ///Fetch posts from a certain group
+    func fetchGroupPosts(groupID: String) {
+        let url = "\(fetchGroupPostsURL)&groupID=\(groupID)"
+        performRequest(with: url, requestType: "fetch")
+    }
+    
+    func fetchMoreGroupPosts(groupID: String) {
+        let url = "\(fetchMoreGroupPostsURL)&groupID=\(groupID)"
+        performRequest(with: url, requestType: "fetch")
+    }
     
     /// Fetch the groups a user belongs to
     func fetchGroups(userID: String){
@@ -73,6 +87,27 @@ struct GroupsManager {
             task.resume()
         }
     }
+    
+//    func performMoreRequest(with urlString: String) {
+//        if let url = URL(string: urlString) {
+//            let session = URLSession(configuration: .default)
+//            print("Sent request URL: \(url)")
+//            let task = session.dataTask(with: url) { (data, response, error) in
+//                if error != nil {
+//                    self.delegate?.didFailWithError(error: error!)
+//                    return
+//                }
+//                if let safeData = data {
+//                    print("Request returned")
+//                    if let ref = self.parseJSON(safeData) {
+//                        self.delegate?.didGetMoreGroupPosts(self, posts: ref.posts, ref: ref.reference)
+//                        print("Request returned and processed \(ref.posts.count) posts")
+//                    }
+//                }
+//            }
+//            task.resume()
+//        }
+//    }
     
     func performRequestJoinGroup(with urlString: String, requestType: String) {
         if let url = URL(string: urlString) {
