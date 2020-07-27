@@ -52,11 +52,13 @@ async function fetchGroups(req, res, next){
   } else {
     for (const groupID of fetchedGroups){
       let ref1 = await db.collection('groups').doc(groupID).get()
-      groups.push({
-        name: ref1.data().name,
-        id: groupID,
-        ownerID: ref1.data().ownerID
-      })
+      if (ref1.exists){
+        groups.push({
+          name: ref1.data().name,
+          id: groupID,
+          ownerID: ref1.data().ownerID
+        })
+      }
     }
     res.status(200).send({groups: groups})
   }
