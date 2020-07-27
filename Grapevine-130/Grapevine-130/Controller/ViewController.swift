@@ -865,7 +865,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 postsManager.fetchMoreMyComments(ref: self.ref)
             } else if currentMode == "groups" {
                 // Fetch posts from current group from database
-                groupsManager.fetchMoreGroupPosts(groupID: self.groupID)
+                postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType, groupID: self.groupID)
             }
 
             let moreIndicator = UIActivityIndicatorView()
@@ -1004,7 +1004,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 extension ViewController: PostsManagerDelegate {
     /** Reloads the table to reflect the newly retrieved posts.
      - Parameters:
-        - postManager: `PostManager` object that fetched the psots
+        - postManager: `PostManager` object that fetched the posts
         - posts: Array of posts returned by the server
         - ref: Document id of the last post retrieved from this call */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
@@ -1079,7 +1079,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.lon = location.coordinate.longitude
             updateCity()
             print("Location request success")
-            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType, groupID: self.groupID)
         }
     }
 }

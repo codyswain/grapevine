@@ -15,6 +15,8 @@ struct PostsManager {
     /// Hits the /posts endpoint
     let fetchPostsURL = Constants.serverURL + "posts/?"
     let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
+    let fetchGroupPostsURL = Constants.serverURL + "groups/posts/?"
+    let fetchMoreGroupPostsURL = Constants.serverURL + "groups/posts/more/?"
     let fetchMyPostsURL = Constants.serverURL + "myPosts/?"
     let fetchMoreMyPostsURL = Constants.serverURL + "myPosts/more/?"
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
@@ -30,8 +32,12 @@ struct PostsManager {
         - latitude: Latitude of the client requesting posts
         - longitude: Longitude of the client requesting posts
         - range: Distance around the user to retrieve posts from */
-    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, activityFilter: String, typeFilter: String) {
-        let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
+    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, activityFilter: String, typeFilter: String, groupID: String = "Grapevine") {
+        var fetchURL = fetchPostsURL
+        if groupID != "Grapevine" {
+            fetchURL = fetchGroupPostsURL
+        }
+        let urlString = "\(fetchURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)&groupID=\(groupID)"
         performRequest(with: urlString)
     }
     
@@ -79,8 +85,12 @@ struct PostsManager {
     }
     
     /** Fetches more posts from the database for infinite scrolling. */
-    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, ref: String, activityFilter: String, typeFilter: String) {
-        let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
+    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, ref: String, activityFilter: String, typeFilter: String, groupID: String = "Grapevine") {
+        var fetchMoreURL = fetchMorePostsURL
+        if groupID != "Grapevine" {
+            fetchMoreURL = fetchMoreGroupPostsURL
+        }
+        let urlString = "\(fetchMoreURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)&groupID=\(groupID)"
         performMoreRequest(with: urlString)
     }
     
