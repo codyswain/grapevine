@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var utils = require('../server_utils.js'); // NOTE: Relative pathing can break
+const Perspective = require('perspective-api-client');
+const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
 const FieldValue = require('firebase-admin').firestore.FieldValue
 
 router.post('/', createGroup);          // Create a group
