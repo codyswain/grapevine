@@ -41,7 +41,8 @@ Description: Post request includes the following
 Input parameter Names: content, poster, votes, date, type, lat, lon, numFlags
 Output: None */
 async function createPost(req, res, next) {
-	var db = req.app.get('db');  
+	var db = req.app.get('db');
+	let groupID = req.body.groupID
 	console.log("createGroupsPost request of type: " + req.body.type + " and req.body.userID: " + req.body.userID + " and req.body.groupID: " + req.body.groupID)
 	// Text post creation logic
 	if (req.body.type == 'text') {
