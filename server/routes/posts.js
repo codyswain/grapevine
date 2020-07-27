@@ -158,7 +158,7 @@ async function getPosts(req, res, next) {
 /*
 Post /posts
 Description: Post request including details of user post
-Input parameter Names: content, poster, votes, date, type, lat, lon, numFlags
+Input parameter Names: content, poster, votes, date, type, lat, lon, numFlags, groupID
 Output: None
 */
 async function createPost(req, res, next) {
