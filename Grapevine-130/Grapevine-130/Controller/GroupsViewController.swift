@@ -149,8 +149,13 @@ class GroupsViewController: UIViewController {
                     alert.addAction(MDCAlertAction(title: "Ok"))
                     makePopup(alert: alert, image: "Grapes")
                     self.present(alert, animated: true)
+                    return
                 }
-                // Maybe to do: check valid group names
+                else if newGroupName.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                    return
+                }
+            
+                // TO-DO: More valid group name checking
                 self.groupsManager.createGroup(groupName: newGroupName, ownerID: Constants.userID)
             }
         }
@@ -221,6 +226,12 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         
         if group.name == self.selectedGroup {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
+            self.delegate?.setGroupsView(groupName: selectedGroup, groupID: selectedGroupID)
+            if group.ownerID == Constants.userID {
+                showAddMembers()
+            } else {
+                hideAddMembers()
+            }
         }
         
         return cell
@@ -232,6 +243,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: Delegate Extensions
 
 extension GroupsViewController: GroupsManagerDelegate {
+    
     func didCreateGroup() {
         print("Created group")
         self.refresh()
@@ -251,6 +263,7 @@ extension GroupsViewController: GroupsManagerDelegate {
             self.tableView.reloadData()
             if self.groupCreated == true {
                 self.selectedGroup = self.groups.last!.name //select new group when it is created
+                self.selectedGroupID = self.groups.last!.id
                 self.groupCreated = false
             }
         }

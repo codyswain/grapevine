@@ -15,11 +15,14 @@ struct PostsManager {
     /// Hits the /posts endpoint
     let fetchPostsURL = Constants.serverURL + "posts/?"
     let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
+    let fetchGroupPostsURL = Constants.serverURL + "groups/posts/?"
+    let fetchMoreGroupPostsURL = Constants.serverURL + "groups/posts/more/?"
     let fetchMyPostsURL = Constants.serverURL + "myPosts/?"
     let fetchMoreMyPostsURL = Constants.serverURL + "myPosts/more/?"
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let fetchShoutablePostsURL = Constants.serverURL + "shoutChamber/?"
     let createPostURL = Constants.serverURL + "posts"
+    let createGroupsPostURL = Constants.serverURL + "groups/posts"
     let fetchMyCommentsURL = Constants.serverURL + "myComments/?"
     let fetchMoreMyCommentsURL = Constants.serverURL + "myComments/more/?"
     var delegate: PostsManagerDelegate?
@@ -29,18 +32,25 @@ struct PostsManager {
         - latitude: Latitude of the client requesting posts
         - longitude: Longitude of the client requesting posts
         - range: Distance around the user to retrieve posts from */
-    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, activityFilter: String, typeFilter: String) {
-        let urlString = "\(fetchPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
+    func fetchPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, activityFilter: String, typeFilter: String, groupID: String = "Grapevine") {
+        var fetchURL = fetchPostsURL
+        if groupID != "Grapevine" {
+            fetchURL = fetchGroupPostsURL
+        }
+        let urlString = "\(fetchURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)&groupID=\(groupID)"
         performRequest(with: urlString)
     }
     
-    func deletePost(postID: String){
-        let json: [String: Any] = ["postId": postID]
+    func deletePost(postID: String, groupID: String = "Grapevine"){
+        let json: [String: Any] = ["postId": postID, "groupID": groupID]
         print("postid: ", postID)
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         // Create delete request
-        let url = URL(string: Constants.serverURL + "posts")!
+        var url = URL(string: Constants.serverURL + "posts")!
+        if groupID != "Grapevine" {
+            url = URL(string: Constants.serverURL + "groups")!
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         
@@ -78,8 +88,12 @@ struct PostsManager {
     }
     
     /** Fetches more posts from the database for infinite scrolling. */
-    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, ref: String, activityFilter: String, typeFilter: String) {
-        let urlString = "\(fetchMorePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)"
+    func fetchMorePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, ref: String, activityFilter: String, typeFilter: String, groupID: String = "Grapevine") {
+        var fetchMoreURL = fetchMorePostsURL
+        if groupID != "Grapevine" {
+            fetchMoreURL = fetchMoreGroupPostsURL
+        }
+        let urlString = "\(fetchMoreURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&ref=\(ref)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)&groupID=\(groupID)"
         performMoreRequest(with: urlString)
     }
     
@@ -154,7 +168,7 @@ struct PostsManager {
         - longitude: Longitude of the post creator
         - postType: The type of post that is being sent
     */
-    func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String) {
+    func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String, groupID: String = "Grapevine") {
         // Get most up to date notification token
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let pushNotificationToken = appDelegate.pushNotificationToken
@@ -167,12 +181,16 @@ struct PostsManager {
             "type": postType,
             "latitude": latitude,
             "longitude": longitude,
+            "groupID": groupID,
         ]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
         // create post request
-        let url = URL(string:createPostURL)!
+        var url =  URL(string:createPostURL)!
+        if groupID != "Grapevine" {
+            url = URL(string: createGroupsPostURL)!
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
 

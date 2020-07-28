@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     var canGetMorePosts = true
     var range = 3.0
     var groupName = "Grapevine"
-    var groupID = ""
+    var groupID = "Grapevine"
     var groupsManager = GroupsManager()
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
@@ -398,6 +398,8 @@ class ViewController: UIViewController {
             let destinationVC = segue.destination as! NewPostViewController
             destinationVC.lat = self.lat
             destinationVC.lon = self.lon
+            destinationVC.groupName = self.groupName
+            destinationVC.groupID = self.groupID
         }
         if segue.identifier == "mainViewToScoreView" {
             let destinationVC = segue.destination as! ScoreViewController
@@ -415,6 +417,7 @@ class ViewController: UIViewController {
             let destinationVC = segue.destination as! GroupsViewController
             destinationVC.delegate = self
             destinationVC.selectedGroup = self.groupName
+            destinationVC.selectedGroupID = self.groupID
         }
     }
     
@@ -863,6 +866,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 postsManager.fetchMoreMyComments(ref: self.ref)
             } else if currentMode == "groups" {
                 // Fetch posts from current group from database
+                postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType, groupID: self.groupID)
             }
 
             let moreIndicator = UIActivityIndicatorView()
@@ -1001,7 +1005,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 extension ViewController: PostsManagerDelegate {
     /** Reloads the table to reflect the newly retrieved posts.
      - Parameters:
-        - postManager: `PostManager` object that fetched the psots
+        - postManager: `PostManager` object that fetched the posts
         - posts: Array of posts returned by the server
         - ref: Document id of the last post retrieved from this call */
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {
@@ -1076,7 +1080,7 @@ extension ViewController: CLLocationManagerDelegate {
             self.lon = location.coordinate.longitude
             updateCity()
             print("Location request success")
-            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+            postsManager.fetchPosts(latitude: lat, longitude: lon, range: self.range, activityFilter:self.currentFilterState, typeFilter:self.curPostType, groupID: self.groupID)
         }
     }
 }
@@ -1227,7 +1231,7 @@ extension ViewController: PostTableViewCellDelegate {
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
             let docIDtoDelete = self.posts[row].postId
-            self.postsManager.deletePost(postID: docIDtoDelete)
+            self.postsManager.deletePost(postID: docIDtoDelete, groupID: self.groupID)
             self.posts.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         })
@@ -1327,9 +1331,11 @@ extension ViewController: GroupsViewControllerDelegate {
             changeAppearanceBasedOnMode()
             return
         }
-        self.currentMode = "groups"
-        self.groupName = groupName
-        self.groupID = groupID
-        changeAppearanceBasedOnMode()
+        else {
+            self.currentMode = "groups"
+            self.groupName = groupName
+            self.groupID = groupID
+            changeAppearanceBasedOnMode()
+        }
     }
 }

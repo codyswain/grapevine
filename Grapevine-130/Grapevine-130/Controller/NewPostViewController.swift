@@ -14,6 +14,9 @@ class NewPostViewController: UIViewController {
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var postsManager = PostsManager()
+    var groupsManager = GroupsManager()
+    var groupName = "Grapevine"
+    var groupID = ""
     var lastPostingTimestamp:Double = 0.0
 
     @IBOutlet weak var ColorButtonVar: UIButton!
@@ -229,7 +232,7 @@ class NewPostViewController: UIViewController {
             print("current state text")
             if let textFieldBody = frontTextView.text {
                 if textFieldBody != "" {
-                    postsManager.performPOSTRequest(contentText: textFieldBody, latitude: lat, longitude: lon, postType: "text")
+                    postsManager.performPOSTRequest(contentText: textFieldBody, latitude: lat, longitude: lon, postType: "text", groupID: self.groupID)
                 }
             }
         } else {
@@ -238,7 +241,7 @@ class NewPostViewController: UIViewController {
             if imData != nil {
                 let image = imData!.jpegData(compressionQuality: 0.5)
                 let base64 = image!.base64EncodedString()
-                postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image")
+                postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image", groupID: self.groupID)
             }
             drawingCanvasView.layer.cornerRadius = 10.0
         }
