@@ -26,7 +26,7 @@ struct GroupsManager {
     let fetchGroupsURL = Constants.serverURL + "groups/?"
     let createGroupURL = Constants.serverURL + "groups"
     let joinGroupURL = Constants.serverURL + "groups/key/?"
-    let createGroupKeyURL = Constants.serverURL + "groups/key/?"
+    let createGroupKeyURL = Constants.serverURL + "groups/keygen/?"
     var delegate: GroupsManagerDelegate?
     
     /// Fetch the groups a user belongs to
