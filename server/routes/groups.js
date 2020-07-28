@@ -12,6 +12,7 @@ router.get('/keygen', createGroupKey);    // Create a key so a new user can join
 router.get('/key', consumeKey);         // Consume a key and return the groupID
 router.get('/posts', getPosts);		//Get all Posts from a group
 router.get('/posts/more', morePosts);	//Get more posts from a group for infinite scrolling
+router.delete('/posts', deletePost);	//Delete post from group
 
 /* POST /groups
 Description: Post request includes the following
@@ -381,6 +382,28 @@ async function morePosts(req, res, next) {
 		console.log("ERROR looking up posts in posts.js:" + err)
 		res.send([])
 	})
+}
+
+//Delete a post from a group
+//Inputs: postID, groupID
+//Outputs: None
+async function deletePost(req, res, next) {
+  var db = req.app.get('db');
+  let postID = req.body.postId
+  let groupID = req.body.groupID
+  console.log(`Attempting to delete: ${postID}`)
+
+	db.collection('groups').doc(groupID).collection('posts').doc(postID).delete()
+	.catch((err) => {
+		console.log("ERROR storing post : " + err)
+		res.status(400).send()
+	})
+	.then(() => {
+    utils.deletePostComments(postID, req)
+		res.status(200).send("Successfully deleted post " + postID);
+  })
+
+
 }
 
 module.exports = router;
