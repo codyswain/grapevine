@@ -417,6 +417,7 @@ class ViewController: UIViewController {
             let destinationVC = segue.destination as! GroupsViewController
             destinationVC.delegate = self
             destinationVC.selectedGroup = self.groupName
+            destinationVC.selectedGroupID = self.groupID
         }
     }
     
@@ -1230,7 +1231,7 @@ extension ViewController: PostTableViewCellDelegate {
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
             let docIDtoDelete = self.posts[row].postId
-            self.postsManager.deletePost(postID: docIDtoDelete)
+            self.postsManager.deletePost(postID: docIDtoDelete, groupID: self.groupID)
             self.posts.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         })
