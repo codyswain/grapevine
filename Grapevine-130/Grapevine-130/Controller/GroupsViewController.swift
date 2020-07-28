@@ -218,12 +218,6 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         let group = groups[indexPath.row]
         cell.groupLabel.text = group.name
         
-//        if group.ownerID == Constants.userID {
-//            cell.enableDelete()
-//        } else {
-//            cell.disableDelete()
-//        }
-        
         if group.name == self.selectedGroup {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
             self.delegate?.setGroupsView(groupName: selectedGroup, groupID: selectedGroupID)
@@ -241,7 +235,6 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 //MARK: Delegate Extensions
-
 extension GroupsViewController: GroupsManagerDelegate {
     
     func didCreateGroup() {
@@ -263,19 +256,18 @@ extension GroupsViewController: GroupsManagerDelegate {
             self.tableView.reloadData()
             if self.groupCreated == true {
                 self.selectedGroup = self.groups.last!.name //select new group when it is created
-                self.selectedGroupID = self.groups.last!.id
                 self.groupCreated = false
             }
         }
     }
     
     func didJoinGroup(){
-        self.refresh()  
+        self.refresh()
     }
     
-    func didCreateKey(){
+    func didCreateKey(key: String){
         DispatchQueue.main.async {
-            let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!")
+            let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!\n\n\(key)")
             makePopup(alert: alert, image: "person.badge.plus")
             self.present(alert, animated: true)
         }

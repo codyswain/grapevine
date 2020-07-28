@@ -708,6 +708,8 @@ class ViewController: UIViewController {
             postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         } else if currentMode == "myComments" {
             postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        } else if currentMode == "groups" {
+            postsManager.fetchPosts(latitude: self.lat, longitude: self.lon, range: self.range, activityFilter: self.currentFilterState, typeFilter: self.curPostType, groupID: self.groupID)
         }
     }
     
@@ -1336,6 +1338,7 @@ extension ViewController: GroupsViewControllerDelegate {
             self.groupName = groupName
             self.groupID = groupID
             changeAppearanceBasedOnMode()
+            self.refresh()
         }
     }
 }

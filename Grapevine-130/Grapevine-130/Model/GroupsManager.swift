@@ -19,7 +19,7 @@ protocol GroupsManagerDelegate {
     func didCreateGroup()
     
     func didJoinGroup()
-    func didCreateKey()
+    func didCreateKey(key: String)
 }
 
 struct GroupsManager {
@@ -74,27 +74,6 @@ struct GroupsManager {
         }
     }
     
-//    func performMoreRequest(with urlString: String) {
-//        if let url = URL(string: urlString) {
-//            let session = URLSession(configuration: .default)
-//            print("Sent request URL: \(url)")
-//            let task = session.dataTask(with: url) { (data, response, error) in
-//                if error != nil {
-//                    self.delegate?.didFailWithError(error: error!)
-//                    return
-//                }
-//                if let safeData = data {
-//                    print("Request returned")
-//                    if let ref = self.parseJSON(safeData) {
-//                        self.delegate?.didGetMoreGroupPosts(self, posts: ref.posts, ref: ref.reference)
-//                        print("Request returned and processed \(ref.posts.count) posts")
-//                    }
-//                }
-//            }
-//            task.resume()
-//        }
-//    }
-    
     func performRequestJoinGroup(with urlString: String, requestType: String) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
@@ -123,9 +102,14 @@ struct GroupsManager {
                     return
                 }
                 if let safeData = data {
-                    let outputStr  = String(data: safeData, encoding: String.Encoding.utf8)! as String
-                    print("Request returned and processed \(outputStr)")
-                    self.delegate?.didCreateKey()
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: safeData, options: []) as? [String : Any]
+                        let key = json?["key"] as? String
+                        print("Request returned and processed \(key ?? "ERROR")")
+                        self.delegate?.didCreateKey(key: key ?? "ERROR")
+                    } catch {
+                        self.delegate?.didCreateKey(key: "ERROR")
+                    }
                 }
             }
             task.resume()
