@@ -49,7 +49,7 @@ struct PostsManager {
         // Create delete request
         var url = URL(string: Constants.serverURL + "posts")!
         if groupID != "Grapevine" {
-            url = URL(string: Constants.serverURL + "groups")!
+            url = URL(string: Constants.serverURL + "groups/posts")!
         }
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
