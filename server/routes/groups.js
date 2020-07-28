@@ -13,6 +13,7 @@ router.get('/key', consumeKey);         // Consume a key and return the groupID
 router.get('/posts', getPosts);		//Get all Posts from a group
 router.get('/posts/more', morePosts);	//Get more posts from a group for infinite scrolling
 router.delete('/posts', deletePost);	//Delete post from group
+router.delete('/', deleteGroup);	//Delete post from group
 
 /* POST /groups
 Description: Post request includes the following
@@ -392,7 +393,7 @@ async function deletePost(req, res, next) {
   let postID = req.body.postId
   let groupID = req.body.groupID
   console.log(`Attempting to delete: ${postID}`)
-
+z
 	db.collection('groups').doc(groupID).collection('posts').doc(postID).delete()
 	.catch((err) => {
 		console.log("ERROR storing post : " + err)
@@ -402,8 +403,63 @@ async function deletePost(req, res, next) {
     utils.deletePostComments(postID, req)
 		res.status(200).send("Successfully deleted post " + postID);
   })
+}
 
 
+//Inputs: groupID
+async function deleteGroup(req, res, next) {
+	var db = req.app.get('db');
+  let groupID = req.body.groupID;
+
+  // Fetch all the posts and delete corresponding comments
+  db.collection('groups').doc(groupID).collection('posts').get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      let postID = doc.id
+      console.log(`DELETE comments for post ${postID}`); //doc.data() never undefined
+      utils.deletePostComments(postID, req);
+    });
+  })
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+      res.status(400).send()
+      return
+  });
+
+  // Get all the members in a group (groups collection)
+  // THEN delete corresponding group id from each member (users collection)
+  let groupRef = await db.collection('groups').doc(groupID).get() // returns an array
+  if (groupRef.data() === undefined){
+    console.log(`ERROR: Attempting to delete group that doesn't exist: ${groupID}`)
+    res.status(400).send()
+    return
+  }
+  let fetchedMembers = groupRef.data().members
+  if (fetchedMembers === undefined || fetchedMembers.length == 0){
+    console.log(`ERROR: undefined members array (or empty) groupID: ${groupID}`)
+    res.status(400).send()
+    return
+  } else {
+    for (const memberID of fetchedMembers){
+      console.log(`DELETE group ${groupID} field from member: ${memberID}`)
+      let groupRef = await db.collection('users').doc(memberID)
+      groupRef.update({
+        groups: FieldValue.arrayRemove(groupID)
+      })
+    }
+  }
+
+  // Delete the group
+  console.log(`Deleting group: ${groupID}`)
+  db.collection('groups').doc(groupID).delete()
+  .catch((err) => {
+		console.log("ERROR deleting group: " + err)
+    res.status(400).send()
+    return
+	})
+	.then(() => {
+    res.status(200).send(`COMPLETED DELETE group:${groupID}`);
+  })
 }
 
 module.exports = router;
