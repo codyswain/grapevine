@@ -218,6 +218,12 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         let group = groups[indexPath.row]
         cell.groupLabel.text = group.name
         
+        if group.ownerID == Constants.userID {
+            cell.enableDelete()
+        } else {
+            cell.disableDelete()
+        }
+        
         if group.name == self.selectedGroup {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
             self.delegate?.setGroupsView(groupName: selectedGroup, groupID: selectedGroupID)
@@ -227,6 +233,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
                 hideAddMembers()
             }
         }
+        cell.delegate = self
         
         return cell
     }
@@ -268,6 +275,10 @@ extension GroupsViewController: GroupsManagerDelegate {
     func didCreateKey(key: String){
         DispatchQueue.main.async {
             let alert = MDCAlertController(title: "Group Code", message: "Share this one-time group code with a friend, or anyone, so they can join your group!\n\n\(key)")
+            alert.addAction(MDCAlertAction(title: "Copy to clipboard"){ (action) in
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = key
+            })
             makePopup(alert: alert, image: "person.badge.plus")
             self.present(alert, animated: true)
         }
@@ -284,7 +295,7 @@ extension GroupsViewController: GroupTableViewCellDelegate {
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row
             let groupIDtoDelete = self.groups[row].id
-//            self.groupsManager.deleteGroup(groupID: groupIDtoDelete)
+            self.groupsManager.deleteGroup(groupID: groupIDtoDelete)
             self.groups.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         })

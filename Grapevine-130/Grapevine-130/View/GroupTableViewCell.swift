@@ -34,7 +34,7 @@ class GroupTableViewCell: UITableViewCell {
     func disableDelete(){
         //disable deletion of group
         deleteButton.isHidden = true
-        deleteButton.isUserInteractionEnabled = true
+        deleteButton.isUserInteractionEnabled = false
     }
     
     //MARK: Cell Interaction Methods

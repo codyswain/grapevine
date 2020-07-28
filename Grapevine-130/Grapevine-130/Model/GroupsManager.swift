@@ -147,6 +147,33 @@ struct GroupsManager {
         task.resume()
     }
     
+    func deleteGroup(groupID: String = "Grapevine"){
+        let json: [String: Any] = ["groupID": groupID]
+        print("groupid: ", groupID)
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        // Create delete request
+        let url = URL(string: Constants.serverURL + "groups")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        // insert json data to the request
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if error != nil {
+                self.delegate?.didFailWithError(error: error!)
+                print("DELETE req error")
+                return
+            }
+            if let safeData = data {
+                print("DELETE req returned: \(safeData)")
+            }
+        }
+        task.resume()
+    }
+    
     func parseJSON(_ data: Data) -> GroupReference? {
         let decoder = JSONDecoder()
         var ref = GroupReference(groups: [])
