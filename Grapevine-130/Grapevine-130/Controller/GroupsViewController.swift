@@ -33,7 +33,7 @@ class GroupsViewController: UIViewController {
     var groupCreated = false
     var groupsManager = GroupsManager()
     var delegate: GroupsViewControllerDelegate?
-    
+    var indicator = UIActivityIndicatorView()
     let grapevine = Group(id: "Grapevine", name: "Grapevine", ownerID: "Grapevine")
     
     // Define Refresher
@@ -68,9 +68,17 @@ class GroupsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Set dark/light mode
         setTheme(curView: self)
+        
+        //load the table
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.refreshControl = refresher
+//        tableView.refreshControl?.beginRefreshing()
+        tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.rowHeight = 50
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         //Set button styling
         creatGroupButton.layer.cornerRadius = 10
@@ -78,14 +86,11 @@ class GroupsViewController: UIViewController {
         addMembersButton.layer.cornerRadius = 10
         addMembersView.isHidden = true
         
-        //load the table
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.refreshControl = refresher
-        tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
-        tableView.rowHeight = 50
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+        // Show loading symbol
+        activityIndicator()
+        indicator.startAnimating()
+        indicator.backgroundColor = .systemBackground
+        
         groupsManager.delegate = self
         groupsManager.fetchGroups(userID: Constants.userID)
     }
@@ -132,6 +137,14 @@ class GroupsViewController: UIViewController {
     func hideAddMembers() {
         addMembersView.isHidden = true
         addMembersButton.isHidden = true
+    }
+    
+    /// Displays a loading icon while posts load.
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator.style = UIActivityIndicatorView.Style.medium
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
     }
     
     //MARK: Cell Interaction Methods
@@ -196,7 +209,11 @@ class GroupsViewController: UIViewController {
 extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return groups.count
+        if (groups.count != 0){
+            indicator.stopAnimating()
+            indicator.hidesWhenStopped = true
+        }
+        return groups.count
     }
     
     //Called when user selects row in table
@@ -257,7 +274,6 @@ extension GroupsViewController: GroupsManagerDelegate {
     }
     
     func didUpdateGroups(_ groupManager: GroupsManager, groups: [Group]) {
-        print("UPDATE")
         DispatchQueue.main.async {
             self.refresher.endRefreshing()
             self.groups = [self.grapevine]

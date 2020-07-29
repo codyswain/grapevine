@@ -52,10 +52,8 @@ class GroupTableViewCell: UITableViewCell {
         
         // Initialize the styling of the cells
         cellBackground.layer.cornerRadius = 10
-        cellBackground.layer.borderColor = .init(srgbRed: 0.62, green: 0.27, blue: 0.90, alpha: 1.0)
-        cellBackground.backgroundColor = Globals.ViewSettings.backgroundColor
+//        cellBackground.backgroundColor = Constants.Colors.
         checkmark.backgroundColor = Globals.ViewSettings.backgroundColor
-        cellBackground.layer.borderWidth = 1
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
