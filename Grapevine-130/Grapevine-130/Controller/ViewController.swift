@@ -364,7 +364,7 @@ class ViewController: UIViewController {
                     filterButton.setImage(newIcon, for: UIControl.State.normal)
                 default : //new
                     self.currentFilterState = "new"
-                    filterButton.setTitle(" Newest", for: UIControl.State.normal)
+                    filterButton.setTitle(" New", for: UIControl.State.normal)
                     let newIcon = UIImage(systemName: "bolt.circle.fill")
                     filterButton.setImage(newIcon, for: UIControl.State.normal)
             }
@@ -572,7 +572,7 @@ class ViewController: UIViewController {
     }
     func filterToNewPosts(){
         self.currentFilterState = "new"
-        filterButton.setTitle(" Newest", for: UIControl.State.normal)
+        filterButton.setTitle(" New", for: UIControl.State.normal)
         let newIcon = UIImage(systemName: "bolt.circle.fill")
         filterButton.setImage(newIcon, for: UIControl.State.normal)
         let defaults = UserDefaults.standard //Save filter for next load
