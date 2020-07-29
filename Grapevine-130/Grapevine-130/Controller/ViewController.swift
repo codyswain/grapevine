@@ -43,8 +43,8 @@ class ViewController: UIViewController {
     var ref = ""
     var canGetMorePosts = true
     var range = 3.0
-    var groupName = "Grapevine"
-    var groupID = "Grapevine"
+    var groupName = Globals.ViewSettings.groupName
+    var groupID = Globals.ViewSettings.groupID
     var groupsManager = GroupsManager()
     var postsManager = PostsManager()
     var scrollPostsManager = PostsManager()
@@ -142,7 +142,9 @@ class ViewController: UIViewController {
         applyAbilityButton.addGestureRecognizer(tapGestureRecognizerApplyAbility)
         
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
-        changeAppearanceBasedOnMode()
+        //changeAppearanceBasedOnMode()
+        //setGroupsView implements changeAppearanceBasedOnMode()
+        setGroupsView(groupName: self.groupName, groupID: self.groupID)
     }
     
     // Display Enable Notification Message
@@ -945,6 +947,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.disableDelete()
             cell.enableInteraction()
+            cell.revertShareButton()
         }
         
         // If currentmode is my comments then they don't need the cell footer
@@ -1336,6 +1339,8 @@ extension ViewController: GroupsViewControllerDelegate {
             self.currentMode = "default"
             self.groupName = groupName
             self.groupID = groupID
+            Globals.ViewSettings.groupID = self.groupID
+            Globals.ViewSettings.groupName = self.groupName
             self.nearbyLabel.text = groupName
             self.rangeButton.isHidden = false
             changeAppearanceBasedOnMode()
@@ -1346,6 +1351,8 @@ extension ViewController: GroupsViewControllerDelegate {
             self.currentMode = "groups"
             self.groupName = groupName
             self.groupID = groupID
+            Globals.ViewSettings.groupID = self.groupID
+            Globals.ViewSettings.groupName = self.groupName
             changeAppearanceBasedOnMode()
             self.refresh()
             return

@@ -16,6 +16,8 @@ struct Globals {
         static var backgroundColor = UIColor.white
         static var labelColor = UIColor.black
         static var showNotificationAlert = false
+        static var groupName = "Grapevine"
+        static var groupID = "Grapevine"
     }
     
     struct userDefaults {
