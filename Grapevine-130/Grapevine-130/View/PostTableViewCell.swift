@@ -160,8 +160,11 @@ class PostTableViewCell: UITableViewCell {
     }
     
     //Sets the location of the share button to where the abilities button normally is for when the user is looking at their own post
-    func moveShareButton() {
-        NSLayoutConstraint(item: shareButtonVar as Any, attribute: .trailing, relatedBy: .equal, toItem: abilitiesButton as Any, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
+    func moveShareButton(){
+        shareButtonVar.trailingAnchor.constraint(equalTo: shareButtonVar.superview!.trailingAnchor, constant: -8).isActive = true
+    }
+    func revertShareButton(){
+        shareButtonVar.trailingAnchor.constraint(equalTo: shareButtonVar.superview!.trailingAnchor, constant: -44).isActive = true
     }
     
     
