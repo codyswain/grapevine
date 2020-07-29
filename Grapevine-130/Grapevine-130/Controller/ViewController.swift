@@ -11,8 +11,7 @@ protocol ViewControllerDelegate {
 /// Manages the main workflow.
 class ViewController: UIViewController {
     
-    //MARK: Properties
-    
+    // MARK: Properties
     // UI variables
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
@@ -37,6 +36,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var burnAbilityIndicator: UIImageView!
     
+    // MARK: Variable Definitions
     // Globals
     let locationManager = CLLocationManager()
     var posts: [Post] = []
@@ -94,7 +94,6 @@ class ViewController: UIViewController {
     }
     
     //MARK: View Initialization
-        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -146,8 +145,8 @@ class ViewController: UIViewController {
         changeAppearanceBasedOnMode()
     }
     
-    //Display Enable Notification Message
-    //You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
+    // Display Enable Notification Message
+    // You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
     //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
     override func viewDidAppear(_ animated: Bool) {
         if Globals.ViewSettings.showNotificationAlert {
@@ -162,7 +161,6 @@ class ViewController: UIViewController {
     }
     
     //MARK: View Utilities
-    
     func displayNotificationAlert() {
         let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
         alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
@@ -265,6 +263,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //MARK: Hide navbar on scoll
     func handleScroll(curPos: CGFloat, curTime: DispatchTime){
         let posDiff = curPos - prevPos
         prevPos = curPos
@@ -418,6 +417,22 @@ class ViewController: UIViewController {
             destinationVC.delegate = self
             destinationVC.selectedGroup = self.groupName
             destinationVC.selectedGroupID = self.groupID
+        }
+    }
+    
+    /// Refresh the main posts view based on current user location.
+    @objc func refresh(){
+        if currentMode == "default" {
+            if !isLocationAccessEnabled() {
+                displayLocationAlert()
+            }
+            locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+        } else if currentMode == "myPosts" {
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        } else if currentMode == "myComments" {
+            postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+        } else if currentMode == "groups" {
+            postsManager.fetchPosts(latitude: self.lat, longitude: self.lon, range: self.range, activityFilter: self.currentFilterState, typeFilter: self.curPostType, groupID: self.groupID)
         }
     }
     
@@ -612,6 +627,8 @@ class ViewController: UIViewController {
     //Called when a user taps the groups button
     @IBAction func groupsButton(_ sender: Any) {
         print("going to groups")
+        //
+        self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
         self.performSegue(withIdentifier: "goToGroups", sender: self)
         
     }
@@ -697,22 +714,7 @@ class ViewController: UIViewController {
         }
     }
     
-    /// Refresh the main posts view based on current user location.
-    @objc func refresh(){
-        if currentMode == "default" {
-            if !isLocationAccessEnabled() {
-                displayLocationAlert()
-            }
-            locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-        } else if currentMode == "myPosts" {
-            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
-        } else if currentMode == "myComments" {
-            postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
-        } else if currentMode == "groups" {
-            postsManager.fetchPosts(latitude: self.lat, longitude: self.lon, range: self.range, activityFilter: self.currentFilterState, typeFilter: self.curPostType, groupID: self.groupID)
-        }
-    }
-    
+    //MARK: Abilities
     @objc func pushButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
         pushButton.alpha = 1.0
         burnButton.alpha = 0.4
@@ -754,7 +756,7 @@ class ViewController: UIViewController {
         applyAbilityButton.image = UIImage(named: "shout-button")
         currentAbility = "shout"
     }
-    
+
     // For detecting when user wants to exit
     @objc func abilitiesViewTapped(tapGestureRecognizer: UITapGestureRecognizer){
         exitAbilities()
@@ -972,32 +974,32 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     /// The following three scroll functions allow navbar to hide on scroll
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if (self.originalNavbarPosition == 0.0){
-            self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
-        }
-        self.notScrolling = false
-        self.prevPos = tableView.contentOffset.y
-        self.prevTime = DispatchTime.now()
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.handleScroll(curPos: tableView.contentOffset.y, curTime: DispatchTime.now())
-    }
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if (self.scrollVelocity > 0){
-            if (abs(self.originalNavbarPosition-self.bottomNavBar.frame.origin.y) < 20){
-                self.bottomNavBar.isHidden = false
-                self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
-            } else {
-                self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
-                self.bottomNavBar.isHidden = true
-            }
-        } else {
-            self.bottomNavBar.isHidden = false
-            self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
-        }
-        self.notScrolling = true
-    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        if (self.originalNavbarPosition == 0.0){
+//            self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
+//        }
+//        self.notScrolling = false
+//        self.prevPos = tableView.contentOffset.y
+//        self.prevTime = DispatchTime.now()
+//    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.handleScroll(curPos: tableView.contentOffset.y, curTime: DispatchTime.now())
+//    }
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if (self.scrollVelocity > 0){
+//            if (abs(self.originalNavbarPosition-self.bottomNavBar.frame.origin.y) < 20){
+//                self.bottomNavBar.isHidden = false
+//                self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+//            } else {
+//                self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+//                self.bottomNavBar.isHidden = true
+//            }
+//        } else {
+//            self.bottomNavBar.isHidden = false
+//            self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+//        }
+//        self.notScrolling = true
+//    }
 
 }
 

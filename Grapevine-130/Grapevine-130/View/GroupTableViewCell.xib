@@ -18,59 +18,86 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="tHq-ic-ovY" userLabel="CellView">
-                        <rect key="frame" x="0.0" y="7" width="319" height="46"/>
+                        <rect key="frame" x="10" y="10" width="299" height="40"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.seal.fill" catalog="system" id="UlJ-1w-4KI">
-                                <rect key="frame" x="0.0" y="3" width="56" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="tintColor" name="GrapevinePurple"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ykt-EE-m9h">
-                                <rect key="frame" x="61" y="3" width="251" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </label>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UoD-ZJ-Kvy">
-                                <rect key="frame" x="292" y="5.5" width="20" height="19"/>
+                                <rect key="frame" x="271" y="10.5" width="20" height="19"/>
                                 <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="4Wa-NT-5kR"/>
                                     <constraint firstAttribute="width" constant="20" id="NEi-zj-2BQ"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O8P-hi-Rcb">
+                                <rect key="frame" x="54" y="4" width="201" height="32"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSV-tL-Anr">
+                                        <rect key="frame" x="0.0" y="0.0" width="201" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mSV-tL-Anr" secondAttribute="trailing" id="R63-Y9-DxP"/>
+                                    <constraint firstAttribute="bottom" secondItem="mSV-tL-Anr" secondAttribute="bottom" id="WUo-wN-gK4"/>
+                                    <constraint firstItem="mSV-tL-Anr" firstAttribute="top" secondItem="O8P-hi-Rcb" secondAttribute="top" id="q1i-Ic-tEN"/>
+                                    <constraint firstItem="mSV-tL-Anr" firstAttribute="leading" secondItem="O8P-hi-Rcb" secondAttribute="leading" id="xc7-uK-MFP"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtS-2k-ZWo">
+                                <rect key="frame" x="6" y="4" width="40" height="32"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="W3j-bS-R7M">
+                                        <rect key="frame" x="0.0" y="1" width="40" height="29.5"/>
+                                        <color key="tintColor" name="GrapevinePurple"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="CIS-fR-7g1"/>
+                                    <constraint firstItem="W3j-bS-R7M" firstAttribute="top" secondItem="NtS-2k-ZWo" secondAttribute="top" id="Hfh-cu-I8E"/>
+                                    <constraint firstItem="W3j-bS-R7M" firstAttribute="leading" secondItem="NtS-2k-ZWo" secondAttribute="leading" id="PwP-U6-WxW"/>
+                                    <constraint firstAttribute="bottom" secondItem="W3j-bS-R7M" secondAttribute="bottom" id="jEj-FO-JAI"/>
+                                    <constraint firstAttribute="trailing" secondItem="W3j-bS-R7M" secondAttribute="trailing" id="sh4-xT-Wqw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="PostColors"/>
                         <constraints>
-                            <constraint firstItem="UoD-ZJ-Kvy" firstAttribute="leading" secondItem="Ykt-EE-m9h" secondAttribute="trailing" constant="-20" id="Bmm-Gd-h2N"/>
-                            <constraint firstAttribute="bottom" secondItem="UoD-ZJ-Kvy" secondAttribute="bottom" constant="21" id="EwY-f0-tDd"/>
-                            <constraint firstItem="UoD-ZJ-Kvy" firstAttribute="top" secondItem="tHq-ic-ovY" secondAttribute="top" constant="5" id="YUB-IR-Wp9"/>
-                            <constraint firstItem="UoD-ZJ-Kvy" firstAttribute="leading" secondItem="UlJ-1w-4KI" secondAttribute="trailing" constant="236" id="dI6-Hu-W8Q"/>
+                            <constraint firstAttribute="trailing" secondItem="UoD-ZJ-Kvy" secondAttribute="trailing" constant="8" id="00d-As-wHM"/>
+                            <constraint firstItem="O8P-hi-Rcb" firstAttribute="leading" secondItem="W3j-bS-R7M" secondAttribute="trailing" constant="8" id="ICf-FP-ZpA"/>
+                            <constraint firstItem="NtS-2k-ZWo" firstAttribute="centerY" secondItem="tHq-ic-ovY" secondAttribute="centerY" id="NGI-It-C8K"/>
+                            <constraint firstAttribute="bottom" secondItem="NtS-2k-ZWo" secondAttribute="bottom" constant="4" id="R9Z-h7-Sil"/>
+                            <constraint firstAttribute="height" constant="40" id="SOd-kN-776"/>
+                            <constraint firstItem="UoD-ZJ-Kvy" firstAttribute="leading" secondItem="O8P-hi-Rcb" secondAttribute="trailing" constant="16" id="Xk5-v0-cCM"/>
+                            <constraint firstItem="O8P-hi-Rcb" firstAttribute="top" secondItem="tHq-ic-ovY" secondAttribute="top" constant="4" id="kr1-5f-Fhc"/>
+                            <constraint firstItem="NtS-2k-ZWo" firstAttribute="top" secondItem="tHq-ic-ovY" secondAttribute="top" constant="4" id="sMt-AO-RXM"/>
+                            <constraint firstAttribute="bottom" secondItem="O8P-hi-Rcb" secondAttribute="bottom" constant="4" id="wpO-JQ-xmp"/>
+                            <constraint firstItem="UoD-ZJ-Kvy" firstAttribute="centerY" secondItem="tHq-ic-ovY" secondAttribute="centerY" id="yLo-HA-n9H"/>
+                            <constraint firstItem="NtS-2k-ZWo" firstAttribute="leading" secondItem="tHq-ic-ovY" secondAttribute="leading" constant="6" id="yiC-Ob-I5c"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tHq-ic-ovY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-16" id="EPA-KD-cxM"/>
-                    <constraint firstItem="tHq-ic-ovY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qRE-ua-Za5"/>
-                    <constraint firstItem="tHq-ic-ovY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="zBE-ry-5Dj"/>
+                    <constraint firstItem="tHq-ic-ovY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PeC-oc-3jp"/>
+                    <constraint firstItem="tHq-ic-ovY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="fDb-Sa-7zP"/>
+                    <constraint firstAttribute="trailing" secondItem="tHq-ic-ovY" secondAttribute="trailing" constant="10" id="fW1-Xi-2pk"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cellBackground" destination="tHq-ic-ovY" id="NCw-e9-U03"/>
-                <outlet property="checkmark" destination="UlJ-1w-4KI" id="6BR-TV-XNY"/>
+                <outlet property="checkmark" destination="W3j-bS-R7M" id="M22-nF-uyK"/>
                 <outlet property="deleteButton" destination="UoD-ZJ-Kvy" id="10E-KB-xGd"/>
-                <outlet property="groupLabel" destination="Ykt-EE-m9h" id="a3q-85-5mx"/>
+                <outlet property="groupLabel" destination="mSV-tL-Anr" id="Zgq-0T-5GP"/>
             </connections>
             <point key="canvasLocation" x="136.95652173913044" y="149.33035714285714"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="checkmark.seal.fill" catalog="system" width="128" height="122"/>
+        <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="GrapevinePurple">
             <color red="0.68400001525878906" green="0.27500000596046448" blue="0.85399997234344482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
