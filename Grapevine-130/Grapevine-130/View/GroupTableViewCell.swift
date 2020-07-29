@@ -52,7 +52,7 @@ class GroupTableViewCell: UITableViewCell {
         
         // Initialize the styling of the cells
         cellBackground.layer.cornerRadius = 10
-        cellBackground.backgroundColor = Globals.ViewSettings.labelColor
+//        cellBackground.backgroundColor = Constants.Colors.
         checkmark.backgroundColor = Globals.ViewSettings.backgroundColor
     }
 

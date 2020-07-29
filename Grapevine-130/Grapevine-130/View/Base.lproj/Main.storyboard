@@ -17,15 +17,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVS-35-Mau">
-                                <rect key="frame" x="0.0" y="44" width="414" height="140"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-aX-7fs">
-                                        <rect key="frame" x="136.5" y="30" width="141.5" height="33.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-aX-7fs">
+                                        <rect key="frame" x="20" y="20" width="161" height="33.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rPv-8a-VmG">
-                                        <rect key="frame" x="35" y="83.5" width="344" height="21"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rPv-8a-VmG">
+                                        <rect key="frame" x="20" y="60" width="324" height="21"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-XG-JwQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="152" height="21"/>
@@ -39,7 +39,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMt-tm-7wG">
-                                                <rect key="frame" x="192" y="0.0" width="152" height="21"/>
+                                                <rect key="frame" x="172" y="0.0" width="152" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="  Join Group" image="person.3.fill" catalog="system">
@@ -55,11 +55,11 @@
                                 </subviews>
                                 <color key="backgroundColor" name="LogoColor"/>
                                 <constraints>
-                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="20" id="BEI-Du-euR"/>
-                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="top" secondItem="DVS-35-Mau" secondAttribute="top" constant="30" id="Byg-ce-nGG"/>
-                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="centerX" secondItem="DVS-35-Mau" secondAttribute="centerX" id="R2v-DQ-aWq"/>
-                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="centerX" secondItem="DVS-35-Mau" secondAttribute="centerX" id="bWd-pm-rD6"/>
-                                    <constraint firstAttribute="height" constant="140" id="t1i-Wl-14K"/>
+                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="6.5" id="BEI-Du-euR"/>
+                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="top" secondItem="DVS-35-Mau" secondAttribute="top" constant="20" id="Byg-ce-nGG"/>
+                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="leading" secondItem="DVS-35-Mau" secondAttribute="leading" constant="20" id="XHc-aF-6tr"/>
+                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="leading" secondItem="DVS-35-Mau" secondAttribute="leading" constant="20" id="lPe-uD-qiw"/>
+                                    <constraint firstAttribute="height" constant="100" id="t1i-Wl-14K"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHx-mH-sRt">
@@ -85,13 +85,13 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7ph-sa-z3T">
-                                <rect key="frame" x="0.0" y="184" width="414" height="612"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="652"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="7ph-sa-z3T" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" constant="140" id="3Pq-k9-NbL"/>
+                            <constraint firstItem="7ph-sa-z3T" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" constant="100" id="3Pq-k9-NbL"/>
                             <constraint firstItem="LHx-mH-sRt" firstAttribute="trailing" secondItem="vmR-Vx-3lS" secondAttribute="trailing" id="ESR-ZC-hvN"/>
                             <constraint firstItem="7ph-sa-z3T" firstAttribute="trailing" secondItem="vmR-Vx-3lS" secondAttribute="trailing" id="MhQ-pm-1Xj"/>
                             <constraint firstItem="LHx-mH-sRt" firstAttribute="leading" secondItem="vmR-Vx-3lS" secondAttribute="leading" id="Rs5-ja-y98"/>
@@ -127,7 +127,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine " textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
-                                <rect key="frame" x="20" y="46" width="140" height="38.5"/>
+                                <rect key="frame" x="15" y="46" width="140" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
@@ -257,7 +257,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="egs-kT-WJW"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title=" Groups" image="person.2.fill" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -268,18 +268,18 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMB-UL-9TV" userLabel="3 Miles">
-                                        <rect key="frame" x="128.5" y="0.0" width="80" height="20"/>
+                                        <rect key="frame" x="126.5" y="0.0" width="83" height="20"/>
                                         <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title=" 3 Miles" image="location.circle.fill" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhO-Gx-aTh" userLabel="New">
-                                        <rect key="frame" x="236.5" y="0.0" width="59" height="20"/>
+                                        <rect key="frame" x="236.5" y="0.0" width="61" height="20"/>
                                         <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title=" New" image="bolt.circle.fill" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -293,7 +293,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="9bO-Vm-Cn4"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title=" Text" image="quote.bubble.fill" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -317,7 +317,7 @@
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AKw-6J-Ol6"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="3.5" id="ApH-ui-kWg"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="mqc-Vl-gZj" secondAttribute="bottom" constant="8" id="Atc-D3-EwL"/>
-                            <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="H4I-PK-gZR"/>
+                            <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="H4I-PK-gZR"/>
                             <constraint firstAttribute="bottom" secondItem="XbE-eE-8Ro" secondAttribute="bottom" id="K0L-i1-gAs"/>
                             <constraint firstItem="030-S8-zGF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N73-fs-b4X"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="72" id="Nl4-Mj-zrt"/>
