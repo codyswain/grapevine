@@ -31,7 +31,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
                                                 <color key="backgroundColor" name="GrapevinePurple"/>
                                                 <state key="normal" title="  Create Group  ">
-                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="createGroupButton:" destination="CIV-rF-mZI" eventType="touchUpInside" id="S1q-dJ-bcG"/>
@@ -41,7 +41,7 @@
                                                 <rect key="frame" x="148" y="0.0" width="108" height="30"/>
                                                 <color key="backgroundColor" name="GrapevinePurple"/>
                                                 <state key="normal" title="Join Group">
-                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="joinGroupButton:" destination="CIV-rF-mZI" eventType="touchUpInside" id="20J-iU-Nhj"/>

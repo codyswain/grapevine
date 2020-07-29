@@ -264,27 +264,27 @@ class ViewController: UIViewController {
     }
     
     //MARK: Hide navbar on scoll
-    func handleScroll(curPos: CGFloat, curTime: DispatchTime){
-        let posDiff = curPos - prevPos
-        prevPos = curPos
-        let nanoTime = curTime.uptimeNanoseconds - prevTime.uptimeNanoseconds
-        let timeDiff = CGFloat(nanoTime) / 1_000_000_000
-        prevTime = curTime
-        scrollVelocity = posDiff / timeDiff
-        // print(scrollVelocity)
-        
-        if (self.originalNavbarPosition == 0){
-            /// do nothing
-        } else if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
-            /// do nothing
-        } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
-            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
-            // self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
-        } else {
-            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
-            // self.bottomNavBar.frame.origin.y += posDiff
-        }
-    }
+//    func handleScroll(curPos: CGFloat, curTime: DispatchTime){
+//        let posDiff = curPos - prevPos
+//        prevPos = curPos
+//        let nanoTime = curTime.uptimeNanoseconds - prevTime.uptimeNanoseconds
+//        let timeDiff = CGFloat(nanoTime) / 1_000_000_000
+//        prevTime = curTime
+//        scrollVelocity = posDiff / timeDiff
+//        // print(scrollVelocity)
+//
+//        if (self.originalNavbarPosition == 0){
+//            /// do nothing
+//        } else if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
+//            /// do nothing
+//        } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
+//            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
+//            // self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+//        } else {
+//            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
+//            // self.bottomNavBar.frame.origin.y += posDiff
+//        }
+//    }
     
     func prepareTableView(){
         postsManager.delegate = self
@@ -422,6 +422,7 @@ class ViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
+        self.refresher.beginRefreshing()
         if currentMode == "default" {
             if !isLocationAccessEnabled() {
                 displayLocationAlert()
@@ -588,6 +589,7 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
+    // MARK:PENIS
     func changeAppearanceBasedOnMode(){
         if currentMode == "default" {
             // Add menu navigation bar programatically
@@ -610,8 +612,11 @@ class ViewController: UIViewController {
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
         } else if currentMode == "groups" {
-            self.nearbyLabel.text = groupName
+            print("DEBUG: \(self.view.frame.height)")
+            self.nearbyLabel.text = self.groupName
             self.rangeButton.isHidden = true
+            self.bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: self.bottomNavBar, tab: "Posts")
+            self.view.addSubview(self.bottomNavBar)
         }
         
     }
@@ -620,6 +625,7 @@ class ViewController: UIViewController {
     
     ///Scrolls to top of table
     @objc func scrollToTop() {
+        print("DEBUG: \(self.view.frame.height)")
         let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
         self.tableView?.setContentOffset(topOffest, animated: true)
     }
@@ -628,7 +634,7 @@ class ViewController: UIViewController {
     @IBAction func groupsButton(_ sender: Any) {
         print("going to groups")
         //
-        self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
+//        self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
         self.performSegue(withIdentifier: "goToGroups", sender: self)
         
     }
@@ -1333,6 +1339,7 @@ extension ViewController: GroupsViewControllerDelegate {
             self.nearbyLabel.text = groupName
             self.rangeButton.isHidden = false
             changeAppearanceBasedOnMode()
+            self.refresh()
             return
         }
         else {
@@ -1341,6 +1348,7 @@ extension ViewController: GroupsViewControllerDelegate {
             self.groupID = groupID
             changeAppearanceBasedOnMode()
             self.refresh()
+            return
         }
     }
 }
