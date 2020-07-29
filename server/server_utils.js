@@ -208,7 +208,7 @@ function sendPushNotificationToPoster(req, postID, body){
   var db = req.app.get('db');
   let groupID = req.query.groupID;
   var docRef = db.collection("posts").doc(postID);
-  if groupID != "Grapevine" {
+  if (groupID != "Grapevine") {
 	  docRef = db.collection('groups').doc(groupID).collection("posts").doc(postID);
   }
   docRef.get().then(function(doc) {
