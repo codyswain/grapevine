@@ -170,7 +170,6 @@ async function consumeKey(req, res, next){
   // Validate that the key corresponds to a group then remove it
   docRef.get().then(function(doc) {
     var groupID = doc.data().groupID
-    console.log(groupID)
     docRef.delete().then(function() {
       console.log(`SUCCESSFULLY VALIDATED and REMOVED key: ${key}. ADDING userID: ${userID} to group: ${groupID}`);
       db.collection("groups").doc(groupID).update({ members: FieldValue.arrayUnion(userID) })
@@ -182,6 +181,7 @@ async function consumeKey(req, res, next){
     });
   }).catch(function(error) {
     console.log(`Error validating key ${key}: `, error);
+    res.status(404).send()
   });
 }
 
