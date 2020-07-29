@@ -392,8 +392,7 @@ async function deletePost(req, res, next) {
   var db = req.app.get('db');
   let postID = req.body.postId
   let groupID = req.body.groupID
-  console.log(`Attempting to delete: ${postID}`)
-z
+  console.log(`Attempting to delete: ${postID} with groupID: ${groupID}`)
 	db.collection('groups').doc(groupID).collection('posts').doc(postID).delete()
 	.catch((err) => {
 		console.log("ERROR storing post : " + err)
