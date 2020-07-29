@@ -76,6 +76,7 @@ class GroupsViewController: UIViewController {
         creatGroupButton.layer.cornerRadius = 10
         joinGroupButton.layer.cornerRadius = 10
         addMembersButton.layer.cornerRadius = 10
+        addMembersView.isHidden = true
         
         //load the table
         tableView.dataSource = self
@@ -180,6 +181,7 @@ class GroupsViewController: UIViewController {
         }
     }
     @IBAction func addMembersPressed(_ sender: Any) {
+        print("Add members pressed")
         self.groupsManager.createInviteKey(groupID: self.selectedGroupID)
     }
     

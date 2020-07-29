@@ -20,28 +20,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfs-aX-7fs">
-                                        <rect key="frame" x="131.5" y="6" width="151.5" height="36"/>
+                                        <rect key="frame" x="131.5" y="10" width="151.5" height="36"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rPv-8a-VmG">
-                                        <rect key="frame" x="40" y="66" width="334" height="30"/>
+                                        <rect key="frame" x="79" y="66" width="256" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Emn-XG-JwQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="108" height="30"/>
                                                 <color key="backgroundColor" name="GrapevinePurple"/>
-                                                <state key="normal" title="Create Group">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <state key="normal" title="  Create Group  ">
+                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="createGroupButton:" destination="CIV-rF-mZI" eventType="touchUpInside" id="S1q-dJ-bcG"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMt-tm-7wG">
-                                                <rect key="frame" x="187" y="0.0" width="147" height="30"/>
+                                                <rect key="frame" x="148" y="0.0" width="108" height="30"/>
                                                 <color key="backgroundColor" name="GrapevinePurple"/>
                                                 <state key="normal" title="Join Group">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="joinGroupButton:" destination="CIV-rF-mZI" eventType="touchUpInside" id="20J-iU-Nhj"/>
@@ -53,64 +53,58 @@
                                 </subviews>
                                 <color key="backgroundColor" name="PostColors"/>
                                 <constraints>
-                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="DVS-35-Mau" secondAttribute="top" constant="66" id="2y0-l3-ez4"/>
-                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="leading" secondItem="DVS-35-Mau" secondAttribute="leading" constant="40" id="6Ej-t0-VYh"/>
-                                    <constraint firstAttribute="height" constant="120" id="9F8-cx-UhQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="rPv-8a-VmG" secondAttribute="trailing" constant="40" id="PsH-dL-wUA"/>
-                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="24" id="WIi-Uj-5PT"/>
-                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="top" secondItem="DVS-35-Mau" secondAttribute="top" constant="6" id="ra4-Ja-6eA"/>
-                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="centerX" secondItem="DVS-35-Mau" secondAttribute="centerX" id="s2j-DR-ggA"/>
-                                    <constraint firstAttribute="bottom" secondItem="rPv-8a-VmG" secondAttribute="bottom" constant="24" id="vrO-Yp-YMk"/>
+                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="top" secondItem="nfs-aX-7fs" secondAttribute="bottom" constant="20" id="BEI-Du-euR"/>
+                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="top" secondItem="DVS-35-Mau" secondAttribute="top" constant="10" id="Byg-ce-nGG"/>
+                                    <constraint firstItem="nfs-aX-7fs" firstAttribute="centerX" secondItem="DVS-35-Mau" secondAttribute="centerX" id="R2v-DQ-aWq"/>
+                                    <constraint firstItem="rPv-8a-VmG" firstAttribute="centerX" secondItem="DVS-35-Mau" secondAttribute="centerX" id="bWd-pm-rD6"/>
+                                    <constraint firstAttribute="height" constant="120" id="t1i-Wl-14K"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7ph-sa-z3T">
-                                <rect key="frame" x="0.0" y="119" width="414" height="693"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" id="uFY-km-0UB">
-                                <rect key="frame" x="0.0" y="750" width="414" height="66"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHx-mH-sRt">
+                                <rect key="frame" x="0.0" y="742" width="414" height="100"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdv-9D-dt9">
-                                        <rect key="frame" x="59" y="12" width="296" height="54"/>
-                                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                        <color key="tintColor" name="GrapevinePurple"/>
-                                        <state key="normal" title=" Add Members" image="NewPostButtonDesign">
-                                            <color key="titleColor" name="GrapevinePurple"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="09Y-3u-32h">
+                                        <rect key="frame" x="137.5" y="35" width="139" height="30"/>
+                                        <state key="normal" title=" Add member" image="newPostButton">
+                                            <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="addMembersPressed:" destination="CIV-rF-mZI" eventType="touchUpInside" id="AB9-nv-9Ds"/>
+                                            <action selector="addMembersPressed:" destination="CIV-rF-mZI" eventType="touchUpInside" id="nNZ-Q9-lEQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="qdv-9D-dt9" firstAttribute="top" secondItem="uFY-km-0UB" secondAttribute="top" constant="12" id="ART-4n-nIt"/>
-                                    <constraint firstAttribute="trailing" secondItem="qdv-9D-dt9" secondAttribute="trailing" constant="59" id="LUt-vJ-3u5"/>
-                                    <constraint firstItem="qdv-9D-dt9" firstAttribute="leading" secondItem="uFY-km-0UB" secondAttribute="leading" constant="59" id="Nqk-nO-8d2"/>
-                                    <constraint firstAttribute="bottom" secondItem="qdv-9D-dt9" secondAttribute="bottom" id="p5P-eU-81t"/>
+                                    <constraint firstItem="09Y-3u-32h" firstAttribute="centerX" secondItem="LHx-mH-sRt" secondAttribute="centerX" id="ADw-kB-nJ0"/>
+                                    <constraint firstAttribute="height" constant="100" id="IEV-Jc-8Cv"/>
+                                    <constraint firstItem="09Y-3u-32h" firstAttribute="centerY" secondItem="LHx-mH-sRt" secondAttribute="centerY" id="d3n-gt-W8a"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7ph-sa-z3T">
+                                <rect key="frame" x="0.0" y="120" width="414" height="622"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="qdv-9D-dt9" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" constant="762" id="52v-MH-KaH"/>
-                            <constraint firstItem="vmR-Vx-3lS" firstAttribute="bottom" secondItem="qdv-9D-dt9" secondAttribute="bottom" constant="-8" id="8Qr-2M-qbz"/>
-                            <constraint firstItem="7ph-sa-z3T" firstAttribute="leading" secondItem="uFY-km-0UB" secondAttribute="leading" id="B4g-fO-NE1"/>
-                            <constraint firstItem="DVS-35-Mau" firstAttribute="leading" secondItem="vmR-Vx-3lS" secondAttribute="leading" id="D4U-2e-BdJ"/>
-                            <constraint firstItem="7ph-sa-z3T" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" constant="119" id="Eat-gY-HQ0"/>
-                            <constraint firstItem="uFY-km-0UB" firstAttribute="top" secondItem="7ph-sa-z3T" secondAttribute="bottom" constant="-62" id="cZ4-B4-enb"/>
-                            <constraint firstItem="DVS-35-Mau" firstAttribute="trailing" secondItem="vmR-Vx-3lS" secondAttribute="trailing" id="ln9-tb-1PA"/>
-                            <constraint firstItem="uFY-km-0UB" firstAttribute="leading" secondItem="7ph-sa-z3T" secondAttribute="trailing" constant="-414" id="vpm-hz-mMX"/>
-                            <constraint firstItem="DVS-35-Mau" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" id="yJH-86-Y5T"/>
+                            <constraint firstItem="7ph-sa-z3T" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" constant="120" id="3Pq-k9-NbL"/>
+                            <constraint firstItem="LHx-mH-sRt" firstAttribute="trailing" secondItem="vmR-Vx-3lS" secondAttribute="trailing" id="ESR-ZC-hvN"/>
+                            <constraint firstItem="7ph-sa-z3T" firstAttribute="trailing" secondItem="vmR-Vx-3lS" secondAttribute="trailing" id="MhQ-pm-1Xj"/>
+                            <constraint firstItem="LHx-mH-sRt" firstAttribute="leading" secondItem="vmR-Vx-3lS" secondAttribute="leading" id="Rs5-ja-y98"/>
+                            <constraint firstItem="7ph-sa-z3T" firstAttribute="leading" secondItem="DVS-35-Mau" secondAttribute="leading" id="W71-lK-gJu"/>
+                            <constraint firstAttribute="bottom" secondItem="LHx-mH-sRt" secondAttribute="bottom" id="adw-r5-CIg"/>
+                            <constraint firstItem="7ph-sa-z3T" firstAttribute="trailing" secondItem="DVS-35-Mau" secondAttribute="trailing" id="ayh-qw-FEe"/>
+                            <constraint firstItem="DVS-35-Mau" firstAttribute="leading" secondItem="vmR-Vx-3lS" secondAttribute="leading" id="efh-m4-yn5"/>
+                            <constraint firstItem="DVS-35-Mau" firstAttribute="top" secondItem="vmR-Vx-3lS" secondAttribute="top" id="ljo-vr-Pp8"/>
+                            <constraint firstItem="LHx-mH-sRt" firstAttribute="top" secondItem="7ph-sa-z3T" secondAttribute="bottom" id="qmp-sb-D0b"/>
+                            <constraint firstItem="DVS-35-Mau" firstAttribute="trailing" secondItem="vmR-Vx-3lS" secondAttribute="trailing" id="tel-a8-Ycw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vmR-Vx-3lS"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZZf-M2-IKl"/>
                     <connections>
-                        <outlet property="addMembersButton" destination="qdv-9D-dt9" id="Meg-N1-Uj5"/>
-                        <outlet property="addMembersView" destination="uFY-km-0UB" id="ZB9-ef-dPB"/>
+                        <outlet property="addMembersButton" destination="09Y-3u-32h" id="4aW-1Y-Jsx"/>
+                        <outlet property="addMembersView" destination="LHx-mH-sRt" id="5to-vf-vDF"/>
                         <outlet property="creatGroupButton" destination="Emn-XG-JwQ" id="44I-bp-P6E"/>
                         <outlet property="joinGroupButton" destination="MMt-tm-7wG" id="Qy9-Og-oIF"/>
                         <outlet property="tableView" destination="7ph-sa-z3T" id="ntp-bc-uur"/>
@@ -129,7 +123,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine " textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
-                                <rect key="frame" x="20" y="46" width="275" height="38.5"/>
+                                <rect key="frame" x="20" y="46" width="268" height="38.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
@@ -326,7 +320,10 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLt-R3-CiW">
-                                <rect key="frame" x="303" y="52" width="91" height="32"/>
+                                <rect key="frame" x="294" y="52" width="100" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="egs-kT-WJW"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title=" Groups 👪 "/>
                                 <connections>
@@ -358,10 +355,9 @@
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="leading" secondItem="aGv-vy-wu6" secondAttribute="leading" id="fgc-7t-v6N"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="2" id="hAr-TB-Hy5"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hps-AJ-5Ly"/>
-                            <constraint firstItem="lLt-R3-CiW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="303" id="my2-uP-wju"/>
                             <constraint firstItem="lLt-R3-CiW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="nIv-2S-RS6"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="top" secondItem="aGv-vy-wu6" secondAttribute="top" id="nXh-FQ-QTm"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rbx-yL-B51" secondAttribute="trailing" constant="119" id="tAi-J7-0RW"/>
+                            <constraint firstItem="lLt-R3-CiW" firstAttribute="leading" secondItem="Rbx-yL-B51" secondAttribute="trailing" constant="6" id="oOv-RV-EqJ"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xBL-NT-KQy"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="xzW-XI-Ta1"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZ5-dy-vHo"/>
@@ -1211,11 +1207,10 @@
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="NSO-o6-THf"/>
-        <segue reference="cef-IB-uFx"/>
+        <segue reference="YJd-nw-Ils"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>
-        <image name="NewPostButtonDesign" width="30" height="30"/>
         <image name="Start Apostrophe" width="150" height="150"/>
         <image name="arrow.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
@@ -1230,6 +1225,7 @@
         <image name="k.circle.fill" catalog="system" width="128" height="121"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
+        <image name="newPostButton" width="30" height="30"/>
         <image name="push-button" width="341" height="86.5"/>
         <image name="push-square-icon" width="127" height="127"/>
         <image name="quote.bubble.fill" catalog="system" width="128" height="110"/>

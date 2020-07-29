@@ -53,7 +53,7 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
 func bottomNavBarStyling(bottomNavBar: MDCBottomNavigationBar) -> MDCBottomNavigationBar {
     bottomNavBar.itemTitleFont = UIFont.boldSystemFont(ofSize: 40)
     bottomNavBar.itemsContentVerticalMargin = 5
-    bottomNavBar.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
+    bottomNavBar.backgroundColor = UIColor.systemBackground.withAlphaComponent(1)
 
     // Ripple effect: this doesn't turn it off for whatever reason
     bottomNavBar.enableRippleBehavior = false
