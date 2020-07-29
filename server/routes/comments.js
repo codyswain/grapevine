@@ -70,6 +70,7 @@ Output: None
 async function createComment(req, res, next) {
   var db = req.app.get('db');  
   console.log(req.body.text)
+  let groupID = req.body.groupID;
 
 	// Text post creation logic
   let postID = req.body.postID
@@ -94,14 +95,19 @@ async function createComment(req, res, next) {
 		console.log("ERROR storing comment: " + err)
 		res.status(400).send()
 	})
-
-	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(1) })
+	if (groupID == "Grapevine") {
+		db.collection("posts").doc(postID).update({ comments: FieldValue.increment(1) })	
+	}
+	else {
+		db.collection('groups').doc(groupID).collection("posts").doc(postID).update({ comments: FieldValue.increment(1) })
+	}
 }
 
 async function deleteComment(req, res, next) {
   var db = req.app.get('db');
-  let commentID = req.body.commentId
-  let postID = req.body.postId
+  let commentID = req.body.commentId;
+  let postID = req.body.postId;
+  let groupID = req.body.groupID;
   console.log(`Attempting to delete: ${commentID}`)
 
 	db.collection("comments").doc(commentID).delete()
@@ -112,7 +118,12 @@ async function deleteComment(req, res, next) {
 	.then(() => {
 		res.status(200).send("Successfully deleted comment " + commentID);
   })
-	db.collection("posts").doc(postID).update({ comments: FieldValue.increment(-1) })
+	if (groupID == "Grapevine") {
+		db.collection("posts").doc(postID).update({ comments: FieldValue.increment(-1) })	
+	}
+	else {
+		db.collection('groups').doc(groupID).collection("posts").doc(postID).update({ comments: FieldValue.increment(-1) })
+	}
 }
 
 module.exports = router;
