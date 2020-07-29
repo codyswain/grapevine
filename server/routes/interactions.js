@@ -13,13 +13,20 @@ router.get('/', function(req, res, next) {
   let user = req.query.user;
   let post = req.query.post;
   let action = parseInt(req.query.action, 10); // Flag encoding request to toggle
-  console.log("updateInteractions request from " + user + " for " + post);
+  let groupID = req.query.groupID;
+  console.log("updateInteractions request from " + user + " for " + post + " in groupID: " + groupID);
 
   // Get the db object, declared in app.js
   var db = req.app.get('db');
 
   // Run transaction to update the post information atomically.
-  const postRef = db.collection('posts').doc(post)
+  var postRef = null
+  if (groupID == "Grapevine") {
+    postRef = db.collection('posts').doc(post)
+  }
+  else {
+    postRef = db.collection('groups').doc(groupID).collection('posts').doc(post)
+  }
   db.runTransaction(t => {
     return t.get(postRef).then(snapshot => {
       if (!snapshot.exists) {
