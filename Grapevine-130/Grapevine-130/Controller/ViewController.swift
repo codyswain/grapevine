@@ -941,6 +941,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
             cell.enableDelete()
             cell.disableInteraction()
+            cell.moveShareButton()      //Make share button on the side
         } else {
             cell.disableDelete()
             cell.enableInteraction()
