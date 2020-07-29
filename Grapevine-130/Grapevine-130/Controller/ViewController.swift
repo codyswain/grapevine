@@ -422,7 +422,6 @@ class ViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
-        self.refresher.beginRefreshing()
         if currentMode == "default" {
             if !isLocationAccessEnabled() {
                 displayLocationAlert()
