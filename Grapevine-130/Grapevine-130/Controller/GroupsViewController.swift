@@ -68,23 +68,23 @@ class GroupsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Set dark/light mode
         setTheme(curView: self)
+        
+        //load the table
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.refreshControl = refresher
+        tableView.refreshControl?.beginRefreshing()
+        tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.rowHeight = 50
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         //Set button styling
         creatGroupButton.layer.cornerRadius = 10
         joinGroupButton.layer.cornerRadius = 10
         addMembersButton.layer.cornerRadius = 10
         addMembersView.isHidden = true
-        
-        //load the table
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.refreshControl = refresher
-        tableView.register(UINib(nibName: Constants.groupsCellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
-        tableView.rowHeight = 50
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
 
         groupsManager.delegate = self
         groupsManager.fetchGroups(userID: Constants.userID)
@@ -187,6 +187,7 @@ class GroupsViewController: UIViewController {
     
     @objc func refresh(){
         //refresh groups
+        self.refresher.beginRefreshing()
         groupsManager.fetchGroups(userID: Constants.userID)
     }
 }
@@ -257,7 +258,6 @@ extension GroupsViewController: GroupsManagerDelegate {
     }
     
     func didUpdateGroups(_ groupManager: GroupsManager, groups: [Group]) {
-        print("UPDATE")
         DispatchQueue.main.async {
             self.refresher.endRefreshing()
             self.groups = [self.grapevine]

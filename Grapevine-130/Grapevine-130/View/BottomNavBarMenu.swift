@@ -16,10 +16,12 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: MDCBottomNaviga
     var bottomNavBarFrame = CGRect(x: 0, y: sender.view.frame.height - 80, width: sender.view.frame.width, height: 80)
     
     // Extend the Bottom Navigation to the bottom of the screen.
-    if #available(iOS 11.0, *) {
-        bottomNavBarFrame.size.height += sender.view.safeAreaInsets.bottom
-        bottomNavBarFrame.origin.y -= sender.view.safeAreaInsets.bottom
-    }
+    // TODO: Clean this commented code up
+    // THIS CAUSED NAVBAR TO SHIFT WEIRDLY MAYBE OKAY TO DELETE
+//    if #available(iOS 11.0, *) {
+//        bottomNavBarFrame.size.height += sender.view.safeAreaInsets.bottom
+//        bottomNavBarFrame.origin.y -= sender.view.safeAreaInsets.bottom
+//    }
     bottomNavBar.frame = bottomNavBarFrame
     bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
     bottomNavBar.selectedItemTintColor = UIColor.systemGray2
