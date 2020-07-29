@@ -159,6 +159,11 @@ class PostTableViewCell: UITableViewCell {
         abilitiesButton.isHidden = true
     }
     
+    //Sets the location of the share button to where the abilities button normally is for when the user is looking at their own post
+    func moveShareButton() {
+        NSLayoutConstraint(item: shareButtonVar as Any, attribute: .trailing, relatedBy: .equal, toItem: abilitiesButton as Any, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
+    }
+    
     
     func enableInteraction() {
         DispatchQueue.main.async {
