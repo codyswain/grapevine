@@ -965,7 +965,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
             let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
                 let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId)
+                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId, groupID: Globals.ViewSettings.groupID)
                 self.showFlaggedAlertPopup()
             }
             let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in

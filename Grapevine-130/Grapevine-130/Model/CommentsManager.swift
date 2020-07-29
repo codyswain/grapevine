@@ -66,10 +66,11 @@ struct CommentsManager {
         }
     }
     
-    func deleteComment(commentID: String, postID: String){
+    func deleteComment(commentID: String, postID: String, groupID: String = "Grapevine"){
         let json: [String: Any] = [
             "commentId": commentID,
-            "postId": postID
+            "postId": postID,
+            "groupID": groupID
         ]
         print("commentid: ",commentID)
         print("postid: ", postID)
@@ -97,12 +98,13 @@ struct CommentsManager {
         task.resume()
     }
     
-    func performPOSTRequest(text: String, postID: String){
+    func performPOSTRequest(text: String, postID: String, groupID: String = "Grapevine"){
         let json: [String: Any] = [
             "text":text,
             "userID": Constants.userID,
             "date": Date().timeIntervalSince1970,
-            "postID":postID
+            "postID":postID,
+            "groupID": groupID
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)

@@ -289,6 +289,7 @@ extension GroupsViewController: GroupsManagerDelegate {
     
     func didJoinGroup(){
         self.refresh()
+        self.groupCreated = true //Indicates successful joining of group
     }
     
     func didCreateKey(key: String){

@@ -236,7 +236,7 @@ class CommentViewController: UIViewController {
     @IBAction func submitButtonPressed(_ sender: Any) {
         if let postContent = commentInput.text {
             if (postContent != "" && postContent != "Add an anonymous comment...") {
-                commentsManager.performPOSTRequest(text:postContent, postID: postID)
+                commentsManager.performPOSTRequest(text:postContent, postID: postID, groupID: Globals.ViewSettings.groupID)
             }
         }
         commentInput.endEditing(true)
@@ -270,15 +270,15 @@ class CommentViewController: UIViewController {
         var currentVoteStatus = mainPost?.voteStatus
         if currentVoteStatus == 0 { // post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
-            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
             self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
         } else if currentVoteStatus == -1 { // post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
             self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
         } else { // post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
             self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
         }
     }
@@ -287,15 +287,15 @@ class CommentViewController: UIViewController {
         var currentVoteStatus = mainPost?.voteStatus
         if currentVoteStatus == 0 { // post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
-            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
             self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
         } else if currentVoteStatus == 1 { // post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 1, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
             self.delegate?.updateTableViewVotes(mainPost!, -1, currentVoteStatus ?? 0)
         } else { // post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
-            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1")
+            postManager.performInteractionRequest(interaction: 2, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
             self.delegate?.updateTableViewVotes(mainPost!, 1, currentVoteStatus ?? 0)
         }
     }
@@ -311,7 +311,7 @@ class CommentViewController: UIViewController {
             currentFlagStatus = 0
             self.delegate?.updateTableViewFlags(mainPost!, newFlagStatus: 0)
         }
-        postManager.performInteractionRequest(interaction: 4, docID: mainPost?.postId ?? "-1")
+        postManager.performInteractionRequest(interaction: 4, docID: mainPost?.postId ?? "-1", groupID: Globals.ViewSettings.groupID)
     }
     
     func createCommentsImage() -> UIImage? {
@@ -495,7 +495,7 @@ extension CommentViewController: CommentTableViewCellDelegate {
             let row = indexPath.row
             let docIDtoDelete = self.comments[row].commentID
             let postIDtoDecrement = self.comments[row].postID
-            self.commentsManager.deleteComment(commentID: docIDtoDelete, postID: postIDtoDecrement)
+            self.commentsManager.deleteComment(commentID: docIDtoDelete, postID: postIDtoDecrement, groupID: Globals.ViewSettings.groupID)
             self.comments.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         })

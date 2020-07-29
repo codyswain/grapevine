@@ -84,6 +84,7 @@ struct GroupsManager {
                     return
                 }
                 if let safeData = data {
+                    print(response as Any)
                     print("Request returned and processed \(safeData)")
                     self.delegate?.didJoinGroup()
                 }

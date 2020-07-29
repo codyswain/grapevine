@@ -222,9 +222,9 @@ struct PostsManager {
         - 2: downvote
         - 4: flag
      */
-    func performInteractionRequest(interaction: Int, docID: String) {
+    func performInteractionRequest(interaction: Int, docID: String, groupID: String = "Grapevine") {
         let endpoint = Constants.serverURL + "interactions/?"
-        let urlString = "\(endpoint)&user=\(Constants.userID)&post=\(docID)&action=\(interaction)"
+        let urlString = "\(endpoint)&user=\(Constants.userID)&post=\(docID)&action=\(interaction)&groupID=\(groupID)"
         print ("Sending interaction: ", interaction)
         
         if let url = URL(string: urlString) {
