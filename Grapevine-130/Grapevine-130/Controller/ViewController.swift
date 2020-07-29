@@ -147,18 +147,13 @@ class ViewController: UIViewController {
         setGroupsView(groupName: self.groupName, groupID: self.groupID)
     }
     
-    // Display Enable Notification Message
-    // You can't specifically use apple API for asking and enabling settings more than once in an app, but this will take them to grapevine settings so they can manually turn on notifications
+    //Display notification alert. Location alert is handled by location manager callback function
     //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
     override func viewDidAppear(_ animated: Bool) {
         if Globals.ViewSettings.showNotificationAlert {
             displayNotificationAlert()
             Globals.ViewSettings.showNotificationAlert = false
-            return //cannot display 2 MDC alerts at the same time.
-                   //displayNotificationAlert() handles the case of both notifications needing to be displayed and will also display location alert
-        }
-        if !isLocationAccessEnabled() { //if it is just the location alert, display it.
-            displayLocationAlert()
+            return
         }
     }
     
