@@ -281,6 +281,7 @@ extension GroupsViewController: GroupsManagerDelegate {
             self.tableView.reloadData()
             if self.groupCreated == true {
                 self.selectedGroup = self.groups.last!.name //select new group when it is created
+                self.selectedGroupID = self.groups.last!.id
                 self.groupCreated = false
             }
         }
