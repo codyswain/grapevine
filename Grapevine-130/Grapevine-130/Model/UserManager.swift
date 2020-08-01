@@ -44,23 +44,23 @@ struct UserManager {
         performRequest(with: urlString, handleResponse: true)
     }
     
-    func banUser(poster: String, postID: String) {
-        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)&postID=\(postID)&user=\(Constants.userID)"
+    func banUser(poster: String, postID: String, groupID: String = "Grapevine") {
+        let urlString = "\(banUserURL)&poster=\(poster)&time=\(Date().timeIntervalSince1970)&postID=\(postID)&user=\(Constants.userID)&groupID=\(groupID)"
         print ("Banning userID: ", poster)
         performRequest(with: urlString, handleResponse: false)
     }
     
-    func shoutPost(poster: String, postID: String) {
+    func shoutPost(poster: String, postID: String, groupID: String = "Grapevine") {
         // Shout outs expire in 3 hours
         let shoutExpiration = Date().timeIntervalSince1970 + 6*60*60
-        let urlString = "\(shoutUserURL)&poster=\(poster)&time=\(shoutExpiration)&postID=\(postID)&user=\(Constants.userID)"
-        print ("Shouted post: ", postID)
+        let urlString = "\(shoutUserURL)&poster=\(poster)&time=\(shoutExpiration)&postID=\(postID)&user=\(Constants.userID)&groupID=\(groupID)"
+        print ("Shouted post: ", postID, "in groupID: ", groupID)
         performRequest(with: urlString, handleResponse: false)
     }
     
-    func pushPost(poster: String, postID: String, lat: Double, lon: Double) {
-        print("Pushed post of poster \(poster)")
-        let urlString = "\(pushUserURL)&postID=\(postID)&user=\(Constants.userID)&lat=\(lat)&lon=\(lon)&range=3"
+    func pushPost(poster: String, postID: String, lat: Double, lon: Double, groupID: String = "Grapevine") {
+        print("Pushed post of poster \(poster) in group \(groupID)")
+        let urlString = "\(pushUserURL)&postID=\(postID)&groupID=\(groupID)&user=\(Constants.userID)&lat=\(lat)&lon=\(lon)&range=3"
         print ("Pushed post: ", postID)
         performRequest(with: urlString, handleResponse: false)
     }

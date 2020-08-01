@@ -252,7 +252,7 @@ extension ShoutChamberViewController: ShoutPostTableViewCellDelegate {
             let row = indexPath.row
             let creator = self.posts[row].poster
             let postToBeShoutOut = self.posts[row].postId
-            self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+            self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
         }
         alert.addAction(action1)
         alert.addAction(action2)

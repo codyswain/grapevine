@@ -774,7 +774,7 @@ class ViewController: UIViewController {
             if (self.user!.score >= burnCost){
                 let creator = self.selectedPost!.poster
                 let postToBeDeleted = self.selectedPost!.postId
-                self.userManager.banUser(poster: creator, postID: postToBeDeleted)
+                self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
             } else {
                 confirmMessage = "Unable to burn..."
                 alertMessage = "Not enough karma!"
@@ -788,7 +788,7 @@ class ViewController: UIViewController {
             if (self.user!.score >= shoutCost){
                 let creator = self.selectedPost!.poster
                 let postToBeShoutOut = self.selectedPost!.postId
-                self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+                self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
             } else {
                 confirmMessage = "Unable to shout..."
                 alertMessage = "Not enough karma!"
@@ -802,7 +802,7 @@ class ViewController: UIViewController {
             if (self.user!.score >= pushCost){
                 let creator = self.selectedPost!.poster
                 let postToBePushed = self.selectedPost!.postId
-                self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
+                self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
             } else {
                 confirmMessage = "Unable to push..."
                 alertMessage = "Not enough karma!"
@@ -1121,7 +1121,7 @@ extension ViewController: PostTableViewCellDelegate {
                     let row = indexPath.row
                     let creatorToBeBanned = self.posts[row].poster
                     let postToBeDeleted = self.posts[row].postId
-                    self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
+                    self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
                 }
                 alert.addAction(action2)
             }
@@ -1153,7 +1153,7 @@ extension ViewController: PostTableViewCellDelegate {
                     let postToBeShoutOut = self.posts[row].postId
                     print("Post to be shouted: ")
                     print(postToBeShoutOut)
-                    self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+                    self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
                 }
                 alert.addAction(action2)
             }
@@ -1186,7 +1186,7 @@ extension ViewController: PostTableViewCellDelegate {
                     let postToBePushed = self.posts[row].postId
                     print("Post to be pushed ")
                     print(postToBePushed)
-                    self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
+                    self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
                 }
                 alert.addAction(action2)
             }

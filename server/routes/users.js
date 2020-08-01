@@ -74,11 +74,12 @@ async function push(req, res, next) {
   let lon = Number(req.query.lon);
   let range = req.query.range;
   let postIDToPush = req.query.postID;
+  let groupID = req.query.groupID;
   if (typeof(range) == "undefined") { // If range unspecified, use some default one
     range = default_range;
   } 
   range = Number(range);
-  console.log("push request from lat: " + lat + " and lon: " + lon + " for users within range:" + range + " from user: " + user)
+  console.log("push request from lat: " + lat + " and lon: " + lon + " for users within range:" + range + " from user: " + user + " in group: " + groupID)
 
   // Get the db object, declared in app.js
   var db = req.app.get('db');
@@ -96,7 +97,8 @@ async function push(req, res, next) {
     .orderBy("location")
 
   var content = "Post pushed near you..."
-  db.collection('posts').doc(postIDToPush).get()
+  if (groupID == "Grapevine") {
+    db.collection('posts').doc(postIDToPush).get()
     .then((snapshot) => {
       content = "Pushed nearby: \"" + snapshot.data().content + "\""
     })
@@ -104,6 +106,16 @@ async function push(req, res, next) {
       console.log("ERROR looking up post for push in user.js:" + err)
       res.send([])
     })
+  } else {
+    db.collection('groups').doc(groupID).collection('posts').doc(postIDToPush).get()
+    .then((snapshot) => {
+      content = "Pushed nearby: \"" + snapshot.data().content + "\""
+    })
+    .catch((err) => { 
+      console.log("ERROR looking up post for push in user.js:" + err)
+      res.send([])
+    })
+  }
 
   var currentTime = new Date() / 1000
   query.limit(10000).get()
@@ -116,7 +128,7 @@ async function push(req, res, next) {
       }
     });
     // Subtract 50 from karma
-    db.collection("users").doc(user).update({ score: FieldValue.increment(-50)});
+    db.collection("users").doc(user).update({ score: admin.firestore.FieldValue.increment(-50)});
     res.status(200).send()
   })
   .catch((err) => { 

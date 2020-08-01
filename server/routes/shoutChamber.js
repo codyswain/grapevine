@@ -16,6 +16,7 @@ async function getShoutablePosts(req, res, next) {
 	let lat = Number(req.query.lat);
 	let lon = Number(req.query.lon);
 	let range = req.query.range;
+	let groupID = req.query.groupID;
 	if (typeof(range) == "undefined") { // If range unspecified, use some default one
 		range = default_range;
 	}
@@ -25,16 +26,29 @@ async function getShoutablePosts(req, res, next) {
 
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
-	var query = db.collection('posts').where("banned", "==", false)
+	var query = ""
+	if (groupID == "Grapevine") {
+		query = db.collection('posts').where("banned", "==", false)
+	} else {
+		query = db.collection('groups').doc(groupID).collection('posts').where("banned", "==", false)
+	}
 	if (range != -1) { // -1 refers to global range
 		// Calculate the lower and upper geohashes to consider
 		const search_box = utils.getGeohashRange(lat, lon, range);
 
-		query = db.collection('posts')
+		if (groupID == "Grapevine") {
+			query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
 					.where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
+		} else {
+			query = db.collection('groups').doc(groupID).collection('posts')
+					.where("banned", "==", false)
+					.where("geohash", ">=", search_box.lower)
+					.where("geohash", "<=", search_box.upper)
+					.orderBy("geohash")
+		}
 	}
 
 	var posts = []
@@ -72,11 +86,17 @@ async function shoutPost(req, res, next) {
 	let user = req.query.user;
 	let datetime = req.query.time;
 	let postID = req.query.postID;
+	let groupID = req.query.groupID;
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
 
 	let userref = db.collection('users').doc(user)
-	let docref = db.collection('posts').doc(postID)
+	var docref = ""
+	if (groupID == "Grapevine") {
+		docref = db.collection('posts').doc(postID)
+	} else {
+		docref = db.collection('groups').doc(groupID).collection('posts').doc(postID)
+	}
 	db.runTransaction(t => {
 		return t.get(docref).then(snapshot => {
 			console.log(snapshot.data())
