@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var applyAbilityButton: UIImageView!
     
     @IBOutlet weak var burnAbilityIndicator: UIImageView!
+    @IBOutlet weak var karmaAmountLabel: UITextField!
     
     // MARK: Variable Definitions
     // Globals
@@ -142,9 +143,7 @@ class ViewController: UIViewController {
         applyAbilityButton.addGestureRecognizer(tapGestureRecognizerApplyAbility)
         
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
-        //changeAppearanceBasedOnMode()
-        //setGroupsView implements changeAppearanceBasedOnMode()
-        setGroupsView(groupName: self.groupName, groupID: self.groupID)
+        changeAppearanceBasedOnMode()
     }
     
     //Display notification alert. Location alert is handled by location manager callback function
@@ -254,7 +253,7 @@ class ViewController: UIViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.requestLocation()
         } else if currentMode == "myPosts" {
-            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType, groupID: Globals.ViewSettings.groupID)
         } else if currentMode == "myComments" {
             postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
@@ -425,7 +424,7 @@ class ViewController: UIViewController {
             }
             locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
         } else if currentMode == "myPosts" {
-            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType, groupID: Globals.ViewSettings.groupID)
         } else if currentMode == "myComments" {
             postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         } else if currentMode == "groups" {
@@ -587,6 +586,11 @@ class ViewController: UIViewController {
     
     // MARK:PENIS
     func changeAppearanceBasedOnMode(){
+        karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
+        //Prepare view for groups mode
+        if groupID != "Grapevine" {
+            currentMode = "groups"
+        }
         if currentMode == "default" {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
@@ -867,7 +871,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if currentMode == "default" {
                 postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType)
             } else if currentMode == "myPosts" {
-                postsManager.fetchMoreMyPosts(ref: self.ref)
+                postsManager.fetchMoreMyPosts(ref: self.ref, groupID: Globals.ViewSettings.groupID)
             } else if currentMode == "myComments" {
                 postsManager.fetchMoreMyComments(ref: self.ref)
             } else if currentMode == "groups" {
@@ -938,11 +942,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
             cell.enableDelete()
             cell.disableInteraction()
-            cell.moveShareButton()      //Make share button on the side
         } else {
             cell.disableDelete()
             cell.enableInteraction()
-            cell.revertShareButton()
         }
         
         // If currentmode is my comments then they don't need the cell footer

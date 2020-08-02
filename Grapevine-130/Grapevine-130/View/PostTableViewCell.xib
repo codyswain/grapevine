@@ -91,9 +91,9 @@
                                         <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-6Z-Rk4">
-                                        <rect key="frame" x="389" y="2" width="33" height="36"/>
+                                        <rect key="frame" x="361" y="2" width="33" height="36"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="asterisk.circle.fill" catalog="system" id="dbW-Fm-2AJ">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle.fill" catalog="system" id="dbW-Fm-2AJ">
                                                 <rect key="frame" x="-3" y="3" width="35" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -122,19 +122,6 @@
                                             <action selector="banButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="eL4-cc-WBo"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MKm-Hz-1oK">
-                                        <rect key="frame" x="8" y="3.5" width="34" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" button="YES" staticText="YES"/>
-                                        </accessibility>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                        <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="9.9k" backgroundImage="message.circle.fill" catalog="system">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-WC-9rb">
                                         <rect key="frame" x="160.5" y="9.5" width="109.5" height="22"/>
                                         <constraints>
@@ -151,16 +138,29 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoB-yd-gVe">
-                                        <rect key="frame" x="353" y="5" width="33" height="32"/>
+                                        <rect key="frame" x="392" y="5" width="33" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="33" id="9kz-QK-owY"/>
                                             <constraint firstAttribute="height" constant="33" id="gbl-wj-quQ"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" backgroundImage="arrow.uturn.right.circle.fill" catalog="system"/>
+                                        <state key="normal" backgroundImage="arrowshape.turn.up.right.circle.fill" catalog="system"/>
                                         <connections>
                                             <action selector="shareButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jXZ-1j-7TH"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MKm-Hz-1oK">
+                                        <rect key="frame" x="6" y="3.5" width="34" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                                        </accessibility>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                        <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="9.9k" backgroundImage="message.circle.fill" catalog="system">
+                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -169,12 +169,12 @@
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="leading" secondItem="mBG-cM-1KG" secondAttribute="trailing" constant="12" id="QIQ-4d-uHh"/>
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="SVI-LJ-p87"/>
                                     <constraint firstItem="zD4-WC-9rb" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="U5R-Ft-klD"/>
-                                    <constraint firstAttribute="trailing" secondItem="MfE-6Z-Rk4" secondAttribute="trailing" constant="8" id="Ui8-zx-V22"/>
+                                    <constraint firstAttribute="trailing" secondItem="MfE-6Z-Rk4" secondAttribute="trailing" constant="36" id="Ui8-zx-V22"/>
                                     <constraint firstItem="MoB-yd-gVe" firstAttribute="top" secondItem="L55-3s-fTy" secondAttribute="top" constant="4.5" id="e1m-DI-LbQ"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="leading" secondItem="oT7-xD-mBw" secondAttribute="trailing" constant="12" id="fux-qZ-eXx"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerX" secondItem="L55-3s-fTy" secondAttribute="centerX" id="jhw-Z1-hPT"/>
                                     <constraint firstItem="Lse-T3-2CM" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.5" id="ksl-U5-yuJ"/>
-                                    <constraint firstItem="MfE-6Z-Rk4" firstAttribute="leading" secondItem="MoB-yd-gVe" secondAttribute="trailing" constant="3" id="pIU-A2-YC9"/>
+                                    <constraint firstItem="MfE-6Z-Rk4" firstAttribute="leading" secondItem="MoB-yd-gVe" secondAttribute="trailing" constant="-64" id="pIU-A2-YC9"/>
                                     <constraint firstItem="oT7-xD-mBw" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-2.25" id="tnh-bZ-foq"/>
                                     <constraint firstItem="rZ7-VU-Udm" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="vAa-qb-uA6"/>
                                     <constraint firstItem="MfE-6Z-Rk4" firstAttribute="centerY" secondItem="L55-3s-fTy" secondAttribute="centerY" constant="-3" id="xyo-UY-0Z6"/>
@@ -317,6 +317,11 @@
                     <constraint firstItem="p5N-Ug-odR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kVt-oj-JMS"/>
                     <constraint firstItem="p5N-Ug-odR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="uCB-vj-2Vq"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="subviews">
+                        <exclude reference="Rvd-8f-8QZ"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <accessibility key="accessibilityConfiguration">
                 <bool key="isElement" value="YES"/>
@@ -353,9 +358,10 @@
         <image name="ability-push" width="314" height="314"/>
         <image name="ability-shout" width="314" height="314"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="asterisk.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
         <image name="flame.fill" catalog="system" width="109" height="128"/>
         <image name="message.circle.fill" catalog="system" width="128" height="121"/>
         <image name="radiowaves.right" catalog="system" width="90" height="128"/>
