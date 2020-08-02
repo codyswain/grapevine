@@ -595,7 +595,7 @@
                                         <rect key="frame" x="0.0" y="208" width="250" height="22"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="  View Abilities" image="k.circle.fill" catalog="system">
+                                        <state key="normal" title="  View Abilities" image="dollarsign.circle.fill" catalog="system">
                                             <color key="titleColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -964,7 +964,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="  Karma" image="k.circle.fill" catalog="system">
+                                <state key="normal" title="  Karma" image="dollarsign.circle.fill" catalog="system">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1176,9 +1176,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ekl-9A-j9Q"/>
-        <segue reference="nj9-4R-WLt"/>
-        <segue reference="NSO-o6-THf"/>
+        <segue reference="Akc-y1-XXs"/>
+        <segue reference="gfc-Rj-FGV"/>
+        <segue reference="UNp-xP-gzv"/>
         <segue reference="ZgP-gY-piW"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -1192,9 +1192,9 @@
         <image name="burn-square-icon" width="127" height="127"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
         <image name="heart.circle.fill" catalog="system" width="128" height="121"/>
         <image name="info.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="k.circle.fill" catalog="system" width="128" height="121"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
