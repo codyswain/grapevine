@@ -15,14 +15,18 @@ async function getMyPosts(req, res, next) {
 	let user = req.query.user;
   let activityFilter = req.query.activityFilter;
   let typeFilter = req.query.typeFilter;
+  let groupID = req.query.groupID;
 
 	console.log("MyPosts request from user: " + user)
 
 	// Get the db object, declared in app.js
   var db = req.app.get('db');
   var query; 
-
-  query = db.collection('posts').where("poster", "==", user)
+  if (groupID == "Grapevine") {
+    query = db.collection('posts').where("poster", "==", user)
+  } else {
+    query = db.collection('groups').doc(groupID).collection('posts').where("poster", "==", user)
+  }
 
   // Query the db for posts
   if (activityFilter == "top"){
@@ -111,39 +115,52 @@ async function getMoreMyPosts(req, res, next) {
   let activityFilter = req.query.activityFilter;
   let typeFilter = req.query.typeFilter;
   let docRef = req.query.ref;
+  let groupID = req.query.groupID;
 	console.log("getMoreMyPosts request from user: " + user)
 	
 	// Get the db object, declared in app.js
 	var db = req.app.get('db');
 
 	// Request the document snapshot of the last post retrieved in the previous request for posts
-	var refquery = db.collection('posts').doc(docRef)
+  var refquery;
+  
+  if (groupID == "Grapevine") {
+    refquery = db.collection('posts').doc(docRef)
+  } else {
+    refquery = db.collection('groups').doc(groupID).collection('posts').doc(docRef)
+  }
 
   var query;
+  var postCollection;
+  if (groupID == "Grapevine") {
+    postCollection = db.collection('posts')
+  } else {
+    postCollection = db.collection('groups').doc(groupID).collection('posts')
+  }
 
   // Basic request for posts
   if (activityFilter == "top"){
     if (typeFilter == "art" || typeFilter == "text"){
-      query = db.collection('posts')
+      query = postCollection
         .where("poster", "==", user)
         .where("banned", "==", false)
         .where("type", "==", typeFilter)
         .orderBy('votes', 'desc')
     } else {
-      query = db.collection('posts')
+      query = postCollection
         .where("poster", "==", user)
         .where("banned", "==", false)
         .orderBy('votes', 'desc')
     }
   } else {
     if (typeFilter == "art" || typeFilter == "text"){
-      query = db.collection('posts')
+      query = postCollection
       .where("poster", "==", user)
       .where("banned", "==", false)
       .where("type", "==", typeFilter)
       .orderBy('date', 'desc')
     } else {
-      query = db.collection('posts')
+      query = postCollection
       .where("poster", "==", user)
       .where("banned", "==", false)
       .orderBy('date', 'desc')

@@ -203,14 +203,14 @@ async function getPosts(req, res, next) {
   	var query; 
 
     	// Basic request for posts
-    	if (activityFilter == "top"){
+    if (activityFilter == "top"){
 		if (typeFilter == "art" || typeFilter == "text"){
         		query = db.collection('groups').doc(groupID).collection('posts')
 				.where("banned", "==", false)
           			.where("type", "==", typeFilter)
 				.orderBy('votes', 'desc')
 		} else {
-			db.collection('groups').doc(groupID).collection('posts')
+			query = db.collection('groups').doc(groupID).collection('posts')
 				.where("banned", "==", false)
 				.orderBy('votes', 'desc')
 		}
@@ -289,14 +289,14 @@ async function morePosts(req, res, next) {
   	var query; 
 
     	// Basic request for posts
-    	if (activityFilter == "top"){
+    if (activityFilter == "top"){
 		if (typeFilter == "art" || typeFilter == "text"){
-        		query = db.collection('groups').doc(groupID).collection('posts')
+        	query = db.collection('groups').doc(groupID).collection('posts')
 				.where("banned", "==", false)
           			.where("type", "==", typeFilter)
 				.orderBy('votes', 'desc')
 		} else {
-			db.collection('groups').doc(groupID).collection('posts')
+			query = db.collection('groups').doc(groupID).collection('posts')
 				.where("banned", "==", false)
 				.orderBy('votes', 'desc')
 		}

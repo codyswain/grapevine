@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var applyAbilityButton: UIImageView!
     
     @IBOutlet weak var burnAbilityIndicator: UIImageView!
+    @IBOutlet weak var karmaAmountLabel: UITextField!
     
     // MARK: Variable Definitions
     // Globals
@@ -142,9 +143,7 @@ class ViewController: UIViewController {
         applyAbilityButton.addGestureRecognizer(tapGestureRecognizerApplyAbility)
         
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
-        //changeAppearanceBasedOnMode()
-        //setGroupsView implements changeAppearanceBasedOnMode()
-        setGroupsView(groupName: self.groupName, groupID: self.groupID)
+        changeAppearanceBasedOnMode()
     }
     
     //Display notification alert. Location alert is handled by location manager callback function
@@ -254,7 +253,7 @@ class ViewController: UIViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.requestLocation()
         } else if currentMode == "myPosts" {
-            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType, groupID: Globals.ViewSettings.groupID)
         } else if currentMode == "myComments" {
             postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         }
@@ -425,7 +424,7 @@ class ViewController: UIViewController {
             }
             locationManager.requestLocation() // request new location, which will trigger new posts in the function locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
         } else if currentMode == "myPosts" {
-            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
+            postsManager.fetchMyPosts(activityFilter:self.currentFilterState, typeFilter:self.curPostType, groupID: Globals.ViewSettings.groupID)
         } else if currentMode == "myComments" {
             postsManager.fetchMyComments(activityFilter:self.currentFilterState, typeFilter:self.curPostType)
         } else if currentMode == "groups" {
@@ -508,7 +507,7 @@ class ViewController: UIViewController {
         shoutButton.alpha = 0.4
         currentAbilityTitle.text = "Push"
         currentAbility = "push"
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user!.score) karma."
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0) karma."
         
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
@@ -587,6 +586,11 @@ class ViewController: UIViewController {
     
     // MARK:PENIS
     func changeAppearanceBasedOnMode(){
+        karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
+        //Prepare view for groups mode
+        if groupID != "Grapevine" {
+            currentMode = "groups"
+        }
         if currentMode == "default" {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
@@ -724,7 +728,7 @@ class ViewController: UIViewController {
         currentAbilityTitle.text = "Push"
         applyAbilityButton.alpha = 1.0
         applyAbilityButton.isUserInteractionEnabled = true
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user!.score)."
+        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
         applyAbilityButton.isHidden = false
         applyAbilityButton.image = UIImage(named: "push-button")
         currentAbility = "push"
@@ -737,7 +741,7 @@ class ViewController: UIViewController {
         applyAbilityButton.image = UIImage(named: "burn-button")
         currentAbility = "burn"
         if (selectedPost!.votes < -3 && selectedPost!.poster != self.user!.user){
-            currentAbilityDescription.text = "Delete this post and ban the creator for 12 hours. Only for posts with <= -3 votes. Costs 10 karma; you have \(self.user!.score)."
+            currentAbilityDescription.text = "Delete this post and ban the creator for 12 hours. Only for posts with <= -3 votes. Costs 10 karma; you have \(self.user?.score ?? 0)."
             applyAbilityButton.isHidden = false
             burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
         } else {
@@ -754,7 +758,7 @@ class ViewController: UIViewController {
         applyAbilityButton.isHidden = false
         applyAbilityButton.isUserInteractionEnabled = true
         currentAbilityTitle.text = "Shout"
-        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user!.score)."
+        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
         applyAbilityButton.image = UIImage(named: "shout-button")
         currentAbility = "shout"
     }
@@ -771,7 +775,7 @@ class ViewController: UIViewController {
         switch currentAbility {
         case "burn":
             let burnCost: Int = 10 // TO-DO: make this global variable
-            if (self.user!.score >= burnCost){
+            if ((self.user?.score ?? 0) >= burnCost){
                 let creator = self.selectedPost!.poster
                 let postToBeDeleted = self.selectedPost!.postId
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
@@ -785,7 +789,7 @@ class ViewController: UIViewController {
             }
         case "shout":
             let shoutCost: Int = 10 // TO-DO: make this global variable
-            if (self.user!.score >= shoutCost){
+            if ((self.user?.score ?? 0) >= shoutCost){
                 let creator = self.selectedPost!.poster
                 let postToBeShoutOut = self.selectedPost!.postId
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
@@ -799,7 +803,7 @@ class ViewController: UIViewController {
             }
         case "push":
             let pushCost: Int = 50 // TO-DO: make this global variable
-            if (self.user!.score >= pushCost){
+            if ((self.user?.score ?? 0) >= pushCost){
                 let creator = self.selectedPost!.poster
                 let postToBePushed = self.selectedPost!.postId
                 self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
@@ -867,7 +871,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if currentMode == "default" {
                 postsManager.fetchMorePosts(latitude: self.lat, longitude: self.lon, range: self.range, ref: self.ref, activityFilter:currentFilterState, typeFilter:self.curPostType)
             } else if currentMode == "myPosts" {
-                postsManager.fetchMoreMyPosts(ref: self.ref)
+                postsManager.fetchMoreMyPosts(ref: self.ref, groupID: Globals.ViewSettings.groupID)
             } else if currentMode == "myComments" {
                 postsManager.fetchMoreMyComments(ref: self.ref)
             } else if currentMode == "groups" {
@@ -938,11 +942,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
             cell.enableDelete()
             cell.disableInteraction()
-            cell.moveShareButton()      //Make share button on the side
         } else {
             cell.disableDelete()
             cell.enableInteraction()
-            cell.revertShareButton()
         }
         
         // If currentmode is my comments then they don't need the cell footer
@@ -1100,9 +1102,9 @@ extension ViewController: PostTableViewCellDelegate {
         switch ability {
         case "burn":
             let burnCost: Int = 10 // TO-DO: make this global variable
-            var alertMessage: String = "My karma: \(self.user!.score) 💸\nBurn cost: \(burnCost) 💸"
+            var alertMessage: String = "My karma: \(self.user?.score ?? 0) 💸\nBurn cost: \(burnCost) 💸"
             var confirmMessage: String = "Confirm "
-            if (self.user!.score >= burnCost){
+            if ((self.user?.score ?? 0) >= burnCost){
                 
             } else {
                 confirmMessage = "❌"
@@ -1115,7 +1117,7 @@ extension ViewController: PostTableViewCellDelegate {
             alert.addAction(action1)
             
             // Check if user can ban
-            if (self.user!.score >= burnCost){
+            if ((self.user?.score ?? 0) >= burnCost){
                 let action2 = MDCAlertAction(title: "Yes") { (action) in
                     let indexPath = self.tableView.indexPath(for: cell)!
                     let row = indexPath.row
@@ -1129,9 +1131,9 @@ extension ViewController: PostTableViewCellDelegate {
             self.present(alert, animated: true)
         case "shout":
             let shoutCost: Int = 10 // TO-DO: make this global variable
-            var alertMessage: String = "My karma: \(self.user!.score) 💸\nShout cost: \(shoutCost) 💸"
+            var alertMessage: String = "My karma: \(self.user?.score ?? 0) 💸\nShout cost: \(shoutCost) 💸"
             var confirmMessage: String = "Confirm "
-            if (self.user!.score >= shoutCost){
+            if ((self.user?.score ?? 0) >= shoutCost){
                 confirmMessage += "✅"
                 alertMessage += "\n\nAre you sure you want give a shout out to this post?"
             } else {
@@ -1145,7 +1147,7 @@ extension ViewController: PostTableViewCellDelegate {
             alert.addAction(action1)
             
             // Check if user can shout
-            if (self.user!.score >= shoutCost){
+            if ((self.user?.score ?? 0) >= shoutCost){
                 let action2 = MDCAlertAction(title: "Yes") { (action) in
                     let indexPath = self.tableView.indexPath(for: cell)!
                     let row = indexPath.row
@@ -1162,9 +1164,9 @@ extension ViewController: PostTableViewCellDelegate {
             self.present(alert, animated: true)
         case "push":
             let pushCost: Int = 10 // TO-DO: make this global variable
-            var alertMessage: String = "My karma: \(self.user!.score) 💸\nPush cost: \(pushCost) 💸"
+            var alertMessage: String = "My karma: \(self.user?.score ?? 0) 💸\nPush cost: \(pushCost) 💸"
             var confirmMessage: String = "Confirm "
-            if (self.user!.score >= pushCost){
+            if ((self.user?.score ?? 0) >= pushCost){
                 confirmMessage += "✅"
                 alertMessage += "\n\nAre you sure you want to notify everyone in the surrounding area about this post?"
             } else {
@@ -1178,7 +1180,7 @@ extension ViewController: PostTableViewCellDelegate {
             alert.addAction(action1)
             
             // Check if user can shout
-            if (self.user!.score >= pushCost){
+            if ((self.user?.score ?? 0) >= pushCost){
                 let action2 = MDCAlertAction(title: "Yes") { (action) in
                     let indexPath = self.tableView.indexPath(for: cell)!
                     let row = indexPath.row
@@ -1263,6 +1265,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
+            self.karmaAmountLabel.text = String(user.score)
         }
     }
     
