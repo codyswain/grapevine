@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var applyAbilityButton: UIImageView!
     
     @IBOutlet weak var burnAbilityIndicator: UIImageView!
+    @IBOutlet weak var karmaAmountLabel: UITextField!
     
     // MARK: Variable Definitions
     // Globals
@@ -589,6 +590,7 @@ class ViewController: UIViewController {
     }
     
     func changeAppearanceBasedOnMode(){
+        karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
         if currentMode == "default" {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
