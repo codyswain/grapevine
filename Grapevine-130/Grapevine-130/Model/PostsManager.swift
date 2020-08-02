@@ -97,8 +97,8 @@ struct PostsManager {
         performMoreRequest(with: urlString)
     }
     
-    func fetchMoreMyPosts(ref: String) {
-        let urlString = "\(fetchMoreMyPostsURL)&user=\(Constants.userID)&ref=\(ref)"
+    func fetchMoreMyPosts(ref: String, groupID: String = "Grapevine") {
+        let urlString = "\(fetchMoreMyPostsURL)&user=\(Constants.userID)&ref=\(ref)&groupID=\(groupID)"
         performMoreRequest(with: urlString)
     }
     
@@ -260,8 +260,8 @@ struct PostsManager {
     }
     
     // Fetch the user's own posts
-    func fetchMyPosts(activityFilter: String, typeFilter: String) {
-        let urlString = "\(fetchMyPostsURL)&user=\(Constants.userID)"
+    func fetchMyPosts(activityFilter: String, typeFilter: String, groupID: String = "Grapevine") {
+        let urlString = "\(fetchMyPostsURL)&user=\(Constants.userID)&groupID=\(groupID)"
         performRequest(with: urlString)
     }
     
