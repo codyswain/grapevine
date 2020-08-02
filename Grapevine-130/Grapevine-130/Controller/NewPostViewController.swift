@@ -38,6 +38,13 @@ class NewPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set placeholder text for groups posts
+        if Globals.ViewSettings.groupName == "Grapevine" {
+            backTextView.text = "What's actually on your mind?"
+        } else {
+            backTextView.text = "Post to \(Globals.ViewSettings.groupName)"
+        }
+        
         // Set dark/light mode from persistent storage
         setTheme(curView: self)
         
@@ -189,7 +196,11 @@ class NewPostViewController: UIViewController {
     @objc func keyboardWillHide(notification: Notification) {
         AddButtonContainingViewConstraint.constant = 40
         if backTextView.text == "" && frontTextView.text == "" {
-            backTextView.text = "What's actually on your mind?"
+            if Globals.ViewSettings.groupName == "Grapevine" {
+                backTextView.text = "What's actually on your mind?"
+            } else {
+                backTextView.text = "Post to \(Globals.ViewSettings.groupName)"
+            }
         }
         
         view.setNeedsLayout()
