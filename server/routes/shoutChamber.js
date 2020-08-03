@@ -112,7 +112,7 @@ async function shoutPost(req, res, next) {
 	}).then(() => {
         console.log("Successfully gave a shout out to the post " + postID)
         var body = "🔈 Someone gave you a shout out!";
-        utils.sendPushNotificationToPoster(req, postID, body);
+        utils.sendPushNotificationToPoster(req, postID, body, groupID);
         res.status(200).send()
 	}).catch((err) => {
 		console.log("Failed to give a shout out to the post " + postID)
