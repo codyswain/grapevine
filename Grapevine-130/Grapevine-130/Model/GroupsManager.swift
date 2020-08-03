@@ -18,7 +18,7 @@ protocol GroupsManagerDelegate {
     // then pop it into the table, so you don't have to re-query posts
     func didCreateGroup()
     
-    func didJoinGroup()
+    func didJoinGroup(success: Bool)
     func didCreateKey(key: String)
 }
 
@@ -86,7 +86,13 @@ struct GroupsManager {
                 if let safeData = data {
                     print(response as Any)
                     print("Request returned and processed \(safeData)")
-                    self.delegate?.didJoinGroup()
+                    self.delegate?.didJoinGroup(success: true)
+                }
+                if let response = response {
+                    let httpResponse = response as! HTTPURLResponse
+                    if httpResponse.statusCode == 404 {
+                        self.delegate?.didJoinGroup(success: false)
+                    }
                 }
             }
             task.resume()
