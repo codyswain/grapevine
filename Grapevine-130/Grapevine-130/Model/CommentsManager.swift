@@ -27,9 +27,10 @@ struct CommentsManager {
     
     // interaction 1 will be to like a comment
     // interaction 2 will be to unlike a comment
-    func performUpvoteRequest(interaction: Int, commentID: String){
+    // send groupID so user scores do not change from private group interactions
+    func performUpvoteRequest(interaction: Int, commentID: String, groupID: String = "Grapevine"){
         let endpoint = Constants.serverURL + "commentinteractions/?"
-        let urlString = "\(endpoint)&user=\(Constants.userID)&commentID=\(commentID)&action=\(interaction)"
+        let urlString = "\(endpoint)&user=\(Constants.userID)&commentID=\(commentID)&action=\(interaction)&groupID=\(groupID)"
         print ("Sending interaction: ", interaction)
         
         if let url = URL(string: urlString) {

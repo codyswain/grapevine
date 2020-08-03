@@ -502,12 +502,21 @@ class ViewController: UIViewController {
         applyAbilityButton.isHidden = false
         applyAbilityButton.isUserInteractionEnabled = true
         
-        pushButton.alpha = 1.0
-        burnButton.alpha = 0.4
-        shoutButton.alpha = 0.4
-        currentAbilityTitle.text = "Push"
-        currentAbility = "push"
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0) karma."
+        if currentMode == "groups" {
+            pushButton.alpha = 0.4
+            burnButton.alpha = 0.4
+            shoutButton.alpha = 1.0
+            currentAbilityTitle.text = "Shout"
+            currentAbility = "shout"
+            currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
+        } else {
+            pushButton.alpha = 1.0
+            burnButton.alpha = 0.4
+            shoutButton.alpha = 0.4
+            currentAbilityTitle.text = "Push"
+            currentAbility = "push"
+            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0) karma."
+        }
         
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
@@ -728,10 +737,15 @@ class ViewController: UIViewController {
         currentAbilityTitle.text = "Push"
         applyAbilityButton.alpha = 1.0
         applyAbilityButton.isUserInteractionEnabled = true
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
-        applyAbilityButton.isHidden = false
         applyAbilityButton.image = UIImage(named: "push-button")
         currentAbility = "push"
+        if currentMode != "groups" {
+            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
+            applyAbilityButton.isHidden = false
+        } else {
+            currentAbilityDescription.text = "Pushing a post isn't allowed in private groups yet. Go ahead and try it in Grapevine!"
+            applyAbilityButton.isHidden = true
+        }
     }
     @objc func burnButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
         burnButton.alpha = 1.0
@@ -1265,7 +1279,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
-            self.karmaAmountLabel.text = String(user.score)
+            self.karmaAmountLabel.text = String(user.score) + " karma"
         }
     }
     

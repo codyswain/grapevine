@@ -53,7 +53,7 @@ class CommentTableViewCell: UITableViewCell {
             voteBackground.backgroundColor = Constants.Colors.darkPurple
             voteButtonIcon.tintColor = UIColor.systemBackground
             voteButton.setTitleColor(UIColor.systemBackground, for: .normal)
-            commentsManager.performUpvoteRequest(interaction: 1, commentID: commentID)
+            commentsManager.performUpvoteRequest(interaction: 1, commentID: commentID, groupID: Globals.ViewSettings.groupID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!+1), for: .normal)
             }
@@ -63,7 +63,7 @@ class CommentTableViewCell: UITableViewCell {
             voteBackground.backgroundColor = UIColor(named: "PostColors")
             voteButtonIcon.tintColor = UIColor.label
             voteButton.setTitleColor(UIColor.label, for: .normal)
-            commentsManager.performUpvoteRequest(interaction: 0, commentID: commentID)
+            commentsManager.performUpvoteRequest(interaction: 0, commentID: commentID, groupID: Globals.ViewSettings.groupID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!-1), for: .normal)
             }

@@ -71,11 +71,13 @@ router.get('/', function(req, res, next) {
       }
       t.update(postRef, { interactions: interactions, votes: v, numFlags: f, banned: ban});
 
-      // Update poster score
+      // Update poster score if group is Grapevine
       // TODO: Entire transaction fails if the user document does not exist
       let poster = snapshot.data().poster;
       let userRef = db.collection('users').doc(poster);
-      t.update(userRef, { score: FieldValue.increment(userv)});
+      if (groupID == "Grapevine") {
+        t.update(userRef, { score: FieldValue.increment(userv)});
+      }
 
     });
   }).then(() => {

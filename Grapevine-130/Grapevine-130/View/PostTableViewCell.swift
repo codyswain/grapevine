@@ -92,7 +92,7 @@ class PostTableViewCell: UITableViewCell {
         shoutButtonView.isUserInteractionEnabled = true
         pushButtonView.isUserInteractionEnabled = true
         shareButtonView.isUserInteractionEnabled = true
-        let tapGestureRecognizerShare = UITapGestureRecognizer(target: self, action: #selector(shareTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerShare = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped(tapGestureRecognizer:)))
         let tapRecognizerBurnAbility = UITapGestureRecognizer(target: self, action: #selector(burnAbilitySelected(tapGestureRecognizer:)))
         let tapRecognizerShoutAbility = UITapGestureRecognizer(target: self, action: #selector(shoutAbilitySelected(tapGestureRecognizer:)))
         let tapRecognizerPushAbility = UITapGestureRecognizer(target: self, action: #selector(pushAbilitySelected(tapGestureRecognizer:)))
@@ -290,7 +290,7 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
-    @objc func shareTapped(tapGestureRecognizer: UITapGestureRecognizer){
+    @objc func abilitiesTapped(tapGestureRecognizer: UITapGestureRecognizer){
         self.delegate?.showAbilitiesView(self)
     }
     
