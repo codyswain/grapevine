@@ -287,9 +287,19 @@ extension GroupsViewController: GroupsManagerDelegate {
         }
     }
     
-    func didJoinGroup(){
-        self.refresh()
-        self.groupCreated = true //Indicates successful joining of group
+    func didJoinGroup(success: Bool){
+        DispatchQueue.main.async {
+            if success == true {
+                self.refresh()
+                self.groupCreated = true //Indicates successful joining of group
+            }
+            else {
+                let alert = MDCAlertController(title: "Failed to Join Group", message: "Keys are case-sensitive. Has the key been entered correctly?\n\nKeys are only valid for one use. Has your key already been used?")
+                alert.addAction(MDCAlertAction(title: "Continue"))
+                makePopup(alert: alert, image: "info.circle.fill")
+                self.present(alert, animated: true)
+            }
+        }
     }
     
     func didCreateKey(key: String){
