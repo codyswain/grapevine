@@ -418,6 +418,7 @@ class ViewController: UIViewController {
     
     /// Refresh the main posts view based on current user location.
     @objc func refresh(){
+        userManager.fetchUser()
         if currentMode == "default" {
             if !isLocationAccessEnabled() {
                 displayLocationAlert()
@@ -1279,7 +1280,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
-            self.karmaAmountLabel.text = String(user.score) + " karma"
+            self.karmaAmountLabel.text = String((self.user?.score ?? 0)) + " karma"
         }
     }
     
