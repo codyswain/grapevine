@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
+    @IBOutlet weak var groupsButton: UIButton!
     
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var postTypeButton: UIButton!
@@ -596,7 +597,7 @@ class ViewController: UIViewController {
     
     // MARK:PENIS
     func changeAppearanceBasedOnMode(){
-        karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
+        self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
         //Prepare view for groups mode
         if groupID != "Grapevine" {
             currentMode = "groups"
@@ -605,11 +606,14 @@ class ViewController: UIViewController {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
             self.view.addSubview(bottomNavBar)
+
         } else if currentMode == "myPosts" {
             self.nearbyLabel.text = "My Posts"
             self.rangeButton.isHidden = true
             self.filterButton.isHidden = true
             self.postTypeButton.isHidden = true
+            self.groupsButton.isHidden = true
+            self.karmaAmountLabel.isHidden = true
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
@@ -618,6 +622,8 @@ class ViewController: UIViewController {
             self.rangeButton.isHidden = true
             self.filterButton.isHidden = true
             self.postTypeButton.isHidden = true
+            self.groupsButton.isHidden = true
+            self.karmaAmountLabel.isHidden = true
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
@@ -641,7 +647,7 @@ class ViewController: UIViewController {
     }
     
     //Called when a user taps the groups button
-    @IBAction func groupsButton(_ sender: Any) {
+    @IBAction func groupsButtonPressed(_ sender: Any) {
         print("going to groups")
         //
 //        self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
