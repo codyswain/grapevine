@@ -77,13 +77,13 @@ struct PostsManager {
         - longitude: Longtitude of the client requesting posts
         - range: Distance around the user to retrieve posts from
      */
-    func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double) {
-        let urlString = "\(fetchBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
+    func fetchBannedPosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, groupID: String = "Grapevine") {
+        let urlString = "\(fetchBannedPostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&groupID=\(groupID)"
         performRequest(with: urlString)
     }
     
-    func fetchShoutablePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double) {
-        let urlString = "\(fetchShoutablePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)"
+    func fetchShoutablePosts(latitude: CLLocationDegrees, longitude: CLLocationDegrees, range: Double, groupID: String = "Grapevine") {
+        let urlString = "\(fetchShoutablePostsURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&groupID=\(groupID)"
         performRequest(with: urlString)
     }
     

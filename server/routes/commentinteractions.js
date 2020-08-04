@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
   let user = req.query.user;
   let commentID = req.query.commentID;
   let action = parseInt(req.query.action, 10); // Flag encoding request to toggle
+  let groupID = req.query.groupID; //Karma doesn't change from private group interactions
 
   // Get the db object, declared in app.js
   var db = req.app.get('db');
@@ -38,11 +39,13 @@ router.get('/', function(req, res, next) {
       
       t.update(commentRef, { interactions: interactions, votes: v});
 
-      // Update poster score
+      // Update poster score if group is Grapevine
       // TODO: Entire transaction fails if the user document does not exist
       let poster = snapshot.data().poster;
       let userRef = db.collection('users').doc(poster)
-      t.update(userRef, { score: FieldValue.increment(userv)})
+      if (groupID == "Grapevine") {
+        t.update(userRef, { score: FieldValue.increment(userv)})
+      }
     });
   }).then(() => {
     res.status(200).send();

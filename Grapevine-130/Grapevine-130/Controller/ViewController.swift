@@ -503,12 +503,21 @@ class ViewController: UIViewController {
         applyAbilityButton.isHidden = false
         applyAbilityButton.isUserInteractionEnabled = true
         
-        pushButton.alpha = 1.0
-        burnButton.alpha = 0.4
-        shoutButton.alpha = 0.4
-        currentAbilityTitle.text = "Push"
-        currentAbility = "push"
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0) karma."
+        if currentMode == "groups" {
+            pushButton.alpha = 0.4
+            burnButton.alpha = 0.4
+            shoutButton.alpha = 1.0
+            currentAbilityTitle.text = "Shout"
+            currentAbility = "shout"
+            currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
+        } else {
+            pushButton.alpha = 1.0
+            burnButton.alpha = 0.4
+            shoutButton.alpha = 0.4
+            currentAbilityTitle.text = "Push"
+            currentAbility = "push"
+            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0) karma."
+        }
         
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
@@ -729,10 +738,15 @@ class ViewController: UIViewController {
         currentAbilityTitle.text = "Push"
         applyAbilityButton.alpha = 1.0
         applyAbilityButton.isUserInteractionEnabled = true
-        currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
-        applyAbilityButton.isHidden = false
         applyAbilityButton.image = UIImage(named: "push-button")
         currentAbility = "push"
+        if currentMode != "groups" {
+            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
+            applyAbilityButton.isHidden = false
+        } else {
+            currentAbilityDescription.text = "Pushing a post isn't allowed in private groups yet. Go ahead and try it in Grapevine!"
+            applyAbilityButton.isHidden = true
+        }
     }
     @objc func burnButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
         burnButton.alpha = 1.0
@@ -779,7 +793,7 @@ class ViewController: UIViewController {
             if ((self.user?.score ?? 0) >= burnCost){
                 let creator = self.selectedPost!.poster
                 let postToBeDeleted = self.selectedPost!.postId
-                self.userManager.banUser(poster: creator, postID: postToBeDeleted)
+                self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
             } else {
                 confirmMessage = "Unable to burn..."
                 alertMessage = "Not enough karma!"
@@ -793,7 +807,7 @@ class ViewController: UIViewController {
             if ((self.user?.score ?? 0) >= shoutCost){
                 let creator = self.selectedPost!.poster
                 let postToBeShoutOut = self.selectedPost!.postId
-                self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+                self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
             } else {
                 confirmMessage = "Unable to shout..."
                 alertMessage = "Not enough karma!"
@@ -807,7 +821,7 @@ class ViewController: UIViewController {
             if ((self.user?.score ?? 0) >= pushCost){
                 let creator = self.selectedPost!.poster
                 let postToBePushed = self.selectedPost!.postId
-                self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
+                self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
             } else {
                 confirmMessage = "Unable to push..."
                 alertMessage = "Not enough karma!"
@@ -1124,7 +1138,7 @@ extension ViewController: PostTableViewCellDelegate {
                     let row = indexPath.row
                     let creatorToBeBanned = self.posts[row].poster
                     let postToBeDeleted = self.posts[row].postId
-                    self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted)
+                    self.userManager.banUser(poster: creatorToBeBanned, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
                 }
                 alert.addAction(action2)
             }
@@ -1156,7 +1170,7 @@ extension ViewController: PostTableViewCellDelegate {
                     let postToBeShoutOut = self.posts[row].postId
                     print("Post to be shouted: ")
                     print(postToBeShoutOut)
-                    self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut)
+                    self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
                 }
                 alert.addAction(action2)
             }
@@ -1189,7 +1203,7 @@ extension ViewController: PostTableViewCellDelegate {
                     let postToBePushed = self.posts[row].postId
                     print("Post to be pushed ")
                     print(postToBePushed)
-                    self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon)
+                    self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
                 }
                 alert.addAction(action2)
             }
@@ -1266,7 +1280,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
-            self.karmaAmountLabel.text = String((self.user?.score ?? 0))
+            self.karmaAmountLabel.text = String((self.user?.score ?? 0)) + " karma"
         }
     }
     
