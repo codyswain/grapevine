@@ -17,7 +17,6 @@ class NewPostViewController: UIViewController {
     var groupsManager = GroupsManager()
     var groupName = "Grapevine"
     var groupID = ""
-    var lastPostingTimestamp:Double = 0.0
 
     @IBOutlet weak var ColorButtonVar: UIButton!
     @IBOutlet weak var createTextButtonVar: UIButton!
@@ -161,6 +160,22 @@ class NewPostViewController: UIViewController {
         button.tintColor = .label
     }
     
+    func setTimeStamp() -> Bool {
+        // Don't let user post twice within 30 seconds
+        if Globals.lastPostingTimestamp != 0.0 {
+            print("lastPostingTimestamp is \(Globals.lastPostingTimestamp)")
+            let timeDiff = Date().timeIntervalSince1970 - Globals.lastPostingTimestamp
+            if timeDiff < Constants.spamLength { // less than 30 seconds ago
+                spamPopup()
+                return true
+            }
+        } else {
+            Globals.lastPostingTimestamp = Double(Date().timeIntervalSince1970)
+            return false
+        }
+        return false
+    }
+    
     /**
      Clear the drawing canvas and create an image from the drawing.
      
@@ -212,17 +227,6 @@ class NewPostViewController: UIViewController {
      - Parameter sender: Button pressed to activate this function
      */
     @objc func addPostButton() {
-        // Don't let user post twice within 30 seconds
-        if lastPostingTimestamp != 0.0 {
-            print("lastPostingTimestamp is \(lastPostingTimestamp)")
-            let timeDiff = Date().timeIntervalSince1970 - lastPostingTimestamp
-            if timeDiff < Constants.spamLength { // less than 30 seconds ago
-                spamPopup()
-                return
-            }
-        } else {
-            lastPostingTimestamp = Double(Date().timeIntervalSince1970)
-        }
 
         // Change button color to make it feel responsive
         AddButtonContainingView.backgroundColor = Constants.Colors.lightPurple
@@ -242,17 +246,28 @@ class NewPostViewController: UIViewController {
         if currentState == "text" {
             print("current state text")
             if let textFieldBody = frontTextView.text {
-                if textFieldBody != "" {
+                //trim whitespace, so people cant enter a post that is just spaces
+                if textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                    if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
+                        return
+                    }
                     postsManager.performPOSTRequest(contentText: textFieldBody, latitude: lat, longitude: lon, postType: "text", groupID: self.groupID)
+                } else {
+                    backButton(self)
                 }
             }
         } else {
             drawingCanvasView.layer.cornerRadius = 0
             let imData = drawingCanvasView.renderToImage()
             if imData != nil {
+                if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
+                    return
+                }
                 let image = imData!.jpegData(compressionQuality: 0.5)
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image", groupID: self.groupID)
+            } else {
+                backButton(self)
             }
             drawingCanvasView.layer.cornerRadius = 10.0
         }
@@ -260,10 +275,11 @@ class NewPostViewController: UIViewController {
     
     func spamPopup(){
         let alert = MDCAlertController(title: "Too Much Posting", message: "To prevent potential spamming, we can't let you post that much. Try again later")
-        let action1 = MDCAlertAction(title: "Ok") { (action) in }
+        let action1 = MDCAlertAction(title: "Ok") { (action) in super.dismiss(animated: true, completion: nil)}
         alert.addAction(action1)
         makePopup(alert: alert, image: "x.circle.fill")
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true)
+        alert.mdc_dialogPresentationController?.dismissOnBackgroundTap = false //ideally we would have this enabled and use a completion handler to dismiss the view on background tap. But the documentation is poor and a better solution has not yet been found.
 
     }
 

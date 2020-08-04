@@ -26,5 +26,6 @@ struct Globals {
         static let filterKey = "filterKey"  // string
         static let postTypeKey = "postTypeKey"  // string
     }
+    static var lastPostingTimestamp:Double = 0.0
 
 }
