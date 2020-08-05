@@ -931,6 +931,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Hide the shout button, only for ShoutChamberViewController
         cell.shoutButtonVar.isHidden = true
+        
+        //set the time ago timestamp for post
+        cell.setTimeSincePost()
 
         // The cell is shouted
         if let expiry = posts[indexPath.row].shoutExpiration {
@@ -1059,7 +1062,6 @@ extension ViewController: PostsManagerDelegate {
             } else {
                 self.tableView.tableHeaderView = nil
             }
-            
             self.tableView.reloadData()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {

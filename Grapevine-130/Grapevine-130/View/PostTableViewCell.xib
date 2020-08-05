@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -40,17 +40,25 @@
                                         <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RXq-AR-44P" userLabel="Image">
-                                        <rect key="frame" x="47" y="11" width="332" height="191"/>
+                                        <rect key="frame" x="47" y="15" width="332" height="191"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeStamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A2d-XA-vy1">
+                                        <rect key="frame" x="2" y="2" width="75" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="RXq-AR-44P" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="47" id="5EH-b0-suh"/>
                                     <constraint firstAttribute="trailing" secondItem="VNW-4m-14j" secondAttribute="trailing" constant="8" id="Aay-gs-KRm"/>
-                                    <constraint firstAttribute="bottom" secondItem="RXq-AR-44P" secondAttribute="bottom" constant="8" id="D6r-RK-UCS"/>
+                                    <constraint firstItem="RXq-AR-44P" firstAttribute="top" secondItem="A2d-XA-vy1" secondAttribute="bottom" constant="1" id="CeE-zQ-rcd"/>
+                                    <constraint firstAttribute="bottom" secondItem="RXq-AR-44P" secondAttribute="bottom" constant="4" id="D6r-RK-UCS"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="15" id="KN9-uZ-5Tm"/>
                                     <constraint firstItem="VNW-4m-14j" firstAttribute="leading" secondItem="RXq-AR-44P" secondAttribute="trailing" constant="15" id="NG9-lt-x43"/>
-                                    <constraint firstItem="RXq-AR-44P" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="11" id="QnT-JN-5i8"/>
+                                    <constraint firstItem="RXq-AR-44P" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="15" id="QnT-JN-5i8"/>
                                     <constraint firstAttribute="trailing" secondItem="k6Z-o2-oI6" secondAttribute="trailing" constant="8" id="UHV-fv-Lzp"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="centerX" secondItem="CwN-Dl-0tb" secondAttribute="centerX" id="cRD-80-LqG"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="15" id="h2v-hZ-BZZ"/>
@@ -346,6 +354,7 @@
                 <outlet property="shareButtonView" destination="8Y8-tj-Z2A" id="V9S-oc-SGs"/>
                 <outlet property="shoutButtonVar" destination="zD4-WC-9rb" id="mvr-EY-TnY"/>
                 <outlet property="shoutButtonView" destination="q2D-UF-8X9" id="jbh-IV-6M9"/>
+                <outlet property="timeStampLabel" destination="A2d-XA-vy1" id="2jU-lr-oB4"/>
                 <outlet property="upvoteImageButton" destination="rZ7-VU-Udm" id="ZwM-jq-LKV"/>
                 <outlet property="voteCountLabel" destination="oT7-xD-mBw" id="Vlw-bz-JuN"/>
             </connections>

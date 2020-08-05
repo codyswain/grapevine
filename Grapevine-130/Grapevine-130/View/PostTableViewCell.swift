@@ -33,6 +33,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var shareButtonVar: UIButton!
+    @IBOutlet weak var timeStampLabel: UILabel!
     
     // Abilities
     var abilitiesToggleIsActive: Bool = false
@@ -65,6 +66,7 @@ class PostTableViewCell: UITableViewCell {
     var banDelegate: BannedPostTableViewCellDelegate?
     var shoutDelegate: ShoutPostTableViewCellDelegate?
     var user: User? // Get user for flammable ability
+    var postDate: Date?
     
     /**
     Initializes the posts table and adds gestures.
@@ -159,6 +161,14 @@ class PostTableViewCell: UITableViewCell {
         abilitiesButton.isHidden = true
     }
     
+    // show how long ago a post was created
+    func setTimeSincePost() {
+        if let date = self.postDate {
+            let elapsedTime = date.getElapsedInterval()
+            print("Time ago :", elapsedTime)
+            self.timeStampLabel.text = elapsedTime
+        }
+    }
     
     func enableInteraction() {
         DispatchQueue.main.async {
@@ -470,6 +480,9 @@ class PostTableViewCell: UITableViewCell {
         /// Set the document id of the post
         self.documentId = post.postId
         
+        /// Set the date of the post
+        self.postDate = Date(timeIntervalSince1970: post.date)
+        
         /// Set vote count of post cell
         self.voteCountLabel.text = String(post.votes)
         
@@ -521,5 +534,36 @@ class PostTableViewCell: UITableViewCell {
         } else {
             self.delegate?.showAbilitiesView(self)
         }
+    }
+}
+
+extension Date {
+    
+    func getElapsedInterval() -> String {
+        
+        let interval = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self, to: Date())
+        
+        if let year = interval.year, year > 0 {
+            return year == 1 ? "\(year)" + " " + "year" :
+                "\(year)" + " " + "years"
+        } else if let month = interval.month, month > 0 {
+            return month == 1 ? "\(month)" + " " + "month" :
+                "\(month)" + " " + "months"
+        } else if let day = interval.day, day > 0 {
+            return day == 1 ? "\(day)" + " " + "day" :
+                "\(day)" + " " + "days"
+        } else if let hour = interval.hour, hour > 0 {
+            return hour == 1 ? "\(hour)" + " " + "hour" :
+                "\(hour)" + " " + "hours"
+        } else if let minute = interval.minute, minute > 0 {
+            return minute == 1 ? "\(minute)" + " " + "minute" :
+                "\(minute)" + " " + "minutes"
+        } else if let second = interval.second, second > 0 {
+            return second == 1 ? "\(second)" + " " + "second" :
+                "\(second)" + " " + "seconds"
+        } else {
+            return "a moment ago"
+        }
+        
     }
 }
