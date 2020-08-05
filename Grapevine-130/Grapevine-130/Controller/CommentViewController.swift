@@ -93,6 +93,7 @@ class CommentViewController: UIViewController {
         
         commentInput.text = "Add an anonymous comment..."
         commentInput.clearsOnBeginEditing = false;
+        commentInput.tintColor = Constants.Colors.darkPurple
         if (mainPost?.type == "text"){
             postContentLabel.text = mainPost!.content
         } else {
