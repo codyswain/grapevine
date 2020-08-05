@@ -11,6 +11,7 @@ router.get('/', getPosts);
 router.get('/more', morePosts);
 router.post('/', createPost);
 router.delete('/', deletePost);
+router.get('/single', getSinglePost)
 
 /**
  * Fetches posts from the database based on the url parameters and sends them to the client.
@@ -399,6 +400,53 @@ async function morePosts(req, res, next) {
     res.send([])
   })
 	
+}
+
+// get a single post from the database
+async function getSinglePost(req, res, next) {
+  let postID = req.query.postID;
+  let groupID = req.query.groupID;
+	console.log("GetSinglePost request for postID: " + postID + " in group: " + groupID)
+
+  // Get the db object, declared in app.js
+  var db = req.app.get('db');
+  if (groupID == "Grapevine") {
+    query = db.collection('posts').doc(postID)
+  } else {
+    query = db.collection('groups').docID(groupID).collection('posts').doc(postID)
+  }
+  query.get().then((doc) => { 
+    if (doc.exists) {
+      post = {
+        "content": doc.get("content"),
+        "postId" : postID,
+        "poster" : doc.get("poster"),
+        "votes" :  doc.get("votes"),
+        "date" :  doc.get("date"),
+        "voteStatus" : 0, // This function is for getting a user's own post; they cant interact with it.
+        "type" :  doc.get("type"),
+        "lat" :  doc.get("lat"),
+        "lon" :  doc.get("lon"),
+        "numFlags" :  doc.get("numFlags"),
+        "flagStatus" : 0, //Same idea as voteStatus
+        "geohash":  doc.get("geohash"),
+        "interactions":  doc.get("interactions"),
+        "toxicity":  doc.get("toxicity"),
+        "banned":  doc.get("banned"),
+        "comments":  doc.get("comments")
+      };
+      console.log(post)
+      res.status(200).send(post)
+    } else {
+      console.log("Post is either in a group or does not exist")
+      res.status(404).send([])
+    }
+  })
+  .catch((err) => {
+    console.log("ERROR looking up post: " + postID + " in posts.js:" + err)
+    res.status(400).send([])
+  })
+
 }
 
 module.exports = router;

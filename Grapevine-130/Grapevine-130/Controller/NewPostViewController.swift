@@ -318,6 +318,10 @@ extension NewPostViewController: UITextViewDelegate {
 }
 
 extension NewPostViewController: PostsManagerDelegate {
+    func didGetSinglePost(_ postManager: PostsManager, post: Post) {
+        return
+    }
+    
     func didUpdatePosts(_ postManager: PostsManager, posts: [Post], ref: String) {}
     func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String) {}
     func didFailWithError(error: Error) {}
