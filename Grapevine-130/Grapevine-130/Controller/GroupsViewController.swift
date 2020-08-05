@@ -59,6 +59,7 @@ class GroupsViewController: UIViewController {
     //Un-dim background of ViewController when GroupsView is closed
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
+        self.delegate?.setGroupsView(groupName: self.selectedGroup, groupID: self.selectedGroupID)
         UIView.animate(withDuration: 0.5) {
             self.presentingViewController?.view.backgroundColor = .systemBackground
         }
@@ -222,8 +223,6 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
             let groupName = group.name
             self.selectedGroupID = group.id
             self.selectedGroup = groupName
-            let groupID = group.id
-            self.delegate?.setGroupsView(groupName: groupName, groupID: groupID)
             if group.ownerID == Constants.userID {
                 showAddMembers()
             } else {
