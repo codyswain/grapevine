@@ -298,6 +298,8 @@ extension NewPostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView){
         backTextView.text = ""
         frontTextView.textColor = UIColor.label
+        frontTextView.tintColor = Constants.Colors.darkPurple
+
     }
     
     /**
