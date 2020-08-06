@@ -528,10 +528,11 @@ class ViewController: UIViewController {
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
+        print(selectedPost)
         if currentMode == "myComments" {
             selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
             DispatchQueue.main.async {
-                self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: Globals.ViewSettings.groupID)
+                self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
                 //fetchSinglePost callback performs segue initiation
             }
         } else {

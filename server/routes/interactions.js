@@ -84,7 +84,7 @@ router.get('/', function(req, res, next) {
     // Send notification to poster if the interaction is an upvote
     if (vote === 1){
       var body = "Someone liked your post 🔥";
-      utils.sendPushNotificationToPoster(req, post, body);
+      utils.sendPushNotificationToPoster(req, post, groupID, body);
     }
     res.status(200).send();
     console.log("Transaction to update interaction from " + user + " with post " + post + " and action " + action + " successful");

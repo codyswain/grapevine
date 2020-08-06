@@ -302,7 +302,7 @@ struct PostsManager {
     
     func parseSinglePostJSON(_ data: Data) -> Post? {
         let decoder = JSONDecoder()
-        var post = Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, shoutExpiration: 0)
+        var post = Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, groupID: "", shoutExpiration: 0)
         do {
             post = try decoder.decode(Post.self, from: data)
         } catch {

@@ -413,7 +413,7 @@ async function getSinglePost(req, res, next) {
   if (groupID == "Grapevine") {
     query = db.collection('posts').doc(postID)
   } else {
-    query = db.collection('groups').docID(groupID).collection('posts').doc(postID)
+    query = db.collection('groups').doc(groupID).collection('posts').doc(postID)
   }
   query.get().then((doc) => { 
     if (doc.exists) {
@@ -429,11 +429,12 @@ async function getSinglePost(req, res, next) {
         "lon" :  doc.get("lon"),
         "numFlags" :  doc.get("numFlags"),
         "flagStatus" : 0, //Same idea as voteStatus
-        "geohash":  doc.get("geohash"),
-        "interactions":  doc.get("interactions"),
-        "toxicity":  doc.get("toxicity"),
-        "banned":  doc.get("banned"),
-        "comments":  doc.get("comments")
+        "geohash" :  doc.get("geohash"),
+        "interactions" :  doc.get("interactions"),
+        "toxicity" :  doc.get("toxicity"),
+        "banned" :  doc.get("banned"),
+        "groupID" : doc.get("groupID"),
+        "comments" :  doc.get("comments")
       };
       console.log(post)
       res.status(200).send(post)
