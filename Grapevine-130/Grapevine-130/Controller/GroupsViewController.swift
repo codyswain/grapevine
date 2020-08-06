@@ -244,7 +244,6 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         
         if group.name == self.selectedGroup {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
-            self.delegate?.setGroupsView(groupName: selectedGroup, groupID: selectedGroupID)
             if group.ownerID == Constants.userID {
                 showAddMembers()
             } else {

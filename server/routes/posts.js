@@ -436,7 +436,6 @@ async function getSinglePost(req, res, next) {
         "groupID" : doc.get("groupID"),
         "comments" :  doc.get("comments")
       };
-      console.log(post)
       res.status(200).send(post)
     } else {
       console.log("Post is either in a group or does not exist")

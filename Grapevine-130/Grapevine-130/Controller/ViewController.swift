@@ -429,6 +429,7 @@ class ViewController: UIViewController {
         } else if currentMode == "groups" {
             postsManager.fetchPosts(latitude: self.lat, longitude: self.lon, range: self.range, activityFilter: self.currentFilterState, typeFilter: self.curPostType, groupID: self.groupID)
         }
+        print(currentMode)
     }
     
     func exitAbilities(){
@@ -528,13 +529,10 @@ class ViewController: UIViewController {
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
-        print(selectedPost)
         if currentMode == "myComments" {
             selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            DispatchQueue.main.async {
-                self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
+            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
                 //fetchSinglePost callback performs segue initiation
-            }
         } else {
                 self.performSegue(withIdentifier: "goToComments", sender: self)
             }
@@ -605,7 +603,7 @@ class ViewController: UIViewController {
     func changeAppearanceBasedOnMode(){
         self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
         //Prepare view for groups mode
-        if groupID != "Grapevine" {
+        if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default"{
             currentMode = "groups"
         }
         if currentMode == "default" {
