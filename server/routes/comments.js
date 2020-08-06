@@ -39,10 +39,7 @@ async function getComments(req, res, next) {
        
 		var interactions = comment.get("interactions")
 		
-		console.log(comment)
-		console.log(comment.get('groupID'))
 		curComment.groupID = comment.get("groupID")
-		console.log(curComment.groupID)
 
         // TODO: Better solution by putting this in mobile backend
         curComment.voteStatus = 0
