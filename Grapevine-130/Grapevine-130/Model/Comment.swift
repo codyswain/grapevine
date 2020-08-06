@@ -29,4 +29,7 @@ struct Comment : Decodable {
     
     // Whether a user has liked a comment
     var voteStatus: Int
+    
+    // Which group was the comment posted in
+    var groupID: String
 }

@@ -403,11 +403,8 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
-            if currentMode == "myComments" {
-                selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            }
-            destinationVC.mainPost = selectedPost
-            destinationVC.mainPostScreenshot = selectedPostScreenshot
+            destinationVC.mainPost = self.selectedPost
+            destinationVC.mainPostScreenshot = self.selectedPostScreenshot
         }
         if segue.identifier == "goToGroups" {
             let destinationVC = segue.destination as! GroupsViewController
@@ -531,7 +528,16 @@ class ViewController: UIViewController {
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
-        self.performSegue(withIdentifier: "goToComments", sender: self)
+        print(selectedPost)
+        if currentMode == "myComments" {
+            selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
+            DispatchQueue.main.async {
+                self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
+                //fetchSinglePost callback performs segue initiation
+            }
+        } else {
+                self.performSegue(withIdentifier: "goToComments", sender: self)
+            }
     }
     
     // For sharing to stories
@@ -1034,6 +1040,23 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
+    func didGetSinglePost(_ postManager: PostsManager, post: Post) {
+        DispatchQueue.main.async {
+            if post.poster == "" {
+                self.performSegue(withIdentifier: "goToComments", sender: self)
+            }
+            if post.type == "image" {
+                let cell = PostTableViewCell()
+                let cellImage = cell.createTableCellImage()
+                self.selectedPostScreenshot = cellImage
+                self.selectedPost = post
+            } else {
+                self.selectedPost = post
+            }
+            self.performSegue(withIdentifier: "goToComments", sender: self)
+        }
+    }
+    
     /** Reloads the table to reflect the newly retrieved posts.
      - Parameters:
         - postManager: `PostManager` object that fetched the posts

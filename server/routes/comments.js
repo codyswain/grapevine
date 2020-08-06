@@ -37,7 +37,12 @@ async function getComments(req, res, next) {
         var curComment = comment.data()
         curComment.commentID = comment.id
        
-        var interactions = comment.get("interactions")
+		var interactions = comment.get("interactions")
+		
+		console.log(comment)
+		console.log(comment.get('groupID'))
+		curComment.groupID = comment.get("groupID")
+		console.log(curComment.groupID)
 
         // TODO: Better solution by putting this in mobile backend
         curComment.voteStatus = 0
@@ -80,14 +85,15 @@ async function createComment(req, res, next) {
     postID : postID,
     votes : 0,
     date : req.body.date,
-    interactions: {},
+	interactions: {},
+	groupID: req.body.groupID
   };
 
 	db.collection("comments").add(userComment)
 	.then(ref => {
     // Send push notification to creator of post
     var body = "Someone commented on your post 👀";
-    utils.sendPushNotificationToPoster(req, req.body.postID, body);
+    utils.sendPushNotificationToPoster(req, req.body.postID, groupID, body);
 	  console.log('Added document with ID: ', ref.id);
 		res.status(200).send(ref.id);
 	})
