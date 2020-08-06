@@ -1352,7 +1352,7 @@ extension ViewController: CommentViewControllerDelegate {
 extension ViewController: MDCBottomNavigationBarDelegate {
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
-            if currentMode == "default" {
+            if currentMode == "default" || currentMode == "groups" {
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
                 scrollToTop()
             } else { // myPosts or myComments
