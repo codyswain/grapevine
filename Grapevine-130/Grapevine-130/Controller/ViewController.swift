@@ -603,7 +603,8 @@ class ViewController: UIViewController {
     func changeAppearanceBasedOnMode(){
         self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
         //Prepare view for groups mode
-        if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default"{
+        if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default" {
+            // Should only switch between default and groups because we don't want to set currentmode to groups in mycomments view or myposts view
             currentMode = "groups"
         }
         if currentMode == "default" {
