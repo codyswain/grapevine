@@ -46,7 +46,8 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
         case 0:
             cell.pageImageView.image = UIImage(named: "Grapes")
             let attrText = NSMutableAttributedString(string: "Welcome to Grapevine!", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),  NSAttributedString.Key.foregroundColor: UIColor.white])
-            attrText.append(NSAttributedString(string: "\n→", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40), NSAttributedString.Key.foregroundColor: UIColor.white]))
+            attrText.append(NSAttributedString(string: "\n←", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40), NSAttributedString.Key.foregroundColor: UIColor.white]))
+            attrText.append(NSAttributedString(string: "\nSwipe Left to Start", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.white]))
             cell.descriptionTextView.attributedText = attrText
             cell.descriptionTextView.textAlignment = .center
             cell.descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
