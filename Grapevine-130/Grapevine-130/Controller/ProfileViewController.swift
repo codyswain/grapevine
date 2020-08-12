@@ -82,13 +82,13 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 DarkModeSwitch.setOn(true, animated: true)
-                DarkModeLabel.text = "⚫"
+                DarkModeLabel.text = "🌚"
                 Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
                 Globals.ViewSettings.labelColor = .white
                 super.overrideUserInterfaceStyle = .dark
             } else {
                 DarkModeSwitch.setOn(false, animated: true)
-                DarkModeLabel.text = "⚫"
+                DarkModeLabel.text = "🌝"
                 Globals.ViewSettings.backgroundColor = .white
                 Globals.ViewSettings.labelColor = .black
                 super.overrideUserInterfaceStyle = .light
@@ -96,7 +96,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         }
         else {
             DarkModeSwitch.setOn(false, animated: true)
-            DarkModeLabel.text = "⚫"
+            DarkModeLabel.text = "🌝"
             Globals.ViewSettings.backgroundColor = .white
             Globals.ViewSettings.labelColor = .black
             super.overrideUserInterfaceStyle = .light
@@ -110,7 +110,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBAction func DarkModeSwitchPressed(_ sender: Any) {
         //Changes UI to dark or light mode
         if DarkModeSwitch.isOn{
-            DarkModeLabel.text = "⚫"
+            DarkModeLabel.text = "🌚"
             super.overrideUserInterfaceStyle = .dark
             Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
             Globals.ViewSettings.labelColor = .white
@@ -121,7 +121,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             }
         }
         else{
-            DarkModeLabel.text = "⚫"
+            DarkModeLabel.text = "🌝"
             super.overrideUserInterfaceStyle = .light
             Globals.ViewSettings.backgroundColor = .white
             Globals.ViewSettings.labelColor = .black
