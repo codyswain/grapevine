@@ -99,6 +99,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Disable Groups until Better Developed
+        groupsButton.isUserInteractionEnabled = false
+        groupsButton.isHidden = true
+        
+        
         // Set dark/light mode from persistent storage
         setTheme(curView: self)
         
