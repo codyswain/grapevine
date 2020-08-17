@@ -51,6 +51,9 @@ struct Post : Decodable {
      */
     var comments: Int
     
+    //group that post was created in
+    var groupID: String?
+    
     /**
      Timestamp of when the "shout" expires
      */

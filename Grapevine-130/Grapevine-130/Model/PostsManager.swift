@@ -7,6 +7,7 @@ protocol PostsManagerDelegate {
     func didGetMorePosts(_ postManager: PostsManager, posts: [Post], ref: String)
     func didFailWithError(error: Error)
     func didCreatePost()
+    func didGetSinglePost(_ postManager: PostsManager, post: Post)
 }
 
 /// An object that handles the retrieval of post data from the database.
@@ -14,6 +15,7 @@ struct PostsManager {
     
     /// Hits the /posts endpoint
     let fetchPostsURL = Constants.serverURL + "posts/?"
+    let fetchSinglePostURL = Constants.serverURL + "posts/single/?"
     let fetchMorePostsURL = Constants.serverURL + "posts/more/?"
     let fetchGroupPostsURL = Constants.serverURL + "groups/posts/?"
     let fetchMoreGroupPostsURL = Constants.serverURL + "groups/posts/more/?"
@@ -39,6 +41,11 @@ struct PostsManager {
         }
         let urlString = "\(fetchURL)&lat=\(latitude)&lon=\(longitude)&user=\(Constants.userID)&range=\(range)&activityFilter=\(activityFilter)&typeFilter=\(typeFilter)&groupID=\(groupID)"
         performRequest(with: urlString)
+    }
+    
+    func fetchSinglePost(postID: String, groupID: String = "Grapevine") {
+        let url = "\(fetchSinglePostURL)&postID=\(postID)&groupID=\(groupID)"
+        performSinglePostRequest(with: url)
     }
     
     func deletePost(postID: String, groupID: String = "Grapevine"){
@@ -160,6 +167,40 @@ struct PostsManager {
     }
     
     /**
+    Handles a request for a single post. Used for mycomments. Modifies `PostManagerDelegate` based on the retrieved data.
+
+    - Parameter urlString: The server endpoint with parameters.
+    */
+    func performSinglePostRequest(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            print("Sent request URL: \(url)")
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                   self.delegate?.didFailWithError(error: error!)
+                   return
+                }
+                if let response = response {
+                    let httpResponse = response as! HTTPURLResponse
+                    if httpResponse.statusCode == 404 || httpResponse.statusCode == 400 {
+                        print("Post not found or bad request")
+                        self.delegate?.didGetSinglePost(self, post: Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, shoutExpiration: 0))
+                    } else {
+                        if let safeData = data {
+                            print("Request returned")
+                            if let post = self.parseSinglePostJSON(safeData) {
+                                self.delegate?.didGetSinglePost(self, post: post)
+                                print("Request returned and processed post with id: \(post.postId)")
+                            }
+                        }
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    /**
     Handles the sending of a newly created post to the server.
      
      - Parameters:
@@ -257,6 +298,17 @@ struct PostsManager {
             delegate?.didFailWithError(error: error)
         }
         return ref
+    }
+    
+    func parseSinglePostJSON(_ data: Data) -> Post? {
+        let decoder = JSONDecoder()
+        var post = Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, groupID: "", shoutExpiration: 0)
+        do {
+            post = try decoder.decode(Post.self, from: data)
+        } catch {
+            delegate?.didFailWithError(error: error)
+        }
+        return post
     }
     
     // Fetch the user's own posts

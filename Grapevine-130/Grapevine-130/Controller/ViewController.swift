@@ -99,6 +99,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Disable Groups until Better Developed
+        groupsButton.isUserInteractionEnabled = false
+        groupsButton.isHidden = true
+        
+        
         // Set dark/light mode from persistent storage
         setTheme(curView: self)
         
@@ -403,11 +408,8 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
-            if currentMode == "myComments" {
-                selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            }
-            destinationVC.mainPost = selectedPost
-            destinationVC.mainPostScreenshot = selectedPostScreenshot
+            destinationVC.mainPost = self.selectedPost
+            destinationVC.mainPostScreenshot = self.selectedPostScreenshot
         }
         if segue.identifier == "goToGroups" {
             let destinationVC = segue.destination as! GroupsViewController
@@ -432,6 +434,7 @@ class ViewController: UIViewController {
         } else if currentMode == "groups" {
             postsManager.fetchPosts(latitude: self.lat, longitude: self.lon, range: self.range, activityFilter: self.currentFilterState, typeFilter: self.curPostType, groupID: self.groupID)
         }
+        print(currentMode)
     }
     
     func exitAbilities(){
@@ -531,7 +534,13 @@ class ViewController: UIViewController {
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
-        self.performSegue(withIdentifier: "goToComments", sender: self)
+        if currentMode == "myComments" {
+            selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
+            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
+                //fetchSinglePost callback performs segue initiation
+        } else {
+                self.performSegue(withIdentifier: "goToComments", sender: self)
+            }
     }
     
     // For sharing to stories
@@ -599,7 +608,8 @@ class ViewController: UIViewController {
     func changeAppearanceBasedOnMode(){
         self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
         //Prepare view for groups mode
-        if groupID != "Grapevine" {
+        if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default" {
+            // Should only switch between default and groups because we don't want to set currentmode to groups in mycomments view or myposts view
             currentMode = "groups"
         }
         if currentMode == "default" {
@@ -1037,6 +1047,23 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
+    func didGetSinglePost(_ postManager: PostsManager, post: Post) {
+        DispatchQueue.main.async {
+            if post.poster == "" {
+                self.performSegue(withIdentifier: "goToComments", sender: self)
+            }
+            if post.type == "image" {
+                let cell = PostTableViewCell()
+                let cellImage = cell.createTableCellImage()
+                self.selectedPostScreenshot = cellImage
+                self.selectedPost = post
+            } else {
+                self.selectedPost = post
+            }
+            self.performSegue(withIdentifier: "goToComments", sender: self)
+        }
+    }
+    
     /** Reloads the table to reflect the newly retrieved posts.
      - Parameters:
         - postManager: `PostManager` object that fetched the posts
@@ -1332,7 +1359,7 @@ extension ViewController: CommentViewControllerDelegate {
 extension ViewController: MDCBottomNavigationBarDelegate {
     func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
-            if currentMode == "default" {
+            if currentMode == "default" || currentMode == "groups" {
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
                 scrollToTop()
             } else { // myPosts or myComments

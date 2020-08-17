@@ -204,11 +204,11 @@ function randomString(length) {
 }
 
 // Get user id from post id
-function sendPushNotificationToPoster(req, postID, body){
+function sendPushNotificationToPoster(req, postID, groupID = "Grapevine", body){
   var db = req.app.get('db');
-  let groupID = req.query.groupID;
-  var docRef = db.collection("posts").doc(postID);
-  if (groupID != "Grapevine") {
+  if (groupID == "Grapevine") {
+    var docRef = db.collection("posts").doc(postID);
+  } else {
 	  docRef = db.collection('groups').doc(groupID).collection("posts").doc(postID);
   }
   docRef.get().then(function(doc) {

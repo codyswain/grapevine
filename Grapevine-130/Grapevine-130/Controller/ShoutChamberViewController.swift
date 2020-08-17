@@ -149,6 +149,10 @@ extension ShoutChamberViewController: UITableViewDataSource {
 
 /// Updates the posts table once posts are sent by the server.
 extension ShoutChamberViewController: PostsManagerDelegate {
+    func didGetSinglePost(_ postManager: PostsManager, post: Post) {
+        return
+    }
+    
     /**
      Reloads the table to reflect the newly retrieved posts.
      
