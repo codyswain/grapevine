@@ -90,6 +90,12 @@ class ViewController: UIViewController {
     
     // Variables for tracking current select ability
     var currentAbility: String = "push"
+    
+    //used for expanding a cell
+    var expandAtIndex: IndexPath?
+    var expandedCellHeight: CGFloat?
+    var expandNextCell = false
+    var shrinkNextCell = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
@@ -528,9 +534,9 @@ class ViewController: UIViewController {
         selectedPost = posts[row]
     }
     
-    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
+    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage){
         print("Segue to comment view occurs here")
-        let indexPath = self.tableView.indexPath(for: cell)!
+        let indexPath = self.tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
@@ -919,6 +925,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.shrinkNextCell || self.expandNextCell {
+            if let indexToExpand = expandAtIndex{
+                if indexToExpand == indexPath {
+                    return self.expandedCellHeight ?? UITableView.automaticDimension
+                }
+            }
+        }
+        return UITableView.automaticDimension
+    }
+    
     /**
      Describes how to display a cell for each post.
      
@@ -990,6 +1007,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableAbilities()
         }
         
+        //collapse cells
+        if self.expandNextCell == true {
+            self.expandNextCell = false
+            cell.expandCell()
+        } else if self.shrinkNextCell == true {
+            self.shrinkNextCell = false
+            cell.shrinkCell()
+        } else {
+            cell.shrinkCell()
+        }
         return cell
     }
     
@@ -1249,7 +1276,7 @@ extension ViewController: PostTableViewCellDelegate {
         }
     }
     
-    func viewComments(_ cell: UITableViewCell) {}
+    func viewComments(_ cell: PostTableViewCell) {}
     
     /** Updates votes view on a post.
      - Parameters:
@@ -1298,6 +1325,21 @@ extension ViewController: PostTableViewCellDelegate {
         self.present(alert, animated: true)
     }
     
+    func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat) {
+        self.expandAtIndex = self.tableView.indexPath(for: cell) ?? self.expandAtIndex
+        self.expandedCellHeight = cellHeight
+        if cell.isExpanded {
+            self.expandNextCell = true
+        } else {
+            self.shrinkNextCell = true
+        }
+        //tableView.beginUpdates()
+        if let indexToExpand = expandAtIndex {
+            tableView.reloadRows(at: [indexToExpand], with: .none)
+
+        }
+        //tableView.endUpdates()
+    }
     
 }
 
