@@ -216,7 +216,7 @@ function sendPushNotificationToPoster(req, postID, groupID = "Grapevine", body){
       if (doc.exists) {
           userID = doc.data().poster;
           console.log(`RETRIEVED USER ID ${userID}`);
-          pushNotificationHelper1(req, userID, body);
+          pushNotificationHelper1(req, userID, body, postID);
       } else {
           console.log("No such document!");
       }
@@ -225,14 +225,14 @@ function sendPushNotificationToPoster(req, postID, groupID = "Grapevine", body){
   });
 }
 // Get user token from user id
-function pushNotificationHelper1(req, userID, body){
+function pushNotificationHelper1(req, userID, body, postID){
   var db = req.app.get('db');
   var docRef = db.collection("users").doc(userID);
   docRef.get().then(function(doc) {
       if (doc.exists) {
           token = doc.data().pushNotificationToken
           console.log(`RETRIEVED token ${token}`);
-          pushNotificationHelper2(req, token, body);
+          pushNotificationHelper2(req, token, body, postID);
       } else {
           console.log("No such document!");
       }
@@ -241,7 +241,7 @@ function pushNotificationHelper1(req, userID, body){
   });
 }
 // Send the push notification
-function pushNotificationHelper2(req, token, body){
+function pushNotificationHelper2(req, token, body, postID ){
   var apnProvider = req.app.get('apnProvider')
   if (token){
     console.log("TOKEN EXISTS");
@@ -250,10 +250,14 @@ function pushNotificationHelper2(req, token, body){
     note.badge = 1;
     note.sound = "ping.aiff";
     note.alert = `${body}`;
-    note.payload = {'messageFrom': 'Anonymous'};
+    note.payload = {
+      'messageFrom': 'Anonymous',
+      'postID': postID
+    };
     note.topic = "io.grapevineapp.Grapevine";
+    note.action = `${postID}`
 
-    console.log("SENDING TOKEN");
+    console.log(`SENDING NOTIFICATION ${note.payload}`);
     apnProvider.send(note, token).then( (result) => {
       console.log(`RESULT ${result}`)
     });

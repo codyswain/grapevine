@@ -302,10 +302,16 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    
     /// Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        viewCommentScreen()
+    }
+    
+    func viewCommentScreen(){
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
     }
+    
 
     /** Modify post colors to reflect a downvote. */
     func setDownvotedColors(){
