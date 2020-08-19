@@ -156,18 +156,18 @@ class ViewController: UIViewController {
         
         // If user launches app via notification, open comment view controller
         let defaults = UserDefaults.standard
-        if let notificationPostID = defaults.string(forKey: "notificationPostID") {
-            currentMode = "myPosts"
-            let cell = PostTableViewCell()
+//        if let notificationPostID = defaults.string(forKey: "notificationPostID") {
+        let notificationPostID = "5FJYWUpg0SLdkisvTONN&userID=d3e4e913f54469cd6703bdde788aaf97e5e20006cedc700db5f17509828d7cbf" //Random post id for testing
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
 //            cell.documentId = notificationPostID
-            g
 //            cell.viewCommentScreen()
             
             let cellImage = cell.createTableCellImage()
             self.selectedPostScreenshot = cellImage
             defaults.removeObject(forKey: "notificationPostID")
             self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
-        }
+        //}
     }
     
     // Display notification alert. Location alert is handled by location manager callback function
@@ -1072,6 +1072,7 @@ extension ViewController: PostsManagerDelegate {
                 self.selectedPost = post
             } else {
                 self.selectedPost = post
+                
             }
             self.performSegue(withIdentifier: "goToComments", sender: self)
         }
