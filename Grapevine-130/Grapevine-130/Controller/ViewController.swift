@@ -414,6 +414,7 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
+            destinationVC.expandedCellHeight = self.expandedCellHeight
             destinationVC.mainPost = self.selectedPost
             destinationVC.mainPostScreenshot = self.selectedPostScreenshot
         }
@@ -537,16 +538,25 @@ class ViewController: UIViewController {
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage){
         print("Segue to comment view occurs here")
         let indexPath = self.tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
+        if cell.isExpanded == false {
+            cell.expandButtonPressed(self)
+            cell.expandCell()
+            cell.isExpanded = false
+        }
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
         if currentMode == "myComments" {
             selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
+            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapevine")
                 //fetchSinglePost callback performs segue initiation
         } else {
                 self.performSegue(withIdentifier: "goToComments", sender: self)
             }
+        if cell.isExpanded == false {
+            cell.expandButtonPressed(self)
+            cell.shrinkCell()
+        }
     }
     
     // For sharing to stories

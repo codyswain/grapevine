@@ -438,7 +438,6 @@ class PostTableViewCell: UITableViewCell {
             self.upvoteImageButton.isHidden = true
             self.upvoteImageButton.isHidden = true
         }
-        self.expandButtonPressed(self)
         return im
     }
     
@@ -552,12 +551,17 @@ class PostTableViewCell: UITableViewCell {
     @IBAction func expandButtonPressed(_ sender: Any) {
         if self.isExpanded == false {
             self.isExpanded = true
-            self.expandCell()
-            self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines()) * self.label.font.lineHeight + 86)
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.expandCell()
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines()) * self.label.font.lineHeight + 86)
+            }, completion: nil)
+            
         } else {
             self.isExpanded = false
-            self.shrinkCell()
-            self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.shrinkCell()
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
+            }, completion: nil)
         }
     }
     
