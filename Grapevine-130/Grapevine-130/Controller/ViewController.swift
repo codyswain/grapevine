@@ -505,7 +505,7 @@ class ViewController: UIViewController {
         shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         
-        abilitiesBackgroundView.isHidden = false
+        abilitiesBackgroundView.isHidden = false //this is is also being used to determine behavior of navbar in abilities view
         abilitiesBackgroundView.isUserInteractionEnabled = true
         
         abilitiesStackView.isHidden = false
@@ -1413,7 +1413,11 @@ extension ViewController: MDCBottomNavigationBarDelegate {
         if item.tag == 0 {
             if currentMode == "default" || currentMode == "groups" {
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
-                scrollToTop()
+                if abilitiesBackgroundView.isHidden == false {
+                    exitAbilities()
+                } else {
+                    scrollToTop()
+                }
             } else { // myPosts or myComments
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
                 let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
