@@ -537,11 +537,12 @@ class ViewController: UIViewController {
     
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage){
         print("Segue to comment view occurs here")
+        var shouldReshrinkCell = false
         let indexPath = self.tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
         if cell.isExpanded == false {
             cell.expandButtonPressed(self)
             cell.expandCell()
-            cell.isExpanded = false
+            shouldReshrinkCell = true
         }
         let row = indexPath.row
         selectedPost = posts[row]
@@ -552,11 +553,13 @@ class ViewController: UIViewController {
                 //fetchSinglePost callback performs segue initiation
         } else {
                 self.performSegue(withIdentifier: "goToComments", sender: self)
-            }
-        if cell.isExpanded == false {
+        }
+        if shouldReshrinkCell == true {
             cell.expandButtonPressed(self)
             cell.shrinkCell()
+            shouldReshrinkCell = false
         }
+        
     }
     
     // For sharing to stories
@@ -1017,13 +1020,15 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableAbilities()
         }
         
-        //collapse cells
+        //Expand or collapse cells
         if self.expandNextCell == true {
             self.expandNextCell = false
             cell.expandCell()
+            print("cell expanded")
         } else if self.shrinkNextCell == true {
             self.shrinkNextCell = false
             cell.shrinkCell()
+            print("cell shrunk")
         } else {
             cell.shrinkCell()
         }
@@ -1343,14 +1348,11 @@ extension ViewController: PostTableViewCellDelegate {
         } else {
             self.shrinkNextCell = true
         }
-        //tableView.beginUpdates()
         if let indexToExpand = expandAtIndex {
             tableView.reloadRows(at: [indexToExpand], with: .none)
 
         }
-        //tableView.endUpdates()
     }
-    
 }
 
 /// Manages the `user` object returned by the server.
