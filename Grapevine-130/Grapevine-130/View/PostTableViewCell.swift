@@ -564,13 +564,17 @@ class PostTableViewCell: UITableViewCell {
     //Expand cell button. Expands or contracts cell if pressed when content too large
     @IBAction func expandButtonPressed(_ sender: Any) {
         if self.isExpanded == false {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+            self.expandButton.tintColor = Constants.Colors.darkPurple
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                 self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 86)
-            }, completion: nil)
+                self.expandButton.tintColor = .systemGray3
+            }, completion: nil )
             
         } else {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+            self.expandButton.tintColor = Constants.Colors.darkPurple
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                 self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
+                self.expandButton.tintColor = .systemGray3
             }, completion: nil)
         }
     }
