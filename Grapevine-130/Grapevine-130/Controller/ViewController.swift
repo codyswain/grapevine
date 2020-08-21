@@ -1076,6 +1076,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
+    func contentNotPermitted() {
+        //Implemented in newPostViewController
+    }
+    
     func didGetSinglePost(_ postManager: PostsManager, post: Post) {
         DispatchQueue.main.async {
             if post.poster == "" {

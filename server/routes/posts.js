@@ -167,23 +167,31 @@ async function createPost(req, res, next) {
 	console.log("createPost request of type: " + req.body.type + " and req.body.userID: " + req.body.userID)
 	// Text post creation logic
 	if (req.body.type == 'text') {
-		let toxic_result = await perspective.analyze(req.body.text);
-		console.log("Toxicity score " + toxic_result.attributeScores.TOXICITY.summaryScore.value)
-		userPost = {
-			content : req.body.text,
-      poster : req.body.userID,
-			votes : 0,
-			date : req.body.date,
-			type : req.body.type,
-			lat : req.body.latitude,
-			lon : req.body.longitude,
-			numFlags : 0,
-			geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
-			interactions: {},
-			toxicity: toxic_result.attributeScores.TOXICITY.summaryScore.value,
-			banned: false,
-			comments: 0
-		};
+    let text = req.body.text
+    if (utils.isMatchBannedWords(text)) {
+      console.log("content not permitted")
+      res.status(213).send("content not permitted") //213  is a custom status code. Status codes are extensible. this is saying the request was successfully processed but indicated the content is not permitted. Defined by us.
+      return
+    }
+    else {
+      let toxic_result = await perspective.analyze(text);
+      console.log("Toxicity score " + toxic_result.attributeScores.TOXICITY.summaryScore.value)
+      userPost = {
+        content : text,
+        poster : req.body.userID,
+        votes : 0,
+        date : req.body.date,
+        type : req.body.type,
+        lat : req.body.latitude,
+        lon : req.body.longitude,
+        numFlags : 0,
+        geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
+        interactions: {},
+        toxicity: toxic_result.attributeScores.TOXICITY.summaryScore.value,
+        banned: false,
+        comments: 0
+      };
+    }
 	}
 
 	// Image/drawing creation logic

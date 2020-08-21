@@ -260,11 +260,28 @@ function pushNotificationHelper2(req, token, body){
   }
 }
 
+const bannedWords = require('./bannedWordsAndPhrases.json');
+//Removes whitespace from string and matches it to word from list
+function isMatchBannedWords(text) {
+  const alphaChars = /[^a-zA-Z]/g    //Regex that matches everything in english alphabet
+  text = text.replace(alphaChars, '')   //Replace everthing thats not a letter with nothing
+  var result = false  //default to false
+  bannedWords['offensiveLanguage'].forEach(function (word) {       //Loop through array
+	  var wordMatch = new RegExp('(' + word + ')', 'i') //create Regex to match for word
+	  if (wordMatch.test(text)) {   //if there is a match
+      console.log("post removed because it contained: " + word)  //what word did they say
+      result = true //a return statement inside forEach just returns from foreach. Not from the entire function. So we return the result
+      return result  //there was a match
+    }
+  })
+  return result //result contains true if match in foreach statement otherwise contains false
+}
+
 module.exports = {
   getCoordBox, 
   getGeohashRange, 
   getGeohash, 
-  UPVOTE, 
+  UPVOTE,
   DOWNVOTE, 
   FLAG, 
   toggleInteraction, 
@@ -278,5 +295,6 @@ module.exports = {
   randomString,
   updatePushNotificationToken, 
   sendPushNotificationToPoster, 
-  pushNotificationHelper1
+  pushNotificationHelper1,
+  isMatchBannedWords
 }
