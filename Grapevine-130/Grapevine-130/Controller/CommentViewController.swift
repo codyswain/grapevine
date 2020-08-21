@@ -13,6 +13,7 @@ protocol CommentViewControllerDelegate {
     func updateTableViewVotes(_ post: Post, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ post: Post, newFlagStatus: Int)
     func showSharePopup(_ postType: String, _ content: UIImage)
+    func updateTableViewComments(_ post: Post, numComments: Int)
 }
 
 class CommentViewController: UIViewController {
@@ -479,6 +480,7 @@ extension CommentViewController: CommentsManagerDelegate {
     func didCreateComment() {
         self.newCommentCreated = true
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
+        self.delegate?.updateTableViewComments(mainPost!, numComments: comments.count + 1)
     }
 }
 
@@ -505,6 +507,8 @@ extension CommentViewController: CommentTableViewCellDelegate {
             self.commentsManager.deleteComment(commentID: docIDtoDelete, postID: postIDtoDecrement, groupID: Globals.ViewSettings.groupID)
             self.comments.remove(at: row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.delegate?.updateTableViewComments(self.mainPost!, numComments: self.comments.count)
+
         })
 
         makePopup(alert: alert, image: "x.circle.fill")

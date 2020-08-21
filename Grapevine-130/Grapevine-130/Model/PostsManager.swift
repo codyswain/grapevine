@@ -230,7 +230,7 @@ struct PostsManager {
 
         // create post request
         var url =  URL(string:createPostURL)!
-        if groupID != "Grapevine" {
+        if groupID != "Grapevine" && groupID != "" {
             url = URL(string: createGroupsPostURL)!
         }
         var request = URLRequest(url: url)
