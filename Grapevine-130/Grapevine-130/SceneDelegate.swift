@@ -12,6 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Load walkthrough screen if this is the first time launching
         let defaults = UserDefaults.standard
+        
+        // What is going on here?? This should be if (first_launch == false) - Cody
         if defaults.bool(forKey: "first_launch") == true {
             print("Launch status: Not the first launch")
             
