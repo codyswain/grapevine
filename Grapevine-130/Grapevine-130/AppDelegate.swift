@@ -6,14 +6,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var pushNotificationToken: String = ""
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         // Override point for customization after application launch.
         registerForPushNotifications()
         print("Device Type: \(Constants.deviceType)")
+        
         // Remove all push notifications
-        application.applicationIconBadgeNumber = 0
-        let center = UNUserNotificationCenter.current()
-        center.removeAllDeliveredNotifications()
-        center.removeAllPendingNotificationRequests()
+//        application.applicationIconBadgeNumber = 0
+//        let center = UNUserNotificationCenter.current()
+//        center.removeAllDeliveredNotifications()
+//        center.removeAllPendingNotificationRequests()
         
         return true
     }
@@ -72,8 +74,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ){
         print("Failed to register: \(error)")
     }
-
-
 }
-
 

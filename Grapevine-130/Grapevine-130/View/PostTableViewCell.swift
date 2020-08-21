@@ -311,11 +311,18 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    
     /// Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        viewCommentScreen()
+    }
+    
+    func viewCommentScreen(){
+        self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
         let cellHeight = self.label.totalNumberOfLines() * Int(ceil(self.label.font.lineHeight)) + 86
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!, cellHeight: CGFloat(cellHeight))
     }
+    
 
     /** Modify post colors to reflect a downvote. */
     func setDownvotedColors(){
