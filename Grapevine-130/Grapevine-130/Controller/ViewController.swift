@@ -535,15 +535,10 @@ class ViewController: UIViewController {
         selectedPost = posts[row]
     }
     
-    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage){
+    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat = 0){
         print("Segue to comment view occurs here")
-        var shouldReshrinkCell = false
+        self.expandedCellHeight = cellHeight
         let indexPath = self.tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
-        if cell.isExpanded == false {
-            cell.expandButtonPressed(self)
-            cell.expandCell()
-            shouldReshrinkCell = true
-        }
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
@@ -554,12 +549,6 @@ class ViewController: UIViewController {
         } else {
                 self.performSegue(withIdentifier: "goToComments", sender: self)
         }
-        if shouldReshrinkCell == true {
-            cell.expandButtonPressed(self)
-            cell.shrinkCell()
-            shouldReshrinkCell = false
-        }
-        
     }
     
     // For sharing to stories
@@ -1021,17 +1010,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         //Expand or collapse cells
-        if self.expandNextCell == true {
-            self.expandNextCell = false
-            cell.expandCell()
-            print("cell expanded")
-        } else if self.shrinkNextCell == true {
-            self.shrinkNextCell = false
-            cell.shrinkCell()
-            print("cell shrunk")
-        } else {
-            cell.shrinkCell()
+        if !cell.expandButton.isHidden {
+            if self.expandNextCell == true {
+                self.expandNextCell = false
+                cell.expandCell()
+            } else if self.shrinkNextCell == true {
+                self.shrinkNextCell = false
+                cell.shrinkCell()
+            } else {
+                cell.shrinkCell()
+            }
         }
+        
         return cell
     }
     
@@ -1291,7 +1281,7 @@ extension ViewController: PostTableViewCellDelegate {
         }
     }
     
-    func viewComments(_ cell: PostTableViewCell) {}
+    func viewComments(_ cell: PostTableViewCell, cellHeight: CGFloat) {}
     
     /** Updates votes view on a post.
      - Parameters:
@@ -1340,10 +1330,11 @@ extension ViewController: PostTableViewCellDelegate {
         self.present(alert, animated: true)
     }
     
+    //Reloads cell at which expand button was pressed. Sets flag that indicates whether the cell should be collapsed or expanded upon reload
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat) {
         self.expandAtIndex = self.tableView.indexPath(for: cell) ?? self.expandAtIndex
         self.expandedCellHeight = cellHeight
-        if cell.isExpanded {
+        if !cell.isExpanded {
             self.expandNextCell = true
         } else {
             self.shrinkNextCell = true

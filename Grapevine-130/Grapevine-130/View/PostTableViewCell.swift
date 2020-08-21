@@ -7,7 +7,7 @@ protocol PostTableViewCellDelegate {
     func deleteCell( _ cell: UITableViewCell)
     func showAbilitiesView(_ cell: UITableViewCell)
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
-    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage)
+    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
 }
@@ -69,7 +69,7 @@ class PostTableViewCell: UITableViewCell {
     var user: User? // Get user for flammable ability
     
     ///Post Expansion
-    var isExpanded = false
+    var isExpanded: Bool = false
     
     //private constants
     /// post expansion
@@ -313,7 +313,8 @@ class PostTableViewCell: UITableViewCell {
     
     /// Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
+        let cellHeight = self.label.totalNumberOfLines() * Int(ceil(self.label.font.lineHeight)) + 86
+        self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!, cellHeight: CGFloat(cellHeight))
     }
 
     /** Modify post colors to reflect a downvote. */
@@ -467,31 +468,6 @@ class PostTableViewCell: UITableViewCell {
         if (post.type == "text"){
             self.postType = "text"
             self.label.text = post.content
-            
-            // Collapse Post
-            
-            self.label.numberOfLines = maxLines
-            self.commentAreaButton.clipsToBounds = true
-
-            if self.label.numberOfLines() > maxLines {
-                //print(self.label.text as Any)
-                if self.isExpanded == false {
-                    self.label.numberOfLines = maxLines
-                    self.label.lineBreakMode = .byTruncatingTail
-                } else {
-                    self.label.numberOfLines = -1
-                    self.label.lineBreakMode = .byWordWrapping
-                }
-                self.expandButton.isUserInteractionEnabled = true
-                self.expandButton.isHidden = false
-            }
-            else {
-                self.expandButton.isUserInteractionEnabled = false
-                self.expandButton.isHidden = true
-                self.label.lineBreakMode = .byWordWrapping
-
-            }
-            
         } else {
             if let decodedData = Data(base64Encoded: post.content, options: .ignoreUnknownCharacters) {
                 let imageData = UIImage(data: decodedData)!
@@ -531,6 +507,25 @@ class PostTableViewCell: UITableViewCell {
             burnBlockedView.isUserInteractionEnabled = true
             burnBlockedView.isHidden = false
         }
+        
+        // Collapse Cell
+        label.numberOfLines = maxLines
+        commentAreaButton.clipsToBounds = true
+
+        if self.label.totalNumberOfLines() > maxLines {
+            expandButton.isUserInteractionEnabled = true
+            expandButton.isHidden = false
+            if self.isExpanded == true {
+                self.expandCell()
+            } else {
+                self.shrinkCell()
+            }
+        }
+        else {
+            expandButton.isUserInteractionEnabled = false
+            expandButton.isHidden = true
+            label.lineBreakMode = .byWordWrapping
+        }
     }
     
     func expandCell() {
@@ -550,16 +545,12 @@ class PostTableViewCell: UITableViewCell {
     //Expand cell button. Expands or contracts cell if pressed when content too large
     @IBAction func expandButtonPressed(_ sender: Any) {
         if self.isExpanded == false {
-            self.isExpanded = true
             UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
-                self.expandCell()
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines()) * self.label.font.lineHeight + 86)
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 86)
             }, completion: nil)
             
         } else {
-            self.isExpanded = false
             UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
-                self.shrinkCell()
                 self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
             }, completion: nil)
         }
@@ -593,7 +584,7 @@ class PostTableViewCell: UITableViewCell {
 }
 
 extension UILabel {
-    func numberOfLines() -> Int {
+    func totalNumberOfLines() -> Int {
         let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
         let charSize = font.lineHeight
         let text = (self.text ?? "") as NSString
