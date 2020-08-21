@@ -318,7 +318,6 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func viewCommentScreen(){
-        self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
         let cellHeight = self.label.totalNumberOfLines() * Int(ceil(self.label.font.lineHeight)) + 86
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!, cellHeight: CGFloat(cellHeight))
     }

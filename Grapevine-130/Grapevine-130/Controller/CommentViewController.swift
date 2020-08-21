@@ -172,7 +172,10 @@ class CommentViewController: UIViewController {
             self.actionBar.frame.origin.x = 0
             self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPoints, 250)
         } else {
-            let heightInPoints = (mainPostScreenshot?.size.height)! - 20 // - 80 fits perfectly with no space
+            var heightInPoints = (mainPostScreenshot?.size.height)! - 20 // - 80 fits perfectly with no space
+            if expandedCellHeight != nil {
+                heightInPoints = expandedCellHeight ?? heightInPoints
+            }
             self.actionBar.frame.origin.x = 0
             self.actionBar.frame.origin.y = min(heightInPoints, self.view.frame.height / 2)
         }
