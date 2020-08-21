@@ -59,6 +59,7 @@ class CommentViewController: UIViewController {
     var mainPostScreenshot: UIImage?
     var storyManager = StoryManager()
     var newCommentCreated: Bool = false // fixes auto scrolling bug
+    var expandedCellHeight: CGFloat?
 
     // Define Refresher
     lazy var refresher: UIRefreshControl = {

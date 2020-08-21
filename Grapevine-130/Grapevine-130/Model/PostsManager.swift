@@ -8,6 +8,7 @@ protocol PostsManagerDelegate {
     func didFailWithError(error: Error)
     func didCreatePost()
     func didGetSinglePost(_ postManager: PostsManager, post: Post)
+    func contentNotPermitted()
 }
 
 /// An object that handles the retrieval of post data from the database.
@@ -249,7 +250,12 @@ struct PostsManager {
             }
             if let response = response {
                 let httpResponse = response as! HTTPURLResponse
-                self.delegate?.didCreatePost()
+                print(httpResponse.statusCode)
+                if httpResponse.statusCode == 213 {
+                    self.delegate?.contentNotPermitted()
+                } else {
+                    self.delegate?.didCreatePost()
+                }
             }
         }
         task.resume()

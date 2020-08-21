@@ -7,8 +7,9 @@ protocol PostTableViewCellDelegate {
     func deleteCell( _ cell: UITableViewCell)
     func showAbilitiesView(_ cell: UITableViewCell)
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
-    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage)
+    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
+    func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
 }
 
 protocol BannedPostTableViewCellDelegate {
@@ -22,6 +23,7 @@ protocol ShoutPostTableViewCellDelegate {
 /// Describes a cell in the posts table
 class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var expandButton: UIButton!
     @IBOutlet weak var commentAreaButton: UIView!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var downvoteImageButton: UIImageView!
@@ -65,6 +67,14 @@ class PostTableViewCell: UITableViewCell {
     var banDelegate: BannedPostTableViewCellDelegate?
     var shoutDelegate: ShoutPostTableViewCellDelegate?
     var user: User? // Get user for flammable ability
+    
+    ///Post Expansion
+    var isExpanded: Bool = false
+    
+    //private constants
+    /// post expansion
+    fileprivate let maxLines = 3
+    
     
     /**
     Initializes the posts table and adds gestures.
@@ -113,7 +123,6 @@ class PostTableViewCell: UITableViewCell {
             self.abilitiesBackgroundView.layer.mask = maskLayer
             self.abilitiesBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         }
-        
     }
     
     /** Update the client view of a post. */
@@ -310,6 +319,8 @@ class PostTableViewCell: UITableViewCell {
     
     func viewCommentScreen(){
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!)
+        let cellHeight = self.label.totalNumberOfLines() * Int(ceil(self.label.font.lineHeight)) + 86
+        self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!, cellHeight: CGFloat(cellHeight))
     }
     
 
@@ -462,8 +473,8 @@ class PostTableViewCell: UITableViewCell {
         
         /// Set main body of post cell
         if (post.type == "text"){
-            self.label.text = post.content
             self.postType = "text"
+            self.label.text = post.content
         } else {
             if let decodedData = Data(base64Encoded: post.content, options: .ignoreUnknownCharacters) {
                 let imageData = UIImage(data: decodedData)!
@@ -493,7 +504,6 @@ class PostTableViewCell: UITableViewCell {
             self.commentButton.setTitle("", for: .normal)
             self.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
         }
-        
         /// Cell is flammable
         if (post.votes < -3 && post.poster != self.user!.user){
             print("Post is flammable/bannable")
@@ -504,7 +514,57 @@ class PostTableViewCell: UITableViewCell {
             burnBlockedView.isUserInteractionEnabled = true
             burnBlockedView.isHidden = false
         }
+        
+        // Collapse Cell
+        label.numberOfLines = maxLines
+        commentAreaButton.clipsToBounds = true
+
+        if self.label.totalNumberOfLines() > maxLines {
+            expandButton.isUserInteractionEnabled = true
+            expandButton.isHidden = false
+            if self.isExpanded == true {
+                self.expandCell()
+            } else {
+                self.shrinkCell()
+            }
+        }
+        else {
+            expandButton.isUserInteractionEnabled = false
+            expandButton.isHidden = true
+            label.lineBreakMode = .byWordWrapping
+        }
     }
+    
+    func expandCell() {
+        self.isExpanded = true
+        self.label.numberOfLines = -1 //infinity
+        self.label.lineBreakMode = .byWordWrapping
+        self.expandButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+    }
+    
+    func shrinkCell() {
+        self.isExpanded = false
+        self.label.lineBreakMode = .byTruncatingTail
+        self.label.numberOfLines = self.maxLines
+        self.expandButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+    }
+    
+    //Expand cell button. Expands or contracts cell if pressed when content too large
+    @IBAction func expandButtonPressed(_ sender: Any) {
+        if self.isExpanded == false {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 86)
+            }, completion: nil)
+            
+        } else {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
+            }, completion: nil)
+        }
+    }
+    
+    
+    
     
     // Abilities
     /// TO-DO: simplify these into one function with a case statement
@@ -527,5 +587,16 @@ class PostTableViewCell: UITableViewCell {
         } else {
             self.delegate?.showAbilitiesView(self)
         }
+    }
+}
+
+extension UILabel {
+    func totalNumberOfLines() -> Int {
+        let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
+        let charSize = font.lineHeight
+        let text = (self.text ?? "") as NSString
+        let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font as Any], context: nil)
+        let linesRoundedUp = Int(ceil(textSize.height/charSize))
+        return linesRoundedUp
     }
 }
