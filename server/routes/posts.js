@@ -48,7 +48,7 @@ async function getPosts(req, res, next) {
 
     // Basic request for posts
     if (activityFilter == "top"){
-      if (typeFilter == "art" || typeFilter == "text"){
+      if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
