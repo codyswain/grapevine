@@ -16,6 +16,7 @@ import MessageUI
 class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     var bottomNavBar = MDCBottomNavigationBar()
     
+    // MARK: Properties
     @IBOutlet weak var DarkModeSwitch: UISwitch!
     @IBOutlet weak var DarkModeLabel: UILabel!
     
@@ -39,7 +40,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     /// Intializes the score screen.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // Set the initial state of switch and text
         initializeTheme()

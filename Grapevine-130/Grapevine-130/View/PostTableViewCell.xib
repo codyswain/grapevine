@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -42,8 +42,21 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RXq-AR-44P" userLabel="Image">
                                         <rect key="frame" x="47" y="15" width="332" height="191"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avt-2A-rf3">
+                                        <rect key="frame" x="206" y="33" width="18.5" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="2ig-Ot-OLM"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="chevron.down" catalog="system">
+                                            <color key="titleColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="expandButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="T43-89-JDs"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeStamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A2d-XA-vy1">
-                                        <rect key="frame" x="15" y="7" width="75" height="12"/>
+                                        <rect key="frame" x="4" y="2" width="75" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,8 +73,10 @@
                                     <constraint firstItem="RXq-AR-44P" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="15" id="QnT-JN-5i8"/>
                                     <constraint firstAttribute="trailing" secondItem="k6Z-o2-oI6" secondAttribute="trailing" constant="8" id="UHV-fv-Lzp"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="centerX" secondItem="CwN-Dl-0tb" secondAttribute="centerX" id="cRD-80-LqG"/>
+                                    <constraint firstItem="avt-2A-rf3" firstAttribute="centerX" secondItem="k6Z-o2-oI6" secondAttribute="centerX" id="d2J-4r-w69"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="15" id="h2v-hZ-BZZ"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="8" id="jdI-Wh-QJi"/>
+                                    <constraint firstItem="avt-2A-rf3" firstAttribute="top" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="-1.5" id="qhQ-8w-0vH"/>
                                     <constraint firstItem="VNW-4m-14j" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="9" id="rGq-PI-SEJ"/>
                                 </constraints>
                             </view>
@@ -345,6 +360,7 @@
                 <outlet property="commentButton" destination="MKm-Hz-1oK" id="DLQ-nP-cfm"/>
                 <outlet property="deleteButton" destination="VNW-4m-14j" id="2rf-XS-ULN"/>
                 <outlet property="downvoteImageButton" destination="mBG-cM-1KG" id="27d-AY-8LW"/>
+                <outlet property="expandButton" destination="avt-2A-rf3" id="Fvd-PA-O5r"/>
                 <outlet property="footer" destination="L55-3s-fTy" id="B3b-7a-vA7"/>
                 <outlet property="imageVar" destination="RXq-AR-44P" id="kFF-zA-o0V"/>
                 <outlet property="label" destination="k6Z-o2-oI6" id="iy5-dk-p94"/>
@@ -369,6 +385,7 @@
         <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.down.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrowtriangle.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
         <image name="flame.fill" catalog="system" width="109" height="128"/>
         <image name="message.circle.fill" catalog="system" width="128" height="121"/>

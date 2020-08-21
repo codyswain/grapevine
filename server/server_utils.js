@@ -216,7 +216,7 @@ function sendPushNotificationToPoster(req, postID, groupID = "Grapevine", body){
       if (doc.exists) {
           userID = doc.data().poster;
           console.log(`RETRIEVED USER ID ${userID}`);
-          pushNotificationHelper1(req, userID, body);
+          pushNotificationHelper1(req, userID, body, postID);
       } else {
           console.log("No such document!");
       }
@@ -225,14 +225,14 @@ function sendPushNotificationToPoster(req, postID, groupID = "Grapevine", body){
   });
 }
 // Get user token from user id
-function pushNotificationHelper1(req, userID, body){
+function pushNotificationHelper1(req, userID, body, postID){
   var db = req.app.get('db');
   var docRef = db.collection("users").doc(userID);
   docRef.get().then(function(doc) {
       if (doc.exists) {
           token = doc.data().pushNotificationToken
           console.log(`RETRIEVED token ${token}`);
-          pushNotificationHelper2(req, token, body);
+          pushNotificationHelper2(req, token, body, postID);
       } else {
           console.log("No such document!");
       }
@@ -241,7 +241,7 @@ function pushNotificationHelper1(req, userID, body){
   });
 }
 // Send the push notification
-function pushNotificationHelper2(req, token, body){
+function pushNotificationHelper2(req, token, body, postID ){
   var apnProvider = req.app.get('apnProvider')
   if (token){
     console.log("TOKEN EXISTS");
@@ -250,21 +250,42 @@ function pushNotificationHelper2(req, token, body){
     note.badge = 1;
     note.sound = "ping.aiff";
     note.alert = `${body}`;
-    note.payload = {'messageFrom': 'Anonymous'};
+    note.payload = {
+      'messageFrom': 'Anonymous',
+      'postID': postID
+    };
     note.topic = "io.grapevineapp.Grapevine";
+    note.action = `${postID}`
 
-    console.log("SENDING TOKEN");
+    console.log(`SENDING NOTIFICATION ${note.payload}`);
     apnProvider.send(note, token).then( (result) => {
       console.log(`RESULT ${result}`)
     });
   }
 }
 
+const bannedWords = require('./bannedWordsAndPhrases.json');
+//Removes whitespace from string and matches it to word from list
+function isMatchBannedWords(text) {
+  const alphaChars = /[^a-zA-Z]/g    //Regex that matches everything in english alphabet
+  text = text.replace(alphaChars, '')   //Replace everthing thats not a letter with nothing
+  var result = false  //default to false
+  bannedWords['offensiveLanguage'].forEach(function (word) {       //Loop through array
+	  var wordMatch = new RegExp('(' + word + ')', 'i') //create Regex to match for word
+	  if (wordMatch.test(text)) {   //if there is a match
+      console.log("post removed because it contained: " + word)  //what word did they say
+      result = true //a return statement inside forEach just returns from foreach. Not from the entire function. So we return the result
+      return result  //there was a match
+    }
+  })
+  return result //result contains true if match in foreach statement otherwise contains false
+}
+
 module.exports = {
   getCoordBox, 
   getGeohashRange, 
   getGeohash, 
-  UPVOTE, 
+  UPVOTE,
   DOWNVOTE, 
   FLAG, 
   toggleInteraction, 
@@ -278,5 +299,6 @@ module.exports = {
   randomString,
   updatePushNotificationToken, 
   sendPushNotificationToPoster, 
-  pushNotificationHelper1
+  pushNotificationHelper1,
+  isMatchBannedWords
 }

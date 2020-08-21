@@ -12,21 +12,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Load walkthrough screen if this is the first time launching
         let defaults = UserDefaults.standard
+        
+        // What is going on here?? This should be if (first_launch == false) - Cody
         if defaults.bool(forKey: "first_launch") == true {
             print("Launch status: Not the first launch")
+            
+            // If app is opened from actionable notification, save postID
+            let defaults = UserDefaults.standard
+            if let response = connectionOptions.notificationResponse {
+                let content = response.notification.request.content.userInfo
+                if let notificationPostID = content["postID"] as? String {
+                    defaults.set(notificationPostID, forKey: "notificationPostID")
+                }
+            }
+            
             defaults.set(true, forKey:"first_launch")
-            // Just goes to view controller defined as first
+            
         } else {
             print("Launch Status: First launch")
             defaults.set(true, forKey:"first_launch")
             self.window = UIWindow(windowScene: windowScene)
-            
-            
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            guard let rootVC = storyboard.instantiateViewController(identifier: "WalkthroughViewController") as? ViewController else {
-//                print("ViewController not found")
-//                return
-//            }
             
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
@@ -34,7 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let rootNC = UINavigationController(rootViewController: walkthroughController)
                 rootNC.setNavigationBarHidden(true, animated: false)
-//            let rootNC = UINavigationController(rootViewController: rootVC)
                 self.window?.rootViewController = rootNC
                 self.window?.makeKeyAndVisible()
         }
@@ -67,7 +71,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

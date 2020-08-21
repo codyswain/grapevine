@@ -12,7 +12,6 @@ protocol ViewControllerDelegate {
 class ViewController: UIViewController {
     
     // MARK: Properties
-    // UI variables
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nearbyLabel: UILabel!
     @IBOutlet weak var rangeButton: UIButton!
@@ -39,7 +38,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var karmaAmountLabel: UITextField!
     
     // MARK: Variable Definitions
-    // Globals
     let locationManager = CLLocationManager()
     var posts: [Post] = []
     var ref = ""
@@ -65,15 +63,20 @@ class ViewController: UIViewController {
         return refreshControl
     }()
     var indicator = UIActivityIndicatorView()
+    
     // Post clicked to view comments
     var selectedPost: Post?
-    // We take a screenshot of each cell before opening the comment view of that cell because we need to find out roughly how 'tall' the text is. We use the screenshot height to do that
+    
+    // We take a screenshot of each cell before opening the comment view of that
+    // cell because we need to find out roughly how 'tall' the text is.
+    // We use the screenshot height to do that
     var selectedPostScreenshot: UIImage?
+    
     // Floating button
     var addButton = MDCFloatingButton()
+    
     // Add the bottom nav bar, which is done in BottomNavBarMenu.swift
     var bottomNavBar = MDCBottomNavigationBar()
-    /// Main control flow that manages the app once the first screen is entered.
     
     // Default feed only shows text posts
     var curPostType: String = "text"
@@ -90,19 +93,24 @@ class ViewController: UIViewController {
     
     // Variables for tracking current select ability
     var currentAbility: String = "push"
+    
+    //used for expanding a cell
+    var expandAtIndex: IndexPath?
+    var expandedCellHeight: CGFloat?
+    var expandNextCell = false
+    var shrinkNextCell = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
     }
     
-    //MARK: View Initialization
+    // MARK: View Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Disable Groups until Better Developed
+        // Disable Groups until Better Developed
         groupsButton.isUserInteractionEnabled = false
         groupsButton.isHidden = true
-        
         
         // Set dark/light mode from persistent storage
         setTheme(curView: self)
@@ -115,7 +123,7 @@ class ViewController: UIViewController {
         indicator.startAnimating()
         indicator.backgroundColor = .systemBackground
         
-        //Load user defaults into post filters
+        // Load user defaults into post filters
         setInitialPostFilters()
 
         // Prepare table
@@ -123,6 +131,7 @@ class ViewController: UIViewController {
 
         // Get the location of the user and posts based on that (if they are not banned)
         getLocationAndPosts()
+        
         // Add scroll-to-top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))
         nearbyLabel.addGestureRecognizer(tapGestureRecognizer1)
@@ -150,10 +159,21 @@ class ViewController: UIViewController {
         
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
+        
+        // If user launches app via notification, open comment view controller
+        let defaults = UserDefaults.standard
+        
+        if let notificationPostID = defaults.string(forKey: "notificationPostID") {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
+            let cellImage = cell.createTableCellImage()
+            self.selectedPostScreenshot = cellImage
+            defaults.removeObject(forKey: "notificationPostID")
+            self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
+        }
     }
     
-    //Display notification alert. Location alert is handled by location manager callback function
-    //https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
+    // Display notification alert. Location alert is handled by location manager callback function
+    // https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
     override func viewDidAppear(_ animated: Bool) {
         if Globals.ViewSettings.showNotificationAlert {
             displayNotificationAlert()
@@ -162,7 +182,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: View Utilities
+    // MARK: View Utilities
     func displayNotificationAlert() {
         let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
         alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
@@ -228,12 +248,12 @@ class ViewController: UIViewController {
         }
     }
     
-    //Called if equest for location fails
+    // Called if request for location fails
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error)")
     }
     
-    //Called if location status changed, and when location manager initiated
+    // Called if location status changed, and when location manager initiated
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if !isLocationAccessEnabled() && CLLocationManager.authorizationStatus() != .notDetermined {
             displayLocationAlert()
@@ -265,28 +285,30 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: Hide navbar on scoll
-//    func handleScroll(curPos: CGFloat, curTime: DispatchTime){
-//        let posDiff = curPos - prevPos
-//        prevPos = curPos
-//        let nanoTime = curTime.uptimeNanoseconds - prevTime.uptimeNanoseconds
-//        let timeDiff = CGFloat(nanoTime) / 1_000_000_000
-//        prevTime = curTime
-//        scrollVelocity = posDiff / timeDiff
-//        // print(scrollVelocity)
-//
-//        if (self.originalNavbarPosition == 0){
-//            /// do nothing
-//        } else if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
-//            /// do nothing
-//        } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
-//            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
-//            // self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
-//        } else {
-//            /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
-//            // self.bottomNavBar.frame.origin.y += posDiff
-//        }
-//    }
+    // MARK: Hide navbar on scoll
+    /*
+     func handleScroll(curPos: CGFloat, curTime: DispatchTime){
+         let posDiff = curPos - prevPos
+         prevPos = curPos
+         let nanoTime = curTime.uptimeNanoseconds - prevTime.uptimeNanoseconds
+         let timeDiff = CGFloat(nanoTime) / 1_000_000_000
+         prevTime = curTime
+         scrollVelocity = posDiff / timeDiff
+         // print(scrollVelocity)
+
+         if (self.originalNavbarPosition == 0){
+             /// do nothing
+         } else if (self.bottomNavBar.frame.origin.y == self.originalNavbarPosition && notScrolling){
+             /// do nothing
+         } else if (self.bottomNavBar.frame.origin.y <= self.originalNavbarPosition && scrollVelocity < 0){
+             /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
+             // self.bottomNavBar.frame.origin.y = self.originalNavbarPosition
+         } else {
+             /// UNCOMMENT THIS TO HIDE NAVBAR ON SCROLL
+             // self.bottomNavBar.frame.origin.y += posDiff
+         }
+     }
+     */
     
     func prepareTableView(){
         postsManager.delegate = self
@@ -387,13 +409,10 @@ class ViewController: UIViewController {
         self.applyFilter(reset: true)
     }
     
-    /**
-     Update user information when a user segues to a new screen.
-     
+    /** Update user information when a user segues to a new screen.
      - Parameters:
         - segue: New screen to transition to
-        - sender: Segue initiator
-     */
+        - sender: Segue initiator */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToNewPosts" {
             let destinationVC = segue.destination as! NewPostViewController
@@ -408,6 +427,7 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
+            destinationVC.expandedCellHeight = self.expandedCellHeight
             destinationVC.mainPost = self.selectedPost
             destinationVC.mainPostScreenshot = self.selectedPostScreenshot
         }
@@ -438,11 +458,11 @@ class ViewController: UIViewController {
     }
     
     func exitAbilities(){
-        // give haptic feedback
+        // Vibrate for haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
 
-        // reset selected buttons
+        // Reset selected buttons
         burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
         applyAbilityButton.image = UIImage(named: "push-button")
         applyAbilityButton.alpha = 1.0
@@ -457,7 +477,7 @@ class ViewController: UIViewController {
         applyAbilityButton.isUserInteractionEnabled = false
     }
         
-    ///Displays the sharing popup, so users can share a post to Snapchat.
+    /// Displays the sharing popup, so users can share a post to Snapchat.
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
@@ -490,7 +510,7 @@ class ViewController: UIViewController {
     }
 
     func showAbilitiesView(_ cell: UITableViewCell){
-        // Give haptic feedback
+        // Vibrate for haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
         
@@ -498,7 +518,7 @@ class ViewController: UIViewController {
         shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         
-        abilitiesBackgroundView.isHidden = false
+        abilitiesBackgroundView.isHidden = false //this is is also being used to determine behavior of navbar in abilities view
         abilitiesBackgroundView.isUserInteractionEnabled = true
         
         abilitiesStackView.isHidden = false
@@ -528,19 +548,19 @@ class ViewController: UIViewController {
         selectedPost = posts[row]
     }
     
-    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
+    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat = 0){
         print("Segue to comment view occurs here")
-        let indexPath = self.tableView.indexPath(for: cell)!
+        self.expandedCellHeight = cellHeight
+        let indexPath = self.tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
         if currentMode == "myComments" {
             selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
-                //fetchSinglePost callback performs segue initiation
+            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapevine")
         } else {
                 self.performSegue(withIdentifier: "goToComments", sender: self)
-            }
+        }
     }
     
     // For sharing to stories
@@ -604,7 +624,7 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    // MARK:PENIS
+    // MARK: View Modes
     func changeAppearanceBasedOnMode(){
         self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
         //Prepare view for groups mode
@@ -612,12 +632,12 @@ class ViewController: UIViewController {
             // Should only switch between default and groups because we don't want to set currentmode to groups in mycomments view or myposts view
             currentMode = "groups"
         }
-        if currentMode == "default" {
+        switch currentMode {
+        case "default":
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Posts")
             self.view.addSubview(bottomNavBar)
-
-        } else if currentMode == "myPosts" {
+        case "myPosts":
             self.nearbyLabel.text = "My Posts"
             self.rangeButton.isHidden = true
             self.filterButton.isHidden = true
@@ -627,7 +647,7 @@ class ViewController: UIViewController {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
-        } else if currentMode == "myComments" {
+        case "myComments":
             self.nearbyLabel.text = "My Comments"
             self.rangeButton.isHidden = true
             self.filterButton.isHidden = true
@@ -637,44 +657,38 @@ class ViewController: UIViewController {
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
-        } else if currentMode == "groups" {
+        case "groups":
             print("DEBUG: \(self.view.frame.height)")
             self.nearbyLabel.text = self.groupName
             self.rangeButton.isHidden = true
             self.bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: self.bottomNavBar, tab: "Posts")
             self.view.addSubview(self.bottomNavBar)
+        default:
+            print("currentMode doesn't exist. Check view controller. ")
         }
-        
     }
     
-    //MARK: View Interaction Methods
-    
-    ///Scrolls to top of table
+    // MARK: View Interaction Methods
     @objc func scrollToTop() {
         print("DEBUG: \(self.view.frame.height)")
         let topOffest = CGPoint(x: 0, y: -(self.tableView?.contentInset.top ?? 0))
         self.tableView?.setContentOffset(topOffest, animated: true)
     }
     
-    //Called when a user taps the groups button
+    /// Called when a user taps the groups button
     @IBAction func groupsButtonPressed(_ sender: Any) {
-        print("going to groups")
-        //
-//        self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
+        // self.originalNavbarPosition = self.bottomNavBar.frame.origin.y
         self.performSegue(withIdentifier: "goToGroups", sender: self)
-        
     }
     
-    /**
-     Allows user to change the post request range
-     
-     - Parameter tapGestureRegnizer: Tap gesture that fires this function
-     */
+    /** Allows user to change the post request range
+     - Parameter tapGestureRegnizer: Tap gesture that fires this function */
     @objc func changeRange(tapGestureRecognizer: UITapGestureRecognizer)
     {
         /// Displays the possible ranges users can request posts from
-        let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
         let defaults = UserDefaults.standard //Save range for next load
+        let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
+
         let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
             self.rangeAction(range: 0.1, title: " 0.1 Miles")
             defaults.set(" 0.1 Miles", forKey: Globals.userDefaults.rangeKey)
@@ -690,6 +704,7 @@ class ViewController: UIViewController {
             defaults.set(" 3 Miles", forKey: Globals.userDefaults.rangeKey)
         }
         
+        
         let action4 = MDCAlertAction(title: "10 Miles") { (action) in
             self.rangeAction(range: 10.0, title: " 10 Miles")
             defaults.set(" 10 Miles", forKey: Globals.userDefaults.rangeKey)
@@ -702,6 +717,10 @@ class ViewController: UIViewController {
         alert.addAction(action3)
         alert.addAction(action2)
         alert.addAction(action1)
+        
+        
+        let action6 = MDCAlertAction(title: defaults.string(forKey: "notificationPostID")!) { (action) in }
+        alert.addAction(action6)
         
         makePopup(alert: alert, image: "location.circle.fill")
         self.present(alert, animated: true, completion: nil)
@@ -746,7 +765,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: Abilities
+    // MARK: Abilities
     @objc func pushButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
         pushButton.alpha = 1.0
         burnButton.alpha = 0.4
@@ -919,6 +938,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.shrinkNextCell || self.expandNextCell {
+            if let indexToExpand = expandAtIndex{
+                if indexToExpand == indexPath {
+                    return self.expandedCellHeight ?? UITableView.automaticDimension
+                }
+            }
+        }
+        return UITableView.automaticDimension
+    }
+    
     /**
      Describes how to display a cell for each post.
      
@@ -993,6 +1023,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableAbilities()
         }
         
+        //Expand or collapse cells
+        if !cell.expandButton.isHidden {
+            if self.expandNextCell == true {
+                self.expandNextCell = false
+                cell.expandCell()
+            } else if self.shrinkNextCell == true {
+                self.shrinkNextCell = false
+                cell.shrinkCell()
+            } else {
+                cell.shrinkCell()
+            }
+        }
+        
         return cell
     }
     
@@ -1047,6 +1090,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
+    func contentNotPermitted() {
+        //Implemented in newPostViewController
+    }
+    
     func didGetSinglePost(_ postManager: PostsManager, post: Post) {
         DispatchQueue.main.async {
             if post.poster == "" {
@@ -1059,6 +1106,7 @@ extension ViewController: PostsManagerDelegate {
                 self.selectedPost = post
             } else {
                 self.selectedPost = post
+                
             }
             self.performSegue(withIdentifier: "goToComments", sender: self)
         }
@@ -1251,7 +1299,7 @@ extension ViewController: PostTableViewCellDelegate {
         }
     }
     
-    func viewComments(_ cell: UITableViewCell) {}
+    func viewComments(_ cell: PostTableViewCell, cellHeight: CGFloat) {}
     
     /** Updates votes view on a post.
      - Parameters:
@@ -1300,7 +1348,20 @@ extension ViewController: PostTableViewCellDelegate {
         self.present(alert, animated: true)
     }
     
-    
+    //Reloads cell at which expand button was pressed. Sets flag that indicates whether the cell should be collapsed or expanded upon reload
+    func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat) {
+        self.expandAtIndex = self.tableView.indexPath(for: cell) ?? self.expandAtIndex
+        self.expandedCellHeight = cellHeight
+        if !cell.isExpanded {
+            self.expandNextCell = true
+        } else {
+            self.shrinkNextCell = true
+        }
+        if let indexToExpand = expandAtIndex {
+            tableView.reloadRows(at: [indexToExpand], with: .none)
+
+        }
+    }
 }
 
 /// Manages the `user` object returned by the server.
@@ -1361,7 +1422,11 @@ extension ViewController: MDCBottomNavigationBarDelegate {
         if item.tag == 0 {
             if currentMode == "default" || currentMode == "groups" {
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
-                scrollToTop()
+                if abilitiesBackgroundView.isHidden == false {
+                    exitAbilities()
+                } else {
+                    scrollToTop()
+                }
             } else { // myPosts or myComments
                 bottomNavBar.selectedItem = bottomNavBar.items[0]
                 let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")

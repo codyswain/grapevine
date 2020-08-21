@@ -320,6 +320,17 @@ extension NewPostViewController: UITextViewDelegate {
 }
 
 extension NewPostViewController: PostsManagerDelegate {
+    func contentNotPermitted() {
+        DispatchQueue.main.async {
+            let alert = MDCAlertController(title: "Content Not Permitted", message: "You created a post containing content that we do not support on this platform. Please be respectful to other users.")
+            let action1 = MDCAlertAction(title: "Ok") { (action) in super.dismiss(animated: true, completion: nil) }
+            alert.addAction(action1)
+            makePopup(alert: alert, image: "x.circle.fill")
+            self.present(alert, animated: true)
+            alert.mdc_dialogPresentationController?.dismissOnBackgroundTap = false //ideally we would have this enabled and use a completion handler to dismiss the view on background tap. But the documentation is poor and a better solution has not yet been found.
+        }
+    }
+    
     func didGetSinglePost(_ postManager: PostsManager, post: Post) {
         return
     }

@@ -16,10 +16,10 @@ protocol CommentViewControllerDelegate {
 }
 
 class CommentViewController: UIViewController {
+    
+    // MARK: Properties
     @IBOutlet weak var postContentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    
-    // Outlets for creating a new comment
     @IBOutlet weak var inputTextContainerView: UIView!
     @IBOutlet weak var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputContainerView: UIView!
@@ -59,6 +59,7 @@ class CommentViewController: UIViewController {
     var mainPostScreenshot: UIImage?
     var storyManager = StoryManager()
     var newCommentCreated: Bool = false // fixes auto scrolling bug
+    var expandedCellHeight: CGFloat?
 
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -96,8 +97,10 @@ class CommentViewController: UIViewController {
         commentInput.tintColor = Constants.Colors.darkPurple
         if (mainPost?.type == "text"){
             postContentLabel.text = mainPost!.content
-        } else {
+        } else if (mainPost?.type == "image") {
             displayImage()
+        } else {
+            print("Post type unset/nil. Check ViewController.swift")
         }
         adjustFrame()
         
@@ -164,14 +167,17 @@ class CommentViewController: UIViewController {
     }
     
     func adjustFrame(){
-        if (mainPost?.type == "text"){
-            let heightInPoints = (mainPostScreenshot?.size.height)! - 20 // - 80 fits perfectly with no space
-            self.actionBar.frame.origin.x = 0
-            self.actionBar.frame.origin.y = min(heightInPoints, self.view.frame.height / 2)
-        } else {
+        if (mainPost?.type == "image"){
             let heightInPoints = (imageVar.image?.size.height)! + 40
             self.actionBar.frame.origin.x = 0
             self.actionBar.frame.origin.y = max((self.imageVar.image?.accessibilityFrame.origin.y)! + heightInPoints, 250)
+        } else {
+            var heightInPoints = (mainPostScreenshot?.size.height)! - 20 // - 80 fits perfectly with no space
+            if expandedCellHeight != nil {
+                heightInPoints = expandedCellHeight ?? heightInPoints
+            }
+            self.actionBar.frame.origin.x = 0
+            self.actionBar.frame.origin.y = min(heightInPoints, self.view.frame.height / 2)
         }
     }
         
