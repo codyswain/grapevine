@@ -90,6 +90,9 @@ class ViewController: UIViewController {
     
     // Variables for tracking current select ability
     var currentAbility: String = "push"
+    
+    //for reloading cell after comment
+    var commentCellIndexPath: IndexPath?
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
@@ -401,6 +404,7 @@ class ViewController: UIViewController {
             destinationVC.lon = self.lon
             destinationVC.groupName = self.groupName
             destinationVC.groupID = self.groupID
+            destinationVC.delegate = self
         }
         if segue.identifier == "mainViewToScoreView" {
             let destinationVC = segue.destination as! ScoreViewController
@@ -410,6 +414,7 @@ class ViewController: UIViewController {
             let destinationVC = segue.destination as! CommentViewController
             destinationVC.mainPost = self.selectedPost
             destinationVC.mainPostScreenshot = self.selectedPostScreenshot
+            destinationVC.delegate = self
         }
         if segue.identifier == "goToGroups" {
             let destinationVC = segue.destination as! GroupsViewController
@@ -531,6 +536,7 @@ class ViewController: UIViewController {
     func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
         print("Segue to comment view occurs here")
         let indexPath = self.tableView.indexPath(for: cell)!
+        self.commentCellIndexPath = indexPath
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
@@ -1118,6 +1124,8 @@ extension ViewController: PostsManagerDelegate {
     }
     
     func didCreatePost() {
+        ///Never Called
+        //self.refresh()
         return
     }
     
@@ -1326,6 +1334,19 @@ extension ViewController: UserManagerDelegate {
 }
 
 extension ViewController: CommentViewControllerDelegate {
+    func updateTableViewComments(_ post: Post, numComments: Int) {
+        if let commentIndexPath = self.commentCellIndexPath {
+            var row = 0
+            if let i = posts.firstIndex(where: { $0.postId == post.postId }) {
+                row = i
+            }
+            posts[row].comments = numComments
+            DispatchQueue.main.async {
+                self.tableView.reloadRows(at: [commentIndexPath], with: .automatic)
+            }
+        }
+    }
+    
     func showSharePopup(_ postType: String, _ content: UIImage) {
         
     }
@@ -1407,5 +1428,11 @@ extension ViewController: GroupsViewControllerDelegate {
             self.refresh()
             return
         }
+    }
+}
+
+extension ViewController: NewPostViewControllerDelegate {
+    func postCreated() {
+        self.refresh()
     }
 }

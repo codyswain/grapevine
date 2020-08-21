@@ -3,6 +3,10 @@ import UIKit
 import CoreLocation
 import MaterialComponents.MaterialDialogs
 
+protocol NewPostViewControllerDelegate {
+    func postCreated()
+}
+
 /// Manages the control flow for making a new post.
 class NewPostViewController: UIViewController {
     var currentState = "text"
@@ -11,12 +15,15 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var backTextView: UITextView! // placeholder text
     @IBOutlet weak var newPostTextBackground: UIButton! // text
     @IBOutlet weak var drawingCanvasView: CanvasView! // drawing
+    let locationManager = CLLocationManager()
     var lat:CLLocationDegrees = 0.0
     var lon:CLLocationDegrees = 0.0
     var postsManager = PostsManager()
     var groupsManager = GroupsManager()
     var groupName = "Grapevine"
     var groupID = ""
+    var delegate: NewPostViewControllerDelegate?
+    var newPostCreationAttempt: Bool = false //Check if there is a new post. Used to avoid creating a post when just updating location.
 
     @IBOutlet weak var ColorButtonVar: UIButton!
     @IBOutlet weak var createTextButtonVar: UIButton!
@@ -48,6 +55,8 @@ class NewPostViewController: UIViewController {
         setTheme(curView: self)
         
         postsManager.delegate = self
+        locationManager.delegate = self
+
         
         newPostTextBackground.layer.cornerRadius = 10.0
         newPostTextBackground.backgroundColor = UIColor.systemGray6
@@ -246,10 +255,17 @@ class NewPostViewController: UIViewController {
         spinnerView.addSubview(ai)
         self.view.addSubview(spinnerView)
         
+        //Get Location. Callback function sends request (location manager delegate)
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestLocation()
+        newPostCreationAttempt = true
+    }
+    
+    func sendRequest() {
         if currentState == "text" {
             print("current state text")
             if let textFieldBody = frontTextView.text {
-                //trim whitespace, so people cant enter a post that is just spaces
+                //trim whitespace, so people cant enter a post that is just spaces (only before and after non-whitespace charachters. Not inbetween
                 if textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                     if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                         return
@@ -274,6 +290,7 @@ class NewPostViewController: UIViewController {
             }
             drawingCanvasView.layer.cornerRadius = 10.0
         }
+
     }
     
     func spamPopup(){
@@ -329,9 +346,37 @@ extension NewPostViewController: PostsManagerDelegate {
     func didFailWithError(error: Error) {}
     
     func didCreatePost() {
+        self.delegate?.postCreated()
         DispatchQueue.main.async {
-          self.dismiss(animated: true, completion: nil);
+            self.dismiss(animated: true, completion: nil);
         }
+    }
+}
+
+extension NewPostViewController: CLLocationManagerDelegate {
+    /** Fetches posts based on current user location. */
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.lat = location.coordinate.latitude
+            self.lon = location.coordinate.longitude
+            print("Location request success")
+            if newPostCreationAttempt == true {
+                self.sendRequest()
+                newPostCreationAttempt = false
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location error: \(error)")
+        let alert = MDCAlertController(title: "Crikey! Unable to verify location", message: "Would you like to submit your post to Global?")
+        let action1 = MDCAlertAction(title: "Yes") { (action) in super.dismiss(animated: true, completion: {self.sendRequest()})}
+        alert.addAction(action1)
+        let action2 = MDCAlertAction(title: "No") { (action) in super.dismiss(animated: true, completion: nil)}
+        alert.addAction(action2)
+        makePopup(alert: alert, image: "info.circle.fill")
+        self.present(alert, animated: true)
+        alert.mdc_dialogPresentationController?.dismissOnBackgroundTap = false //ideally we would have this enabled and use a completion handler to dismiss the view on background tap. But the documentation is poor and a better solution has not yet been found.
     }
 }
 
