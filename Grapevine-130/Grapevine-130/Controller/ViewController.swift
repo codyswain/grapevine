@@ -725,10 +725,10 @@ class ViewController: UIViewController {
         alert.addAction(action2)
         alert.addAction(action1)
         
-        
-        let action6 = MDCAlertAction(title: defaults.string(forKey: "notificationPostID")!) { (action) in }
-        alert.addAction(action6)
-        
+        if let notificationPostIDTitle = defaults.string(forKey: "notificationPostID") {
+            let action6 = MDCAlertAction(title: notificationPostIDTitle) { (action) in }
+            alert.addAction(action6)
+        }
         makePopup(alert: alert, image: "location.circle.fill")
         self.present(alert, animated: true, completion: nil)
     }
