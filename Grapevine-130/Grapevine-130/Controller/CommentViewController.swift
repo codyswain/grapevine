@@ -59,6 +59,7 @@ class CommentViewController: UIViewController {
     var mainPostScreenshot: UIImage?
     var storyManager = StoryManager()
     var newCommentCreated: Bool = false // fixes auto scrolling bug
+    var expandedCellHeight: CGFloat?
 
     // Define Refresher
     lazy var refresher: UIRefreshControl = {
@@ -165,7 +166,10 @@ class CommentViewController: UIViewController {
     
     func adjustFrame(){
         if (mainPost?.type == "text"){
-            let heightInPoints = (mainPostScreenshot?.size.height)! - 20 // - 80 fits perfectly with no space
+            var heightInPoints = (mainPostScreenshot?.size.height)! - 20 // - 80 fits perfectly with no space
+            if expandedCellHeight != nil {
+                heightInPoints = expandedCellHeight ?? heightInPoints
+            }
             self.actionBar.frame.origin.x = 0
             self.actionBar.frame.origin.y = min(heightInPoints, self.view.frame.height / 2)
         } else {

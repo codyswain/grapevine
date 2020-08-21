@@ -90,6 +90,12 @@ class ViewController: UIViewController {
     
     // Variables for tracking current select ability
     var currentAbility: String = "push"
+    
+    //used for expanding a cell
+    var expandAtIndex: IndexPath?
+    var expandedCellHeight: CGFloat?
+    var expandNextCell = false
+    var shrinkNextCell = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
@@ -408,6 +414,7 @@ class ViewController: UIViewController {
         }
         if segue.identifier == "goToComments" {
             let destinationVC = segue.destination as! CommentViewController
+            destinationVC.expandedCellHeight = self.expandedCellHeight
             destinationVC.mainPost = self.selectedPost
             destinationVC.mainPostScreenshot = self.selectedPostScreenshot
         }
@@ -528,19 +535,20 @@ class ViewController: UIViewController {
         selectedPost = posts[row]
     }
     
-    func viewComments(_ cell: UITableViewCell, _ postScreenshot: UIImage){
+    func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat = 0){
         print("Segue to comment view occurs here")
-        let indexPath = self.tableView.indexPath(for: cell)!
+        self.expandedCellHeight = cellHeight
+        let indexPath = self.tableView.indexPath(for: cell) ?? IndexPath(row: 0, section: 0)
         let row = indexPath.row
         selectedPost = posts[row]
         selectedPostScreenshot = postScreenshot
         if currentMode == "myComments" {
             selectedPost?.content = "Team Grapevine: Original post content unavailable here 😠"
-            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapvine")
+            self.postsManager.fetchSinglePost(postID: self.selectedPost?.postId ?? "", groupID: self.selectedPost?.groupID ?? "Grapevine")
                 //fetchSinglePost callback performs segue initiation
         } else {
                 self.performSegue(withIdentifier: "goToComments", sender: self)
-            }
+        }
     }
     
     // For sharing to stories
@@ -919,6 +927,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.shrinkNextCell || self.expandNextCell {
+            if let indexToExpand = expandAtIndex{
+                if indexToExpand == indexPath {
+                    return self.expandedCellHeight ?? UITableView.automaticDimension
+                }
+            }
+        }
+        return UITableView.automaticDimension
+    }
+    
     /**
      Describes how to display a cell for each post.
      
@@ -988,6 +1007,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.disableAbilities()
         } else {
             cell.enableAbilities()
+        }
+        
+        //Expand or collapse cells
+        if !cell.expandButton.isHidden {
+            if self.expandNextCell == true {
+                self.expandNextCell = false
+                cell.expandCell()
+            } else if self.shrinkNextCell == true {
+                self.shrinkNextCell = false
+                cell.shrinkCell()
+            } else {
+                cell.shrinkCell()
+            }
         }
         
         return cell
@@ -1249,7 +1281,7 @@ extension ViewController: PostTableViewCellDelegate {
         }
     }
     
-    func viewComments(_ cell: UITableViewCell) {}
+    func viewComments(_ cell: PostTableViewCell, cellHeight: CGFloat) {}
     
     /** Updates votes view on a post.
      - Parameters:
@@ -1298,7 +1330,20 @@ extension ViewController: PostTableViewCellDelegate {
         self.present(alert, animated: true)
     }
     
-    
+    //Reloads cell at which expand button was pressed. Sets flag that indicates whether the cell should be collapsed or expanded upon reload
+    func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat) {
+        self.expandAtIndex = self.tableView.indexPath(for: cell) ?? self.expandAtIndex
+        self.expandedCellHeight = cellHeight
+        if !cell.isExpanded {
+            self.expandNextCell = true
+        } else {
+            self.shrinkNextCell = true
+        }
+        if let indexToExpand = expandAtIndex {
+            tableView.reloadRows(at: [indexToExpand], with: .none)
+
+        }
+    }
 }
 
 /// Manages the `user` object returned by the server.
