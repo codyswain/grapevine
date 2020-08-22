@@ -31,7 +31,6 @@
 		63D218522429B23D00960938 /* PostReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D218512429B23D00960938 /* PostReference.swift */; };
 		839B004224CC18790044EB3A /* GroupReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839B004124CC18790044EB3A /* GroupReference.swift */; };
 		83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */; };
-		83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1347244BFF6F004AF1B5 /* SwipingController.swift */; };
 		83AF134A244C080C004AF1B5 /* WalkthroughPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */; };
 		83B1219E242EDB6F0034BF73 /* CommentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1219D242EDB6F0034BF73 /* CommentsManager.swift */; };
 		83B121A0242EDD610034BF73 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1219F242EDD610034BF73 /* Comment.swift */; };
@@ -104,7 +103,6 @@
 		83347FF32447C91E00EB2BAD /* Grapevine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Grapevine.entitlements; sourceTree = "<group>"; };
 		839B004124CC18790044EB3A /* GroupReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupReference.swift; sourceTree = "<group>"; };
 		83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
-		83AF1347244BFF6F004AF1B5 /* SwipingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingController.swift; sourceTree = "<group>"; };
 		83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughPageCell.swift; sourceTree = "<group>"; };
 		83B1219D242EDB6F0034BF73 /* CommentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsManager.swift; sourceTree = "<group>"; };
 		83B1219F242EDD610034BF73 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				8659F2CB23F8A93300C3595F /* ViewController.swift */,
 				8659F2CC23F8A93300C3595F /* NewPostViewController.swift */,
 				83AF1345244BED30004AF1B5 /* WalkthroughViewController.swift */,
-				83AF1347244BFF6F004AF1B5 /* SwipingController.swift */,
 				8676C0A6246F81F0006C8FB8 /* ProfileViewController.swift */,
 				83B21CDD24C6A7610087BABA /* GroupsViewController.swift */,
 				636701B624764CCD00F15985 /* ShoutChamberViewController.swift */,
@@ -545,7 +542,6 @@
 				83AF1346244BED30004AF1B5 /* WalkthroughViewController.swift in Sources */,
 				83B21CE224C6B1280087BABA /* Group.swift in Sources */,
 				8659F2E223F8A94200C3595F /* SceneDelegate.swift in Sources */,
-				83AF1348244BFF6F004AF1B5 /* SwipingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

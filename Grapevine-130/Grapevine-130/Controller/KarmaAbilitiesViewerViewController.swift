@@ -100,7 +100,7 @@ class KarmaAbilitiesViewerViewController: UIViewController {
         
         /// Displays a popup that let's the user know that they do not have enough points to ban other users.
         func alertUseInFeed(){
-            let alert = MDCAlertController(title: "Abilities are now on the main feed.", message: "Just tap the '*' button on the post you want to perform the ability on!")
+            let alert = MDCAlertController(title: "Abilities are now on the main feed.", message: "Just tap the '$' button on the post you want to perform the ability on!")
             alert.addAction(MDCAlertAction(title: "Ok"))
             makePopup(alert: alert, image: "x.circle.fill")
             self.present(alert, animated: true)
