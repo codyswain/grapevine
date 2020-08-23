@@ -1496,7 +1496,7 @@ extension ViewController: GroupsViewControllerDelegate {
 }
 
 extension ViewController: NewPostViewControllerDelegate {
-    func postCreated() {
+    func postCreated() { //Only called if addPost tapped from ViewController
         self.refresh()
     }
 }

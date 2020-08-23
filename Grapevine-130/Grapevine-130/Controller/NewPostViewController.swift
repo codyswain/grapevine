@@ -264,8 +264,9 @@ class NewPostViewController: UIViewController {
     func sendRequest() {
         if currentState == "text" {
             print("current state text")
-            if let textFieldBody = frontTextView.text {
+            if var textFieldBody = frontTextView.text {
                 //trim whitespace, so people cant enter a post that is just spaces (only before and after non-whitespace charachters. Not inbetween
+                textFieldBody = textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines)
                 if textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                     if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                         return
@@ -282,7 +283,7 @@ class NewPostViewController: UIViewController {
                 if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                     return
                 }
-                let image = imData!.jpegData(compressionQuality: 0.5)
+                let image = imData!.pngData()
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image", groupID: self.groupID)
             } else {

@@ -352,6 +352,7 @@
             </accessibility>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="LabelBottomToCommentAreaConstraint" destination="h2v-hZ-BZZ" id="Wuh-KY-LtE"/>
                 <outlet property="abilitiesBackgroundView" destination="yf4-mW-Gnc" id="eiy-SE-RAd"/>
                 <outlet property="abilitiesButton" destination="dbW-Fm-2AJ" id="yHP-Wi-o5u"/>
                 <outlet property="abilitiesView" destination="Rvd-8f-8QZ" id="7KU-XA-eNV"/>

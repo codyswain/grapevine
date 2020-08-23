@@ -12,10 +12,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Device Type: \(Constants.deviceType)")
         
         // Remove all push notifications
-//        application.applicationIconBadgeNumber = 0
-//        let center = UNUserNotificationCenter.current()
-//        center.removeAllDeliveredNotifications()
-//        center.removeAllPendingNotificationRequests()
+        application.applicationIconBadgeNumber = 0
+        let center = UNUserNotificationCenter.current()
+        center.removeAllDeliveredNotifications()
+        center.removeAllPendingNotificationRequests()
         
         return true
     }
