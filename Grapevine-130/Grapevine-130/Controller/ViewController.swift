@@ -972,12 +972,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.user = self.user
         
         cell.makeBasicCell(post: posts[indexPath.row])
-
-        // Hide the ban button, only for BanChamberViewController
-        cell.banButtonVar.isHidden = true
-        
-        // Hide the shout button, only for ShoutChamberViewController
-        cell.shoutButtonVar.isHidden = true
         
         //set the time ago timestamp for post
         cell.setTimeSincePost()
@@ -1020,7 +1014,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // If currentmode is my comments then they don't need the cell footer
         if currentMode == "myComments" {
-            cell.footer.isHidden = true
+//            cell.footer.isHidden = true
         }
         
         // Don't let users use abilities on their own posts
