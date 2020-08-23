@@ -264,8 +264,9 @@ class NewPostViewController: UIViewController {
     func sendRequest() {
         if currentState == "text" {
             print("current state text")
-            if let textFieldBody = frontTextView.text {
+            if var textFieldBody = frontTextView.text {
                 //trim whitespace, so people cant enter a post that is just spaces (only before and after non-whitespace charachters. Not inbetween
+                textFieldBody = textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines)
                 if textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                     if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                         return

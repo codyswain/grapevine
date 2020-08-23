@@ -47,6 +47,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var shoutButtonView: UIImageView!
     @IBOutlet weak var pushButtonView: UIImageView!
     @IBOutlet weak var shareButtonView: UIImageView!
+    @IBOutlet weak var LabelBottomToCommentAreaConstraint: NSLayoutConstraint!
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
@@ -535,8 +536,10 @@ class PostTableViewCell: UITableViewCell {
             } else {
                 self.shrinkCell()
             }
+            LabelBottomToCommentAreaConstraint.constant = 30
         }
         else {
+            LabelBottomToCommentAreaConstraint.constant = 15
             expandButton.isUserInteractionEnabled = false
             expandButton.isHidden = true
             label.lineBreakMode = .byWordWrapping
