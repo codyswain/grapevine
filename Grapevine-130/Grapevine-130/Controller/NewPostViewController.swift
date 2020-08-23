@@ -283,7 +283,7 @@ class NewPostViewController: UIViewController {
                 if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                     return
                 }
-                let image = imData!.jpegData(compressionQuality: 0.5)
+                let image = imData!.pngData()
                 let base64 = image!.base64EncodedString()
                 postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image", groupID: self.groupID)
             } else {

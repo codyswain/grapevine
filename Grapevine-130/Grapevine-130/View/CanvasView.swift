@@ -81,10 +81,10 @@ class CanvasView: UIView {
         var image : UIImage?
         if self.layer.sublayers != nil {
             image = renderer.image { ctx in
+                self.backgroundColor = UIColor.clear
                 self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
             }
         }
-        
         return image
     }
     
