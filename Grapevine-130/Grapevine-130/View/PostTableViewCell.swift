@@ -180,24 +180,20 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func enableInteraction() {
-        DispatchQueue.main.async {
-            self.upvoteImageButton.isUserInteractionEnabled = true
-            self.downvoteImageButton.isUserInteractionEnabled = true
-            self.upvoteImageButton.image = UIImage(systemName: "arrowtriangle.up.circle.fill")
-            self.downvoteImageButton.image = UIImage(systemName: "arrowtriangle.down.circle.fill")
-        }
+        self.upvoteImageButton.isUserInteractionEnabled = true
+        self.downvoteImageButton.isUserInteractionEnabled = true
+        self.upvoteImageButton.image = UIImage(systemName: "arrowtriangle.up.circle.fill")
+        self.downvoteImageButton.image = UIImage(systemName: "arrowtriangle.down.circle.fill")
     }
     
     func disableInteraction() {
-        DispatchQueue.main.async {
-            self.setUpvotedColors()
-            self.upvoteImageButton.isHidden = true
-            self.downvoteImageButton.isHidden = true
-            self.upvoteImageButton.isUserInteractionEnabled = false
-            self.downvoteImageButton.isUserInteractionEnabled = false
-            self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
-            self.downvoteImageButton.image = UIImage(systemName: "circle.fill")
-        }
+        self.setUpvotedColors()
+        self.upvoteImageButton.isHidden = true
+        self.downvoteImageButton.isHidden = true
+        self.upvoteImageButton.isUserInteractionEnabled = false
+        self.downvoteImageButton.isUserInteractionEnabled = false
+        self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
+        self.downvoteImageButton.image = UIImage(systemName: "circle.fill")
     }
     
     override func layoutSubviews() {
