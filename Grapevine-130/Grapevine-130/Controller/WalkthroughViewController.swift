@@ -131,6 +131,11 @@ extension WalkthroughViewController: WalkthroughPageCellDelegate {
             viewController.modalPresentationStyle = .fullScreen
             self.present(viewController, animated: false, completion: nil)
         })
+        alert.addAction(MDCAlertAction(title: "Privacy Policy") { (action) in
+            let application = UIApplication.shared
+            let webURL = URL(string: "https://medium.com/@ahumay/grapevine-privacy-policy-a4cf5a4e0fd9")!
+            application.open(webURL)
+        })
         makePopup(alert: alert, image: "location.circle.fill")
         super.present(alert, animated: true)
     }
