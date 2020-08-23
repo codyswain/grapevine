@@ -47,6 +47,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var shoutButtonView: UIImageView!
     @IBOutlet weak var pushButtonView: UIImageView!
     @IBOutlet weak var shareButtonView: UIImageView!
+    @IBOutlet weak var LabelBottomToCommentAreaConstraint: NSLayoutConstraint!
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
@@ -180,24 +181,20 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func enableInteraction() {
-        DispatchQueue.main.async {
-            self.upvoteImageButton.isUserInteractionEnabled = true
-            self.downvoteImageButton.isUserInteractionEnabled = true
-            self.upvoteImageButton.image = UIImage(systemName: "arrowtriangle.up.circle.fill")
-            self.downvoteImageButton.image = UIImage(systemName: "arrowtriangle.down.circle.fill")
-        }
+        self.upvoteImageButton.isUserInteractionEnabled = true
+        self.downvoteImageButton.isUserInteractionEnabled = true
+        self.upvoteImageButton.image = UIImage(systemName: "arrowtriangle.up.circle.fill")
+        self.downvoteImageButton.image = UIImage(systemName: "arrowtriangle.down.circle.fill")
     }
     
     func disableInteraction() {
-        DispatchQueue.main.async {
-            self.setUpvotedColors()
-            self.upvoteImageButton.isHidden = true
-            self.downvoteImageButton.isHidden = true
-            self.upvoteImageButton.isUserInteractionEnabled = false
-            self.downvoteImageButton.isUserInteractionEnabled = false
-            self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
-            self.downvoteImageButton.image = UIImage(systemName: "circle.fill")
-        }
+        self.setUpvotedColors()
+        self.upvoteImageButton.isHidden = true
+        self.downvoteImageButton.isHidden = true
+        self.upvoteImageButton.isUserInteractionEnabled = false
+        self.downvoteImageButton.isUserInteractionEnabled = false
+        self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
+        self.downvoteImageButton.image = UIImage(systemName: "circle.fill")
     }
     
     override func layoutSubviews() {
@@ -539,8 +536,10 @@ class PostTableViewCell: UITableViewCell {
             } else {
                 self.shrinkCell()
             }
+            LabelBottomToCommentAreaConstraint.constant = 30
         }
         else {
+            LabelBottomToCommentAreaConstraint.constant = 15
             expandButton.isUserInteractionEnabled = false
             expandButton.isHidden = true
             label.lineBreakMode = .byWordWrapping

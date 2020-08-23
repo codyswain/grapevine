@@ -362,6 +362,8 @@ class CommentViewController: UIViewController {
     }
 }
 
+//MARK: Table View Control
+
 /// Manages the posts table.
 extension CommentViewController: UITableViewDataSource {
     /**
@@ -428,7 +430,10 @@ extension CommentViewController: UITableViewDataSource {
             cell.enableDelete()
         }
         else {
+            cell.isOwnUsersComment = false
             cell.disableDelete()
+            cell.voteButton.isEnabled = true
+            cell.voteButtonIcon.isHidden = false
         }
         
         //Jeremy's comment. Should be green to show he is special
