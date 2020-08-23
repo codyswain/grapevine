@@ -468,8 +468,8 @@ class PostTableViewCell: UITableViewCell {
     func makeBasicCell(post: Post) {
         /// Reset cell attributes before reusing
         self.imageVar.image = nil
-        self.deleteButton.tintColor = UIColor.systemGray5
-        self.label.font = self.label.font.withSize(14)
+        self.deleteButton.tintColor = UIColor.systemGray3
+        self.label.font = self.label.font.withSize(16)
         self.commentAreaButton.backgroundColor = UIColor.systemGray6
         self.label.textColor = UIColor.label
         
@@ -503,11 +503,11 @@ class PostTableViewCell: UITableViewCell {
             /// Show number of comments if there are comments
             let commentText = self.getCommentCount(numComments: post.comments)
             self.commentLabel.text = commentText
-            self.commentButton.setBackgroundImage(UIImage(systemName: "message"), for: .normal)
+            self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         } else {
             /// Show comment symbol if there are no comments
             self.commentLabel.text = "0"
-            self.commentButton.setBackgroundImage(UIImage(systemName: "message"), for: .normal)
+            self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         }
         /// Cell is flammable
         if (post.votes < -3 && post.poster != self.user!.user){
@@ -546,27 +546,27 @@ class PostTableViewCell: UITableViewCell {
         self.isExpanded = true
         self.label.numberOfLines = -1 //infinity
         self.label.lineBreakMode = .byWordWrapping
-        self.expandButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+        self.expandButton.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
+        self.expandButton.tintColor = UIColor.systemBlue
     }
     
     func shrinkCell() {
         self.isExpanded = false
         self.label.lineBreakMode = .byTruncatingTail
         self.label.numberOfLines = self.maxLines
-        self.expandButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        self.expandButton.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
+        self.expandButton.tintColor = UIColor.systemBlue
     }
     
     //Expand cell button. Expands or contracts cell if pressed when content too large
     @IBAction func expandButtonPressed(_ sender: Any) {
         if self.isExpanded == false {
-            self.expandButton.tintColor = Constants.Colors.darkPurple
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                 self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 86)
                 self.expandButton.tintColor = .systemGray3
             }, completion: nil )
             
         } else {
-            self.expandButton.tintColor = Constants.Colors.darkPurple
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                 self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
                 self.expandButton.tintColor = .systemGray3
