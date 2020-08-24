@@ -23,9 +23,11 @@ protocol ShoutPostTableViewCellDelegate {
 
 /// Describes a cell in the posts table
 class PostTableViewCell: UITableViewCell {
+    @IBOutlet weak var BoundingView: UIView!
+    @IBOutlet weak var ContentView: UIView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var expandButton: UIButton!
-    @IBOutlet weak var commentAreaButton: UIView!
+    @IBOutlet weak var commentAreaView: UIView!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var downvoteImageButton: UIImageView!
     @IBOutlet weak var upvoteImageButton: UIImageView!
@@ -47,6 +49,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var pushButtonView: UIImageView!
     @IBOutlet weak var shareButtonView: UIImageView!
     @IBOutlet weak var LabelBottomToCommentAreaConstraint: NSLayoutConstraint!
+    @IBOutlet weak var footerView: UIView!
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
@@ -76,6 +79,9 @@ class PostTableViewCell: UITableViewCell {
     ///Deleteable
     var isDeleteable = false
     
+    ///Gradient layer
+    var gradient: CAGradientLayer?
+    
     //private constants
     /// post expansion
     fileprivate let maxLines = 3
@@ -91,7 +97,7 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.isUserInteractionEnabled = true
         upvoteImageButton.isUserInteractionEnabled = true
         commentButton.isUserInteractionEnabled = true
-        commentAreaButton.isUserInteractionEnabled = true
+        commentAreaView.isUserInteractionEnabled = true
         let tapGestureRecognizerDownvote = UITapGestureRecognizer(target: self, action: #selector(downvoteTapped(tapGestureRecognizer:)))
         let tapGestureRecognizerUpvote = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
         let tapGestureRecognizerFlag = UITapGestureRecognizer(target: self, action: #selector(commentTapped(tapGestureRecognizer:)))
@@ -99,7 +105,7 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.addGestureRecognizer(tapGestureRecognizerDownvote)
         upvoteImageButton.addGestureRecognizer(tapGestureRecognizerUpvote)
         commentButton.addGestureRecognizer(tapGestureRecognizerFlag)
-        commentAreaButton.addGestureRecognizer(tapGestureRecognizerComment)
+        commentAreaView.addGestureRecognizer(tapGestureRecognizerComment)
         
         // Abilities tap gesture setup
         abilitiesButton.isUserInteractionEnabled = true
@@ -317,17 +323,10 @@ class PostTableViewCell: UITableViewCell {
     
     func toggleAbilities(){
         if (abilitiesToggleIsActive){
-            /// Show the comment tappable area
-            commentAreaButton.isHidden = false
-            commentAreaButton.isUserInteractionEnabled = true
             abilitiesView.isHidden = true
             abilitiesBackgroundView.isHidden = true
             abilitiesToggleIsActive = false
-            print(abilitiesToggleIsActive)
         } else {
-            /// Hide the comment tappable area
-            commentAreaButton.isHidden = true
-            commentAreaButton.isUserInteractionEnabled = false
             abilitiesView.isHidden = false
             abilitiesBackgroundView.isHidden = false
             abilitiesToggleIsActive = true
@@ -335,6 +334,7 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
+    /// Is this ever called?
     @objc func abilitiesTapped(tapGestureRecognizer: UITapGestureRecognizer){
         self.delegate?.showAbilitiesView(self)
     }
@@ -358,7 +358,10 @@ class PostTableViewCell: UITableViewCell {
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!, cellHeight: CGFloat(cellHeight))
     }
     
-
+//    override func prepareForReuse() {
+//        gradient?.removeFromSuperlayer()
+//        shoutActive = false
+//    }
     /** Modify post colors to reflect a downvote. */
     func setDownvotedColors(){
         var footerColor = Constants.Colors.veryDarkGrey
@@ -371,7 +374,7 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = true
 //        abilitiesButton.tintColor = buttonColor
-//        footer.backgroundColor = footerColor
+//        footerView.backgroundColor = footerColor
         downvoteImageButton.tintColor = footerColor
 //        voteCountLabel.textColor = buttonColor
 //        shareButtonVar.tintColor = buttonColor
@@ -394,7 +397,8 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.isHidden = false
         upvoteImageButton.isHidden = false
         decideFlagColors()
-//        footer.backgroundColor = footerColor
+//        footerView.backgroundColor = footerColor
+        //commentAreaButton.backgroundColor =
         commentButton.tintColor = buttonColor
 //        commentButton.tintColor = UIColor.systemBlue
         upvoteImageButton.tintColor = buttonColor
@@ -419,7 +423,7 @@ class PostTableViewCell: UITableViewCell {
         downvoteImageButton.isHidden = true
         upvoteImageButton.isHidden = false
 //        abilitiesButton.tintColor = buttonColor
-//        footer.backgroundColor = footerColor
+//        footerView.backgroundColor = footerColor
         upvoteImageButton.tintColor = footerColor
 //        voteCountLabel.textColor = buttonColor
 //        shareButtonVar.tintColor = buttonColor
@@ -505,7 +509,7 @@ class PostTableViewCell: UITableViewCell {
         self.imageVar.image = nil
         self.moreOptionsButton.tintColor = UIColor.systemGray3
         self.label.font = self.label.font.withSize(16)
-        self.commentAreaButton.backgroundColor = UIColor.systemGray6
+        self.commentAreaView.backgroundColor = UIColor.systemGray6
         self.label.textColor = UIColor.label
         
         /// Set main body of post cell
@@ -557,7 +561,7 @@ class PostTableViewCell: UITableViewCell {
         
         // Collapse Cell
         label.numberOfLines = maxLines
-        commentAreaButton.clipsToBounds = true
+        commentAreaView.clipsToBounds = true
 
         if self.label.totalNumberOfLines() > maxLines {
             expandButton.isUserInteractionEnabled = true
@@ -567,14 +571,14 @@ class PostTableViewCell: UITableViewCell {
             } else {
                 self.shrinkCell()
             }
-            LabelBottomToCommentAreaConstraint.constant = 30
         }
         else {
-            LabelBottomToCommentAreaConstraint.constant = 15
             expandButton.isUserInteractionEnabled = false
             expandButton.isHidden = true
             label.lineBreakMode = .byWordWrapping
         }
+        gradient?.removeFromSuperlayer()
+        shoutActive = false
     }
     
     func expandCell() {
@@ -627,6 +631,7 @@ class PostTableViewCell: UITableViewCell {
         self.delegate?.userTappedAbility(self, "push")
     }
     
+    /// This is abilities button
     @IBAction func shareAbilitySelected(_ sender: Any) {
         toggleAbilities()
         if postType == "text" {
@@ -636,6 +641,8 @@ class PostTableViewCell: UITableViewCell {
         }
     }
 }
+
+//MARK: Utility Extensions
 
 extension UILabel {
     func totalNumberOfLines() -> Int {

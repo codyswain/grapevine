@@ -981,6 +981,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if expiry > Date().timeIntervalSince1970 {
                 print("Showing shouted post!")
                 cell.shoutActive = true
+                let layer = getGradient(color1: .systemBackground, color2: .yellow)
+                layer.frame = cell.commentAreaView.bounds
+                cell.gradient = layer
+                cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
             } else {
                 cell.shoutActive = false
             }
@@ -992,7 +996,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
         let JeremysLastAnonymousPostDate = 1595486441.830924 //This was the date of his most recent post at the time of adding this feature so that all his previous posts remain normal colors
         if posts[indexPath.row].poster == JeremysID && posts[indexPath.row].date > JeremysLastAnonymousPostDate {
-            cell.commentAreaButton.backgroundColor = .green
+            cell.commentAreaView.backgroundColor = .green
         }
         
         // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app

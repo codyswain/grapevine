@@ -325,17 +325,20 @@
             </accessibility>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="BoundingView" destination="p5N-Ug-odR" id="xhZ-yF-FDd"/>
+                <outlet property="ContentView" destination="H2p-sc-9uM" id="Km6-Hg-1I4"/>
                 <outlet property="LabelBottomToCommentAreaConstraint" destination="h2v-hZ-BZZ" id="Wuh-KY-LtE"/>
                 <outlet property="abilitiesBackgroundView" destination="yf4-mW-Gnc" id="eiy-SE-RAd"/>
                 <outlet property="abilitiesButton" destination="ase-Qb-cUh" id="wkb-2N-hnM"/>
                 <outlet property="abilitiesView" destination="Rvd-8f-8QZ" id="7KU-XA-eNV"/>
                 <outlet property="burnBlockedView" destination="GKW-LL-a94" id="1yr-ba-9v2"/>
                 <outlet property="burnButtonView" destination="5j4-WU-q7X" id="PI6-uZ-XWm"/>
-                <outlet property="commentAreaButton" destination="CwN-Dl-0tb" id="erV-pV-svd"/>
+                <outlet property="commentAreaView" destination="CwN-Dl-0tb" id="erV-pV-svd"/>
                 <outlet property="commentButton" destination="mmX-1d-6bo" id="23A-64-usL"/>
                 <outlet property="commentLabel" destination="ZVf-AH-wKX" id="dNo-eV-YZV"/>
                 <outlet property="downvoteImageButton" destination="mBG-cM-1KG" id="27d-AY-8LW"/>
                 <outlet property="expandButton" destination="OSX-Uy-hVC" id="vsm-T5-HLf"/>
+                <outlet property="footerView" destination="Mer-0f-cch" id="Zm1-PN-nfq"/>
                 <outlet property="imageVar" destination="RXq-AR-44P" id="kFF-zA-o0V"/>
                 <outlet property="label" destination="k6Z-o2-oI6" id="iy5-dk-p94"/>
                 <outlet property="moreOptionsButton" destination="P8o-O2-vxV" id="ahM-UL-bgy"/>
