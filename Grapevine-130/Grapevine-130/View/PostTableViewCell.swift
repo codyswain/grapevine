@@ -10,6 +10,7 @@ protocol PostTableViewCellDelegate {
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
+    func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController)
 }
 
 protocol BannedPostTableViewCellDelegate {
@@ -28,7 +29,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var downvoteImageButton: UIImageView!
     @IBOutlet weak var upvoteImageButton: UIImageView!
-    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var commentLabel: UILabel!
@@ -71,6 +72,9 @@ class PostTableViewCell: UITableViewCell {
     
     ///Post Expansion
     var isExpanded: Bool = false
+    
+    ///Deleteable
+    var isDeleteable = false
     
     //private constants
     /// post expansion
@@ -144,16 +148,13 @@ class PostTableViewCell: UITableViewCell {
     func enableDelete(){
         // Set up delete button
         print("Deletable: \(documentId)")
-        deleteButton.isUserInteractionEnabled = true
-        deleteButton.isHidden = false
+        isDeleteable = true
     }
     
     /** Disable deletion of a post. */
     func disableDelete(){
         print("Not deletable: \(documentId)")
-//        deleteButton.isHidden = true
-        deleteButton.isHidden = false
-        deleteButton.isUserInteractionEnabled = false
+        isDeleteable = false
     }
     //show and enable abilities button
     func enableAbilities() {
@@ -255,9 +256,43 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func deleteTapped(_ sender: Any) {
-        deleteButton.tintColor = Constants.Colors.darkPurple
-        self.delegate?.deleteCell(self)
+    @IBAction func moreOptionsTapped(_ sender: Any) {
+        moreOptionsButton.tintColor = Constants.Colors.darkPurple
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        var flagTitle = "Flag Post"
+        if currentFlagStatus == 1 {
+            flagTitle = "Unflag Post"
+        }
+        let action1 = UIAlertAction(title: flagTitle, style: .destructive) { (action) in self.flagTappedInMoreOptions()
+            self.moreOptionsButton.tintColor = .systemGray3
+        }
+        let action2 = UIAlertAction(title: "Delete Post", style:.destructive) { (action) in self.delegate?.deleteCell(self)
+            self.moreOptionsButton.tintColor = .systemGray3
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in             self.moreOptionsButton.tintColor = .systemGray3
+        })
+        alert.addAction(action1)
+        if isDeleteable == true {
+            alert.addAction(action2)
+        }
+        self.delegate?.moreOptionsTapped(self, alert: alert)
+    }
+        
+    func flagTappedInMoreOptions()
+    {
+        /// wasn't flagged, now is flagged
+        if self.currentFlagStatus == 0 {
+            self.currentFlagStatus = 1
+            resetFlagColors()
+            self.delegate?.updateTableViewFlags(self, newFlagStatus: 1)
+        /// was flagged, now isn't flagged
+        } else {
+            self.currentFlagStatus = 0
+            resetFlagColors()
+            self.delegate?.updateTableViewFlags(self, newFlagStatus: 0)
+        }
+        
+        postManager.performInteractionRequest(interaction: 4, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
     }
     
     
@@ -434,7 +469,7 @@ class PostTableViewCell: UITableViewCell {
     func createTableCellImage() -> UIImage? {
         var im:UIImage?
         if deletable {
-            self.deleteButton.isHidden = true
+            self.moreOptionsButton.isHidden = true
             self.upvoteImageButton.isHidden = false
             self.downvoteImageButton.isHidden = false
         }
@@ -444,7 +479,7 @@ class PostTableViewCell: UITableViewCell {
             im = UIGraphicsGetImageFromCurrentImageContext()
         }
         if deletable {
-            self.deleteButton.isHidden = false
+            self.moreOptionsButton.isHidden = false
             self.upvoteImageButton.isHidden = true
             self.upvoteImageButton.isHidden = true
         }
@@ -468,7 +503,7 @@ class PostTableViewCell: UITableViewCell {
     func makeBasicCell(post: Post) {
         /// Reset cell attributes before reusing
         self.imageVar.image = nil
-        self.deleteButton.tintColor = UIColor.systemGray3
+        self.moreOptionsButton.tintColor = UIColor.systemGray3
         self.label.font = self.label.font.withSize(16)
         self.commentAreaButton.backgroundColor = UIColor.systemGray6
         self.label.textColor = UIColor.label

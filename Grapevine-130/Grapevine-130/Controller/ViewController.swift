@@ -1198,6 +1198,11 @@ extension ViewController: CLLocationManagerDelegate {
 
 /// Update post data.
 extension ViewController: PostTableViewCellDelegate {
+    func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController) {
+        setTheme(curView: alert)
+        self.present(alert, animated: true)
+    }
+    
     /// Fires when user selects an ability
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String){
         switch ability {
@@ -1325,6 +1330,7 @@ extension ViewController: PostTableViewCellDelegate {
         if (newFlagStatus == 1){
             posts[row].flagStatus = newFlagStatus
             posts[row].numFlags = posts[row].numFlags + newFlagStatus
+            self.showFlaggedAlertPopup()
         } else {
             posts[row].flagStatus = newFlagStatus
             posts[row].numFlags = posts[row].numFlags + newFlagStatus
