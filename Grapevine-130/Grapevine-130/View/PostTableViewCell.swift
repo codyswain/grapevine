@@ -328,7 +328,7 @@ class PostTableViewCell: UITableViewCell {
             self.upvoteButton.isHidden = false
             self.downvoteButton.isHidden = false
         }
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(self.BoundingView.frame.size, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             self.layer.render(in: currentContext)
             im = UIGraphicsGetImageFromCurrentImageContext()
