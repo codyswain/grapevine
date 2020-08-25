@@ -360,7 +360,7 @@ class ViewController: UIViewController {
             case " 10 Miles":
                 self.range = 10.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
-            default: //5 miles
+            default: //3 miles
                 self.range = 3.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
             }
