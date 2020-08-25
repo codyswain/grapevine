@@ -126,14 +126,12 @@ extension ShoutChamberViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
         
         DispatchQueue.main.async {
-            cell.downvoteImageButton.isHidden = true
-            cell.upvoteImageButton.isHidden = true
+            cell.downvoteButton.isHidden = true
+            cell.upvoteButton.isHidden = true
             cell.commentButton.isHidden = true
-            cell.deleteButton.isHidden = true
+            cell.moreOptionsButton.isHidden = true
             cell.voteCountLabel.isHidden = true
             cell.abilitiesButton.isHidden = true
-            cell.banButtonVar.isHidden = true
-            cell.shoutButtonVar.isHidden = false
         }
         
         cell.makeBasicCell(post: posts[indexPath.row])

@@ -500,10 +500,10 @@ extension CommentViewController: CommentTableViewCellDelegate {
     /** Deletes a comment.
     - Parameters:
        - cell: Comment to be deleted. */
-    func deleteCell(_ cell: UITableViewCell) {
+    func deleteCell(_ cell: CommentTableViewCell) {
         let alert = MDCAlertController(title: "Are you sure?", message: "Deleting a comment is permanent. The comment's score will still count towards your karma.")
 
-        alert.addAction(MDCAlertAction(title: "Cancel"))
+        alert.addAction(MDCAlertAction(title: "Cancel"){(action) in cell.deleteButton.tintColor = .systemGray3})
         alert.addAction(MDCAlertAction(title: "I'm Sure, Delete"){ (action) in
             let indexPath = self.tableView.indexPath(for: cell)!
             let row = indexPath.row

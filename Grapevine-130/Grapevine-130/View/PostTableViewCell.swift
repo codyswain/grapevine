@@ -5,11 +5,12 @@ protocol PostTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
-    func showAbilitiesView(_ cell: UITableViewCell)
+    func showAbilitiesView(_ cell: PostTableViewCell)
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
+    func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController)
 }
 
 protocol BannedPostTableViewCellDelegate {
@@ -22,32 +23,32 @@ protocol ShoutPostTableViewCellDelegate {
 
 /// Describes a cell in the posts table
 class PostTableViewCell: UITableViewCell {
+    @IBOutlet weak var BoundingView: UIView!
+    @IBOutlet weak var ContentView: UIView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var expandButton: UIButton!
-    @IBOutlet weak var commentAreaButton: UIView!
+    @IBOutlet weak var commentAreaView: UIView!
     @IBOutlet weak var voteCountLabel: UILabel!
-    @IBOutlet weak var downvoteImageButton: UIImageView!
-    @IBOutlet weak var upvoteImageButton: UIImageView!
-    @IBOutlet weak var footer: UIView!
-    @IBOutlet weak var deleteButton: UIImageView!
-    @IBOutlet weak var banButtonVar: UIButton!
-    @IBOutlet weak var shoutButtonVar: UIButton!
+    @IBOutlet weak var downvoteButton: UIButton!
+    @IBOutlet weak var upvoteButton: UIButton!
+    @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
+    @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var shareButtonVar: UIButton!
     @IBOutlet weak var timeStampLabel: UILabel!
+    @IBOutlet weak var VotesContainerView: UIView!
     
     // Abilities
     var abilitiesToggleIsActive: Bool = false
     @IBOutlet weak var abilitiesView: UIView!
     @IBOutlet weak var abilitiesBackgroundView: UIView!
-    @IBOutlet weak var abilitiesButton: UIImageView!
     @IBOutlet weak var burnButtonView: UIImageView!
+    @IBOutlet weak var abilitiesButton: UIButton!
     @IBOutlet weak var burnBlockedView: UIImageView!
     @IBOutlet weak var shoutButtonView: UIImageView!
     @IBOutlet weak var pushButtonView: UIImageView!
     @IBOutlet weak var shareButtonView: UIImageView!
-    @IBOutlet weak var LabelBottomToCommentAreaConstraint: NSLayoutConstraint!
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
@@ -74,47 +75,33 @@ class PostTableViewCell: UITableViewCell {
     ///Post Expansion
     var isExpanded: Bool = false
     
-    //private constants
+    ///Deleteable
+    var isDeleteable = false
+    
+    ///Gradient layer
+    var gradient: CAGradientLayer?
+    
     /// post expansion
-    fileprivate let maxLines = 3
-    
-    
+    let maxLines = 3
     /**
     Initializes the posts table and adds gestures.
     */
     override func awakeFromNib() {
         super.awakeFromNib() /// builtin function that prepares component for service
         
-        // Voting, flag, comment tap gesture setup
-        downvoteImageButton.isUserInteractionEnabled = true
-        upvoteImageButton.isUserInteractionEnabled = true
-        commentButton.isUserInteractionEnabled = true
-        commentAreaButton.isUserInteractionEnabled = true
-        let tapGestureRecognizerDownvote = UITapGestureRecognizer(target: self, action: #selector(downvoteTapped(tapGestureRecognizer:)))
-        let tapGestureRecognizerUpvote = UITapGestureRecognizer(target: self, action: #selector(upvoteTapped(tapGestureRecognizer:)))
-        let tapGestureRecognizerFlag = UITapGestureRecognizer(target: self, action: #selector(commentTapped(tapGestureRecognizer:)))
+        //comment tap gesture setup
         let tapGestureRecognizerComment = UITapGestureRecognizer(target: self, action: #selector(commentTapped(tapGestureRecognizer:)))
-        downvoteImageButton.addGestureRecognizer(tapGestureRecognizerDownvote)
-        upvoteImageButton.addGestureRecognizer(tapGestureRecognizerUpvote)
-        commentButton.addGestureRecognizer(tapGestureRecognizerFlag)
-        commentAreaButton.addGestureRecognizer(tapGestureRecognizerComment)
+        commentAreaView.addGestureRecognizer(tapGestureRecognizerComment)
+        
+        downvoteButton.isUserInteractionEnabled = true
+        upvoteButton.isUserInteractionEnabled = true
+        commentButton.isUserInteractionEnabled = true
+        commentAreaView.isUserInteractionEnabled = true
         
         // Abilities tap gesture setup
+        
         abilitiesButton.isUserInteractionEnabled = true
-        burnButtonView.isUserInteractionEnabled = true
-        shoutButtonView.isUserInteractionEnabled = true
-        pushButtonView.isUserInteractionEnabled = true
         shareButtonView.isUserInteractionEnabled = true
-        let tapGestureRecognizerShare = UITapGestureRecognizer(target: self, action: #selector(abilitiesTapped(tapGestureRecognizer:)))
-        let tapRecognizerBurnAbility = UITapGestureRecognizer(target: self, action: #selector(burnAbilitySelected(tapGestureRecognizer:)))
-        let tapRecognizerShoutAbility = UITapGestureRecognizer(target: self, action: #selector(shoutAbilitySelected(tapGestureRecognizer:)))
-        let tapRecognizerPushAbility = UITapGestureRecognizer(target: self, action: #selector(pushAbilitySelected(tapGestureRecognizer:)))
-        let tapRecognizerShareAbility = UITapGestureRecognizer(target: self, action: #selector(shareAbilitySelected(tapGestureRecognizer:)))
-        abilitiesButton.addGestureRecognizer(tapGestureRecognizerShare)
-        burnButtonView.addGestureRecognizer(tapRecognizerBurnAbility)
-        shoutButtonView.addGestureRecognizer(tapRecognizerShoutAbility)
-        pushButtonView.addGestureRecognizer(tapRecognizerPushAbility)
-        shareButtonView.addGestureRecognizer(tapRecognizerShareAbility)
         
         // Add radius to abilities view
         DispatchQueue.main.async {
@@ -138,26 +125,6 @@ class PostTableViewCell: UITableViewCell {
         } else {
             setUpvotedColors()
         }
-        
-        if self.currentFlagStatus == 1 {
-            setFlaggedColors()
-        }
-    }
-    
-    /** Enable deletion of a post. */
-    func enableDelete(){
-        // Set up delete button
-        print("Deletable: \(documentId)")
-        let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(deleteTapped(tapGestureRecognizer:)))
-        deleteButton.isUserInteractionEnabled = true
-        deleteButton.addGestureRecognizer(tapGestureRecognizer3)
-        deleteButton.isHidden = false
-    }
-    
-    /** Disable deletion of a post. */
-    func disableDelete(){
-        print("Not deletable: \(documentId)")
-        deleteButton.isHidden = true
     }
     //show and enable abilities button
     func enableAbilities() {
@@ -181,20 +148,17 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func enableInteraction() {
-        self.upvoteImageButton.isUserInteractionEnabled = true
-        self.downvoteImageButton.isUserInteractionEnabled = true
-        self.upvoteImageButton.image = UIImage(systemName: "arrowtriangle.up.circle.fill")
-        self.downvoteImageButton.image = UIImage(systemName: "arrowtriangle.down.circle.fill")
+        self.upvoteButton.isHidden = false
+        self.downvoteButton.isHidden = false
+        self.upvoteButton.isUserInteractionEnabled = true
+        self.downvoteButton.isUserInteractionEnabled = true
     }
     
     func disableInteraction() {
-        self.setUpvotedColors()
-        self.upvoteImageButton.isHidden = true
-        self.downvoteImageButton.isHidden = true
-        self.upvoteImageButton.isUserInteractionEnabled = false
-        self.downvoteImageButton.isUserInteractionEnabled = false
-        self.upvoteImageButton.image = UIImage(systemName: "circle.fill")
-        self.downvoteImageButton.image = UIImage(systemName: "circle.fill")
+        self.upvoteButton.isHidden = true
+        self.downvoteButton.isHidden = true
+        self.upvoteButton.isUserInteractionEnabled = false
+        self.downvoteButton.isUserInteractionEnabled = false
     }
     
     override func layoutSubviews() {
@@ -212,7 +176,7 @@ class PostTableViewCell: UITableViewCell {
      
     - Parameter tapGestureRecognizer: Gesture performed by the user
     */
-    @objc func upvoteTapped(tapGestureRecognizer: UITapGestureRecognizer){
+    @IBAction func upvoteTapped(_ sender: Any) {
         if self.currentVoteStatus == 0 { /// post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
@@ -236,8 +200,7 @@ class PostTableViewCell: UITableViewCell {
 
     /** Update vote information when user downvotes a `post`.
     - Parameter tapGestureRecognizer: Gesture performed by the user */
-    @objc func downvoteTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+    @IBAction func downvoteTapped(_ sender: Any) {
         if self.currentVoteStatus == 0 { /// post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
@@ -259,27 +222,36 @@ class PostTableViewCell: UITableViewCell {
         }
     }
     
-    /** Deletes a `post`.
-     - Parameter tapGestureRecognizer: Gesture performed by the user */
-    @objc func deleteTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        deleteButton.tintColor = Constants.Colors.darkPurple
-        self.delegate?.deleteCell(self)
+    @IBAction func moreOptionsTapped(_ sender: Any) {
+        moreOptionsButton.tintColor = Constants.Colors.darkPurple
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        var flagTitle = "Flag Post"
+        if currentFlagStatus == 1 {
+            flagTitle = "Unflag Post"
+        }
+        let action1 = UIAlertAction(title: flagTitle, style: .destructive) { (action) in self.flagTappedInMoreOptions()
+            self.moreOptionsButton.tintColor = .systemGray3
+        }
+        let action2 = UIAlertAction(title: "Delete Post", style:.destructive) { (action) in self.delegate?.deleteCell(self)
+            self.moreOptionsButton.tintColor = .systemGray3
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in             self.moreOptionsButton.tintColor = .systemGray3
+        })
+        alert.addAction(action1)
+        if isDeleteable == true {
+            alert.addAction(action2)
+        }
+        self.delegate?.moreOptionsTapped(self, alert: alert)
     }
-    
-    /** Flags a `post`.
-    - Parameter tapGestureRecognizer: Gesture performed by the user */
-    @objc func flagTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
+        
+    func flagTappedInMoreOptions() {
         /// wasn't flagged, now is flagged
         if self.currentFlagStatus == 0 {
             self.currentFlagStatus = 1
-            resetFlagColors()
             self.delegate?.updateTableViewFlags(self, newFlagStatus: 1)
         /// was flagged, now isn't flagged
         } else {
             self.currentFlagStatus = 0
-            resetFlagColors()
             self.delegate?.updateTableViewFlags(self, newFlagStatus: 0)
         }
         
@@ -288,26 +260,15 @@ class PostTableViewCell: UITableViewCell {
     
     func toggleAbilities(){
         if (abilitiesToggleIsActive){
-            /// Show the comment tappable area
-            commentAreaButton.isHidden = false
-            commentAreaButton.isUserInteractionEnabled = true
             abilitiesView.isHidden = true
             abilitiesBackgroundView.isHidden = true
             abilitiesToggleIsActive = false
-            print(abilitiesToggleIsActive)
         } else {
-            /// Hide the comment tappable area
-            commentAreaButton.isHidden = true
-            commentAreaButton.isUserInteractionEnabled = false
             abilitiesView.isHidden = false
             abilitiesBackgroundView.isHidden = false
             abilitiesToggleIsActive = true
             print(abilitiesToggleIsActive)
         }
-    }
-    
-    @objc func abilitiesTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        self.delegate?.showAbilitiesView(self)
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
@@ -319,6 +280,9 @@ class PostTableViewCell: UITableViewCell {
     }
     
     
+    @IBAction func commentButtonTapped(_ sender: Any) {
+        viewCommentScreen()
+    }
     /// Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer){
         viewCommentScreen()
@@ -329,118 +293,40 @@ class PostTableViewCell: UITableViewCell {
         self.delegate?.viewComments(self, (createTableCellImage() ?? nil)!, cellHeight: CGFloat(cellHeight))
     }
     
-
     /** Modify post colors to reflect a downvote. */
     func setDownvotedColors(){
-        var footerColor = Constants.Colors.veryDarkGrey
-        var buttonColor: UIColor = .systemBackground
-        if self.shoutActive {
-            footerColor = Constants.Colors.yellow
-            buttonColor = .systemBackground
-        }
-        commentButton.tintColor = buttonColor
-        downvoteImageButton.isHidden = false
-        upvoteImageButton.isHidden = true
-        abilitiesButton.tintColor = buttonColor
-        footer.backgroundColor = footerColor
-        downvoteImageButton.tintColor = buttonColor
-        voteCountLabel.textColor = buttonColor
-        shareButtonVar.tintColor = buttonColor
-        commentButton.setTitleColor(footerColor, for: .normal)
+        downvoteButton.isHidden = false
+        downvoteButton.isUserInteractionEnabled = true
+        upvoteButton.isHidden = true
+        upvoteButton.isUserInteractionEnabled = false
+        downvoteButton.tintColor = Constants.Colors.veryDarkGrey
     }
     
     /** Modify post colors to reflect no vote.  */
     func setNeutralColors(){
-        var buttonColor = UIColor.systemGray3
-        var footerColor = UIColor.systemGray5
-        var textColor = UIColor.label
-        if self.shoutActive {
-            buttonColor = .systemBackground
-            footerColor = Constants.Colors.yellow
-            if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
-                if (curTheme == "dark") { textColor = .black }
-                else { textColor = .white }
-            }
-        }
-        downvoteImageButton.isHidden = false
-        upvoteImageButton.isHidden = false
-        decideFlagColors()
-        footer.backgroundColor = footerColor
-        commentButton.tintColor = buttonColor
-        upvoteImageButton.tintColor = buttonColor
-        downvoteImageButton.tintColor = buttonColor
-        abilitiesButton.tintColor = buttonColor
-        shareButtonVar.tintColor = buttonColor
-        voteCountLabel.textColor = textColor
-        commentButton.setTitleColor(footerColor, for: .normal)
+        downvoteButton.isHidden = false
+        upvoteButton.isHidden = false
+        downvoteButton.isUserInteractionEnabled = true
+        upvoteButton.isUserInteractionEnabled = true
+        upvoteButton.tintColor = .systemGray3
+        downvoteButton.tintColor = .systemGray3
     }
     
     /** Modify post colors to reflect an upvote. */
     func setUpvotedColors(){
-        var buttonColor: UIColor = .systemBackground
-        var footerColor = Constants.Colors.darkPurple
-        if self.shoutActive {
-            footerColor = Constants.Colors.yellow
-            footerColor = Constants.Colors.yellow
-            buttonColor = .systemBackground
-        }
-        commentButton.tintColor = buttonColor
-        downvoteImageButton.isHidden = true
-        upvoteImageButton.isHidden = false
-        abilitiesButton.tintColor = buttonColor
-        footer.backgroundColor = footerColor
-        upvoteImageButton.tintColor = buttonColor
-        voteCountLabel.textColor = buttonColor
-        shareButtonVar.tintColor = buttonColor
-        commentButton.setTitleColor(footerColor, for: .normal)
-    }
-    
-    /** Modify flag colors on a post. */
-    func resetFlagColors(){
-        if self.currentFlagStatus == 0 {
-            setUnflaggedColors()
-        } else {
-            setFlaggedColors()
-        }
-    }
-    
-    /** Modify flag colors on a post to reflect a flagged status by the user. */
-    func setFlaggedColors(){
-        commentButton.tintColor = UIColor.systemGray2
-    }
-    
-    /** Modify flag colors on a post to reflect an un-flagged status by the user. */
-    func setUnflaggedColors(){
-        commentButton.tintColor = UIColor.systemGray5
-    }
-    
-    func decideFlagColors(){
-        if currentFlagStatus == 1 {
-            commentButton.tintColor = .systemBackground
-        }
-        if currentVoteStatus == -1 {
-            commentButton.tintColor = .systemBackground
-        } else {
-            commentButton.tintColor = UIColor.systemGray5
-        }
-        
-    }
-        
-    /// Button to ban users from the ban chamber.
-    @IBAction func banButton(_ sender: Any) {
-        self.banDelegate?.banPoster(self)
-    }
-    
-    @IBAction func shoutButton(_ sender: Any) {
-        self.shoutDelegate?.shoutPost(self)
+        downvoteButton.isHidden = true
+        downvoteButton.isUserInteractionEnabled = false
+        upvoteButton.isHidden = false
+        upvoteButton.isUserInteractionEnabled = true
+        upvoteButton.tintColor = Constants.Colors.darkPurple
     }
     
     func createTableCellImage() -> UIImage? {
         var im:UIImage?
         if deletable {
-            self.deleteButton.isHidden = true
-            self.upvoteImageButton.isHidden = false
-            self.downvoteImageButton.isHidden = false
+            self.moreOptionsButton.isHidden = true
+            self.upvoteButton.isHidden = false
+            self.downvoteButton.isHidden = false
         }
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
@@ -448,9 +334,9 @@ class PostTableViewCell: UITableViewCell {
             im = UIGraphicsGetImageFromCurrentImageContext()
         }
         if deletable {
-            self.deleteButton.isHidden = false
-            self.upvoteImageButton.isHidden = true
-            self.upvoteImageButton.isHidden = true
+            self.moreOptionsButton.isHidden = false
+            self.upvoteButton.isHidden = true
+            self.upvoteButton.isHidden = true
         }
         return im
     }
@@ -472,10 +358,11 @@ class PostTableViewCell: UITableViewCell {
     func makeBasicCell(post: Post) {
         /// Reset cell attributes before reusing
         self.imageVar.image = nil
-        self.deleteButton.tintColor = UIColor.systemGray5
+        self.moreOptionsButton.tintColor = UIColor.systemGray3
         self.label.font = self.label.font.withSize(16)
-        self.commentAreaButton.backgroundColor = UIColor.systemGray6
+        self.commentAreaView.backgroundColor = UIColor.systemGray6
         self.label.textColor = UIColor.label
+        commentButton.isUserInteractionEnabled = true
         
         /// Set main body of post cell
         if (post.type == "text"){
@@ -498,6 +385,7 @@ class PostTableViewCell: UITableViewCell {
         
         /// Set vote count of post cell
         self.voteCountLabel.text = String(post.votes)
+        self.voteCountLabel.textColor = .label
         
         /// Set vote status
         self.currentVoteStatus = post.voteStatus
@@ -506,12 +394,12 @@ class PostTableViewCell: UITableViewCell {
         if post.comments > 0 {
             /// Show number of comments if there are comments
             let commentText = self.getCommentCount(numComments: post.comments)
-            self.commentButton.setTitle(commentText, for: .normal)
-            self.commentButton.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+            self.commentLabel.text = commentText
+            self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         } else {
             /// Show comment symbol if there are no comments
-            self.commentButton.setTitle("", for: .normal)
-            self.commentButton.setBackgroundImage(UIImage(systemName: "message.circle.fill"), for: .normal)
+            self.commentLabel.text = "0"
+            self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         }
         /// Cell is flammable
         if (post.votes < -3 && post.poster != self.user!.user){
@@ -526,7 +414,7 @@ class PostTableViewCell: UITableViewCell {
         
         // Collapse Cell
         label.numberOfLines = maxLines
-        commentAreaButton.clipsToBounds = true
+        commentAreaView.clipsToBounds = true
 
         if self.label.totalNumberOfLines() > maxLines {
             expandButton.isUserInteractionEnabled = true
@@ -536,66 +424,53 @@ class PostTableViewCell: UITableViewCell {
             } else {
                 self.shrinkCell()
             }
-            LabelBottomToCommentAreaConstraint.constant = 30
         }
         else {
-            LabelBottomToCommentAreaConstraint.constant = 15
             expandButton.isUserInteractionEnabled = false
             expandButton.isHidden = true
             label.lineBreakMode = .byWordWrapping
         }
+        gradient?.removeFromSuperlayer()
+        shoutActive = false
+        enableInteraction()
     }
     
     func expandCell() {
         self.isExpanded = true
         self.label.numberOfLines = -1 //infinity
         self.label.lineBreakMode = .byWordWrapping
-        self.expandButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+        self.expandButton.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
+        self.expandButton.tintColor = UIColor.systemBlue
+        layoutSubviews()
     }
     
     func shrinkCell() {
         self.isExpanded = false
         self.label.lineBreakMode = .byTruncatingTail
         self.label.numberOfLines = self.maxLines
-        self.expandButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        self.expandButton.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
+        self.expandButton.tintColor = UIColor.systemBlue
+        layoutSubviews()
     }
     
     //Expand cell button. Expands or contracts cell if pressed when content too large
     @IBAction func expandButtonPressed(_ sender: Any) {
         if self.isExpanded == false {
-            self.expandButton.tintColor = Constants.Colors.darkPurple
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 86)
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 96)
                 self.expandButton.tintColor = .systemGray3
             }, completion: nil )
             
         } else {
-            self.expandButton.tintColor = Constants.Colors.darkPurple
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.numberOfLines) * self.label.font.lineHeight + 86)
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.maxLines) * self.label.font.lineHeight + 96)
                 self.expandButton.tintColor = .systemGray3
             }, completion: nil)
         }
     }
     
-    
-    
-    
-    // Abilities
-    /// TO-DO: simplify these into one function with a case statement
-    @objc func burnAbilitySelected(tapGestureRecognizer: UITapGestureRecognizer){
-        toggleAbilities()
-        self.delegate?.userTappedAbility(self, "burn")
-    }
-    @objc func shoutAbilitySelected(tapGestureRecognizer: UITapGestureRecognizer){
-        toggleAbilities()
-        self.delegate?.userTappedAbility(self, "shout")
-    }
-    @objc func pushAbilitySelected(tapGestureRecognizer: UITapGestureRecognizer){
-        toggleAbilities()
-        self.delegate?.userTappedAbility(self, "push")
-    }
-    @objc func shareAbilitySelected(tapGestureRecognizer: UITapGestureRecognizer){
+    /// This is abilities button
+    @IBAction func shareAbilitySelected(_ sender: Any) {
         toggleAbilities()
         if postType == "text" {
             self.delegate?.showAbilitiesView(self)
@@ -604,6 +479,8 @@ class PostTableViewCell: UITableViewCell {
         }
     }
 }
+
+//MARK: Utility Extensions
 
 extension UILabel {
     func totalNumberOfLines() -> Int {

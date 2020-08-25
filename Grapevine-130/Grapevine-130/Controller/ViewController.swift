@@ -64,6 +64,10 @@ class ViewController: UIViewController {
     }()
     var indicator = UIActivityIndicatorView()
     
+    //for reloading cell for abilities
+    var selectedIndex: IndexPath?
+    var overrideShout = false
+    
     // Post clicked to view comments
     var selectedPost: Post?
     
@@ -103,6 +107,8 @@ class ViewController: UIViewController {
 
     //for reloading cell after comment
     var commentCellIndexPath: IndexPath?
+    
+    var goStraightToKarma = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
@@ -161,6 +167,9 @@ class ViewController: UIViewController {
         let tapGestureRecognizerApplyAbility = UITapGestureRecognizer(target: self, action: #selector(applyAbilityTapped(tapGestureRecognizer:)))
         applyAbilityButton.addGestureRecognizer(tapGestureRecognizerApplyAbility)
         
+        let tapGestureRecognizerKarmaLabel = UITapGestureRecognizer(target: self, action: #selector(karmaLabelTapped(tapGestureRecognizer:)))
+        karmaAmountLabel.addGestureRecognizer(tapGestureRecognizerKarmaLabel)
+        
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
         
@@ -174,6 +183,12 @@ class ViewController: UIViewController {
             defaults.removeObject(forKey: "notificationPostID")
             self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
         }
+    }
+    
+    @objc func karmaLabelTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        goStraightToKarma = true
+        performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+        
     }
     
     // Display notification alert. Location alert is handled by location manager callback function
@@ -356,7 +371,7 @@ class ViewController: UIViewController {
             case " 10 Miles":
                 self.range = 10.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
-            default: //5 miles
+            default: //3 miles
                 self.range = 3.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
             }
@@ -512,7 +527,7 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
 
-    func showAbilitiesView(_ cell: UITableViewCell){
+    func showAbilitiesView(_ cell: PostTableViewCell){
         // Vibrate for haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
@@ -549,6 +564,7 @@ class ViewController: UIViewController {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         selectedPost = posts[row]
+        selectedIndex = indexPath
     }
     
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat = 0){
@@ -826,6 +842,7 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBeDeleted = self.selectedPost!.postId
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
             } else {
                 confirmMessage = "Unable to burn..."
                 alertMessage = "Not enough karma!"
@@ -840,6 +857,9 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBeShoutOut = self.selectedPost!.postId
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
+                overrideShout = true
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
+
             } else {
                 confirmMessage = "Unable to shout..."
                 alertMessage = "Not enough karma!"
@@ -854,6 +874,7 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBePushed = self.selectedPost!.postId
                 self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
             } else {
                 confirmMessage = "Unable to push..."
                 alertMessage = "Not enough karma!"
@@ -962,63 +983,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.user = self.user
         
         cell.makeBasicCell(post: posts[indexPath.row])
-
-        // Hide the ban button, only for BanChamberViewController
-        cell.banButtonVar.isHidden = true
-        
-        // Hide the shout button, only for ShoutChamberViewController
-        cell.shoutButtonVar.isHidden = true
         
         //set the time ago timestamp for post
         cell.setTimeSincePost()
-
-        // The cell is shouted
-        if let expiry = posts[indexPath.row].shoutExpiration {
-            if expiry > Date().timeIntervalSince1970 {
-                print("Showing shouted post!")
-                cell.shoutActive = true
-            } else {
-                cell.shoutActive = false
-            }
-        } else {
-            cell.shoutActive = false
-        }
-        
-        //Jeremy is the poster, make green to show he is special
-        let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
-        let JeremysLastAnonymousPostDate = 1595486441.830924 //This was the date of his most recent post at the time of adding this feature so that all his previous posts remain normal colors
-        if posts[indexPath.row].poster == JeremysID && posts[indexPath.row].date > JeremysLastAnonymousPostDate {
-            cell.commentAreaButton.backgroundColor = .green
-        }
-        
-        // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
-        cell.delegate = self
-        
-        // Refresh the display of the cell, now that we've loaded in vote status
-        cell.refreshView()
-        
-        ///TO-DO fix refreshview so it is only refreshing what is necessary (post colors, not certain user interactions, etc)
-        
-        // If the current user created this post, he/she can delete it
-        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
-            cell.enableDelete()
-            cell.disableInteraction()
-        } else {
-            cell.disableDelete()
-            cell.enableInteraction()
-        }
-        
-        // If currentmode is my comments then they don't need the cell footer
-        if currentMode == "myComments" {
-            cell.footer.isHidden = true
-        }
-        
-        // Don't let users use abilities on their own posts
-        if Constants.userID == posts[indexPath.row].poster {
-            cell.disableAbilities()
-        } else {
-            cell.enableAbilities()
-        }
         
         //Expand or collapse cells
         if !cell.expandButton.isHidden {
@@ -1031,6 +998,92 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.shrinkCell()
             }
+            cell.layoutSubviews()
+        }
+        
+        //Jeremy is the poster, make green to show he is special
+        let JeremysID = "d50e7215c74246f24de41fbd3ae99dd033d5cd3ceee04418c2bddc47e67583bf"
+        let JeremysLastAnonymousPostDate = 1595486441.830924 //This was the date of his most recent post at the time of adding this feature so that all his previous posts remain normal colors
+        if posts[indexPath.row].poster == JeremysID && posts[indexPath.row].date > JeremysLastAnonymousPostDate {
+            cell.commentAreaView.backgroundColor = .green
+        }
+        
+        // Ensure that the cell can communicate with this view controller, to keep things like vote statuses consistent across the app
+        cell.delegate = self
+        
+        // Refresh the display of the cell, now that we've loaded in vote status
+        cell.refreshView()
+        
+        ///TO-DO fix refreshview so it is only refreshing what is necessary (post colors, not certain user interactions, etc)
+        
+        // If the current user created this post, he/she can delete it
+        if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
+            cell.isDeleteable = true
+            cell.disableInteraction()
+        } else {
+            cell.isDeleteable = false
+        }
+        
+        // If currentmode is my comments then should just show cell with comment
+        // In the future we should use a different cell for this (dequeueReusableCellWithIdentifier"commentcell")
+        if currentMode == "myComments" {
+            cell.disableInteraction()
+            cell.voteCountLabel.isHidden = true
+            cell.commentButton.isHidden = true
+            cell.moreOptionsButton.isHidden = true
+            cell.commentLabel.text = "Tap to view post"
+            cell.shareButtonVar.isHidden = true
+        }
+        
+        // Don't let users use abilities on their own posts
+        if Constants.userID == posts[indexPath.row].poster {
+            cell.disableAbilities()
+        } else {
+            cell.enableAbilities()
+        }
+        
+        //Quick fix to avoid waiting for http response on ability activation
+        if overrideShout == true {
+            overrideShout = false
+            cell.shoutActive = true
+            let layer = getGradient(color1: .white, color2: .yellow)
+            if cell.postType == "text" {
+                layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: expandedCellHeight ?? CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
+            } else {
+                //Hacky fix for image height
+                layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: 400)
+            }
+            cell.gradient = layer
+            cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
+            cell.voteCountLabel.textColor = .black
+            cell.label.textColor = .black
+            cell.layoutSubviews()
+        } else {
+            cell.shoutActive = false
+        }
+        
+        // The cell is shouted
+        if let expiry = posts[indexPath.row].shoutExpiration {
+            if expiry > Date().timeIntervalSince1970 {
+                print("Showing shouted post!")
+                cell.shoutActive = true
+                let layer = getGradient(color1: .white, color2: .yellow)
+                if cell.postType == "text" {
+                    layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: expandedCellHeight ?? CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
+                } else {
+                    //Hacky fix for image height
+                    layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: 400)
+                }
+                cell.gradient = layer
+                cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
+                cell.voteCountLabel.textColor = .black
+                cell.label.textColor = .black
+                cell.layoutSubviews()
+            } else {
+                cell.shoutActive = false
+            }
+        } else {
+            cell.shoutActive = false
         }
         
         return cell
@@ -1194,6 +1247,11 @@ extension ViewController: CLLocationManagerDelegate {
 
 /// Update post data.
 extension ViewController: PostTableViewCellDelegate {
+    func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController) {
+        setTheme(curView: alert)
+        self.present(alert, animated: true)
+    }
+    
     /// Fires when user selects an ability
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String){
         switch ability {
@@ -1321,6 +1379,7 @@ extension ViewController: PostTableViewCellDelegate {
         if (newFlagStatus == 1){
             posts[row].flagStatus = newFlagStatus
             posts[row].numFlags = posts[row].numFlags + newFlagStatus
+            self.showFlaggedAlertPopup()
         } else {
             posts[row].flagStatus = newFlagStatus
             posts[row].numFlags = posts[row].numFlags + newFlagStatus
@@ -1357,7 +1416,8 @@ extension ViewController: PostTableViewCellDelegate {
             self.shrinkNextCell = true
         }
         if let indexToExpand = expandAtIndex {
-            tableView.reloadRows(at: [indexToExpand], with: .none)
+            self.tableView.reloadRows(at: [indexToExpand], with: .none)
+            cell.layoutSubviews()
 
         }
     }
