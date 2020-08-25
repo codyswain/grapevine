@@ -118,6 +118,8 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             defaults.set("dark", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
+                self.bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
+                self.bottomNavBar.selectedItemTintColor = UIColor.systemGray2
             }
         }
         else{
@@ -129,6 +131,8 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             defaults.set("light", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
+                self.bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey
+                self.bottomNavBar.selectedItemTintColor = .black
             }
         }
     }

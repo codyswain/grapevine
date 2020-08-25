@@ -107,6 +107,8 @@ class ViewController: UIViewController {
 
     //for reloading cell after comment
     var commentCellIndexPath: IndexPath?
+    
+    var goStraightToKarma = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
@@ -165,6 +167,9 @@ class ViewController: UIViewController {
         let tapGestureRecognizerApplyAbility = UITapGestureRecognizer(target: self, action: #selector(applyAbilityTapped(tapGestureRecognizer:)))
         applyAbilityButton.addGestureRecognizer(tapGestureRecognizerApplyAbility)
         
+        let tapGestureRecognizerKarmaLabel = UITapGestureRecognizer(target: self, action: #selector(karmaLabelTapped(tapGestureRecognizer:)))
+        karmaAmountLabel.addGestureRecognizer(tapGestureRecognizerKarmaLabel)
+        
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
         
@@ -178,6 +183,12 @@ class ViewController: UIViewController {
             defaults.removeObject(forKey: "notificationPostID")
             self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
         }
+    }
+    
+    @objc func karmaLabelTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        goStraightToKarma = true
+        performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+        
     }
     
     // Display notification alert. Location alert is handled by location manager callback function
