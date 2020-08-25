@@ -357,6 +357,8 @@ class PostTableViewCell: UITableViewCell {
     
     func makeBasicCell(post: Post) {
         /// Reset cell attributes before reusing
+        self.BoundingView.layer.borderWidth = 0
+        self.BoundingView.layer.borderColor = nil
         self.imageVar.image = nil
         self.moreOptionsButton.tintColor = UIColor.systemGray3
         self.label.font = self.label.font.withSize(16)

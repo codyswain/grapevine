@@ -858,8 +858,7 @@ class ViewController: UIViewController {
                 let postToBeShoutOut = self.selectedPost!.postId
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
                 overrideShout = true
-                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
-
+                postsManager.fetchSinglePost(postID: self.selectedPost!.postId)
             } else {
                 confirmMessage = "Unable to shout..."
                 alertMessage = "Not enough karma!"
@@ -1042,32 +1041,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableAbilities()
         }
         
-        //Quick fix to avoid waiting for http response on ability activation
-        if overrideShout == true {
-            overrideShout = false
-            cell.shoutActive = true
-            let layer = getGradient(color1: .white, color2: .yellow)
-            if cell.postType == "text" {
-                layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: expandedCellHeight ?? CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
-            } else {
-                //Hacky fix for image height
-                layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: 400)
-            }
-            cell.gradient = layer
-            cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
-            cell.voteCountLabel.textColor = .black
-            cell.label.textColor = .black
-            cell.layoutSubviews()
-        } else {
-            cell.shoutActive = false
-        }
-        
         // The cell is shouted
         if let expiry = posts[indexPath.row].shoutExpiration {
             if expiry > Date().timeIntervalSince1970 {
                 print("Showing shouted post!")
                 cell.shoutActive = true
-                let layer = getGradient(color1: .white, color2: .yellow)
+                //Comment out to remove gradient vvv
+                //let layer = getGradient(color1: #colorLiteral(red: 1, green: 0.9592501521, blue: 0.5572303534, alpha: 1), color2: #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1))
+//                let layer = getGradient(color1: .yellow, color2: #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1))
+                var layer = getGradient(color1: .white, color2: .yellow)
+                if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+                    if (curTheme == "dark") {
+                        layer = getGradient(color1: .yellow, color2: #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1))
+                    }
+                }
+//                let layer = getGradient(color1: .white, color2: .yellow)
+                
                 if cell.postType == "text" {
                     layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: expandedCellHeight ?? CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
                 } else {
@@ -1079,6 +1068,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.voteCountLabel.textColor = .black
                 cell.label.textColor = .black
                 cell.layoutSubviews()
+                // ^^^
+                // Uncomment for border instead
+//                cell.BoundingView.layer.borderWidth = 2
+//                cell.BoundingView.layer.borderColor = #colorLiteral(red: 0.5951293111, green: 0.4168574512, blue: 0.8163670897, alpha: 1)
             } else {
                 cell.shoutActive = false
             }
@@ -1145,20 +1138,32 @@ extension ViewController: PostsManagerDelegate {
     }
     
     func didGetSinglePost(_ postManager: PostsManager, post: Post) {
-        DispatchQueue.main.async {
-            if post.poster == "" {
+        if self.overrideShout {
+            self.overrideShout = false
+            DispatchQueue.main.async {
+                for index in self.posts.indices {
+                    if self.posts[index].postId == post.postId {
+                        self.posts[index].shoutExpiration  = Date().timeIntervalSince1970 + 6*60*60
+                        self.tableView.reloadRows(at: [self.selectedIndex!], with: .automatic)
+                    }
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                if post.poster == "" {
+                    self.performSegue(withIdentifier: "goToComments", sender: self)
+                }
+                if post.type == "image" {
+                    let cell = PostTableViewCell()
+                    let cellImage = cell.createTableCellImage()
+                    self.selectedPostScreenshot = cellImage
+                    self.selectedPost = post
+                } else {
+                    self.selectedPost = post
+                    
+                }
                 self.performSegue(withIdentifier: "goToComments", sender: self)
             }
-            if post.type == "image" {
-                let cell = PostTableViewCell()
-                let cellImage = cell.createTableCellImage()
-                self.selectedPostScreenshot = cellImage
-                self.selectedPost = post
-            } else {
-                self.selectedPost = post
-                
-            }
-            self.performSegue(withIdentifier: "goToComments", sender: self)
         }
     }
     
