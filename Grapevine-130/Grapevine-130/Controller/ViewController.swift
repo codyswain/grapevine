@@ -64,6 +64,10 @@ class ViewController: UIViewController {
     }()
     var indicator = UIActivityIndicatorView()
     
+    //for reloading cell for abilities
+    var selectedIndex: IndexPath?
+    var overrideShout = false
+    
     // Post clicked to view comments
     var selectedPost: Post?
     
@@ -515,7 +519,7 @@ class ViewController: UIViewController {
         self.present(alert, animated: true)
     }
 
-    func showAbilitiesView(_ cell: UITableViewCell){
+    func showAbilitiesView(_ cell: PostTableViewCell){
         // Vibrate for haptic feedback
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
@@ -552,6 +556,7 @@ class ViewController: UIViewController {
         let indexPath = self.tableView.indexPath(for: cell)!
         let row = indexPath.row
         selectedPost = posts[row]
+        selectedIndex = indexPath
     }
     
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat = 0){
@@ -836,6 +841,7 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBeDeleted = self.selectedPost!.postId
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
             } else {
                 confirmMessage = "Unable to burn..."
                 alertMessage = "Not enough karma!"
@@ -850,6 +856,9 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBeShoutOut = self.selectedPost!.postId
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
+                overrideShout = true
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
+
             } else {
                 confirmMessage = "Unable to shout..."
                 alertMessage = "Not enough karma!"
@@ -864,6 +873,7 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBePushed = self.selectedPost!.postId
                 self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
             } else {
                 confirmMessage = "Unable to push..."
                 alertMessage = "Not enough karma!"
@@ -975,21 +985,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         //set the time ago timestamp for post
         cell.setTimeSincePost()
-
-        // The cell is shouted
-        if let expiry = posts[indexPath.row].shoutExpiration {
-            if expiry > Date().timeIntervalSince1970 {
-                print("Showing shouted post!")
-                cell.shoutActive = true
-                let layer = getGradient(color1: .systemBackground, color2: .yellow)
-                layer.frame = cell.commentAreaView.bounds
-                cell.gradient = layer
-                cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
+        
+        //Expand or collapse cells
+        if !cell.expandButton.isHidden {
+            if self.expandNextCell == true {
+                self.expandNextCell = false
+                cell.expandCell()
+            } else if self.shrinkNextCell == true {
+                self.shrinkNextCell = false
+                cell.shrinkCell()
             } else {
-                cell.shoutActive = false
+                cell.shrinkCell()
             }
-        } else {
-            cell.shoutActive = false
+            cell.layoutSubviews()
         }
         
         //Jeremy is the poster, make green to show he is special
@@ -1009,16 +1017,21 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         // If the current user created this post, he/she can delete it
         if (Constants.userID == posts[indexPath.row].poster && currentMode != "myComments"){
-            cell.enableDelete()
+            cell.isDeleteable = true
             cell.disableInteraction()
         } else {
-            cell.disableDelete()
-            cell.enableInteraction()
+            cell.isDeleteable = false
         }
         
-        // If currentmode is my comments then they don't need the cell footer
+        // If currentmode is my comments then should just show cell with comment
+        // In the future we should use a different cell for this (dequeueReusableCellWithIdentifier"commentcell")
         if currentMode == "myComments" {
-//            cell.footer.isHidden = true
+            cell.disableInteraction()
+            cell.voteCountLabel.isHidden = true
+            cell.commentButton.isHidden = true
+            cell.moreOptionsButton.isHidden = true
+            cell.commentLabel.text = "Tap to view post"
+            cell.shareButtonVar.isHidden = true
         }
         
         // Don't let users use abilities on their own posts
@@ -1028,17 +1041,48 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.enableAbilities()
         }
         
-        //Expand or collapse cells
-        if !cell.expandButton.isHidden {
-            if self.expandNextCell == true {
-                self.expandNextCell = false
-                cell.expandCell()
-            } else if self.shrinkNextCell == true {
-                self.shrinkNextCell = false
-                cell.shrinkCell()
+        //Quick fix to avoid waiting for http response on ability activation
+        if overrideShout == true {
+            overrideShout = false
+            cell.shoutActive = true
+            let layer = getGradient(color1: .white, color2: .yellow)
+            if cell.postType == "text" {
+                layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: expandedCellHeight ?? CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
             } else {
-                cell.shrinkCell()
+                //Hacky fix for image height
+                layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: 400)
             }
+            cell.gradient = layer
+            cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
+            cell.voteCountLabel.textColor = .black
+            cell.label.textColor = .black
+            cell.layoutSubviews()
+        } else {
+            cell.shoutActive = false
+        }
+        
+        // The cell is shouted
+        if let expiry = posts[indexPath.row].shoutExpiration {
+            if expiry > Date().timeIntervalSince1970 {
+                print("Showing shouted post!")
+                cell.shoutActive = true
+                let layer = getGradient(color1: .white, color2: .yellow)
+                if cell.postType == "text" {
+                    layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: expandedCellHeight ?? CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
+                } else {
+                    //Hacky fix for image height
+                    layer.frame = CGRect(x: 0.0, y: 0.0, width: cell.frame.width, height: 400)
+                }
+                cell.gradient = layer
+                cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
+                cell.voteCountLabel.textColor = .black
+                cell.label.textColor = .black
+                cell.layoutSubviews()
+            } else {
+                cell.shoutActive = false
+            }
+        } else {
+            cell.shoutActive = false
         }
         
         return cell
@@ -1371,7 +1415,8 @@ extension ViewController: PostTableViewCellDelegate {
             self.shrinkNextCell = true
         }
         if let indexToExpand = expandAtIndex {
-            tableView.reloadRows(at: [indexToExpand], with: .none)
+            self.tableView.reloadRows(at: [indexToExpand], with: .none)
+            cell.layoutSubviews()
 
         }
     }

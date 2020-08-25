@@ -10,7 +10,7 @@ import UIKit
 
 protocol CommentTableViewCellDelegate {
     func updateTableViewVotes(_ cell: UITableViewCell, _ newVote: Int, _ newVoteStatus: Int)
-    func deleteCell( _ cell: UITableViewCell)
+    func deleteCell( _ cell: CommentTableViewCell)
 }
 
 class CommentTableViewCell: UITableViewCell {
