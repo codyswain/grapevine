@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MaterialComponents.MaterialDialogs
 
 class WalkthroughViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -106,8 +107,36 @@ class WalkthroughViewController: UICollectionViewController, UICollectionViewDel
 
 extension WalkthroughViewController: WalkthroughPageCellDelegate {
     func continueButtonTapped() {
-        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as UIViewController
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: false, completion: nil)
+        firstTimeUserWelcomeAlert()
+    }
+        
+    func firstTimeUserWelcomeAlert(){
+        let alert = MDCAlertController(title: "Just a few more details!", message: "The main feed shows you posts that were created within a few miles of you, anonymously.\n\nYou can create your own or upvote, downvote, and comment on others!")
+        alert.addAction(MDCAlertAction(title: "Next") { (action) in self.firstTimeUserKarmaAlert() })
+        makePopup(alert: alert, image: "location.circle.fill")
+        super.present(alert, animated: true)
+    }
+    
+    func firstTimeUserKarmaAlert(){
+        let alert = MDCAlertController(title: "Karma", message: "The upvotes/downvotes you get on your posts and commens are tallied and summed into a number called Karma.\n\nKarma allows you to unlock special abilities on Grapevine, like being able to notify closeby users of your posts or being able to ban people.")
+        alert.addAction(MDCAlertAction(title: "Next") { (action) in self.firstTimeUserRulesAlert() })
+        makePopup(alert: alert, image: "location.circle.fill")
+        super.present(alert, animated: true)
+    }
+    
+    func firstTimeUserRulesAlert(){
+        let alert = MDCAlertController(title: "Rules", message: "You must agree to our rules. If you see content that doesn't belong, press and hold to report!\n\n1. Posting bullying, threats, terrorism, harrassment, or stalking will not be allowed and may force law enforcement to be involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason. ")
+        alert.addAction(MDCAlertAction(title: "I agree, let me in!") { (action) in
+            let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as UIViewController
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: false, completion: nil)
+        })
+        alert.addAction(MDCAlertAction(title: "Privacy Policy") { (action) in
+            let application = UIApplication.shared
+            let webURL = URL(string: "https://medium.com/@ahumay/grapevine-privacy-policy-a4cf5a4e0fd9")!
+            application.open(webURL)
+        })
+        makePopup(alert: alert, image: "location.circle.fill")
+        super.present(alert, animated: true)
     }
 }

@@ -354,16 +354,13 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard //Save range for next load
         if let rangeType = defaults.string(forKey: Globals.userDefaults.rangeKey) {
             switch rangeType {
-            case " 0.1 Miles":
-                self.range = 0.1
-                self.rangeButton.setTitle(rangeType, for: .normal)
             case " 1 Mile":
                 self.range = 1.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
             case " 10 Miles":
                 self.range = 10.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
-            default: //3 miles
+            default: //5 miles
                 self.range = 3.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
             }
@@ -700,11 +697,6 @@ class ViewController: UIViewController {
         /// Displays the possible ranges users can request posts from
         let defaults = UserDefaults.standard //Save range for next load
         let alert = MDCAlertController(title: "Change Range", message: "Find more posts around you!")
-
-        let action1 = MDCAlertAction(title: "0.1 Miles") { (action) in
-            self.rangeAction(range: 0.1, title: " 0.1 Miles")
-            defaults.set(" 0.1 Miles", forKey: Globals.userDefaults.rangeKey)
-        }
         
         let action2 = MDCAlertAction(title: "1 Mile") { (action) in
             self.rangeAction(range: 1.0, title: " 1 Mile")
@@ -715,7 +707,6 @@ class ViewController: UIViewController {
             self.rangeAction(range: 3.0, title: " 3 Miles")
             defaults.set(" 3 Miles", forKey: Globals.userDefaults.rangeKey)
         }
-        
         
         let action4 = MDCAlertAction(title: "10 Miles") { (action) in
             self.rangeAction(range: 10.0, title: " 10 Miles")
@@ -728,7 +719,6 @@ class ViewController: UIViewController {
         alert.addAction(action4)
         alert.addAction(action3)
         alert.addAction(action2)
-        alert.addAction(action1)
         
         if let notificationPostIDTitle = defaults.string(forKey: "notificationPostID") {
             let action6 = MDCAlertAction(title: notificationPostIDTitle) { (action) in }
