@@ -1421,7 +1421,7 @@ extension ViewController: PostTableViewCellDelegate {
             self.shrinkNextCell = true
         }
         if let indexToExpand = expandAtIndex {
-            self.tableView.reloadRows(at: [indexToExpand], with: .none)
+            self.tableView.reloadRows(at: [indexToExpand], with: .automatic)
             cell.layoutSubviews()
 
         }
