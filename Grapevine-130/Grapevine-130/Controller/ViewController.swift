@@ -558,7 +558,7 @@ class ViewController: UIViewController {
             shoutButton.alpha = 0.4
             currentAbilityTitle.text = "Push"
             currentAbility = "push"
-            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0) karma."
+            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0)."
         }
         
         let indexPath = self.tableView.indexPath(for: cell)!
