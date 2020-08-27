@@ -147,6 +147,10 @@ extension ShoutChamberViewController: UITableViewDataSource {
 
 /// Updates the posts table once posts are sent by the server.
 extension ShoutChamberViewController: PostsManagerDelegate {
+    func handleToxicityStatus(toxicScore: Double) {
+        //Implemented in NewPostViewController
+    }
+    
     func contentNotPermitted() {
         //Implemented in NewPostViewController
     }

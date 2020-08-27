@@ -9,6 +9,7 @@ protocol PostsManagerDelegate {
     func didCreatePost()
     func didGetSinglePost(_ postManager: PostsManager, post: Post)
     func contentNotPermitted()
+    func handleToxicityStatus(toxicScore: Double)
 }
 
 /// An object that handles the retrieval of post data from the database.
@@ -25,6 +26,7 @@ struct PostsManager {
     let fetchBannedPostsURL = Constants.serverURL + "banChamber/?"
     let fetchShoutablePostsURL = Constants.serverURL + "shoutChamber/?"
     let createPostURL = Constants.serverURL + "posts"
+    let checkToxicityURL = Constants.serverURL + "posts/checkToxicity"
     let createGroupsPostURL = Constants.serverURL + "groups/posts"
     let fetchMyCommentsURL = Constants.serverURL + "myComments/?"
     let fetchMoreMyCommentsURL = Constants.serverURL + "myComments/more/?"
@@ -259,6 +261,45 @@ struct PostsManager {
             }
         }
         task.resume()
+        
+    }
+    
+    /**
+        Checks a posts toxicity
+            res.status(214) = over 0.8 toxic
+            res.status(200) = <0.8 toxic
+     */
+    func checkToxicity(text: String) {
+        let url = URL(string: checkToxicityURL)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let json: [String: Any] = [
+            "text": text,
+        ]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let session = URLSession(configuration: .default)
+
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                let httpResponse = response as! HTTPURLResponse
+                if let safeData = data {
+                    print("Request returned")
+                    if let score = self.parseToxicityJSON(safeData) {
+                        if httpResponse.statusCode == 214 {
+                            self.delegate?.handleToxicityStatus(toxicScore: score)
+                        } else if httpResponse.statusCode == 200 {
+                            self.delegate?.handleToxicityStatus(toxicScore: score)
+                        } else {
+                            print("Error checking toxicity score")
+                        }
+                    }
+                }
+            }
+        }
+        task.resume()
     }
 
     /**
@@ -315,6 +356,18 @@ struct PostsManager {
             delegate?.didFailWithError(error: error)
         }
         return post
+    }
+    
+    //Parses toxicityScore
+    func parseToxicityJSON(_ data: Data) -> Double? {
+        let decoder = JSONDecoder()
+        var toxicityScore = 0.0
+        do {
+            toxicityScore = try decoder.decode(Double.self, from: data)
+        } catch {
+            delegate?.didFailWithError(error: error)
+        }
+        return toxicityScore
     }
     
     // Fetch the user's own posts

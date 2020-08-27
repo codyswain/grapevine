@@ -1133,6 +1133,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 /// Updates the posts table once posts are sent by the server.
 extension ViewController: PostsManagerDelegate {
+    func handleToxicityStatus(toxicScore: Double) {
+        //Implemented in newPostViewController
+    }
+    
     func contentNotPermitted() {
         //Implemented in newPostViewController
     }

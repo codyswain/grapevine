@@ -12,6 +12,7 @@ router.get('/more', morePosts);
 router.post('/', createPost);
 router.delete('/', deletePost);
 router.get('/single', getSinglePost)
+router.post('/checkToxicity', checkToxicity);
 
 /**
  * Fetches posts from the database based on the url parameters and sends them to the client.
@@ -157,6 +158,31 @@ async function getPosts(req, res, next) {
 }
 
 /*
+Post /posts/checkToxicity
+Description: Checks the toxicity of a post before allowing it to be posted to the database
+Only for text posts
+*/
+async function checkToxicity(req, res) {
+  let text = req.body.text
+  var score = 0
+  let toxic_result = await perspective.analyze(text)
+  .then((toxic_result) => {
+    score = toxic_result.attributeScores.TOXICITY.summaryScore.value
+    console.log("Toxicity score: " + score)
+    if (score >= 0.8){
+      res.status(214).json(score);
+    }
+    else {
+      res.status(200).json(score);
+    }
+  })
+  .catch((err) => {
+    console.log("Toxicity score undetermined because: " + err)
+    score = 999
+    res.status(214).json(score);
+  })
+}
+/*
 Post /posts
 Description: Post request including details of user post
 Input parameter Names: content, poster, votes, date, type, lat, lon, numFlags, groupID
@@ -174,25 +200,39 @@ async function createPost(req, res, next) {
       return
     }
     else {
-      let toxic_result = await perspective.analyze(text);
-      console.log("Toxicity score " + toxic_result.attributeScores.TOXICITY.summaryScore.value)
-      userPost = {
-        content : text,
-        poster : req.body.userID,
-        votes : 0,
-        date : req.body.date,
-        type : req.body.type,
-        lat : req.body.latitude,
-        lon : req.body.longitude,
-        numFlags : 0,
-        geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
-        interactions: {},
-        toxicity: toxic_result.attributeScores.TOXICITY.summaryScore.value,
-        banned: false,
-        comments: 0
-      };
+      var toxicityScore = 0
+      let toxic_result = await perspective.analyze(text)
+      .then((toxic_result) => {
+        toxicityScore = toxic_result.attributeScores.TOXICITY.summaryScore.value
+      })
+      .catch((err) => {
+        console.log("Toxicity score undetermined because: " + err)
+        toxicityScore = 999
+      })
+      .finally(() => {
+        var numberOfFlags = 0
+        if (toxicityScore >= 0.8) {
+          console.log("Post flagged because it has a toxicity score of: " + toxicityScore)
+          numberOfFlags = 1
+        }
+        userPost = {
+          content : text,
+          poster : req.body.userID,
+          votes : 0,
+          date : req.body.date,
+          type : req.body.type,
+          lat : req.body.latitude,
+          lon : req.body.longitude,
+          numFlags : numberOfFlags,
+          geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
+          interactions: {},
+          toxicity: toxicityScore,
+          banned: false,
+          comments: 0
+        };
+      })
     }
-	}
+  }
 
 	// Image/drawing creation logic
 	if (req.body.type == 'image') {
@@ -237,7 +277,7 @@ async function deletePost(req, res, next) {
 
 	db.collection("posts").doc(postID).delete()
 	.catch((err) => {
-		console.log("ERROR storing post : " + err)
+		console.log("ERROR deleting post : " + err)
 		res.status(400).send()
 	})
 	.then(() => {
