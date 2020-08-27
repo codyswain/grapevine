@@ -9,7 +9,7 @@ protocol PostTableViewCellDelegate {
     func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
-    func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
+    func reloadCell(cell: PostTableViewCell)
     func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController)
 }
 
@@ -73,7 +73,10 @@ class PostTableViewCell: UITableViewCell {
     var postDate: Date?
     
     ///Post Expansion
-    var isExpanded: Bool = false
+    enum expansionStatus{
+        case notApplicable, collapsed, expanded
+    }
+    var expansionState: String?
     
     ///Deleteable
     var isDeleteable = false
@@ -82,7 +85,7 @@ class PostTableViewCell: UITableViewCell {
     var gradient: CAGradientLayer?
     
     /// post expansion
-    let maxLines = 3
+    fileprivate let maxLines = 3
     /**
     Initializes the posts table and adds gestures.
     */
@@ -328,7 +331,7 @@ class PostTableViewCell: UITableViewCell {
             self.upvoteButton.isHidden = false
             self.downvoteButton.isHidden = false
         }
-        UIGraphicsBeginImageContextWithOptions(self.BoundingView.frame.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             self.layer.render(in: currentContext)
             im = UIGraphicsGetImageFromCurrentImageContext()
@@ -413,59 +416,45 @@ class PostTableViewCell: UITableViewCell {
             burnBlockedView.isUserInteractionEnabled = true
             burnBlockedView.isHidden = false
         }
-        
-        // Collapse Cell
-        label.numberOfLines = maxLines
-        commentAreaView.clipsToBounds = true
-
-        if self.label.totalNumberOfLines() > maxLines {
-            expandButton.isUserInteractionEnabled = true
-            expandButton.isHidden = false
-            label.lineBreakMode = .byTruncatingTail
-            self.shrinkCell()
-        }
-        else {
-            expandButton.isUserInteractionEnabled = false
-            expandButton.isHidden = true
-            label.lineBreakMode = .byWordWrapping
-        }
         gradient?.removeFromSuperlayer()
         shoutActive = false
-        enableInteraction()
-    }
-    
-    func expandCell() {
-        self.isExpanded = true
-        self.label.numberOfLines = -1 //infinity
-        self.label.lineBreakMode = .byWordWrapping
-        self.expandButton.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
-        self.expandButton.tintColor = UIColor.systemBlue
-        layoutSubviews()
-    }
-    
-    func shrinkCell() {
-        self.isExpanded = false
-        self.label.lineBreakMode = .byTruncatingTail
-        self.label.numberOfLines = self.maxLines
-        self.expandButton.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
-        self.expandButton.tintColor = UIColor.systemBlue
-        layoutSubviews()
+        enableInteraction()   
+        if label.totalNumberOfLines() < maxLines {
+                expansionState = "not applicable"
+                  label.numberOfLines = 0 // infinity
+                  expandButton.setImage(UIImage(named: "chevron.up"), for: .normal)
+              } else { //expanded, make cell collapsed
+                  expansionState = "collapsed"
+                  label.numberOfLines = maxLines
+                  label.lineBreakMode = .byTruncatingTail
+                  expandButton.setImage(UIImage(named: "chevron.down"), for: .normal)
+        }
     }
     
     //Expand cell button. Expands or contracts cell if pressed when content too large
+    //Call after makeBasicCell in
     @IBAction func expandButtonPressed(_ sender: Any) {
-        if self.isExpanded == false {
-            //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 96)
-                self.expandButton.tintColor = .systemGray3
-            //}, completion: nil )
-            
-        } else {
-            //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.maxLines) * self.label.font.lineHeight + 96)
-                self.expandButton.tintColor = .systemGray3
-            //}, completion: nil)
+//        if self.isExpanded == false {
+//            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+//                self.delegate?.reloadCell(cell: self)
+//                self.expandButton.tintColor = .systemGray3
+//            }, completion: nil )
+//
+//        } else {
+//            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+//                self.delegate?.reloadCell(cell: self)
+//                self.expandButton.tintColor = .systemGray3
+//            }, completion: nil)
+//        }
+        switch expansionState {
+        case "collapsed":
+                expansionState = "expanded"
+        case "expanded":
+                expansionState = "collapsed"
+        default:
+            expansionState = "not applicable"
         }
+        delegate?.reloadCell(cell: self)
     }
     
     /// This is abilities button

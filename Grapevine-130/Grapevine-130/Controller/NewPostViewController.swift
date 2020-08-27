@@ -24,6 +24,8 @@ class NewPostViewController: UIViewController {
     var groupID = ""
     var delegate: NewPostViewControllerDelegate?
     var newPostCreationAttempt: Bool = false //Check if there is a new post. Used to avoid creating a post when just updating location.
+    var textFieldBody: String? //Store text entered by user when checking toxicity score
+    var spinnerView: UIView?
 
     @IBOutlet weak var ColorButtonVar: UIButton!
     @IBOutlet weak var createTextButtonVar: UIButton!
@@ -247,13 +249,13 @@ class NewPostViewController: UIViewController {
         self.view.endEditing(true)
         
         // Show activity spinner
-        let spinnerView = UIView.init(frame: self.view.bounds)
-        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        self.spinnerView = UIView.init(frame: self.view.bounds)
+        spinnerView?.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         let ai = UIActivityIndicatorView.init(style: .large)
         ai.startAnimating()
-        ai.center = spinnerView.center
-        spinnerView.addSubview(ai)
-        self.view.addSubview(spinnerView)
+        ai.center = spinnerView?.center as! CGPoint
+        spinnerView?.addSubview(ai)
+        self.view.addSubview(spinnerView!)
         
         //Get Location. Callback function sends request (location manager delegate)
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -268,10 +270,8 @@ class NewPostViewController: UIViewController {
                 //trim whitespace, so people cant enter a post that is just spaces (only before and after non-whitespace charachters. Not inbetween
                 textFieldBody = textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines)
                 if textFieldBody.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                    if setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
-                        return
-                    }
-                    postsManager.performPOSTRequest(contentText: textFieldBody, latitude: lat, longitude: lon, postType: "text", groupID: self.groupID)
+                    postsManager.checkToxicity(text: textFieldBody)
+                    self.textFieldBody = textFieldBody
                 } else {
                     backButton(self)
                 }
@@ -338,6 +338,41 @@ extension NewPostViewController: UITextViewDelegate {
 }
 
 extension NewPostViewController: PostsManagerDelegate {
+    func handleToxicityStatus(toxicScore: Double) {
+        DispatchQueue.main.async {
+            if toxicScore >= 0.8 {
+                let alert = MDCAlertController(title: "High Toxicity Score", message: "Your post has a high toxicity score: " + String(toxicScore) + ". It may be flagged for review. Would you like to post it anyways?")
+                let action1 = MDCAlertAction(title: "Don't Post") { (action) in //self.dismiss(animated: true, completion: {
+                    self.spinnerView?.removeFromSuperview()
+                    self.newPostCreationAttempt = false
+                    self.selectedButtonColors(button: self.createTextButtonVar)
+                    self.deselectedButtonColors(button: self.createDrawingButtonVar)
+                    self.changeViewToText()
+                    self.currentState = "text"
+                    self.backTextView.text = ""
+                    self.frontTextView.text = self.textFieldBody
+                    self.AddButtonContainingView.backgroundColor = .systemBackground
+                }//}) }
+                let action2 = MDCAlertAction(title: "Post anyway") { (action) in
+                    if self.setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
+                        return
+                    }
+                    self.postsManager.performPOSTRequest(contentText: self.textFieldBody!, latitude: self.lat, longitude: self.lon, postType: "text", groupID: self.groupID)
+                }
+                alert.addAction(action2)
+                alert.addAction(action1)
+                makePopup(alert: alert, image: "x.circle.fill")
+                self.present(alert, animated: true)
+                alert.mdc_dialogPresentationController?.dismissOnBackgroundTap = false //ideally we would have this enabled and use a completion handler to dismiss the view on background tap. But the documentation is poor and a better solution has not yet been found.
+            } else {
+                if self.setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
+                    return
+                }
+                self.postsManager.performPOSTRequest(contentText: self.textFieldBody!, latitude: self.lat, longitude: self.lon, postType: "text", groupID: self.groupID)
+            }
+        }
+    }
+    
     func contentNotPermitted() {
         DispatchQueue.main.async {
             let alert = MDCAlertController(title: "Content Not Permitted", message: "You created a post containing content that we do not support on this platform. Please be respectful to other users.")
