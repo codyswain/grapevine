@@ -44,7 +44,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Grapevine will not work if your location is not shared.</string>
+	<string>Grapevine uses your location to show content and posts near you.</string>
 	<key>SCSDKClientId</key>
 	<string>a508db50-7733-4535-9881-1b774f4b3d3e</string>
 	<key>UIApplicationSceneManifest</key>
