@@ -513,6 +513,8 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToInstagram(backgroundImage, content)
         })
+        /*
+         TODO (ahumay): Uncomment when Snap shit gets settled
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
             var backgroundImage: UIImage
             if self.range == -1 {
@@ -522,6 +524,7 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
+         */
 
         makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
         self.present(alert, animated: true)
