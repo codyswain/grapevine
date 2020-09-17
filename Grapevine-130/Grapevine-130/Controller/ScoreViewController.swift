@@ -13,7 +13,15 @@ class ScoreViewController: UIViewController {
     var userManager = UserManager()
     var scoreManager = ScoreManager()
     var indicator = UIActivityIndicatorView()
-    var bottomNavBar = MDCBottomNavigationBar()
+    lazy var bottomNavBar: UITabBar = {
+        let tab = UITabBar()
+        self.view.addSubview(tab)
+        tab.translatesAutoresizingMaskIntoConstraints = false
+        tab.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        tab.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        tab.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true //This line will change in second part of this post.
+        return tab
+    }()
     
     
     @IBOutlet weak var scoreContainer: UIView!
@@ -64,7 +72,6 @@ class ScoreViewController: UIViewController {
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
-        indicator.backgroundColor = .systemBackground
                         
         userDefaults.removeObject(forKey: "karma")
         if (self.userDefaults.string(forKey: "karma") == nil) {
@@ -83,6 +90,7 @@ class ScoreViewController: UIViewController {
     /// Displays a loading icon while posts load.
     func activityIndicator() {
         indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+
         indicator.style = UIActivityIndicatorView.Style.medium
         indicator.center = self.view.center
         self.view.addSubview(indicator)
@@ -124,16 +132,16 @@ extension ScoreViewController: UserManagerDelegate {
     }
 }
 
-extension ScoreViewController: MDCBottomNavigationBarDelegate {
-    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+extension ScoreViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0  {
-            bottomNavBar.selectedItem = bottomNavBar.items[0]
+            bottomNavBar.selectedItem = bottomNavBar.items?[0]
             self.performSegue(withIdentifier: "scoreToMain", sender: self)
         } else if item.tag == 1 {
-            bottomNavBar.selectedItem = bottomNavBar.items[1]
+            bottomNavBar.selectedItem = bottomNavBar.items?[1]
             self.performSegue(withIdentifier: "karmaToCreatePost", sender: self)
         } else {
-            bottomNavBar.selectedItem = bottomNavBar.items[2]
+            bottomNavBar.selectedItem = bottomNavBar.items?[2]
             self.performSegue(withIdentifier: "scoreToProfile", sender: self)
         }
     }

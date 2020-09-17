@@ -80,7 +80,15 @@ class ViewController: UIViewController {
     var addButton = MDCFloatingButton()
     
     // Add the bottom nav bar, which is done in BottomNavBarMenu.swift
-    var bottomNavBar = MDCBottomNavigationBar()
+    lazy var bottomNavBar: UITabBar = {
+          let tab = UITabBar()
+          self.view.addSubview(tab)
+          tab.translatesAutoresizingMaskIntoConstraints = false
+          tab.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+          tab.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+          tab.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true //This line will change in second part of this post.
+          return tab
+      }()
     
     // Default feed only shows text posts
     var curPostType: String = "text"
@@ -131,7 +139,29 @@ class ViewController: UIViewController {
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
-        indicator.backgroundColor = .systemBackground
+        
+        if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                indicator.backgroundColor = .black
+                //self.view.backgroundColor = .black
+            }
+            else {
+                indicator.backgroundColor = .systemGray6
+                //self.view.backgroundColor = .systemGray6
+
+            }
+        }
+        //view colors
+        self.view.backgroundColor = UIColor(named: "GrapevinePurple")
+//        self.nearbyLabel.textColor = .purple
+//        self.groupsButton.tintColor = .purple
+//        self.groupsButton.setTitleColor(.purple, for: .normal)
+//        self.filterButton.tintColor = .purple
+//        self.filterButton.setTitleColor(.purple, for: .normal)
+//        self.rangeButton.tintColor = .purple
+//        self.rangeButton.setTitleColor(.purple, for: .normal)
+//        self.postTypeButton.tintColor = .purple
+//        self.postTypeButton.setTitleColor(.purple, for: .normal)
         
         // Load user defaults into post filters
         setInitialPostFilters()
@@ -330,6 +360,14 @@ class ViewController: UIViewController {
      */
     
     func prepareTableView(){
+        if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                tableView.backgroundColor = .systemBackground
+            }
+            else {
+                tableView.backgroundColor = .systemGray6
+            }
+        }
         postsManager.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
@@ -337,7 +375,6 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
-        tableView.backgroundColor = UIColor.systemBackground
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
@@ -1501,30 +1538,30 @@ extension ViewController: CommentViewControllerDelegate {
     }
 }
 
-extension ViewController: MDCBottomNavigationBarDelegate {
-    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+extension ViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
             if currentMode == "default" || currentMode == "groups" {
-                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                bottomNavBar.selectedItem = bottomNavBar.items?[0]
                 if abilitiesBackgroundView.isHidden == false {
                     exitAbilities()
                 } else {
                     scrollToTop()
                 }
             } else { // myPosts or myComments
-                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                bottomNavBar.selectedItem = bottomNavBar.items?[0]
                 let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
                 self.present(freshViewController, animated: true, completion: nil)
             }
         } else if item.tag == 1 {
             if currentMode == "default" {
-                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                bottomNavBar.selectedItem = bottomNavBar.items?[0]
             } else { // myPosts or myComments
-                bottomNavBar.selectedItem = bottomNavBar.items[2]
+                bottomNavBar.selectedItem = bottomNavBar.items?[2]
             }
             self.performSegue(withIdentifier: "goToNewPosts", sender: self)
         } else if item.tag == 2 {
-            bottomNavBar.selectedItem = bottomNavBar.items[1]
+            bottomNavBar.selectedItem = bottomNavBar.items?[1]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
     }

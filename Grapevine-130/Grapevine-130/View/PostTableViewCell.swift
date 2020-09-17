@@ -359,10 +359,21 @@ class PostTableViewCell: UITableViewCell {
         /// Reset cell attributes before reusing
         self.BoundingView.layer.borderWidth = 0
         self.BoundingView.layer.borderColor = nil
+        self.expandButton.tintColor = UIColor(named: "GrapevinePurple")
         self.imageVar.image = nil
         self.moreOptionsButton.tintColor = UIColor.systemGray3
         self.label.font = self.label.font.withSize(16)
-        self.commentAreaView.backgroundColor = UIColor.systemGray6
+        if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                self.commentAreaView.backgroundColor = .systemGray6
+                self.ContentView.backgroundColor = .black
+            }
+            else {
+                self.commentAreaView.backgroundColor = .systemBackground
+                self.ContentView.backgroundColor = .systemGray6
+
+            }
+        }
         self.label.textColor = UIColor.label
         commentButton.isUserInteractionEnabled = true
         
@@ -439,7 +450,6 @@ class PostTableViewCell: UITableViewCell {
         self.label.numberOfLines = -1 //infinity
         self.label.lineBreakMode = .byWordWrapping
         self.expandButton.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
-        self.expandButton.tintColor = UIColor.systemBlue
         layoutSubviews()
     }
     
@@ -448,7 +458,6 @@ class PostTableViewCell: UITableViewCell {
         self.label.lineBreakMode = .byTruncatingTail
         self.label.numberOfLines = self.maxLines
         self.expandButton.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
-        self.expandButton.tintColor = UIColor.systemBlue
         layoutSubviews()
     }
     
