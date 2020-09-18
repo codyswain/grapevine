@@ -27,6 +27,9 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: UITabBar, tab: 
             bottomNavBar.tintColor = .black
 
         }
+    } else {
+        bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey
+        bottomNavBar.tintColor = .black
     }
 
     let postTab = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)

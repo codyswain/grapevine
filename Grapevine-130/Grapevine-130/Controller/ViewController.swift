@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
 import MaterialComponents.MaterialButtons
@@ -21,6 +22,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var postTypeButton: UIButton!
     @IBOutlet weak var abilitiesBackgroundView: UIView!
     @IBOutlet weak var abilitiesStackView: UIStackView!
+    
+    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var grapevineLogo: UIImageView!
+    @IBOutlet weak var filterStackview: UIStackView!
     
     @IBOutlet weak var pushButton: UIImageView!
     @IBOutlet weak var burnButton: UIImageView!
@@ -140,22 +146,41 @@ class ViewController: UIViewController {
         activityIndicator()
         indicator.startAnimating()
         
+        var layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
+        
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 indicator.backgroundColor = .black
+                //bufferView.backgroundColor = .black
                 //self.view.backgroundColor = .black
+                layer = getGradient(color1: .purple, color2: UIColor(named: "GrapevinePurple")!)
             }
             else {
                 indicator.backgroundColor = .systemGray6
+                //bufferView.backgroundColor = .systemGray6
                 //self.view.backgroundColor = .systemGray6
-
+                layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
             }
         }
+        layer.frame = CGRect(x: headerView.frame.minX, y: headerView.frame.minY, width: headerView.frame.width, height: headerView.frame.height + 5)
+//        layer.cornerRadius = 5
+        headerView.layer.insertSublayer(layer, at: 0)
+        
+        //Gradient
+//        let childView = UIHostingController(rootView: GradientView())
+//        addChild(childView)
+//        childView.view.frame = CGRect(x: -50, y: -400, width: headerView.frame.width + 100, height: view.frame.height)
+//        headerView.insertSubview(childView.view, at: 0)
+//        childView.didMove(toParent: self)
+        
+        
         //view colors
-        self.view.backgroundColor = UIColor(named: "GrapevinePurple")
-        self.karmaAmountLabel.layer.borderColor = UIColor.systemBackground.cgColor
+//        self.view.backgroundColor = UIColor(named: "GrapevinePurple")
+        self.karmaAmountLabel.layer.borderColor = UIColor.white.cgColor
         self.karmaAmountLabel.layer.borderWidth = 1
         self.karmaAmountLabel.layer.cornerRadius = 5
+        
+//        headerView.layer.cornerRadius = 5
 
 //        self.nearbyLabel.textColor = .purple
 //        self.groupsButton.tintColor = .purple
@@ -203,6 +228,10 @@ class ViewController: UIViewController {
         
         let tapGestureRecognizerKarmaLabel = UITapGestureRecognizer(target: self, action: #selector(karmaLabelTapped(tapGestureRecognizer:)))
         karmaAmountLabel.addGestureRecognizer(tapGestureRecognizerKarmaLabel)
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGesture.minimumPressDuration = 0.3
+        self.tableView.addGestureRecognizer(longPressGesture)
         
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
@@ -367,9 +396,11 @@ class ViewController: UIViewController {
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 tableView.backgroundColor = .systemBackground
+                view.backgroundColor = .systemGray6
             }
             else {
                 tableView.backgroundColor = .systemGray6
+                view.backgroundColor = .systemBackground
             }
         }
         postsManager.delegate = self
@@ -379,7 +410,7 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 50, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
         
@@ -554,8 +585,6 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToInstagram(backgroundImage, content)
         })
-        /*
-         TODO (ahumay): Uncomment when Snap shit gets settled
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
             var backgroundImage: UIImage
             if self.range == -1 {
@@ -565,7 +594,6 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
-         */
 
         makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
         self.present(alert, animated: true)
@@ -1031,15 +1059,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.setTimeSincePost()
         
         //Expand or collapse cells
-        if !cell.expandButton.isHidden {
+        if cell.expandButton.isUserInteractionEnabled {
             if self.expandNextCell == true {
                 self.expandNextCell = false
                 cell.expandCell()
+                cell.ExpandLabel.text = "Tap and hold to collapse"
             } else if self.shrinkNextCell == true {
                 self.shrinkNextCell = false
                 cell.shrinkCell()
+                cell.ExpandLabel.text = "Tap and hold to expand"
+
             } else {
                 cell.shrinkCell()
+                cell.ExpandLabel.text = "Tap and hold to expand"
+
             }
             cell.layoutSubviews()
         }
@@ -1074,7 +1107,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.voteCountLabel.isHidden = true
             cell.commentButton.isHidden = true
             cell.moreOptionsButton.isHidden = true
-            cell.commentLabel.text = "Tap to view post"
+            cell.commentButton.setTitle("Tap to view post", for: .normal)
             cell.shareButtonVar.isHidden = true
         }
         
@@ -1127,20 +1160,49 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     /// Context menu (shown on long cell press)
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
-                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId, groupID: Globals.ViewSettings.groupID)
-                self.showFlaggedAlertPopup()
+    @objc func handleLongPress(longPressGesture: UILongPressGestureRecognizer) {
+        let p = longPressGesture.location(in: self.tableView)
+        if let indexPath = self.tableView.indexPathForRow(at: p) {
+            let cell = tableView.cellForRow(at: indexPath) as! PostTableViewCell
+            if cell.label.totalNumberOfLines() < cell.maxLines {
+                return
             }
-            let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
-                print("Bookmarks was tapped")
+            if longPressGesture.state == UIGestureRecognizer.State.began {
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                print("Long press on row, at \(indexPath.row)")
+                let cell = tableView.cellForRow(at: indexPath) as! PostTableViewCell
+                if cell.isExpanded == false {
+                    //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.expandAtIndex = indexPath
+                    cell.delegate?.expandCell(cell, cellHeight: CGFloat(cell.label.totalNumberOfLines()) * cell.label.font.lineHeight + 96)
+                    cell.expandButton.tintColor = .systemGray3
+                    //}, completion: nil )
+                    
+                } else {
+                    //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.expandAtIndex = indexPath
+                    cell.delegate?.expandCell(cell, cellHeight: CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
+                    cell.expandButton.tintColor = .systemGray3
+                    //}, completion: nil)
+                }
             }
-            return UIMenu(title: "", children: [report, bookmark])
         }
-        return configuration
     }
+//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+//            let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
+//                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+//                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId, groupID: Globals.ViewSettings.groupID)
+//                self.showFlaggedAlertPopup()
+//            }
+//            let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
+//                print("Bookmarks was tapped")
+//            }
+//            return UIMenu(title: "", children: [report, bookmark])
+//        }
+//        return configuration
+//    }
     
     
     /// The following three scroll functions allow navbar to hide on scroll

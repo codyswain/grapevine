@@ -128,12 +128,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
-                                <rect key="frame" x="10" y="46" width="237" height="38.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                <color key="textColor" systemColor="systemBackgroundColor"/>
-                                <color key="highlightedColor" systemColor="labelColor"/>
-                            </label>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLP-4Z-tgS" customClass="HeaderView" customModule="Grapevine" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grapevine " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Rbx-yL-B51">
+                                        <rect key="frame" x="137" y="48" width="140" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                        <color key="textColor" systemColor="systemBackgroundColor"/>
+                                        <color key="highlightedColor" systemColor="labelColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapevine Icon Transparent" translatesAutoresizingMaskIntoConstraints="NO" id="rYn-Uz-slI">
+                                        <rect key="frame" x="182" y="36" width="50" height="50"/>
+                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="4yW-qE-2xa"/>
+                                            <constraint firstAttribute="height" constant="50" id="s45-XV-5zJ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="86 Karma" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V22-wk-fgU">
+                                        <rect key="frame" x="8" y="53" width="95" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="r5c-2P-lTp"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" name="GrapevinePurple"/>
+                                <constraints>
+                                    <constraint firstItem="Rbx-yL-B51" firstAttribute="centerX" secondItem="OLP-4Z-tgS" secondAttribute="centerX" id="517-kQ-8uy"/>
+                                    <constraint firstItem="V22-wk-fgU" firstAttribute="centerY" secondItem="Rbx-yL-B51" secondAttribute="centerY" id="KJt-2G-uIl"/>
+                                    <constraint firstItem="rYn-Uz-slI" firstAttribute="centerX" secondItem="OLP-4Z-tgS" secondAttribute="centerX" id="Rot-vi-qzC"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="4.5" id="YP5-Mh-qdY"/>
+                                    <constraint firstAttribute="bottom" secondItem="rYn-Uz-slI" secondAttribute="bottom" id="ZhD-jw-mye"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aGv-vy-wu6">
                                 <rect key="frame" x="0.0" y="116" width="414" height="780"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -253,7 +283,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-Vl-gZj">
-                                <rect key="frame" x="10" y="88" width="394" height="20"/>
+                                <rect key="frame" x="10" y="91" width="394" height="20"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLt-R3-CiW">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="20"/>
@@ -261,9 +291,9 @@
                                             <constraint firstAttribute="width" constant="100" id="egs-kT-WJW"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <color key="tintColor" name="GrapevinePurple"/>
                                         <state key="normal" title=" Groups" image="person.2.fill" catalog="system">
-                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                            <color key="titleColor" name="GrapevinePurple"/>
                                         </state>
                                         <connections>
                                             <action selector="groupsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="n2W-hC-Xvo"/>
@@ -274,18 +304,18 @@
                                         <rect key="frame" x="127" y="0.0" width="82" height="20"/>
                                         <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <color key="tintColor" name="GrapevinePurple"/>
                                         <state key="normal" title=" 3 Miles" image="location.circle.fill" catalog="system">
-                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                            <color key="titleColor" name="GrapevinePurple"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhO-Gx-aTh" userLabel="New">
                                         <rect key="frame" x="236" y="0.0" width="61" height="20"/>
                                         <accessibility key="accessibilityConfiguration" identifier="postsRange"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <color key="tintColor" name="GrapevinePurple"/>
                                         <state key="normal" title=" New" image="bolt.circle.fill" catalog="system">
-                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                            <color key="titleColor" name="GrapevinePurple"/>
                                         </state>
                                         <connections>
                                             <action selector="filterPosts:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FRk-Yn-4HD"/>
@@ -297,9 +327,9 @@
                                             <constraint firstAttribute="width" constant="70" id="9bO-Vm-Cn4"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                        <color key="tintColor" name="GrapevinePurple"/>
                                         <state key="normal" title=" Text" image="quote.bubble.fill" catalog="system">
-                                            <color key="titleColor" systemColor="systemBackgroundColor"/>
+                                            <color key="titleColor" name="GrapevinePurple"/>
                                         </state>
                                         <connections>
                                             <action selector="scoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eXB-ae-ibr"/>
@@ -310,46 +340,51 @@
                                     <constraint firstAttribute="height" priority="999" constant="20" id="MCW-Oy-5ux"/>
                                 </constraints>
                             </stackView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="86 Karma" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V22-wk-fgU">
-                                <rect key="frame" x="304" y="54" width="95" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="r5c-2P-lTp"/>
-                                </constraints>
-                                <color key="textColor" systemColor="systemBackgroundColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6Nd-Dg-2kg" secondAttribute="bottom" constant="80" id="15C-Jy-0qo"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1WV-eP-Yvs"/>
                             <constraint firstAttribute="bottom" secondItem="XbE-eE-8Ro" secondAttribute="bottom" id="2ft-fa-455"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3t8-go-NVc"/>
-                            <constraint firstItem="mqc-Vl-gZj" firstAttribute="top" secondItem="V22-wk-fgU" secondAttribute="bottom" constant="10" id="5uM-tc-gQa"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="5vg-So-3iK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="030-S8-zGF" secondAttribute="bottom" constant="290" id="6tB-OB-yka"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AKw-6J-Ol6"/>
-                            <constraint firstItem="mqc-Vl-gZj" firstAttribute="top" secondItem="Rbx-yL-B51" secondAttribute="bottom" constant="3.5" id="ApH-ui-kWg"/>
-                            <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="mqc-Vl-gZj" secondAttribute="bottom" constant="8" id="Atc-D3-EwL"/>
+                            <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="mqc-Vl-gZj" secondAttribute="bottom" constant="5" id="Atc-D3-EwL"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GgQ-SB-lpl"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="It2-Qj-ddZ"/>
+                            <constraint firstItem="V22-wk-fgU" firstAttribute="leading" secondItem="mqc-Vl-gZj" secondAttribute="leading" constant="-2" id="Jjj-2O-WFf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="OLP-4Z-tgS" secondAttribute="top" constant="44" id="Jnl-Tl-MPF"/>
                             <constraint firstAttribute="bottom" secondItem="XbE-eE-8Ro" secondAttribute="bottom" id="K0L-i1-gAs"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="MSB-4n-fgC"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="MoG-3B-ghV"/>
                             <constraint firstItem="030-S8-zGF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N73-fs-b4X"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="72" id="Nl4-Mj-zrt"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="PmI-EH-W4p"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="030-S8-zGF" secondAttribute="trailing" constant="40" id="R4H-99-HJC"/>
                             <constraint firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="Sc6-LX-fUD"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Uf0-1m-BbF"/>
                             <constraint firstItem="6Nd-Dg-2kg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="W5i-Eg-VKh"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Y0C-22-aaL"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="trailing" secondItem="aGv-vy-wu6" secondAttribute="trailing" id="Y79-R5-721"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aqv-nK-6jp"/>
                             <constraint firstItem="030-S8-zGF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="b82-gs-ceu"/>
-                            <constraint firstItem="Rbx-yL-B51" firstAttribute="leading" secondItem="mqc-Vl-gZj" secondAttribute="leading" id="bek-1I-B4C"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="eK8-oa-cwa"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="efc-8q-dO7"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="leading" secondItem="aGv-vy-wu6" secondAttribute="leading" id="fgc-7t-v6N"/>
-                            <constraint firstItem="Rbx-yL-B51" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="999" constant="2" id="hAr-TB-Hy5"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hps-AJ-5Ly"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Rbx-yL-B51" secondAttribute="trailing" constant="167" id="jgK-OX-3A9"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jSE-DO-WYE"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="l9P-nR-aE0"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="mDT-pQ-egD"/>
+                            <constraint firstItem="mqc-Vl-gZj" firstAttribute="top" secondItem="OLP-4Z-tgS" secondAttribute="bottom" constant="5" id="mmi-aU-oX3"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="top" secondItem="aGv-vy-wu6" secondAttribute="top" id="nXh-FQ-QTm"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="V22-wk-fgU" secondAttribute="trailing" constant="15" id="vz2-Bh-Dqf"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="p8B-qM-Mpr"/>
+                            <constraint firstItem="mqc-Vl-gZj" firstAttribute="top" secondItem="OLP-4Z-tgS" secondAttribute="bottom" constant="5" id="r3e-9f-eNJ"/>
                             <constraint firstItem="XbE-eE-8Ro" firstAttribute="bottom" secondItem="aGv-vy-wu6" secondAttribute="bottom" id="xzW-XI-Ta1"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yZ5-dy-vHo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mqc-Vl-gZj" secondAttribute="trailing" constant="10" id="yy8-d6-njV"/>
+                            <constraint firstItem="OLP-4Z-tgS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zCx-mI-Lob"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rQz-x8-cJq"/>
@@ -362,7 +397,10 @@
                         <outlet property="currentAbilityDescription" destination="9sb-nT-89Y" id="lui-5b-erP"/>
                         <outlet property="currentAbilityTitle" destination="QYk-0H-5hP" id="ng7-h1-K1a"/>
                         <outlet property="filterButton" destination="jhO-Gx-aTh" id="X38-kj-7KK"/>
+                        <outlet property="filterStackview" destination="mqc-Vl-gZj" id="QjI-w1-tsc"/>
+                        <outlet property="grapevineLogo" destination="rYn-Uz-slI" id="hcX-kn-Xb6"/>
                         <outlet property="groupsButton" destination="lLt-R3-CiW" id="7PN-xf-XWt"/>
+                        <outlet property="headerView" destination="OLP-4Z-tgS" id="HJs-Sl-Taq"/>
                         <outlet property="karmaAmountLabel" destination="V22-wk-fgU" id="goa-Ue-r1E"/>
                         <outlet property="nearbyLabel" destination="Rbx-yL-B51" id="ZWZ-kO-IZB"/>
                         <outlet property="postTypeButton" destination="EsB-jR-aSc" id="NPJ-gy-tEJ"/>
@@ -1206,6 +1244,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>
+        <image name="Grapevine Icon Transparent" width="1024" height="1024"/>
         <image name="Start Apostrophe" width="150" height="150"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>

@@ -34,10 +34,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
-    @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var shareButtonVar: UIButton!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var VotesContainerView: UIView!
+    @IBOutlet weak var ExpandLabel: UILabel!
     
     // Abilities
     var abilitiesToggleIsActive: Bool = false
@@ -299,12 +299,12 @@ class PostTableViewCell: UITableViewCell {
             flagTitle = "Unflag Post"
         }
         let action1 = UIAlertAction(title: flagTitle, style: .destructive) { (action) in self.flagTappedInMoreOptions()
-            self.moreOptionsButton.tintColor = .systemGray3
+            self.moreOptionsButton.tintColor = .systemGray2
         }
         let action2 = UIAlertAction(title: "Delete Post", style:.destructive) { (action) in self.delegate?.deleteCell(self)
-            self.moreOptionsButton.tintColor = .systemGray3
+            self.moreOptionsButton.tintColor = .systemGray2
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in             self.moreOptionsButton.tintColor = .systemGray3
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in             self.moreOptionsButton.tintColor = .systemGray2
         })
         alert.addAction(action1)
         if isDeleteable == true {
@@ -430,7 +430,7 @@ class PostTableViewCell: UITableViewCell {
         self.BoundingView.layer.borderColor = nil
         self.expandButton.tintColor = UIColor(named: "GrapevinePurple")
         self.imageVar.image = nil
-        self.moreOptionsButton.tintColor = UIColor.systemGray3
+        self.moreOptionsButton.tintColor = UIColor.systemGray2
         self.label.font = self.label.font.withSize(16)
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
@@ -476,11 +476,11 @@ class PostTableViewCell: UITableViewCell {
         if post.comments > 0 {
             /// Show number of comments if there are comments
             let commentText = self.getCommentCount(numComments: post.comments)
-            self.commentLabel.text = commentText
+            self.commentButton.setTitle(" " + commentText + " Replies", for: .normal)
             self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         } else {
             /// Show comment symbol if there are no comments
-            self.commentLabel.text = "0"
+            self.commentButton.setTitle(" 0 Replies", for: .normal)
             self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         }
         /// Cell is flammable
@@ -497,14 +497,17 @@ class PostTableViewCell: UITableViewCell {
         // Collapse Cell
         label.numberOfLines = maxLines
         commentAreaView.clipsToBounds = true
+        ExpandLabel.text = "Tap and hold to expand"
 
         if self.label.totalNumberOfLines() > maxLines {
             expandButton.isUserInteractionEnabled = true
-            expandButton.isHidden = false
+            ExpandLabel.isHidden = false
+            expandButton.isHidden = true
             label.lineBreakMode = .byTruncatingTail
             self.shrinkCell()
         }
         else {
+            ExpandLabel.isHidden = true
             expandButton.isUserInteractionEnabled = false
             expandButton.isHidden = true
             label.lineBreakMode = .byWordWrapping
