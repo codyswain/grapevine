@@ -180,9 +180,28 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { /// post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setUpvotedColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
+            
+            //Animate Upvote (expand)
+            let transform = CATransform3DIdentity
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
+                animations: {
+                    self.upvoteButton.transform = CGAffineTransform(scaleX: 2, y: 2)
+                    self.setUpvotedColors()
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! + 1)
+                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                        self.upvoteButton.transform = CGAffineTransform.identity
+                    }, completion: {_ in
+                        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                            self.upvoteButton.layer.transform = CATransform3DRotate(transform, CGFloat(180 * Double.pi / 180), 0, 1, 0)
+                        })
+                    })
+                })
+            }
+            
         } else if self.currentVoteStatus == -1 { /// post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
@@ -192,9 +211,22 @@ class PostTableViewCell: UITableViewCell {
         } else { /// post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setNeutralColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
+            
+            //Animate Upvote (Shrink)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
+                animations: {
+                    self.upvoteButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    self.setNeutralColors()
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                        self.upvoteButton.transform = CGAffineTransform.identity
+                    })
+                })
+            }
         }
     }
 
@@ -204,9 +236,34 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { /// post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setDownvotedColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
+            
+            //Animate Downvote (fly down from top)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.0, delay: 0.0, options: [],
+                animations: {
+                    self.downvoteButton.transform = CGAffineTransform(translationX: 0, y: -50)
+                    self.downvoteButton.alpha = 0
+                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+                    animations: {
+                        self.upvoteButton.transform = CGAffineTransform(rotationAngle: .pi)
+                        self.upvoteButton.alpha = 0
+                        self.downvoteButton.alpha = 1
+                    },
+                    completion: { _ in
+                        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                            self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+                            self.setDownvotedColors()
+                            self.downvoteButton.transform = CGAffineTransform.identity
+                            self.upvoteButton.transform = CGAffineTransform.identity
+                            self.upvoteButton.alpha = 1
+                        })
+                    })
+                })
+            }
+            
         } else if self.currentVoteStatus == 1 { /// post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
@@ -216,9 +273,21 @@ class PostTableViewCell: UITableViewCell {
         } else { /// post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setNeutralColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
+            
+            //Animate Downvote (Shrink)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
+                animations: {
+                    self.downvoteButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    self.setNeutralColors()
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! + 1)                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                        self.downvoteButton.transform = CGAffineTransform.identity
+                    })
+                })
+            }
         }
     }
     
@@ -273,9 +342,9 @@ class PostTableViewCell: UITableViewCell {
     
     @IBAction func shareButtonPressed(_ sender: Any) {
         if postType == "text" {
-            self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
+            self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
         } else {
-            self.delegate?.showSharePopup(self, "image", createTableCellImage() ?? nil!)
+            self.delegate?.showSharePopup(self, "image", createTableCellImage()!)
         }
     }
     

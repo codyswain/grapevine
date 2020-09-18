@@ -153,6 +153,10 @@ class ViewController: UIViewController {
         }
         //view colors
         self.view.backgroundColor = UIColor(named: "GrapevinePurple")
+        self.karmaAmountLabel.layer.borderColor = UIColor.systemBackground.cgColor
+        self.karmaAmountLabel.layer.borderWidth = 1
+        self.karmaAmountLabel.layer.cornerRadius = 5
+
 //        self.nearbyLabel.textColor = .purple
 //        self.groupsButton.tintColor = .purple
 //        self.groupsButton.setTitleColor(.purple, for: .normal)
