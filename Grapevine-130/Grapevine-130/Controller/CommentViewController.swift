@@ -267,12 +267,9 @@ class CommentViewController: UIViewController {
         alert.addAction(MDCAlertAction(title: "Share Comments To IG"){ (action) in
             self.storyManager.shareCommentsToInstagram(self.createCommentsImage()!)
         })
-        /*
-         TODO (ahumay): Uncomment when Snap shit gets settled
          alert.addAction(MDCAlertAction(title: "Share Comments To Snap"){ (action) in
              self.storyManager.shareCommentsToSnap(self.createCommentsImage()!)
          })
-         */
         makePopup(alert: alert, image: "heart.circle.fill")
         self.present(alert, animated: true)
     }
