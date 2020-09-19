@@ -292,19 +292,44 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func moreOptionsTapped(_ sender: Any) {
-        moreOptionsButton.tintColor = Constants.Colors.darkPurple
+        moreOptionsButton.tintColor = UIColor(named: "GrapevinePurple")
+        moreOptionsButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async{
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                self.moreOptionsButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            }, completion: nil)
+        }
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         var flagTitle = "Flag Post"
         if currentFlagStatus == 1 {
             flagTitle = "Unflag Post"
         }
         let action1 = UIAlertAction(title: flagTitle, style: .destructive) { (action) in self.flagTappedInMoreOptions()
-            self.moreOptionsButton.tintColor = .systemGray2
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                    self.moreOptionsButton.transform = .identity
+                    self.moreOptionsButton.tintColor = .systemGray2
+                    self.moreOptionsButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         }
         let action2 = UIAlertAction(title: "Delete Post", style:.destructive) { (action) in self.delegate?.deleteCell(self)
-            self.moreOptionsButton.tintColor = .systemGray2
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                    self.moreOptionsButton.transform = .identity
+                    self.moreOptionsButton.tintColor = .systemGray2
+                    self.moreOptionsButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in             self.moreOptionsButton.tintColor = .systemGray2
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in    self.moreOptionsButton.tintColor = .systemGray2
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                    self.moreOptionsButton.transform = .identity
+                    self.moreOptionsButton.tintColor = .systemGray2
+                    self.moreOptionsButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         })
         alert.addAction(action1)
         if isDeleteable == true {
@@ -341,6 +366,19 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
+        shareButtonVar.tintColor = UIColor(named: "GrapevinePurple")
+        shareButtonVar.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+                self.shareButtonVar.transform = CGAffineTransform(translationX: 0, y: -30)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    self.shareButtonVar.transform = .identity
+                    self.shareButtonVar.tintColor = .systemGray2
+                    self.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            })
+        }
         if postType == "text" {
             self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
         } else {
@@ -350,11 +388,24 @@ class PostTableViewCell: UITableViewCell {
     
     
     @IBAction func commentButtonTapped(_ sender: Any) {
-        viewCommentScreen()
+        self.commentButton.tintColor = UIColor(named: "GrapevinePurple")
+        self.commentButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.commentButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.commentButton.transform = .identity
+                    self.commentButton.tintColor = .systemGray2
+                    self.commentButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            })
+        }
+        self.viewCommentScreen()
     }
     /// Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        viewCommentScreen()
+        commentButtonTapped(self)
     }
     
     func viewCommentScreen(){
@@ -551,6 +602,19 @@ class PostTableViewCell: UITableViewCell {
     
     /// This is abilities button
     @IBAction func shareAbilitySelected(_ sender: Any) {
+        self.abilitiesButton.tintColor = UIColor(named: "GrapevinePurple")
+        self.abilitiesButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.abilitiesButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.abilitiesButton.transform = .identity
+                    self.abilitiesButton.tintColor = .systemGray2
+                    self.abilitiesButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            })
+        }
         toggleAbilities()
         if postType == "text" {
             self.delegate?.showAbilitiesView(self)

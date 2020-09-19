@@ -166,7 +166,7 @@ class ViewController: UIViewController {
 //        layer.cornerRadius = 5
         headerView.layer.insertSublayer(layer, at: 0)
         
-        //Gradient
+        //Animated Gradient
 //        let childView = UIHostingController(rootView: GradientView())
 //        addChild(childView)
 //        childView.view.frame = CGRect(x: -50, y: -400, width: headerView.frame.width + 100, height: view.frame.height)
@@ -607,6 +607,35 @@ class ViewController: UIViewController {
         burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        
+//        abilitiesBackgroundView.transform = CGAffineTransform(translationX: 1000, y: 0) //Shove off screen so we can animate it sliding onto screen
+//        abilitiesStackView.transform = CGAffineTransform(translationX: 1000, y: 0)
+//        applyAbilityButton.transform = CGAffineTransform(translationX: 1000, y: 0)
+        abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 0, y: 0) //Shove off screen so we can animate it sliding onto screen
+        abilitiesStackView.transform = CGAffineTransform(scaleX: 0, y: 0)
+        applyAbilityButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        pushButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        burnButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        shoutButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1) //Shove off screen so we can animate it sliding onto screen
+                self.abilitiesStackView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                self.applyAbilityButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                self.pushButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                self.burnButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                self.shoutButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                    self.abilitiesBackgroundView.transform = .identity
+                    self.abilitiesStackView.transform = .identity
+                    self.applyAbilityButton.transform = .identity
+                    self.pushButton.transform = .identity
+                    self.burnButton.transform = .identity
+                    self.shoutButton.transform = .identity
+                }, completion: nil)
+            })
+        }
         
         abilitiesBackgroundView.isHidden = false //this is is also being used to determine behavior of navbar in abilities view
         abilitiesBackgroundView.isUserInteractionEnabled = true

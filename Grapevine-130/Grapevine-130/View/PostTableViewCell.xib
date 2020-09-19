@@ -135,7 +135,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l72-Vs-ETQ">
-                                        <rect key="frame" x="396" y="76.5" width="50" height="100"/>
+                                        <rect key="frame" x="404" y="76.5" width="50" height="100"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kI0-fX-fIr">
                                                 <rect key="frame" x="1" y="8" width="48" height="36"/>
@@ -190,7 +190,6 @@
                                     <constraint firstItem="Mer-0f-cch" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" id="1xQ-eB-Yj7"/>
                                     <constraint firstItem="RXq-AR-44P" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="12" id="5EH-b0-suh"/>
                                     <constraint firstAttribute="bottom" secondItem="RXq-AR-44P" secondAttribute="bottom" constant="40" id="D6r-RK-UCS"/>
-                                    <constraint firstAttribute="trailing" secondItem="l72-Vs-ETQ" secondAttribute="trailing" constant="8" id="GHH-D4-h1d"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="25" id="KN9-uZ-5Tm"/>
                                     <constraint firstItem="l72-Vs-ETQ" firstAttribute="centerY" secondItem="CwN-Dl-0tb" secondAttribute="centerY" id="LuH-gD-OAV"/>
                                     <constraint firstItem="Ae5-Jk-pxi" firstAttribute="centerX" secondItem="CwN-Dl-0tb" secondAttribute="centerX" id="Nc0-pm-eZE"/>
@@ -202,6 +201,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Mer-0f-cch" secondAttribute="trailing" constant="29" id="j4s-o0-0Dx"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="12" id="jdI-Wh-QJi"/>
                                     <constraint firstItem="Mer-0f-cch" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" id="js5-Dj-Ucg"/>
+                                    <constraint firstAttribute="trailing" secondItem="l72-Vs-ETQ" secondAttribute="trailing" id="xWd-pC-il7"/>
                                 </constraints>
                             </view>
                         </subviews>
