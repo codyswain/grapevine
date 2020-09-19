@@ -170,7 +170,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "Email") { (action) in
             let url = NSURL(string: "mailto:teamgrapevineofficial@gmail.com")
-            UIApplication.shared.openURL(url! as URL)
+            UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
         })
         alert.addAction(MDCAlertAction(title: "Instagram") { (action) in
             let appURL = URL(string: "instagram://user?username=teamgrapevine")!

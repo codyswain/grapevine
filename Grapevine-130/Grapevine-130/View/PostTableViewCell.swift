@@ -6,7 +6,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
     func showAbilitiesView(_ cell: PostTableViewCell)
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
+    func showSharePopup(_ cell: PostTableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
@@ -292,8 +292,11 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func moreOptionsTapped(_ sender: Any) {
-        moreOptionsButton.tintColor = UIColor(named: "GrapevinePurple")
-        moreOptionsButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        let generator = UIImpactFeedbackGenerator(style: .soft)
+        generator.impactOccurred()
+        self.moreOptionsButton.tintColor = UIColor(named: "GrapevinePurple")
+        self.moreOptionsButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        
         DispatchQueue.main.async{
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
                 self.moreOptionsButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
@@ -322,7 +325,7 @@ class PostTableViewCell: UITableViewCell {
                 }, completion: nil)
             }
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in    self.moreOptionsButton.tintColor = .systemGray2
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
                     self.moreOptionsButton.transform = .identity
@@ -371,13 +374,7 @@ class PostTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
                 self.shareButtonVar.transform = CGAffineTransform(translationX: 0, y: -30)
-            }, completion: {_ in
-                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-                    self.shareButtonVar.transform = .identity
-                    self.shareButtonVar.tintColor = .systemGray2
-                    self.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
-                }, completion: nil)
-            })
+            }, completion: nil)
         }
         if postType == "text" {
             self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
@@ -390,6 +387,8 @@ class PostTableViewCell: UITableViewCell {
     @IBAction func commentButtonTapped(_ sender: Any) {
         self.commentButton.tintColor = UIColor(named: "GrapevinePurple")
         self.commentButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        let generator = UIImpactFeedbackGenerator(style: .soft)
+        generator.impactOccurred()
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
                 self.commentButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -481,7 +480,6 @@ class PostTableViewCell: UITableViewCell {
         self.BoundingView.layer.borderColor = nil
         self.expandButton.tintColor = UIColor(named: "GrapevinePurple")
         self.imageVar.image = nil
-        self.moreOptionsButton.tintColor = UIColor.systemGray2
         self.label.font = self.label.font.withSize(16)
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
