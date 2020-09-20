@@ -38,19 +38,19 @@ func bottomNavBarStyling(bottomNavBar: UITabBar) -> UITabBar {
 //    bottomNavBar.backgroundColor = UIColor.systemBackground.withAlphaComponent(1)
     bottomNavBar.backgroundColor = .none
     bottomNavBar.isTranslucent = false
-    var topBorder = getGradient( color1: #colorLiteral(red: 0.7769375443, green: 0.2598685622, blue: 0.8805231452, alpha: 1), color2: #colorLiteral(red: 0.310731113, green: 0.03787136078, blue: 0.3883835375, alpha: 1))
-    var layer = getGradient(color1: UIColor(named: "GrapevinePurple")!, color2: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1))
+    var topBorder = getGradient( color1: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1), color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
+    var layer = getGradient(color1: UIColor(named: "GrapevinePurple")!, color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
     if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
         if (curTheme == "dark") {
             bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
             bottomNavBar.tintColor = UIColor.systemGray2
             layer = getGradient( color1: UIColor(named: "GrapevinePurple")!, color2: .purple)
-            topBorder = getGradient( color1: #colorLiteral(red: 0.7769375443, green: 0.2598685622, blue: 0.8805231452, alpha: 1), color2: #colorLiteral(red: 0.310731113, green: 0.03787136078, blue: 0.3883835375, alpha: 1))
+            topBorder = getGradient( color1: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1), color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
         } else {
             bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey
             bottomNavBar.tintColor = .black
-            layer = getGradient(color1: UIColor(named: "GrapevinePurple")!, color2: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1))
-            topBorder = getGradient( color1: #colorLiteral(red: 0.7769375443, green: 0.2598685622, blue: 0.8805231452, alpha: 1), color2: #colorLiteral(red: 1, green: 0.5755057335, blue: 1, alpha: 1) )
+            layer = getGradient(color1: UIColor(named: "GrapevinePurple")!, color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
+            topBorder = getGradient( color1: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1), color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1) )
         }
     } else {
         bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey

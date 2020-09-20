@@ -397,11 +397,11 @@ class ViewController: UIViewController {
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 tableView.backgroundColor = .systemBackground
-                view.backgroundColor = .systemGray6
+//                view.backgroundColor = .systemGray6
             }
             else {
-                tableView.backgroundColor = .systemGray6
-                view.backgroundColor = .systemBackground
+//                tableView.backgroundColor = .systemGray6
+//                view.backgroundColor = .systemBackground
             }
         }
         postsManager.delegate = self
@@ -749,7 +749,7 @@ class ViewController: UIViewController {
     
     // MARK: View Modes
     func changeAppearanceBasedOnMode(){
-        self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
+        self.karmaAmountLabel.text = String(self.user?.score ?? 0)
         //Prepare view for groups mode
         if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default" {
             // Should only switch between default and groups because we don't want to set currentmode to groups in mycomments view or myposts view
@@ -1581,7 +1581,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
-            self.karmaAmountLabel.text = String((self.user?.score ?? 0)) + " karma"
+            self.karmaAmountLabel.text = String((self.user?.score ?? 0))
         }
     }
     
