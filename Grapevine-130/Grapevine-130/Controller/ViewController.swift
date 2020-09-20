@@ -128,6 +128,9 @@ class ViewController: UIViewController {
         return setStatusBarStyle()
     }
     
+    // For observing when app enters foreground (for notifications)
+    private var observer: NSObjectProtocol?
+    
     // MARK: View Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,7 +165,6 @@ class ViewController: UIViewController {
                 layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
             }
         }
-        layer.frame = CGRect(x: headerView.frame.minX, y: headerView.frame.minY, width: headerView.frame.width, height: headerView.frame.height + 5)
 //        layer.cornerRadius = 5
 //        headerView.layer.insertSublayer(layer, at: 0)
         
@@ -237,9 +239,26 @@ class ViewController: UIViewController {
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
         
-        // If user launches app via notification, open comment view controller
-        let defaults = UserDefaults.standard
+//        // If user launches app via notification, open comment view controller
+//        let defaults = UserDefaults.standard
+//
+//        if let notificationPostID = defaults.string(forKey: "notificationPostID") {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
+//            let cellImage = cell.createTableCellImage()
+//            self.selectedPostScreenshot = cellImage
+//            defaults.removeObject(forKey: "notificationPostID")
+//            self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
+//        }
+        openNotificationPost()
         
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+                openNotificationPost()
+        }
+    }
+    
+    // If user launches app via notification, open comment view controller
+    func openNotificationPost(){
+        let defaults = UserDefaults.standard
         if let notificationPostID = defaults.string(forKey: "notificationPostID") {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
             let cellImage = cell.createTableCellImage()

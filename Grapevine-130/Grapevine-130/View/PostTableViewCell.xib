@@ -41,10 +41,10 @@
                                         <rect key="frame" x="12" y="15" width="342" height="198"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mer-0f-cch">
-                                        <rect key="frame" x="0.0" y="213" width="425" height="40"/>
+                                        <rect key="frame" x="0.0" y="213" width="414" height="40"/>
                                         <subviews>
                                             <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSX-Uy-hVC">
-                                                <rect key="frame" x="207" y="0.0" width="40" height="40"/>
+                                                <rect key="frame" x="201.5" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="gfZ-53-ydG"/>
                                                     <constraint firstAttribute="height" constant="40" id="pyn-XE-9Ag"/>
@@ -55,11 +55,11 @@
                                                     <action selector="expandButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="z5O-XI-JMh"/>
                                                 </connections>
                                             </button>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="bottom" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RUP-kw-hoc">
-                                                <rect key="frame" x="4" y="5" width="401" height="30"/>
+                                            <stackView opaque="NO" contentMode="left" distribution="equalCentering" alignment="bottom" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RUP-kw-hoc">
+                                                <rect key="frame" x="4" y="5" width="390" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="249" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmX-1d-6bo">
-                                                        <rect key="frame" x="0.0" y="12" width="120" height="18"/>
+                                                    <button opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="fill" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmX-1d-6bo">
+                                                        <rect key="frame" x="0.0" y="12" width="93" height="18"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                         <color key="tintColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <inset key="imageEdgeInsets" minX="8" minY="4" maxX="20" maxY="4"/>
@@ -72,8 +72,8 @@
                                                             <action selector="commentButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8tb-pQ-3yk"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ase-Qb-cUh">
-                                                        <rect key="frame" x="128" y="12.5" width="90.5" height="17.5"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="999" verticalHuggingPriority="999" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ase-Qb-cUh">
+                                                        <rect key="frame" x="114" y="12.5" width="70" height="17.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                         <color key="tintColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
                                                         <inset key="imageEdgeInsets" minX="4" minY="2" maxX="10" maxY="2"/>
@@ -86,8 +86,8 @@
                                                             <action selector="shareAbilitySelected:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vjJ-K3-aT3"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoB-yd-gVe">
-                                                        <rect key="frame" x="226.5" y="11" width="71.5" height="19"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="998" verticalHuggingPriority="998" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoB-yd-gVe">
+                                                        <rect key="frame" x="224" y="11" width="55.5" height="19"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                         <color key="tintColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <inset key="imageEdgeInsets" minX="4" minY="2" maxX="10" maxY="2"/>
@@ -100,12 +100,12 @@
                                                             <action selector="shareButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jXZ-1j-7TH"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8o-O2-vxV">
-                                                        <rect key="frame" x="306" y="12.5" width="95" height="17.5"/>
+                                                    <button opaque="NO" contentMode="left" horizontalHuggingPriority="997" verticalHuggingPriority="997" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="leading" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8o-O2-vxV">
+                                                        <rect key="frame" x="319" y="12.5" width="71" height="17.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                         <color key="tintColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="0.96024186643835618" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                        <inset key="imageEdgeInsets" minX="4" minY="2" maxX="6" maxY="2"/>
-                                                        <state key="normal" title=" Options">
+                                                        <inset key="imageEdgeInsets" minX="4" minY="2" maxX="0.0" maxY="2"/>
+                                                        <state key="normal" title="  Options">
                                                             <color key="titleColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <imageReference key="image" image="ellipsis.circle" catalog="system" symbolScale="small"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="bold"/>
@@ -115,6 +115,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.55000000000000004"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -140,31 +141,18 @@
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l72-Vs-ETQ">
                                         <rect key="frame" x="394" y="76.5" width="60" height="100"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kI0-fX-fIr">
-                                                <rect key="frame" x="1" y="8" width="48" height="36"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <color key="tintColor" systemColor="systemGray3Color"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="chevron.up" catalog="system">
-                                                    <color key="titleColor" systemColor="systemGray3Color"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="bold"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="upvoteTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YVs-eD-Zac"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oT7-xD-mBw">
-                                                <rect key="frame" x="9" y="44" width="32" height="12"/>
+                                                <rect key="frame" x="9" y="41.5" width="32" height="21.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <color key="textColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="highlightedColor" systemColor="labelColor"/>
                                             </label>
                                             <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oeV-qf-jkg">
-                                                <rect key="frame" x="1" y="56" width="48" height="36"/>
+                                                <rect key="frame" x="1" y="60" width="48" height="36"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <color key="tintColor" systemColor="systemGray3Color"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                                 <state key="normal" image="chevron.down" catalog="system">
                                                     <color key="titleColor" systemColor="systemGray3Color"/>
@@ -174,16 +162,28 @@
                                                     <action selector="downvoteTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4DP-ru-VlB"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kI0-fX-fIr">
+                                                <rect key="frame" x="1" y="8" width="48" height="36"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" systemColor="systemGray3Color"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="4"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="chevron.up" catalog="system">
+                                                    <color key="titleColor" systemColor="systemGray3Color"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="bold"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="upvoteTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YVs-eD-Zac"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
                                         <constraints>
-                                            <constraint firstItem="oT7-xD-mBw" firstAttribute="top" secondItem="kI0-fX-fIr" secondAttribute="bottom" id="28f-K0-Vbk"/>
                                             <constraint firstAttribute="height" constant="100" id="3U9-gW-HH8"/>
-                                            <constraint firstItem="oT7-xD-mBw" firstAttribute="top" secondItem="kI0-fX-fIr" secondAttribute="bottom" id="7MF-MS-TW2"/>
-                                            <constraint firstItem="oeV-qf-jkg" firstAttribute="top" secondItem="oT7-xD-mBw" secondAttribute="bottom" id="CLT-oW-Guh"/>
-                                            <constraint firstItem="oT7-xD-mBw" firstAttribute="centerY" secondItem="l72-Vs-ETQ" secondAttribute="centerY" id="NR5-cD-QB8"/>
+                                            <constraint firstItem="oT7-xD-mBw" firstAttribute="centerY" secondItem="l72-Vs-ETQ" secondAttribute="centerY" constant="2" id="NR5-cD-QB8"/>
                                             <constraint firstAttribute="width" constant="60" id="Sze-T3-jKu"/>
                                             <constraint firstItem="oT7-xD-mBw" firstAttribute="centerX" secondItem="kI0-fX-fIr" secondAttribute="centerX" id="ZAL-fc-ca6"/>
                                         </constraints>
@@ -203,7 +203,7 @@
                                     <constraint firstItem="Mer-0f-cch" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="10" id="YoD-ZD-lb5"/>
                                     <constraint firstItem="Ae5-Jk-pxi" firstAttribute="top" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="6" id="bfk-DQ-3li"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="30" id="h2v-hZ-BZZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Mer-0f-cch" secondAttribute="trailing" constant="29" id="j4s-o0-0Dx"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mer-0f-cch" secondAttribute="trailing" constant="40" id="j4s-o0-0Dx"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="12" id="jdI-Wh-QJi"/>
                                     <constraint firstItem="Mer-0f-cch" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" id="js5-Dj-Ucg"/>
                                     <constraint firstAttribute="trailing" secondItem="l72-Vs-ETQ" secondAttribute="trailing" id="xWd-pC-il7"/>
