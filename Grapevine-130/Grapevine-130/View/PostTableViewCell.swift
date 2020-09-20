@@ -6,7 +6,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
     func showAbilitiesView(_ cell: PostTableViewCell)
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
+    func showSharePopup(_ cell: PostTableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
@@ -183,7 +183,7 @@ class PostTableViewCell: UITableViewCell {
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
             
             //Animate Upvote (expand)
-            let transform = CATransform3DIdentity
+            //let transform = CATransform3DIdentity
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
                 animations: {
@@ -194,11 +194,12 @@ class PostTableViewCell: UITableViewCell {
                 completion: { _ in
                     UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
                         self.upvoteButton.transform = CGAffineTransform.identity
-                    }, completion: {_ in
-                        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                            self.upvoteButton.layer.transform = CATransform3DRotate(transform, CGFloat(180 * Double.pi / 180), 0, 1, 0)
-                        })
-                    })
+                    }, completion: nil)
+//                    completion: {_ in
+//                        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+//                            self.upvoteButton.layer.transform = CATransform3DRotate(transform, CGFloat(180 * Double.pi / 180), 0, 1, 0)
+//                        })
+//                    })
                 })
             }
             
@@ -240,27 +241,36 @@ class PostTableViewCell: UITableViewCell {
             
             //Animate Downvote (fly down from top)
             DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.0, delay: 0.0, options: [],
-                animations: {
-                    self.downvoteButton.transform = CGAffineTransform(translationX: 0, y: -50)
-                    self.downvoteButton.alpha = 0
-                },
-                completion: { _ in
-                    UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
-                    animations: {
-                        self.upvoteButton.transform = CGAffineTransform(rotationAngle: .pi)
-                        self.upvoteButton.alpha = 0
-                        self.downvoteButton.alpha = 1
-                    },
-                    completion: { _ in
-                        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                            self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
-                            self.setDownvotedColors()
-                            self.downvoteButton.transform = CGAffineTransform.identity
-                            self.upvoteButton.transform = CGAffineTransform.identity
-                            self.upvoteButton.alpha = 1
-                        })
-                    })
+//                UIView.animate(withDuration: 0.0, delay: 0.0, options: [],
+//                animations: {
+//                    self.downvoteButton.transform = CGAffineTransform(translationX: 0, y: -50)
+//                    self.downvoteButton.alpha = 0
+//                },
+//                completion: { _ in
+//                    UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+//                    animations: {
+//                        self.upvoteButton.transform = CGAffineTransform(rotationAngle: .pi)
+//                        self.upvoteButton.alpha = 0
+//                        self.downvoteButton.alpha = 1
+//                    },
+//                    completion: { _ in
+//                        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+//                            self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+//                            self.setDownvotedColors()
+//                            self.downvoteButton.transform = CGAffineTransform.identity
+//                            self.upvoteButton.transform = CGAffineTransform.identity
+//                            self.upvoteButton.alpha = 1
+//                        })
+//                    })
+//                })
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.downvoteButton.transform = CGAffineTransform(scaleX: 2, y: 2)
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+                    self.setDownvotedColors()
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                        self.downvoteButton.transform = CGAffineTransform.identity
+                    }, completion: nil)
                 })
             }
             
@@ -371,13 +381,7 @@ class PostTableViewCell: UITableViewCell {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
                 self.shareButtonVar.transform = CGAffineTransform(translationX: 0, y: -30)
-            }, completion: {_ in
-                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-                    self.shareButtonVar.transform = .identity
-                    self.shareButtonVar.tintColor = .systemGray2
-                    self.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
-                }, completion: nil)
-            })
+            }, completion: nil)
         }
         if postType == "text" {
             self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
@@ -420,6 +424,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isHidden = true
         upvoteButton.isUserInteractionEnabled = false
         downvoteButton.tintColor = Constants.Colors.veryDarkGrey
+        voteCountLabel.textColor = Constants.Colors.veryDarkGrey
     }
     
     /** Modify post colors to reflect no vote.  */
@@ -430,6 +435,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isUserInteractionEnabled = true
         upvoteButton.tintColor = .systemGray3
         downvoteButton.tintColor = .systemGray3
+        voteCountLabel.textColor = .systemGray3
     }
     
     /** Modify post colors to reflect an upvote. */
@@ -439,6 +445,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isHidden = false
         upvoteButton.isUserInteractionEnabled = true
         upvoteButton.tintColor = Constants.Colors.darkPurple
+        voteCountLabel.textColor = Constants.Colors.darkPurple
     }
     
     func createTableCellImage() -> UIImage? {

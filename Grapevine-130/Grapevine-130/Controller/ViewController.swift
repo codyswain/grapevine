@@ -588,15 +588,26 @@ class ViewController: UIViewController {
     }
         
     /// Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
+    func showSharePopup(_ cell: PostTableViewCell, _ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
         let alert = MDCAlertController(title: "Stories", message: "Share this post!")
         alert.backgroundColor = Globals.ViewSettings.backgroundColor
         alert.titleColor = Globals.ViewSettings.labelColor
         alert.messageColor = Globals.ViewSettings.labelColor
-        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                cell.shareButtonVar.transform = .identity
+                cell.shareButtonVar.tintColor = .systemGray2
+                cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+            }, completion: nil)
+        })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                cell.shareButtonVar.transform = .identity
+                cell.shareButtonVar.tintColor = .systemGray2
+                cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+            }, completion: nil)
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
@@ -607,6 +618,11 @@ class ViewController: UIViewController {
         })
 
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                cell.shareButtonVar.transform = .identity
+                cell.shareButtonVar.tintColor = .systemGray2
+                cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+            }, completion: nil)
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
@@ -640,7 +656,7 @@ class ViewController: UIViewController {
         shoutButton.transform = CGAffineTransform(scaleX: 0, y: 0)
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                self.abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1) //Shove off screen so we can animate it sliding onto screen
+                self.abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0) //Shove off screen so we can animate it sliding onto screen
                 self.abilitiesStackView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                 self.applyAbilityButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                 self.pushButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
@@ -1214,7 +1230,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let p = longPressGesture.location(in: self.tableView)
         if let indexPath = self.tableView.indexPathForRow(at: p) {
             let cell = tableView.cellForRow(at: indexPath) as! PostTableViewCell
-            if cell.label.totalNumberOfLines() < cell.maxLines {
+            if cell.label.totalNumberOfLines() <= cell.maxLines {
                 return
             }
             if longPressGesture.state == UIGestureRecognizer.State.began {
