@@ -518,7 +518,7 @@ class PostTableViewCell: UITableViewCell {
         
         /// Set vote count of post cell
         self.voteCountLabel.text = String(post.votes)
-        self.voteCountLabel.textColor = .label
+//        self.voteCountLabel.textColor = .label
         
         /// Set vote status
         self.currentVoteStatus = post.voteStatus

@@ -164,7 +164,7 @@ class ViewController: UIViewController {
         }
         layer.frame = CGRect(x: headerView.frame.minX, y: headerView.frame.minY, width: headerView.frame.width, height: headerView.frame.height + 5)
 //        layer.cornerRadius = 5
-        headerView.layer.insertSublayer(layer, at: 0)
+//        headerView.layer.insertSublayer(layer, at: 0)
         
         //Animated Gradient
 //        let childView = UIHostingController(rootView: GradientView())
@@ -175,10 +175,11 @@ class ViewController: UIViewController {
         
         
         //view colors
+        // Karma label
 //        self.view.backgroundColor = UIColor(named: "GrapevinePurple")
-        self.karmaAmountLabel.layer.borderColor = UIColor.white.cgColor
-        self.karmaAmountLabel.layer.borderWidth = 1
-        self.karmaAmountLabel.layer.cornerRadius = 5
+//        self.karmaAmountLabel.layer.borderColor = UIColor.white.cgColor
+//        self.karmaAmountLabel.layer.borderWidth = 1
+//        self.karmaAmountLabel.layer.cornerRadius = 5
         
 //        headerView.layer.cornerRadius = 5
 
