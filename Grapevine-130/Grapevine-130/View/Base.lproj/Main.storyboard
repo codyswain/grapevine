@@ -139,9 +139,9 @@
                                 <rect key="frame" x="0.0" y="116" width="414" height="780"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sb-nT-89Y">
-                                        <rect key="frame" x="29" y="508" width="354" height="70"/>
+                                        <rect key="frame" x="29" y="508" width="354" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="eC9-NF-pc3"/>
+                                            <constraint firstAttribute="height" constant="80" id="eC9-NF-pc3"/>
                                         </constraints>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -172,7 +172,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="9sb-nT-89Y" secondAttribute="bottom" constant="160" id="149-Ck-us0"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="9sb-nT-89Y" secondAttribute="bottom" constant="150" id="149-Ck-us0"/>
                                     <constraint firstItem="K2l-LL-HbB" firstAttribute="leading" secondItem="XbE-eE-8Ro" secondAttribute="leading" constant="30" id="Klj-0L-lUl"/>
                                     <constraint firstItem="9sb-nT-89Y" firstAttribute="top" secondItem="QYk-0H-5hP" secondAttribute="bottom" id="MB3-R7-2ss"/>
                                     <constraint firstItem="QYk-0H-5hP" firstAttribute="top" secondItem="K2l-LL-HbB" secondAttribute="bottom" constant="130" id="Ot0-8m-58Y"/>
@@ -894,7 +894,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wN7-hK-svY">
                                         <rect key="frame" x="16" y="12" width="382" height="34"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cTk-0t-2af">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cTk-0t-2af">
                                                 <rect key="frame" x="0.0" y="0.0" width="336" height="34"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
@@ -907,7 +907,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="36" id="RDo-1J-Wna"/>
                                                 </constraints>
-                                                <color key="tintColor" name="GrapevinePurple"/>
+                                                <color key="tintColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="arrow.up.circle.fill" catalog="system">
                                                     <color key="titleColor" systemColor="labelColor"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
@@ -925,7 +925,7 @@
                                             <constraint firstAttribute="trailing" secondItem="sQi-3s-Zbv" secondAttribute="trailing" constant="2" id="Xs6-ey-DLR"/>
                                             <constraint firstItem="cTk-0t-2af" firstAttribute="centerY" secondItem="sQi-3s-Zbv" secondAttribute="centerY" id="hlw-7X-gHX"/>
                                             <constraint firstAttribute="height" constant="34" id="jao-Dm-AgP"/>
-                                            <constraint firstItem="cTk-0t-2af" firstAttribute="trailing" secondItem="sQi-3s-Zbv" secondAttribute="trailing" constant="-44" id="wi1-5z-svc"/>
+                                            <constraint firstItem="cTk-0t-2af" firstAttribute="trailing" secondItem="sQi-3s-Zbv" secondAttribute="trailing" id="wi1-5z-svc"/>
                                         </constraints>
                                     </view>
                                 </subviews>
