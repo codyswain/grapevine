@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Load walkthrough screen if this is the first time launching
         let defaults = UserDefaults.standard
         
+        // TODO: Fix this
         // What is going on here?? This should be if (first_launch == false) - Cody
         if defaults.bool(forKey: "first_launch") == true {
             print("Launch status: Not the first launch")
@@ -61,9 +62,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This may occur due to temporary interruptions (ex. an incoming phone call).
     }
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
+    func sceneWillEnterForeground(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        
+        // If app is opened from actionable notification, save postID
+        let defaults = UserDefaults.standard
+        if let response = connectionOptions.notificationResponse {
+            let content = response.notification.request.content.userInfo
+            if let notificationPostID = content["postID"] as? String {
+                defaults.set(notificationPostID, forKey: "notificationPostID")
+            }
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

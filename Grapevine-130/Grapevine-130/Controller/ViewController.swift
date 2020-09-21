@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 import CoreLocation
 import MaterialComponents.MaterialBottomNavigation
 import MaterialComponents.MaterialButtons
@@ -21,6 +22,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var postTypeButton: UIButton!
     @IBOutlet weak var abilitiesBackgroundView: UIView!
     @IBOutlet weak var abilitiesStackView: UIStackView!
+    
+    
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var grapevineLogo: UIImageView!
+    @IBOutlet weak var filterStackview: UIStackView!
     
     @IBOutlet weak var pushButton: UIImageView!
     @IBOutlet weak var burnButton: UIImageView!
@@ -80,7 +86,15 @@ class ViewController: UIViewController {
     var addButton = MDCFloatingButton()
     
     // Add the bottom nav bar, which is done in BottomNavBarMenu.swift
-    var bottomNavBar = MDCBottomNavigationBar()
+    lazy var bottomNavBar: UITabBar = {
+          let tab = UITabBar()
+          self.view.addSubview(tab)
+          tab.translatesAutoresizingMaskIntoConstraints = false
+          tab.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+          tab.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+          tab.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true //This line will change in second part of this post.
+          return tab
+      }()
     
     // Default feed only shows text posts
     var curPostType: String = "text"
@@ -114,9 +128,17 @@ class ViewController: UIViewController {
         return setStatusBarStyle()
     }
     
+    // For observing when app enters foreground (for notifications)
+    private var observer: NSObjectProtocol?
+    
     // MARK: View Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Keep filter stack buttons from changing color when alert is presented
+        filterButton.tintAdjustmentMode = .normal
+        rangeButton.tintAdjustmentMode = .normal
+        postTypeButton.tintAdjustmentMode = .normal
         
         // Disable Groups until Better Developed
         groupsButton.isUserInteractionEnabled = false
@@ -131,7 +153,52 @@ class ViewController: UIViewController {
         // Show loading symbol
         activityIndicator()
         indicator.startAnimating()
-        indicator.backgroundColor = .systemBackground
+        
+        var layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
+        
+        if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                indicator.backgroundColor = .black
+                //bufferView.backgroundColor = .black
+                //self.view.backgroundColor = .black
+                layer = getGradient(color1: .purple, color2: UIColor(named: "GrapevinePurple")!)
+            }
+            else {
+                indicator.backgroundColor = .systemGray6
+                //bufferView.backgroundColor = .systemGray6
+                //self.view.backgroundColor = .systemGray6
+                layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
+            }
+        }
+//        layer.cornerRadius = 5
+//        headerView.layer.insertSublayer(layer, at: 0)
+        
+        //Animated Gradient
+//        let childView = UIHostingController(rootView: GradientView())
+//        addChild(childView)
+//        childView.view.frame = CGRect(x: -50, y: -400, width: headerView.frame.width + 100, height: view.frame.height)
+//        headerView.insertSubview(childView.view, at: 0)
+//        childView.didMove(toParent: self)
+        
+        
+        //view colors
+        // Karma label
+//        self.view.backgroundColor = UIColor(named: "GrapevinePurple")
+//        self.karmaAmountLabel.layer.borderColor = UIColor.white.cgColor
+//        self.karmaAmountLabel.layer.borderWidth = 1
+//        self.karmaAmountLabel.layer.cornerRadius = 5
+        
+//        headerView.layer.cornerRadius = 5
+
+//        self.nearbyLabel.textColor = .purple
+//        self.groupsButton.tintColor = .purple
+//        self.groupsButton.setTitleColor(.purple, for: .normal)
+//        self.filterButton.tintColor = .purple
+//        self.filterButton.setTitleColor(.purple, for: .normal)
+//        self.rangeButton.tintColor = .purple
+//        self.rangeButton.setTitleColor(.purple, for: .normal)
+//        self.postTypeButton.tintColor = .purple
+//        self.postTypeButton.setTitleColor(.purple, for: .normal)
         
         // Load user defaults into post filters
         setInitialPostFilters()
@@ -170,12 +237,33 @@ class ViewController: UIViewController {
         let tapGestureRecognizerKarmaLabel = UITapGestureRecognizer(target: self, action: #selector(karmaLabelTapped(tapGestureRecognizer:)))
         karmaAmountLabel.addGestureRecognizer(tapGestureRecognizerKarmaLabel)
         
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGesture.minimumPressDuration = 0.3
+        self.tableView.addGestureRecognizer(longPressGesture)
+        
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
         changeAppearanceBasedOnMode()
         
-        // If user launches app via notification, open comment view controller
-        let defaults = UserDefaults.standard
+//        // If user launches app via notification, open comment view controller
+//        let defaults = UserDefaults.standard
+//
+//        if let notificationPostID = defaults.string(forKey: "notificationPostID") {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
+//            let cellImage = cell.createTableCellImage()
+//            self.selectedPostScreenshot = cellImage
+//            defaults.removeObject(forKey: "notificationPostID")
+//            self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
+//        }
+        openNotificationPost()
         
+        observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+                openNotificationPost()
+        }
+    }
+    
+    // If user launches app via notification, open comment view controller
+    func openNotificationPost(){
+        let defaults = UserDefaults.standard
         if let notificationPostID = defaults.string(forKey: "notificationPostID") {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
             let cellImage = cell.createTableCellImage()
@@ -330,6 +418,16 @@ class ViewController: UIViewController {
      */
     
     func prepareTableView(){
+        if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                tableView.backgroundColor = .systemBackground
+//                view.backgroundColor = .systemGray6
+            }
+            else {
+//                tableView.backgroundColor = .systemGray6
+//                view.backgroundColor = .systemBackground
+            }
+        }
         postsManager.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
@@ -337,8 +435,7 @@ class ViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
-        tableView.backgroundColor = UIColor.systemBackground
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 50, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
         
@@ -477,8 +574,8 @@ class ViewController: UIViewController {
     
     func exitAbilities(){
         // Vibrate for haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+        //let generator = UIImpactFeedbackGenerator(style: .medium)
+        //generator.impactOccurred()
 
         // Reset selected buttons
         burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
@@ -496,15 +593,30 @@ class ViewController: UIViewController {
     }
         
     /// Displays the sharing popup, so users can share a post to Snapchat.
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage){
+    func showSharePopup(_ cell: PostTableViewCell, _ postType: String, _ content: UIImage){
         let heightInPoints = content.size.height
         let heightInPixels = heightInPoints * content.scale
         let alert = MDCAlertController(title: "Stories", message: "Share this post!")
         alert.backgroundColor = Globals.ViewSettings.backgroundColor
         alert.titleColor = Globals.ViewSettings.labelColor
         alert.messageColor = Globals.ViewSettings.labelColor
-        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in })
+        alert.addAction(MDCAlertAction(title: "Cancel") { (action) in
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
+        })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
@@ -515,6 +627,13 @@ class ViewController: UIViewController {
         })
 
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!
@@ -530,12 +649,52 @@ class ViewController: UIViewController {
 
     func showAbilitiesView(_ cell: PostTableViewCell){
         // Vibrate for haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+        //let generator = UIImpactFeedbackGenerator(style: .medium)
+        //generator.impactOccurred()
         
         burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        
+//        abilitiesBackgroundView.transform = CGAffineTransform(translationX: 1000, y: 0) //Shove off screen so we can animate it sliding onto screen
+//        abilitiesStackView.transform = CGAffineTransform(translationX: 1000, y: 0)
+//        applyAbilityButton.transform = CGAffineTransform(translationX: 1000, y: 0)
+        //abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 0, y: 0) //Shove off screen so we can animate it sliding onto screen
+        abilitiesBackgroundView.alpha = 0
+        abilitiesStackView.alpha = 0
+        applyAbilityButton.alpha = 0
+        pushButton.alpha = 0
+        burnButton.alpha = 0
+        shoutButton.alpha = 0
+//        abilitiesStackView.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        applyAbilityButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        pushButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        burnButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        shoutButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.abilitiesBackgroundView.alpha = 1
+                self.abilitiesStackView.alpha = 1
+                self.applyAbilityButton.alpha = 1
+                self.pushButton.alpha = 1.0
+                self.burnButton.alpha = 0.4
+                self.shoutButton.alpha = 0.4
+//                self.abilitiesStackView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.applyAbilityButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.pushButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.burnButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.shoutButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                    self.abilitiesBackgroundView.transform = .identity
+                    self.abilitiesStackView.transform = .identity
+                    self.applyAbilityButton.transform = .identity
+                    self.pushButton.transform = .identity
+                    self.burnButton.transform = .identity
+                    self.shoutButton.transform = .identity
+                }, completion: nil)
+            })
+        }
         
         abilitiesBackgroundView.isHidden = false //this is is also being used to determine behavior of navbar in abilities view
         abilitiesBackgroundView.isUserInteractionEnabled = true
@@ -647,7 +806,7 @@ class ViewController: UIViewController {
     
     // MARK: View Modes
     func changeAppearanceBasedOnMode(){
-        self.karmaAmountLabel.text = String(self.user?.score ?? 0) + " karma"
+        self.karmaAmountLabel.text = String(self.user?.score ?? 0)
         //Prepare view for groups mode
         if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default" {
             // Should only switch between default and groups because we don't want to set currentmode to groups in mycomments view or myposts view
@@ -988,15 +1147,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.setTimeSincePost()
         
         //Expand or collapse cells
-        if !cell.expandButton.isHidden {
+        if cell.expandButton.isUserInteractionEnabled {
             if self.expandNextCell == true {
                 self.expandNextCell = false
                 cell.expandCell()
+                cell.ExpandLabel.text = "Tap and hold to collapse"
             } else if self.shrinkNextCell == true {
                 self.shrinkNextCell = false
                 cell.shrinkCell()
+                cell.ExpandLabel.text = "Tap and hold to expand"
+
             } else {
                 cell.shrinkCell()
+                cell.ExpandLabel.text = "Tap and hold to expand"
+
             }
             cell.layoutSubviews()
         }
@@ -1031,7 +1195,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.voteCountLabel.isHidden = true
             cell.commentButton.isHidden = true
             cell.moreOptionsButton.isHidden = true
-            cell.commentLabel.text = "Tap to view post"
+            cell.commentButton.setTitle("Tap to view post", for: .normal)
             cell.shareButtonVar.isHidden = true
         }
         
@@ -1066,7 +1230,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.gradient = layer
                 cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
-                cell.voteCountLabel.textColor = .black
+                //cell.voteCountLabel.textColor = .black
                 cell.label.textColor = .black
                 cell.layoutSubviews()
                 // ^^^
@@ -1084,20 +1248,49 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     /// Context menu (shown on long cell press)
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
-            let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
-                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId, groupID: Globals.ViewSettings.groupID)
-                self.showFlaggedAlertPopup()
+    @objc func handleLongPress(longPressGesture: UILongPressGestureRecognizer) {
+        let p = longPressGesture.location(in: self.tableView)
+        if let indexPath = self.tableView.indexPathForRow(at: p) {
+            let cell = tableView.cellForRow(at: indexPath) as! PostTableViewCell
+            if cell.label.totalNumberOfLines() <= cell.maxLines {
+                return
             }
-            let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
-                print("Bookmarks was tapped")
+            if longPressGesture.state == UIGestureRecognizer.State.began {
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                    generator.impactOccurred()
+                print("Long press on row, at \(indexPath.row)")
+                let cell = tableView.cellForRow(at: indexPath) as! PostTableViewCell
+                if cell.isExpanded == false {
+                    //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.expandAtIndex = indexPath
+                    cell.delegate?.expandCell(cell, cellHeight: CGFloat(cell.label.totalNumberOfLines()) * cell.label.font.lineHeight + 96)
+                    cell.expandButton.tintColor = .systemGray3
+                    //}, completion: nil )
+                    
+                } else {
+                    //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.expandAtIndex = indexPath
+                    cell.delegate?.expandCell(cell, cellHeight: CGFloat(cell.maxLines) * cell.label.font.lineHeight + 96)
+                    cell.expandButton.tintColor = .systemGray3
+                    //}, completion: nil)
+                }
             }
-            return UIMenu(title: "", children: [report, bookmark])
         }
-        return configuration
     }
+//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+//            let report = UIAction(title: "Report", image: UIImage(systemName: "flag"), attributes: .destructive) { action in
+//                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
+//                self.postsManager.performInteractionRequest(interaction: 4, docID: cell.documentId, groupID: Globals.ViewSettings.groupID)
+//                self.showFlaggedAlertPopup()
+//            }
+//            let bookmark = UIAction(title: "Bookmark [🔒] ", image: UIImage(systemName: "bookmark")) { action in
+//                print("Bookmarks was tapped")
+//            }
+//            return UIMenu(title: "", children: [report, bookmark])
+//        }
+//        return configuration
+//    }
     
     
     /// The following three scroll functions allow navbar to hide on scroll
@@ -1445,7 +1638,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
-            self.karmaAmountLabel.text = String((self.user?.score ?? 0)) + " karma"
+            self.karmaAmountLabel.text = String((self.user?.score ?? 0))
         }
     }
     
@@ -1499,30 +1692,30 @@ extension ViewController: CommentViewControllerDelegate {
     }
 }
 
-extension ViewController: MDCBottomNavigationBarDelegate {
-    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+extension ViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
             if currentMode == "default" || currentMode == "groups" {
-                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                bottomNavBar.selectedItem = bottomNavBar.items?[0]
                 if abilitiesBackgroundView.isHidden == false {
                     exitAbilities()
                 } else {
                     scrollToTop()
                 }
             } else { // myPosts or myComments
-                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                bottomNavBar.selectedItem = bottomNavBar.items?[0]
                 let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
                 self.present(freshViewController, animated: true, completion: nil)
             }
         } else if item.tag == 1 {
             if currentMode == "default" {
-                bottomNavBar.selectedItem = bottomNavBar.items[0]
+                bottomNavBar.selectedItem = bottomNavBar.items?[0]
             } else { // myPosts or myComments
-                bottomNavBar.selectedItem = bottomNavBar.items[2]
+                bottomNavBar.selectedItem = bottomNavBar.items?[2]
             }
             self.performSegue(withIdentifier: "goToNewPosts", sender: self)
         } else if item.tag == 2 {
-            bottomNavBar.selectedItem = bottomNavBar.items[1]
+            bottomNavBar.selectedItem = bottomNavBar.items?[1]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
     }

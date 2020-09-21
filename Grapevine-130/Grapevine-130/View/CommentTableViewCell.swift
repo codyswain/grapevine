@@ -57,6 +57,15 @@ class CommentTableViewCell: UITableViewCell {
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!+1), for: .normal)
             }
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+                    self.voteButtonIcon.transform = CGAffineTransform(translationX: 0, y: -5)
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                        self.voteButtonIcon.transform = .identity
+                    }, completion: nil)
+                })
+            }
             self.delegate?.updateTableViewVotes(self, 1, voteStatus)
         } else {
             voteStatus = 0
@@ -66,6 +75,15 @@ class CommentTableViewCell: UITableViewCell {
             commentsManager.performUpvoteRequest(interaction: 0, commentID: commentID, groupID: Globals.ViewSettings.groupID)
             if let voteCount = sender.title(for: .normal){
                 voteButton.setTitle(String(Int(voteCount)!-1), for: .normal)
+            }
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+                    self.voteButtonIcon.transform = CGAffineTransform(translationX: 0, y: 5)
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                        self.voteButtonIcon.transform = .identity
+                    }, completion: nil)
+                })
             }
             self.delegate?.updateTableViewVotes(self, -1, voteStatus)
         }

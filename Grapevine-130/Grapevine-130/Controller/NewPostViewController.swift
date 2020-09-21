@@ -209,7 +209,7 @@ class NewPostViewController: UIViewController {
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         {
-            /* Don't move the submit post button 
+            /* Don't move the submit post button
             if (UIScreen.main.bounds.size.height < 736.0){
                 AddButtonContainingViewConstraint.constant = keyboardSize.height + 10
             } else {
@@ -362,6 +362,8 @@ extension NewPostViewController: PostsManagerDelegate {
                 alert.addAction(action2)
                 alert.addAction(action1)
                 makePopup(alert: alert, image: "x.circle.fill")
+                let generator = UINotificationFeedbackGenerator()
+                            generator.notificationOccurred(.warning)
                 self.present(alert, animated: true)
                 alert.mdc_dialogPresentationController?.dismissOnBackgroundTap = false //ideally we would have this enabled and use a completion handler to dismiss the view on background tap. But the documentation is poor and a better solution has not yet been found.
             } else {
@@ -375,6 +377,8 @@ extension NewPostViewController: PostsManagerDelegate {
     
     func contentNotPermitted() {
         DispatchQueue.main.async {
+            let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(.error)
             let alert = MDCAlertController(title: "Content Not Permitted", message: "You created a post containing content that we do not support on this platform. Please be respectful to other users.")
             let action1 = MDCAlertAction(title: "Ok") { (action) in super.dismiss(animated: true, completion: nil) }
             alert.addAction(action1)

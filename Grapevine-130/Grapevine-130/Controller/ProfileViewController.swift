@@ -14,7 +14,15 @@ import MessageUI
 
 /// Manages control flow of the score screen.
 class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    var bottomNavBar = MDCBottomNavigationBar()
+    lazy var bottomNavBar: UITabBar = {
+        let tab = UITabBar()
+        self.view.addSubview(tab)
+        tab.translatesAutoresizingMaskIntoConstraints = false
+        tab.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        tab.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        tab.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true //This line will change in second part of this post.
+        return tab
+    }()
     
     // MARK: Properties
     @IBOutlet weak var DarkModeSwitch: UISwitch!
@@ -55,7 +63,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     override func viewDidAppear(_ animated: Bool) {
         
         // Button styling
-        self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple, color2: Constants.Colors.mediumPink)
+        self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple!, color2: Constants.Colors.mediumPink)
         self.view = styleButton(button: MyPostsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
         self.view = styleButton(button: MyCommentsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
         self.view = styleButton(button: RulesButton, view: self.view, color1: Constants.Colors.darkPink, color2: Constants.Colors.yellow)
@@ -118,8 +126,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             defaults.set("dark", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
-                self.bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
-                self.bottomNavBar.selectedItemTintColor = UIColor.systemGray2
+                self.bottomNavBar = bottomNavBarStyling(bottomNavBar: self.bottomNavBar)
             }
         }
         else{
@@ -131,8 +138,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             defaults.set("light", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
-                self.bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey
-                self.bottomNavBar.selectedItemTintColor = .black
+                self.bottomNavBar = bottomNavBarStyling(bottomNavBar: self.bottomNavBar)
             }
         }
     }
@@ -142,12 +148,12 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     }
     
     @IBAction func PostsButtonPressed(_ sender: Any) {
-        bottomNavBar.selectedItem = bottomNavBar.items[2]
+        bottomNavBar.selectedItem = bottomNavBar.items?[2]
         self.performSegue(withIdentifier: "profileToMyPosts", sender: self)
     }
     
     @IBAction func CommentsButtonPressed(_ sender: Any) {
-        bottomNavBar.selectedItem = bottomNavBar.items[2]
+        bottomNavBar.selectedItem = bottomNavBar.items?[2]
         self.performSegue(withIdentifier: "profileToMyComments", sender: self)
 
     }
@@ -196,16 +202,16 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     }
 }
 
-extension ProfileViewController: MDCBottomNavigationBarDelegate {
-    func bottomNavigationBar(_ bottomNavigationBar: MDCBottomNavigationBar, didSelect item: UITabBarItem) {
+extension ProfileViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
-            bottomNavBar.selectedItem = bottomNavBar.items[0]
+            bottomNavBar.selectedItem = bottomNavBar.items?[0]
             self.performSegue(withIdentifier: "profileToPosts", sender: self)
         } else if item.tag == 1 {
-            bottomNavBar.selectedItem = bottomNavBar.items[2]
+            bottomNavBar.selectedItem = bottomNavBar.items?[2]
             self.performSegue(withIdentifier: "profileToCreatePost", sender: self)
         } else {
-            bottomNavBar.selectedItem = bottomNavBar.items[2]
+            bottomNavBar.selectedItem = bottomNavBar.items?[2]
         }
     }
 }

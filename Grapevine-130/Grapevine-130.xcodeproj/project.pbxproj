@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		626F542C251531AA00070340 /* HeaderGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626F542B251531AA00070340 /* HeaderGradient.swift */; };
 		6275B8AA24C6B950001705F6 /* GroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B8A824C6B950001705F6 /* GroupTableViewCell.xib */; };
 		6275B8AB24C6B950001705F6 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275B8A924C6B950001705F6 /* GroupTableViewCell.swift */; };
 		6322402923FC617A007D05F5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6322402823FC617A007D05F5 /* User.swift */; };
@@ -85,6 +86,7 @@
 
 /* Begin PBXFileReference section */
 		1A6FDDC054EB8A12618A5FA8 /* Pods-Grapevine-130.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Grapevine-130.release.xcconfig"; path = "Target Support Files/Pods-Grapevine-130/Pods-Grapevine-130.release.xcconfig"; sourceTree = "<group>"; };
+		626F542B251531AA00070340 /* HeaderGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderGradient.swift; sourceTree = "<group>"; };
 		6275B8A824C6B950001705F6 /* GroupTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupTableViewCell.xib; sourceTree = "<group>"; };
 		6275B8A924C6B950001705F6 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		6322402823FC617A007D05F5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				86709BD724072CCB00712ECC /* CanvasView.swift */,
 				83AF1349244C080C004AF1B5 /* WalkthroughPageCell.swift */,
 				8676C0A4246F78F3006C8FB8 /* BottomNavBarMenu.swift */,
+				626F542B251531AA00070340 /* HeaderGradient.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 			files = (
 				8659F2F123FE264400C3595F /* ScoreManager.swift in Sources */,
 				8659F2E523F8A94200C3595F /* PostTableViewCell.swift in Sources */,
+				626F542C251531AA00070340 /* HeaderGradient.swift in Sources */,
 				63D218522429B23D00960938 /* PostReference.swift in Sources */,
 				86709BD824072CCB00712ECC /* CanvasView.swift in Sources */,
 				83B21CDE24C6A7610087BABA /* GroupsViewController.swift in Sources */,
@@ -780,13 +784,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Grapevine-130/Grapevine.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = VQSZ9T9837;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teamgrapevine.grapevine;
 				PRODUCT_NAME = Grapevine;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -803,13 +808,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Grapevine-130/Grapevine.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = VQSZ9T9837;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.teamgrapevine.grapevine;
 				PRODUCT_NAME = Grapevine;
 				SWIFT_VERSION = 5.0;

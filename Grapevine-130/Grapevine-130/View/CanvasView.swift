@@ -53,7 +53,7 @@ class CanvasView: UIView {
     func drawShapeLayer() {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.strokeColor = currentColor.cgColor
+        shapeLayer.strokeColor = currentColor?.cgColor
         shapeLayer.lineWidth = lineWidth
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round

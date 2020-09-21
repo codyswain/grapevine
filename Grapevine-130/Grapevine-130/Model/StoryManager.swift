@@ -20,7 +20,7 @@ struct StoryManager {
         let mainView = UIView(frame: frame)
         mainView.backgroundColor = .white
         
-        let labelFrame = CGRect(x: (UIScreen.main.nativeBounds.width/2) - 500, y: UIScreen.main.nativeBounds.height*(1/2) - (height/2) - 100, width: 1000, height: 100)
+        let labelFrame = CGRect(x: (UIScreen.main.nativeBounds.width/2) - 500, y: UIScreen.main.nativeBounds.height*(1/2) - (height/2) - 200, width: 1000, height: 100)
         let textLabelX = UILabel(frame:labelFrame)
         textLabelX.numberOfLines = 0
         textLabelX.textAlignment = .center
@@ -81,9 +81,10 @@ struct StoryManager {
     }
     
     func shareToSnap(_ backgroundImage: UIImage, _ stickerImage: UIImage) {
-        let snapPhoto = SCSDKSnapPhoto(image: backgroundImage)
-        let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
-        snapContent.attachmentUrl = "https://www.instagram.com/teamgrapevine/"
+//        let snapPhoto = SCSDKSnapPhoto(image: backgroundImage)
+//        let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
+        let snapContent = SCSDKNoSnapContent()
+        snapContent.attachmentUrl = "https://apps.apple.com/us/app/grapevine-hyperlocal-chats/id1529553781"
         let sticker = SCSDKSnapSticker(stickerImage: stickerImage)
         snapContent.sticker = sticker
         snapAPI.startSending(snapContent)
@@ -92,7 +93,7 @@ struct StoryManager {
     func shareCommentsToSnap(_ backgroundImage: UIImage) {
         let snapPhoto = SCSDKSnapPhoto(image: backgroundImage)
         let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
-        snapContent.attachmentUrl = "https://www.instagram.com/teamgrapevine/"
+        snapContent.attachmentUrl = "https://apps.apple.com/us/app/grapevine-hyperlocal-chats/id1529553781"
         snapAPI.startSending(snapContent)
     }
     

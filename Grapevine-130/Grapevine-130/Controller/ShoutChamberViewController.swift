@@ -61,7 +61,7 @@ class ShoutChamberViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
-        tableView.backgroundColor = UIColor.systemBackground
+        tableView.backgroundColor = UIColor.systemGray5
         
         // Add scroll to top button
         let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(scrollToTop))

@@ -6,7 +6,7 @@ protocol PostTableViewCellDelegate {
     func updateTableViewFlags(_ cell: UITableViewCell, newFlagStatus: Int)
     func deleteCell( _ cell: UITableViewCell)
     func showAbilitiesView(_ cell: PostTableViewCell)
-    func showSharePopup(_ cell: UITableViewCell, _ postType: String, _ content: UIImage)
+    func showSharePopup(_ cell: PostTableViewCell, _ postType: String, _ content: UIImage)
     func viewComments(_ cell: PostTableViewCell, _ postScreenshot: UIImage, cellHeight: CGFloat)
     func userTappedAbility(_ cell: UITableViewCell, _ ability: String)
     func expandCell(_ cell: PostTableViewCell, cellHeight: CGFloat)
@@ -34,10 +34,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var moreOptionsButton: UIButton!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var commentButton: UIButton!
-    @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var shareButtonVar: UIButton!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var VotesContainerView: UIView!
+    @IBOutlet weak var ExpandLabel: UILabel!
     
     // Abilities
     var abilitiesToggleIsActive: Bool = false
@@ -180,9 +180,29 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { /// post was not voted on (neutral), after upvoting will be upvoted
             currentVoteStatus = 1
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setUpvotedColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
+            
+            //Animate Upvote (expand)
+            //let transform = CATransform3DIdentity
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
+                animations: {
+                    self.upvoteButton.transform = CGAffineTransform(scaleX: 2, y: 2)
+                    self.setUpvotedColors()
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! + 1)
+                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                        self.upvoteButton.transform = CGAffineTransform.identity
+                    }, completion: nil)
+//                    completion: {_ in
+//                        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+//                            self.upvoteButton.layer.transform = CATransform3DRotate(transform, CGFloat(180 * Double.pi / 180), 0, 1, 0)
+//                        })
+//                    })
+                })
+            }
+            
         } else if self.currentVoteStatus == -1 { /// post was downvoted, after upvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
@@ -192,9 +212,22 @@ class PostTableViewCell: UITableViewCell {
         } else { /// post was upvoted, after upvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setNeutralColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
+            
+            //Animate Upvote (Shrink)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
+                animations: {
+                    self.upvoteButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    self.setNeutralColors()
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                        self.upvoteButton.transform = CGAffineTransform.identity
+                    })
+                })
+            }
         }
     }
 
@@ -204,9 +237,43 @@ class PostTableViewCell: UITableViewCell {
         if self.currentVoteStatus == 0 { /// post was not voted on (neutral), after downvoting will be downvoted
             currentVoteStatus = -1
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setDownvotedColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! - 1)
             self.delegate?.updateTableViewVotes(self, -1, currentVoteStatus)
+            
+            //Animate Downvote (fly down from top)
+            DispatchQueue.main.async {
+//                UIView.animate(withDuration: 0.0, delay: 0.0, options: [],
+//                animations: {
+//                    self.downvoteButton.transform = CGAffineTransform(translationX: 0, y: -50)
+//                    self.downvoteButton.alpha = 0
+//                },
+//                completion: { _ in
+//                    UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+//                    animations: {
+//                        self.upvoteButton.transform = CGAffineTransform(rotationAngle: .pi)
+//                        self.upvoteButton.alpha = 0
+//                        self.downvoteButton.alpha = 1
+//                    },
+//                    completion: { _ in
+//                        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+//                            self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+//                            self.setDownvotedColors()
+//                            self.downvoteButton.transform = CGAffineTransform.identity
+//                            self.upvoteButton.transform = CGAffineTransform.identity
+//                            self.upvoteButton.alpha = 1
+//                        })
+//                    })
+//                })
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.downvoteButton.transform = CGAffineTransform(scaleX: 2, y: 2)
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! - 1)
+                    self.setDownvotedColors()
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                        self.downvoteButton.transform = CGAffineTransform.identity
+                    }, completion: nil)
+                })
+            }
+            
         } else if self.currentVoteStatus == 1 { /// post was upvoted, after downvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 1, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
@@ -216,26 +283,63 @@ class PostTableViewCell: UITableViewCell {
         } else { /// post was downvoted, after downvoting will be neutral
             currentVoteStatus = 0
             postManager.performInteractionRequest(interaction: 2, docID: self.documentId, groupID: Globals.ViewSettings.groupID)
-            setNeutralColors()
-            voteCountLabel.text = String(Int(String(voteCountLabel.text!))! + 1)
             self.delegate?.updateTableViewVotes(self, 1, currentVoteStatus)
+            
+            //Animate Downvote (Shrink)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut,
+                animations: {
+                    self.downvoteButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    self.setNeutralColors()
+                    self.voteCountLabel.text = String(Int(String(self.voteCountLabel.text!))! + 1)                },
+                completion: { _ in
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+                        self.downvoteButton.transform = CGAffineTransform.identity
+                    })
+                })
+            }
         }
     }
     
     @IBAction func moreOptionsTapped(_ sender: Any) {
-        moreOptionsButton.tintColor = Constants.Colors.darkPurple
+        moreOptionsButton.tintColor = UIColor(named: "GrapevinePurple")
+        moreOptionsButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async{
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+                self.moreOptionsButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }, completion: nil)
+        }
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         var flagTitle = "Flag Post"
         if currentFlagStatus == 1 {
             flagTitle = "Unflag Post"
         }
         let action1 = UIAlertAction(title: flagTitle, style: .destructive) { (action) in self.flagTappedInMoreOptions()
-            self.moreOptionsButton.tintColor = .systemGray3
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    self.moreOptionsButton.transform = .identity
+                    self.moreOptionsButton.tintColor = .systemGray2
+                    self.moreOptionsButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         }
         let action2 = UIAlertAction(title: "Delete Post", style:.destructive) { (action) in self.delegate?.deleteCell(self)
-            self.moreOptionsButton.tintColor = .systemGray3
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    self.moreOptionsButton.transform = .identity
+                    self.moreOptionsButton.tintColor = .systemGray2
+                    self.moreOptionsButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in             self.moreOptionsButton.tintColor = .systemGray3
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) in 
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    self.moreOptionsButton.transform = .identity
+                    self.moreOptionsButton.tintColor = .systemGray2
+                    self.moreOptionsButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         })
         alert.addAction(action1)
         if isDeleteable == true {
@@ -272,20 +376,41 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
+        let cellImage = createTableCellImage()! //Dont want purple share button in screenshot
+        shareButtonVar.tintColor = UIColor(named: "GrapevinePurple")
+        shareButtonVar.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+                self.shareButtonVar.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }, completion: nil)
+        }
         if postType == "text" {
-            self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
+            self.delegate?.showSharePopup(self, "text", cellImage)
         } else {
-            self.delegate?.showSharePopup(self, "image", createTableCellImage()!)
+            self.delegate?.showSharePopup(self, "image", cellImage)
         }
     }
     
     
     @IBAction func commentButtonTapped(_ sender: Any) {
-        viewCommentScreen()
+        self.commentButton.tintColor = UIColor(named: "GrapevinePurple")
+        self.commentButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.commentButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.commentButton.transform = .identity
+                    self.commentButton.tintColor = .systemGray2
+                    self.commentButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            })
+        }
+        self.viewCommentScreen()
     }
     /// Segue to view comment screen
     @objc func commentTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        viewCommentScreen()
+        commentButtonTapped(self)
     }
     
     func viewCommentScreen(){
@@ -300,6 +425,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isHidden = true
         upvoteButton.isUserInteractionEnabled = false
         downvoteButton.tintColor = Constants.Colors.veryDarkGrey
+        voteCountLabel.textColor = Constants.Colors.veryDarkGrey
     }
     
     /** Modify post colors to reflect no vote.  */
@@ -310,6 +436,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isUserInteractionEnabled = true
         upvoteButton.tintColor = .systemGray3
         downvoteButton.tintColor = .systemGray3
+        voteCountLabel.textColor = .systemGray2
     }
     
     /** Modify post colors to reflect an upvote. */
@@ -319,6 +446,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isHidden = false
         upvoteButton.isUserInteractionEnabled = true
         upvoteButton.tintColor = Constants.Colors.darkPurple
+        voteCountLabel.textColor = Constants.Colors.darkPurple
     }
     
     func createTableCellImage() -> UIImage? {
@@ -357,12 +485,31 @@ class PostTableViewCell: UITableViewCell {
     
     func makeBasicCell(post: Post) {
         /// Reset cell attributes before reusing
+        //This keeps button colors from changing to gray when an alert is peresnted
+        self.moreOptionsButton.tintAdjustmentMode = .normal
+        self.shareButtonVar.tintAdjustmentMode = .normal
+        self.abilitiesButton.tintAdjustmentMode = .normal
+        self.commentButton.tintAdjustmentMode = .normal
+        self.upvoteButton.tintAdjustmentMode = .normal
+        self.downvoteButton.tintAdjustmentMode = .normal
+        
         self.BoundingView.layer.borderWidth = 0
         self.BoundingView.layer.borderColor = nil
+        self.expandButton.tintColor = UIColor(named: "GrapevinePurple")
         self.imageVar.image = nil
-        self.moreOptionsButton.tintColor = UIColor.systemGray3
+        self.moreOptionsButton.tintColor = UIColor.systemGray2
         self.label.font = self.label.font.withSize(16)
-        self.commentAreaView.backgroundColor = UIColor.systemGray6
+        if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
+            if (curTheme == "dark") {
+                self.commentAreaView.backgroundColor = .systemGray6
+                self.ContentView.backgroundColor = .black
+            }
+            else {
+                self.commentAreaView.backgroundColor = .systemBackground
+                self.ContentView.backgroundColor = .systemGray6
+
+            }
+        }
         self.label.textColor = UIColor.label
         commentButton.isUserInteractionEnabled = true
         
@@ -387,7 +534,7 @@ class PostTableViewCell: UITableViewCell {
         
         /// Set vote count of post cell
         self.voteCountLabel.text = String(post.votes)
-        self.voteCountLabel.textColor = .label
+//        self.voteCountLabel.textColor = .label
         
         /// Set vote status
         self.currentVoteStatus = post.voteStatus
@@ -396,11 +543,11 @@ class PostTableViewCell: UITableViewCell {
         if post.comments > 0 {
             /// Show number of comments if there are comments
             let commentText = self.getCommentCount(numComments: post.comments)
-            self.commentLabel.text = commentText
+            self.commentButton.setTitle(" " + commentText + " Replies", for: .normal)
             self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         } else {
             /// Show comment symbol if there are no comments
-            self.commentLabel.text = "0"
+            self.commentButton.setTitle(" 0 Replies", for: .normal)
             self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         }
         /// Cell is flammable
@@ -417,14 +564,17 @@ class PostTableViewCell: UITableViewCell {
         // Collapse Cell
         label.numberOfLines = maxLines
         commentAreaView.clipsToBounds = true
+        ExpandLabel.text = "Tap and hold to expand"
 
         if self.label.totalNumberOfLines() > maxLines {
             expandButton.isUserInteractionEnabled = true
-            expandButton.isHidden = false
+            ExpandLabel.isHidden = false
+            expandButton.isHidden = true
             label.lineBreakMode = .byTruncatingTail
             self.shrinkCell()
         }
         else {
+            ExpandLabel.isHidden = true
             expandButton.isUserInteractionEnabled = false
             expandButton.isHidden = true
             label.lineBreakMode = .byWordWrapping
@@ -439,7 +589,6 @@ class PostTableViewCell: UITableViewCell {
         self.label.numberOfLines = -1 //infinity
         self.label.lineBreakMode = .byWordWrapping
         self.expandButton.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
-        self.expandButton.tintColor = UIColor.systemBlue
         layoutSubviews()
     }
     
@@ -448,7 +597,6 @@ class PostTableViewCell: UITableViewCell {
         self.label.lineBreakMode = .byTruncatingTail
         self.label.numberOfLines = self.maxLines
         self.expandButton.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
-        self.expandButton.tintColor = UIColor.systemBlue
         layoutSubviews()
     }
     
@@ -470,6 +618,19 @@ class PostTableViewCell: UITableViewCell {
     
     /// This is abilities button
     @IBAction func shareAbilitySelected(_ sender: Any) {
+        self.abilitiesButton.tintColor = UIColor(named: "GrapevinePurple")
+        self.abilitiesButton.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
+                self.abilitiesButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.abilitiesButton.transform = .identity
+                    self.abilitiesButton.tintColor = .systemGray2
+                    self.abilitiesButton.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            })
+        }
         toggleAbilities()
         if postType == "text" {
             self.delegate?.showAbilitiesView(self)

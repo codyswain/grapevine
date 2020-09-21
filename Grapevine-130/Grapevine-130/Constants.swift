@@ -18,7 +18,8 @@ struct Constants {
     static let spamLength = 30.0 // 30 seconds
     struct Colors {
         static let lightPurple = UIColor(red:0.86, green:0.69, blue:0.99, alpha:1.0)
-        static let darkPurple = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0)
+        static let darkPurple = UIColor(named: "GrapevinePurple")
+        static let originalDarkPurple = UIColor(red:0.62, green:0.27, blue:0.90, alpha:1.0) // changed this because color we wanted was grapevinepurple. Faster than going through and finding all instances
         static let veryLightgrey = UIColor(red:0.97, green:0.96, blue:0.97, alpha:1.00)
         static let lightGrey = UIColor(red:0.79, green:0.79, blue:0.79, alpha:1.0)
         static let darkGrey = UIColor(red:0.91, green:0.91, blue:0.91, alpha:1.0)
