@@ -574,8 +574,8 @@ class ViewController: UIViewController {
     
     func exitAbilities(){
         // Vibrate for haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+        //let generator = UIImpactFeedbackGenerator(style: .medium)
+        //generator.impactOccurred()
 
         // Reset selected buttons
         burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
@@ -649,8 +649,8 @@ class ViewController: UIViewController {
 
     func showAbilitiesView(_ cell: PostTableViewCell){
         // Vibrate for haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+        //let generator = UIImpactFeedbackGenerator(style: .medium)
+        //generator.impactOccurred()
         
         burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
@@ -659,20 +659,31 @@ class ViewController: UIViewController {
 //        abilitiesBackgroundView.transform = CGAffineTransform(translationX: 1000, y: 0) //Shove off screen so we can animate it sliding onto screen
 //        abilitiesStackView.transform = CGAffineTransform(translationX: 1000, y: 0)
 //        applyAbilityButton.transform = CGAffineTransform(translationX: 1000, y: 0)
-        abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 0, y: 0) //Shove off screen so we can animate it sliding onto screen
-        abilitiesStackView.transform = CGAffineTransform(scaleX: 0, y: 0)
-        applyAbilityButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        pushButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        burnButton.transform = CGAffineTransform(scaleX: 0, y: 0)
-        shoutButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        //abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 0, y: 0) //Shove off screen so we can animate it sliding onto screen
+        abilitiesBackgroundView.alpha = 0
+        abilitiesStackView.alpha = 0
+        applyAbilityButton.alpha = 0
+        pushButton.alpha = 0
+        burnButton.alpha = 0
+        shoutButton.alpha = 0
+//        abilitiesStackView.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        applyAbilityButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        pushButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        burnButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+//        shoutButton.transform = CGAffineTransform(scaleX: 0, y: 0)
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-                self.abilitiesBackgroundView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0) //Shove off screen so we can animate it sliding onto screen
-                self.abilitiesStackView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-                self.applyAbilityButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-                self.pushButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-                self.burnButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-                self.shoutButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+                self.abilitiesBackgroundView.alpha = 1
+                self.abilitiesStackView.alpha = 1
+                self.applyAbilityButton.alpha = 1
+                self.pushButton.alpha = 1.0
+                self.burnButton.alpha = 0.4
+                self.shoutButton.alpha = 0.4
+//                self.abilitiesStackView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.applyAbilityButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.pushButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.burnButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//                self.shoutButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
             }, completion: {_ in
                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
                     self.abilitiesBackgroundView.transform = .identity
@@ -1219,7 +1230,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 cell.gradient = layer
                 cell.commentAreaView.layer.insertSublayer(cell.gradient!, at: 0)
-                cell.voteCountLabel.textColor = .black
+                //cell.voteCountLabel.textColor = .black
                 cell.label.textColor = .black
                 cell.layoutSubviews()
                 // ^^^
