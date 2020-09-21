@@ -135,6 +135,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Keep filter stack buttons from changing color when alert is presented
+        filterButton.tintAdjustmentMode = .normal
+        rangeButton.tintAdjustmentMode = .normal
+        postTypeButton.tintAdjustmentMode = .normal
+        
         // Disable Groups until Better Developed
         groupsButton.isUserInteractionEnabled = false
         groupsButton.isHidden = true

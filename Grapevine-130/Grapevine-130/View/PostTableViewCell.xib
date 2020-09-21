@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="454" height="253"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="k6Z-o2-oI6">
-                                        <rect key="frame" x="12" y="25" width="342" height="19.5"/>
+                                        <rect key="frame" x="12" y="25" width="382" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <color key="highlightedColor" systemColor="labelColor"/>
@@ -211,7 +211,7 @@
                                     <constraint firstItem="l72-Vs-ETQ" firstAttribute="centerY" secondItem="CwN-Dl-0tb" secondAttribute="centerY" id="LuH-gD-OAV"/>
                                     <constraint firstItem="Ae5-Jk-pxi" firstAttribute="centerX" secondItem="CwN-Dl-0tb" secondAttribute="centerX" id="Nc0-pm-eZE"/>
                                     <constraint firstItem="RXq-AR-44P" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="15" id="QnT-JN-5i8"/>
-                                    <constraint firstAttribute="trailing" secondItem="k6Z-o2-oI6" secondAttribute="trailing" constant="100" id="UHV-fv-Lzp"/>
+                                    <constraint firstAttribute="trailing" secondItem="k6Z-o2-oI6" secondAttribute="trailing" constant="60" id="UHV-fv-Lzp"/>
                                     <constraint firstItem="Mer-0f-cch" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="10" id="YoD-ZD-lb5"/>
                                     <constraint firstItem="Ae5-Jk-pxi" firstAttribute="top" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="6" id="bfk-DQ-3li"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="30" id="h2v-hZ-BZZ"/>

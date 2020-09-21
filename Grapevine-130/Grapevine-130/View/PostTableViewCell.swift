@@ -435,7 +435,7 @@ class PostTableViewCell: UITableViewCell {
         upvoteButton.isUserInteractionEnabled = true
         upvoteButton.tintColor = .systemGray3
         downvoteButton.tintColor = .systemGray3
-        voteCountLabel.textColor = .systemGray3
+        voteCountLabel.textColor = .systemGray2
     }
     
     /** Modify post colors to reflect an upvote. */
@@ -484,6 +484,14 @@ class PostTableViewCell: UITableViewCell {
     
     func makeBasicCell(post: Post) {
         /// Reset cell attributes before reusing
+        //This keeps button colors from changing to gray when an alert is peresnted
+        self.moreOptionsButton.tintAdjustmentMode = .normal
+        self.shareButtonVar.tintAdjustmentMode = .normal
+        self.abilitiesButton.tintAdjustmentMode = .normal
+        self.commentButton.tintAdjustmentMode = .normal
+        self.upvoteButton.tintAdjustmentMode = .normal
+        self.downvoteButton.tintAdjustmentMode = .normal
+        
         self.BoundingView.layer.borderWidth = 0
         self.BoundingView.layer.borderColor = nil
         self.expandButton.tintColor = UIColor(named: "GrapevinePurple")

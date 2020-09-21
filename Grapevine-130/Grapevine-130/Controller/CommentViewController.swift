@@ -24,7 +24,7 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var inputTextContainerView: UIView!
     @IBOutlet weak var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputContainerView: UIView!
-    @IBOutlet weak var commentInput: UITextField!
+    @IBOutlet weak var commentInput: UITextView!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var actionBar: UIView!
     @IBOutlet weak var startApostrophe: UIImageView!
@@ -94,8 +94,13 @@ class CommentViewController: UIViewController {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         commentInput.text = "Add an anonymous comment..."
-        commentInput.clearsOnBeginEditing = false;
         commentInput.tintColor = Constants.Colors.darkPurple
+        commentInput.isScrollEnabled = true
+        commentInput.isEditable = true
+        commentInput.layer.cornerRadius = 10
+        commentInput.clipsToBounds = true
+        commentInput.translatesAutoresizingMaskIntoConstraints = true
+        
         if (mainPost?.type == "text"){
             postContentLabel.text = mainPost!.content
         } else if (mainPost?.type == "image") {
