@@ -780,14 +780,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Grapevine-130/Grapevine.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
-				DEVELOPMENT_TEAM = 75V6QRRPC3;
+				CURRENT_PROJECT_VERSION = 40;
+				DEVELOPMENT_TEAM = VQSZ9T9837;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.grapevineapp.Grapevine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamgrapevine.grapevine;
 				PRODUCT_NAME = Grapevine;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -803,14 +803,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Grapevine-130/Grapevine.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
-				DEVELOPMENT_TEAM = 75V6QRRPC3;
+				CURRENT_PROJECT_VERSION = 40;
+				DEVELOPMENT_TEAM = VQSZ9T9837;
 				INFOPLIST_FILE = "Grapevine-130/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.grapevineapp.Grapevine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.teamgrapevine.grapevine;
 				PRODUCT_NAME = Grapevine;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

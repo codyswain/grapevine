@@ -273,9 +273,9 @@ class PostTableViewCell: UITableViewCell {
     
     @IBAction func shareButtonPressed(_ sender: Any) {
         if postType == "text" {
-            self.delegate?.showSharePopup(self, "text", createTableCellImage() ?? nil!)
+            self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
         } else {
-            self.delegate?.showSharePopup(self, "image", createTableCellImage() ?? nil!)
+            self.delegate?.showSharePopup(self, "image", createTableCellImage()!)
         }
     }
     
