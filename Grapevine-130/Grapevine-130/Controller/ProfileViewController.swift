@@ -63,7 +63,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     override func viewDidAppear(_ animated: Bool) {
         
         // Button styling
-        self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple, color2: Constants.Colors.mediumPink)
+        self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple!, color2: Constants.Colors.mediumPink)
         self.view = styleButton(button: MyPostsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
         self.view = styleButton(button: MyCommentsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
         self.view = styleButton(button: RulesButton, view: self.view, color1: Constants.Colors.darkPink, color2: Constants.Colors.yellow)
