@@ -642,9 +642,16 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToSnap(backgroundImage, content)
         })
-
         makePopup(alert: alert, image: "arrow.uturn.right.circle.fill")
-        self.present(alert, animated: true)
+        self.present(alert, animated: true, completion: {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
+        })
     }
 
     func showAbilitiesView(_ cell: PostTableViewCell){
