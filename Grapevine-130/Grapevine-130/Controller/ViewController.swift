@@ -1217,7 +1217,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 var layer = getGradient(color1: .white, color2: .yellow)
                 if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
                     if (curTheme == "dark") {
-                        layer = getGradient(color1: .yellow, color2: #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1))
+                        layer = getGradient(color1: UIColor.yellow.lighter(by: 50)!, color2: #colorLiteral(red: 0.969068706, green: 0.6374732256, blue: 0.1250857413, alpha: 1))
                     }
                 }
 //                let layer = getGradient(color1: .white, color2: .yellow)
