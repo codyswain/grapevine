@@ -513,6 +513,7 @@ class ViewController: UIViewController {
             }
             self.storyManager.shareToInstagram(backgroundImage, content)
         })
+
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
             var backgroundImage: UIImage
             if self.range == -1 {
