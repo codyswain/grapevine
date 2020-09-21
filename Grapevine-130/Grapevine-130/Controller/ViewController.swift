@@ -601,18 +601,22 @@ class ViewController: UIViewController {
         alert.titleColor = Globals.ViewSettings.labelColor
         alert.messageColor = Globals.ViewSettings.labelColor
         alert.addAction(MDCAlertAction(title: "Cancel") { (action) in
-            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-                cell.shareButtonVar.transform = .identity
-                cell.shareButtonVar.tintColor = .systemGray2
-                cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
-            }, completion: nil)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
         })
         alert.addAction(MDCAlertAction(title: "Instagram"){ (action) in
-            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-                cell.shareButtonVar.transform = .identity
-                cell.shareButtonVar.tintColor = .systemGray2
-                cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
-            }, completion: nil)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createInstaBackgroundImage(postType, "NO_CITY", heightInPixels)!
@@ -623,11 +627,13 @@ class ViewController: UIViewController {
         })
 
         alert.addAction(MDCAlertAction(title: "Snapchat"){ (action) in
-            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
-                cell.shareButtonVar.transform = .identity
-                cell.shareButtonVar.tintColor = .systemGray2
-                cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
-            }, completion: nil)
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn, animations: {
+                    cell.shareButtonVar.transform = .identity
+                    cell.shareButtonVar.tintColor = .systemGray2
+                    cell.shareButtonVar.setTitleColor(.systemGray2, for: .normal)
+                }, completion: nil)
+            }
             var backgroundImage: UIImage
             if self.range == -1 {
                 backgroundImage = self.storyManager.createBackgroundImage(postType, "NO_CITY", heightInPixels)!

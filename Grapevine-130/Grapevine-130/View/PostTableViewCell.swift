@@ -376,6 +376,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @IBAction func shareButtonPressed(_ sender: Any) {
+        let cellImage = createTableCellImage()! //Dont want purple share button in screenshot
         shareButtonVar.tintColor = UIColor(named: "GrapevinePurple")
         shareButtonVar.setTitleColor(UIColor(named: "GrapevinePurple"), for: .normal)
         DispatchQueue.main.async {
@@ -384,9 +385,9 @@ class PostTableViewCell: UITableViewCell {
             }, completion: nil)
         }
         if postType == "text" {
-            self.delegate?.showSharePopup(self, "text", createTableCellImage()!)
+            self.delegate?.showSharePopup(self, "text", cellImage)
         } else {
-            self.delegate?.showSharePopup(self, "image", createTableCellImage()!)
+            self.delegate?.showSharePopup(self, "image", cellImage)
         }
     }
     
