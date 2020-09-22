@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var rangeButton: UIButton!
     @IBOutlet weak var groupsButton: UIButton!
     
+    @IBOutlet weak var TableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var postTypeButton: UIButton!
     @IBOutlet weak var abilitiesBackgroundView: UIView!
@@ -831,6 +832,7 @@ class ViewController: UIViewController {
             self.postTypeButton.isHidden = true
             self.groupsButton.isHidden = true
             self.karmaAmountLabel.isHidden = true
+            self.TableViewHeightConstraint.constant = 47
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
             self.view.addSubview(bottomNavBar)
@@ -843,6 +845,7 @@ class ViewController: UIViewController {
             self.karmaAmountLabel.isHidden = true
             // Add menu navigation bar programatically
             bottomNavBar = prepareBottomNavBar(sender: self, bottomNavBar: bottomNavBar, tab: "Me")
+            self.TableViewHeightConstraint.constant = 47
             self.view.addSubview(bottomNavBar)
         case "groups":
             print("DEBUG: \(self.view.frame.height)")

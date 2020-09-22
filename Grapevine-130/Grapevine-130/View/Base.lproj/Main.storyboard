@@ -243,9 +243,9 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapevine Icon Transparent" translatesAutoresizingMaskIntoConstraints="NO" id="rYn-Uz-slI">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Grapevine Thicc" translatesAutoresizingMaskIntoConstraints="NO" id="rYn-Uz-slI">
                                 <rect key="frame" x="-305" y="36" width="1024" height="53"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="53" id="ROU-Tf-DQd"/>
                                 </constraints>
@@ -340,6 +340,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="030-S8-zGF" secondAttribute="bottom" constant="290" id="6tB-OB-yka"/>
                             <constraint firstItem="aGv-vy-wu6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AKw-6J-Ol6"/>
                             <constraint firstItem="Rbx-yL-B51" firstAttribute="centerY" secondItem="rYn-Uz-slI" secondAttribute="centerY" id="H6V-zc-IfS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Rbx-yL-B51" secondAttribute="trailing" symbolic="YES" id="HAD-sd-E7D"/>
                             <constraint firstItem="mqc-Vl-gZj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HN2-bY-6i5"/>
                             <constraint firstAttribute="bottom" secondItem="XbE-eE-8Ro" secondAttribute="bottom" id="K0L-i1-gAs"/>
                             <constraint firstItem="030-S8-zGF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="N73-fs-b4X"/>
@@ -365,6 +366,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="rQz-x8-cJq"/>
                     <connections>
+                        <outlet property="TableViewHeightConstraint" destination="Nl4-Mj-zrt" id="G3N-Pc-0Nv"/>
                         <outlet property="abilitiesBackgroundView" destination="XbE-eE-8Ro" id="q7g-W3-bNn"/>
                         <outlet property="abilitiesStackView" destination="030-S8-zGF" id="XpP-Tm-2N7"/>
                         <outlet property="applyAbilityButton" destination="6Nd-Dg-2kg" id="Xyx-W9-PVr"/>
@@ -897,7 +899,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cTk-0t-2af">
                                                 <rect key="frame" x="0.0" y="0.0" width="336" height="34"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1222,7 +1224,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>
-        <image name="Grapevine Icon Transparent" width="1024" height="1024"/>
+        <image name="Grapevine Thicc" width="1024" height="1024"/>
         <image name="Start Apostrophe" width="150" height="150"/>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.uturn.right.circle.fill" catalog="system" width="128" height="121"/>
@@ -1249,7 +1251,7 @@
         <image name="x.circle.fill" catalog="system" width="128" height="121"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="GrapevinePurple">
-            <color red="0.57926678659999997" green="0.28916746380000002" blue="0.86671245100000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.57899999618530273" green="0.289000004529953" blue="0.86699998378753662" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="LogoColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
