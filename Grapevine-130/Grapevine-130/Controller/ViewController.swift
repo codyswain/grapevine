@@ -1202,9 +1202,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         // In the future we should use a different cell for this (dequeueReusableCellWithIdentifier"commentcell")
         if currentMode == "myComments" {
             cell.disableInteraction()
-            cell.voteCountLabel.isHidden = true
+            cell.voteCountLabel.isHidden = false
             cell.commentButton.isHidden = true
             cell.moreOptionsButton.isHidden = true
+            
+            // add text indicating how to view post
+            let label = UILabel(frame: cell.label.frame)
+            label.text = "Tap to view Post"
+            label.textColor = .systemGray4
+            label.center = CGPoint(x: cell.label.center.x, y: cell.label.center.y + 30)
+            cell.addSubview(label)
+            
             cell.commentButton.setTitle("Tap to view post", for: .normal)
             cell.shareButtonVar.isHidden = true
         }
@@ -1714,7 +1722,8 @@ extension ViewController: UITabBarDelegate {
                 }
             } else { // myPosts or myComments
                 bottomNavBar.selectedItem = bottomNavBar.items?[0]
-                let freshViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController")
+                let freshViewController = UIStoryboard(name: "Main", bundle: nil)
+                    .instantiateViewController(withIdentifier: "MainViewController")
                 self.present(freshViewController, animated: true, completion: nil)
             }
         } else if item.tag == 1 {
