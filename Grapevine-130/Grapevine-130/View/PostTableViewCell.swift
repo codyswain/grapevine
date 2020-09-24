@@ -72,6 +72,7 @@ class PostTableViewCell: UITableViewCell {
     var user: User? // Get user for flammable ability
     var postDate: Date?
     
+    @IBOutlet weak var ViewPostLabel: UILabel!
     ///Post Expansion
     var isExpanded: Bool = false
     
@@ -492,6 +493,10 @@ class PostTableViewCell: UITableViewCell {
         self.commentButton.tintAdjustmentMode = .normal
         self.upvoteButton.tintAdjustmentMode = .normal
         self.downvoteButton.tintAdjustmentMode = .normal
+        
+        //for Tap To view post label
+        ViewPostLabel.text = "Tap to view post"
+        ViewPostLabel.isHidden = true
         
         self.BoundingView.layer.borderWidth = 0
         self.BoundingView.layer.borderColor = nil

@@ -200,6 +200,12 @@
                                             <constraint firstItem="oT7-xD-mBw" firstAttribute="centerX" secondItem="kI0-fX-fIr" secondAttribute="centerX" id="ZAL-fc-ca6"/>
                                         </constraints>
                                     </view>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to view post" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44T-WY-Tzc">
+                                        <rect key="frame" x="12" y="64.5" width="105.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" systemColor="systemGray3Color"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -207,10 +213,12 @@
                                     <constraint firstItem="RXq-AR-44P" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="12" id="5EH-b0-suh"/>
                                     <constraint firstAttribute="bottom" secondItem="RXq-AR-44P" secondAttribute="bottom" constant="40" id="D6r-RK-UCS"/>
                                     <constraint firstAttribute="trailing" secondItem="RXq-AR-44P" secondAttribute="trailing" constant="100" id="FKB-Rc-k2t"/>
+                                    <constraint firstItem="44T-WY-Tzc" firstAttribute="top" secondItem="Ae5-Jk-pxi" secondAttribute="bottom" constant="2" id="K38-IF-bSA"/>
                                     <constraint firstItem="k6Z-o2-oI6" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="25" id="KN9-uZ-5Tm"/>
                                     <constraint firstItem="l72-Vs-ETQ" firstAttribute="centerY" secondItem="CwN-Dl-0tb" secondAttribute="centerY" id="LuH-gD-OAV"/>
                                     <constraint firstItem="Ae5-Jk-pxi" firstAttribute="centerX" secondItem="CwN-Dl-0tb" secondAttribute="centerX" id="Nc0-pm-eZE"/>
                                     <constraint firstItem="RXq-AR-44P" firstAttribute="top" secondItem="CwN-Dl-0tb" secondAttribute="top" constant="15" id="QnT-JN-5i8"/>
+                                    <constraint firstItem="44T-WY-Tzc" firstAttribute="leading" secondItem="CwN-Dl-0tb" secondAttribute="leading" constant="12" id="T48-pn-Z8i"/>
                                     <constraint firstAttribute="trailing" secondItem="k6Z-o2-oI6" secondAttribute="trailing" constant="60" id="UHV-fv-Lzp"/>
                                     <constraint firstItem="Mer-0f-cch" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="10" id="YoD-ZD-lb5"/>
                                     <constraint firstItem="Ae5-Jk-pxi" firstAttribute="top" secondItem="k6Z-o2-oI6" secondAttribute="bottom" constant="6" id="bfk-DQ-3li"/>
@@ -368,6 +376,7 @@
                 <outlet property="BoundingView" destination="p5N-Ug-odR" id="xhZ-yF-FDd"/>
                 <outlet property="ContentView" destination="H2p-sc-9uM" id="Km6-Hg-1I4"/>
                 <outlet property="ExpandLabel" destination="Ae5-Jk-pxi" id="Mha-YC-o4L"/>
+                <outlet property="ViewPostLabel" destination="44T-WY-Tzc" id="7Qd-g9-tR4"/>
                 <outlet property="VotesContainerView" destination="l72-Vs-ETQ" id="xIi-0u-xrO"/>
                 <outlet property="abilitiesBackgroundView" destination="yf4-mW-Gnc" id="eiy-SE-RAd"/>
                 <outlet property="abilitiesButton" destination="ase-Qb-cUh" id="wkb-2N-hnM"/>

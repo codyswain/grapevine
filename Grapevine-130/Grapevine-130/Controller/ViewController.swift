@@ -1207,11 +1207,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.moreOptionsButton.isHidden = true
             
             // add text indicating how to view post
-            let label = UILabel(frame: cell.label.frame)
-            label.text = "Tap to view Post"
-            label.textColor = .systemGray4
-            label.center = CGPoint(x: cell.label.center.x, y: cell.label.center.y + 30)
-            cell.addSubview(label)
+            cell.ViewPostLabel.isHidden = false
             
             cell.commentButton.setTitle("Tap to view post", for: .normal)
             cell.shareButtonVar.isHidden = true

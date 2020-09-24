@@ -118,7 +118,7 @@ extension WalkthroughViewController: WalkthroughPageCellDelegate {
     }
     
     func firstTimeUserKarmaAlert(){
-        let alert = MDCAlertController(title: "Karma", message: "The upvotes/downvotes you get on your posts and commens are tallied and summed into a number called Karma.\n\nKarma allows you to unlock special abilities on Grapevine, like being able to notify closeby users of your posts or being able to ban people.")
+        let alert = MDCAlertController(title: "Karma", message: "The upvotes/downvotes you get on your posts and comments are tallied and summed into a number called Karma.\n\nKarma allows you to unlock special abilities on Grapevine, like being able to notify close by users of your posts or being able to ban people.")
         alert.addAction(MDCAlertAction(title: "Next") { (action) in self.firstTimeUserRulesAlert() })
         makePopup(alert: alert, image: "location.circle.fill")
         super.present(alert, animated: true)
