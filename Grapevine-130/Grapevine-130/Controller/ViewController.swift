@@ -469,6 +469,9 @@ class ViewController: UIViewController {
             case " 10 Miles":
                 self.range = 10.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
+            case " Global":
+                self.range = -1
+                self.rangeButton.setTitle(rangeType, for: .normal)
             default: //3 miles
                 self.range = 3.0
                 self.rangeButton.setTitle(rangeType, for: .normal)
@@ -894,8 +897,14 @@ class ViewController: UIViewController {
             defaults.set(" 10 Miles", forKey: Globals.userDefaults.rangeKey)
         }
         
-        let action5 = MDCAlertAction(title: "Cancel") { (action) in }
+        let action5 = MDCAlertAction(title: " Global") { (action) in
+            self.rangeAction(range: -1, title: " Global")
+            defaults.set(" Global", forKey: Globals.userDefaults.rangeKey)
+        }
         
+        let action6 = MDCAlertAction(title: "Cancel") { (action) in }
+        
+        alert.addAction(action6)
         alert.addAction(action5)
         alert.addAction(action4)
         alert.addAction(action3)

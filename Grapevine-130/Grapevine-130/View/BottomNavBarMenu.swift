@@ -59,7 +59,7 @@ func bottomNavBarStyling(bottomNavBar: UITabBar) -> UITabBar {
     layer.frame = bottomNavBar.frame
     bottomNavBar.layer.addSublayer(layer)
     topBorder.frame = CGRect(x: 0.0, y: -2, width: bottomNavBar.frame.size.width, height: 2)
-    bottomNavBar.layer.addSublayer(topBorder)
+    //bottomNavBar.layer.addSublayer(topBorder)
 
     return bottomNavBar
 }
