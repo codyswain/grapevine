@@ -104,6 +104,13 @@ class PostTableViewCell: UITableViewCell {
         abilitiesButton.isUserInteractionEnabled = true
         shareButtonView.isUserInteractionEnabled = true
         
+        if UIDevice.current.deviceType == .iPhones_5_5s_5c_SE {
+            abilitiesButton.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
+            commentButton.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
+            shareButtonVar.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
+            moreOptionsButton.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
+        }
+        
         // Add radius to abilities view
         DispatchQueue.main.async {
             let path = UIBezierPath(roundedRect:self.abilitiesBackgroundView.bounds,
