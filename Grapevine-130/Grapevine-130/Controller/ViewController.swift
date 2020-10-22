@@ -982,7 +982,7 @@ class ViewController: UIViewController {
         currentAbilityTitle.text = "Burn"
         applyAbilityButton.image = UIImage(named: "burn-button")
         currentAbility = "burn"
-        if (selectedPost!.votes < -3 && selectedPost!.poster != self.user!.user){
+        if (selectedPost!.votes <= -3 && selectedPost!.poster != self.user!.user){
             currentAbilityDescription.text = "Delete this post and ban the creator for 12 hours. Only for posts with <= -3 votes. Costs 10 karma; you have \(self.user?.score ?? 0)."
             applyAbilityButton.isHidden = false
             burnButton.image = #imageLiteral(resourceName: "burn-square-icon")

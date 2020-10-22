@@ -774,7 +774,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="134" id="f0M-NN-wo0"/>
                                 </constraints>
-                                <string key="text">You were recently banned for bad behavior! This ban lasts for 12 hours. If you think this was a mistake or your ban should be over, please contact teamgrapevineofficial@gmail.com</string>
+                                <string key="text">You were recently banned for bad behavior, or one of your posts had 3 or more downvotes and you got BURNED! This ban lasts for 12 hours. If you think this was a mistake or your ban should be over, please contact teamgrapevineofficial@gmail.com</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
