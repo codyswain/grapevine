@@ -184,14 +184,14 @@
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="-70" translatesAutoresizingMaskIntoConstraints="NO" id="030-S8-zGF" userLabel="Abilities Stack View">
                                 <rect key="frame" x="40" y="488" width="334" height="84"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NuD-Mt-ndw">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NuD-Mt-ndw" userLabel="Shout Button View">
                                         <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="push-square-icon" translatesAutoresizingMaskIntoConstraints="NO" id="EJu-OU-Ubr">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="push-square-icon" translatesAutoresizingMaskIntoConstraints="NO" id="EJu-OU-Ubr" userLabel="Shout Button">
                                                 <rect key="frame" x="-8" y="-8" width="100" height="100"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="100" id="Gf8-jA-A3A"/>
-                                                    <constraint firstAttribute="height" constant="100" id="M10-jx-YMU"/>
+                                                    <constraint firstAttribute="width" constant="100" id="Gf8-jA-A3A" userLabel="shoutViewWidth"/>
+                                                    <constraint firstAttribute="height" constant="100" id="M10-jx-YMU" userLabel="shoutViewHeight"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -222,10 +222,10 @@
                                             <constraint firstAttribute="width" constant="84" id="sFS-uR-d7T"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-Gz-S00">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-Gz-S00" userLabel="Push Button View">
                                         <rect key="frame" x="250" y="0.0" width="84" height="84"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shout-square-icon" translatesAutoresizingMaskIntoConstraints="NO" id="NeQ-Kg-Un5">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shout-square-icon" translatesAutoresizingMaskIntoConstraints="NO" id="NeQ-Kg-Un5" userLabel="Push Button">
                                                 <rect key="frame" x="-8" y="-8" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="VdV-4c-PHj"/>
@@ -369,9 +369,13 @@
                         <outlet property="TableViewHeightConstraint" destination="Nl4-Mj-zrt" id="G3N-Pc-0Nv"/>
                         <outlet property="abilitiesBackgroundView" destination="XbE-eE-8Ro" id="q7g-W3-bNn"/>
                         <outlet property="abilitiesStackView" destination="030-S8-zGF" id="XpP-Tm-2N7"/>
+                        <outlet property="abilitiesStackViewLeading" destination="b82-gs-ceu" id="Tax-yp-jEK"/>
+                        <outlet property="abilitiesStackViewTrailing" destination="R4H-99-HJC" id="IPH-pj-daJ"/>
                         <outlet property="applyAbilityButton" destination="6Nd-Dg-2kg" id="Xyx-W9-PVr"/>
                         <outlet property="burnButton" destination="R3g-8m-H7Q" id="qOD-jE-z7U"/>
                         <outlet property="burnButtonView" destination="Kje-KL-r68" id="sdR-jd-0Z4"/>
+                        <outlet property="burnViewHeight" destination="JMi-fk-923" id="vX4-wM-dXE"/>
+                        <outlet property="burnViewWidth" destination="3yx-Fe-qfI" id="xqz-1P-r36"/>
                         <outlet property="currentAbilityDescription" destination="9sb-nT-89Y" id="lui-5b-erP"/>
                         <outlet property="currentAbilityTitle" destination="QYk-0H-5hP" id="ng7-h1-K1a"/>
                         <outlet property="filterButton" destination="jhO-Gx-aTh" id="X38-kj-7KK"/>
@@ -381,11 +385,15 @@
                         <outlet property="karmaAmountLabel" destination="V22-wk-fgU" id="goa-Ue-r1E"/>
                         <outlet property="nearbyLabel" destination="Rbx-yL-B51" id="ZWZ-kO-IZB"/>
                         <outlet property="postTypeButton" destination="EsB-jR-aSc" id="NPJ-gy-tEJ"/>
-                        <outlet property="pushButton" destination="EJu-OU-Ubr" id="XxS-Y2-EQe"/>
-                        <outlet property="pushButtonView" destination="NuD-Mt-ndw" id="ayA-Rq-zUi"/>
+                        <outlet property="pushButton" destination="NeQ-Kg-Un5" id="xXg-Vk-mfT"/>
+                        <outlet property="pushButtonView" destination="BNY-Gz-S00" id="6Ip-sD-KpE"/>
+                        <outlet property="pushViewHeight" destination="lj9-Ik-Kdd" id="V3g-cq-8Ev"/>
+                        <outlet property="pushViewWidth" destination="VdV-4c-PHj" id="JZw-jc-Nzd"/>
                         <outlet property="rangeButton" destination="QMB-UL-9TV" id="ZU9-E3-0v2"/>
-                        <outlet property="shoutButton" destination="NeQ-Kg-Un5" id="xXg-Vk-mfT"/>
-                        <outlet property="shoutButtonView" destination="BNY-Gz-S00" id="6Ip-sD-KpE"/>
+                        <outlet property="shoutButton" destination="EJu-OU-Ubr" id="XxS-Y2-EQe"/>
+                        <outlet property="shoutButtonView" destination="NuD-Mt-ndw" id="ayA-Rq-zUi"/>
+                        <outlet property="shoutViewHeight" destination="M10-jx-YMU" id="2TF-uK-5zw"/>
+                        <outlet property="shoutViewWidth" destination="Gf8-jA-A3A" id="znh-T9-6qb"/>
                         <outlet property="tableView" destination="aGv-vy-wu6" id="ZPL-Wv-6J8"/>
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="goToNewPosts" modalPresentationStyle="fullScreen" id="NSO-o6-THf"/>
                         <segue destination="JfH-1x-7cI" kind="presentation" identifier="banScreen" modalPresentationStyle="fullScreen" id="hTd-kG-DaY"/>
@@ -620,7 +628,7 @@
                                 <color key="highlightedColor" systemColor="labelColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strikes Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOI-at-lYd">
-                                <rect key="frame" x="140" y="712.5" width="134.5" height="20.5"/>
+                                <rect key="frame" x="140" y="761.5" width="134.5" height="20.5"/>
                                 <accessibility key="accessibilityConfiguration" identifier="scoreStrikes"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="CL0-02-aqm"/>
@@ -774,7 +782,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="134" id="f0M-NN-wo0"/>
                                 </constraints>
-                                <string key="text">You were recently banned for bad behavior! This ban lasts for 12 hours. If you think this was a mistake or your ban should be over, please contact teamgrapevineofficial@gmail.com</string>
+                                <string key="text">You were recently banned for bad behavior, or one of your posts had 3 or more downvotes and you got BURNED! This ban lasts for 12 hours. If you think this was a mistake or your ban should be over, please contact teamgrapevineofficial@gmail.com</string>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" systemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -1204,22 +1212,22 @@
             <objects>
                 <viewController storyboardIdentifier="ShoutChamberViewController" title="Shout Chamber" wantsFullScreenLayout="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VgU-GR-isU" customClass="ShoutChamberViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0mj-jZ-FB3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mGe-8t-YF7">
-                                <rect key="frame" x="0.0" y="138" width="414" height="709"/>
+                                <rect key="frame" x="0.0" y="94" width="414" height="748"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" red="0.62352941179999999" green="0.2666666667" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Give a Shout Out!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHG-Vi-WR2">
-                                <rect key="frame" x="20" y="71" width="228" height="33.5"/>
+                                <rect key="frame" x="20" y="27" width="228" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="highlightedColor" systemColor="labelColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nq5-aw-NPv" userLabel="Info Line Stack">
-                                <rect key="frame" x="20" y="113" width="327" height="17"/>
+                                <rect key="frame" x="20" y="69" width="327" height="17"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hNQ-DG-u5O">
                                         <rect key="frame" x="0.0" y="0.5" width="17" height="16"/>
@@ -1275,9 +1283,9 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ekl-9A-j9Q"/>
-        <segue reference="gfc-Rj-FGV"/>
-        <segue reference="UNp-xP-gzv"/>
-        <segue reference="YJd-nw-Ils"/>
+        <segue reference="nj9-4R-WLt"/>
+        <segue reference="NSO-o6-THf"/>
+        <segue reference="cef-IB-uFx"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>

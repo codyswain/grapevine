@@ -29,13 +29,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var grapevineLogo: UIImageView!
     @IBOutlet weak var filterStackview: UIStackView!
     
-    @IBOutlet weak var pushButton: UIImageView!
-    @IBOutlet weak var burnButton: UIImageView!
     @IBOutlet weak var shoutButton: UIImageView!
+    @IBOutlet weak var burnButton: UIImageView!
+    @IBOutlet weak var pushButton: UIImageView!
     
-    @IBOutlet weak var pushButtonView: UIView!
-    @IBOutlet weak var burnButtonView: UIView!
     @IBOutlet weak var shoutButtonView: UIView!
+    @IBOutlet weak var burnButtonView: UIView!
+    @IBOutlet weak var pushButtonView: UIView!
     
     @IBOutlet weak var currentAbilityTitle: UILabel!
     @IBOutlet weak var currentAbilityDescription: UITextView!
@@ -43,6 +43,15 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var burnAbilityIndicator: UIImageView!
     @IBOutlet weak var karmaAmountLabel: UITextField!
+    
+    @IBOutlet weak var shoutViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var shoutViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var burnViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var burnViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var pushViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var pushViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var abilitiesStackViewLeading: NSLayoutConstraint!
+    @IBOutlet weak var abilitiesStackViewTrailing: NSLayoutConstraint!
     
     // MARK: Variable Definitions
     let locationManager = CLLocationManager()
@@ -136,6 +145,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Change abilities styling for tiny iPhones
+        if UIDevice.current.deviceType == .iPhones_5_5s_5c_SE {
+            shoutViewWidth.constant = 90
+            shoutViewHeight.constant = 90
+            burnViewWidth.constant = 90
+            burnViewHeight.constant = 90
+            pushViewWidth.constant = 90
+            pushViewHeight.constant = 90
+            abilitiesStackViewLeading.constant = 20
+            abilitiesStackViewTrailing.constant = 20
+        }
+        
         //Keep filter stack buttons from changing color when alert is presented
         filterButton.tintAdjustmentMode = .normal
         rangeButton.tintAdjustmentMode = .normal
@@ -220,14 +241,14 @@ class ViewController: UIViewController {
         let tapGestureRecognizer3 = UITapGestureRecognizer(target: self, action: #selector(changePostType(tapGestureRecognizer:)))
         postTypeButton.addGestureRecognizer(tapGestureRecognizer3)
                 
-        let tapGestureRecognizerPush = UITapGestureRecognizer(target: self, action: #selector(pushButtonTapped(tapGestureRecognizer:)))
-        pushButton.addGestureRecognizer(tapGestureRecognizerPush)
+        let tapGestureRecognizerPush = UITapGestureRecognizer(target: self, action: #selector(shoutButtonPressed(tapGestureRecognizer:)))
+        shoutButton.addGestureRecognizer(tapGestureRecognizerPush)
         
-        let tapGestureRecognizerBurn = UITapGestureRecognizer(target: self, action: #selector(burnButtonTapped(tapGestureRecognizer:)))
+        let tapGestureRecognizerBurn = UITapGestureRecognizer(target: self, action: #selector(burnButtonPressed(tapGestureRecognizer:)))
         burnButton.addGestureRecognizer(tapGestureRecognizerBurn)
         
-        let tapGestureRecognizerShout = UITapGestureRecognizer(target: self, action: #selector(shoutButtonTapped(tapGestureRecognizer:)))
-        shoutButton.addGestureRecognizer(tapGestureRecognizerShout)
+        let tapGestureRecognizerShout = UITapGestureRecognizer(target: self, action: #selector(pushButtonPressed(tapGestureRecognizer:)))
+        pushButton.addGestureRecognizer(tapGestureRecognizerShout)
         
         let tapGestureRecognizerExitAbility = UITapGestureRecognizer(target: self, action: #selector(abilitiesViewTapped(tapGestureRecognizer:)))
         abilitiesBackgroundView.addGestureRecognizer(tapGestureRecognizerExitAbility)
@@ -664,8 +685,8 @@ class ViewController: UIViewController {
         //generator.impactOccurred()
         
         burnButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
-        shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         pushButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
+        shoutButtonView.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         
 //        abilitiesBackgroundView.transform = CGAffineTransform(translationX: 1000, y: 0) //Shove off screen so we can animate it sliding onto screen
 //        abilitiesStackView.transform = CGAffineTransform(translationX: 1000, y: 0)
@@ -674,9 +695,16 @@ class ViewController: UIViewController {
         abilitiesBackgroundView.alpha = 0
         abilitiesStackView.alpha = 0
         applyAbilityButton.alpha = 0
-        pushButton.alpha = 0
-        burnButton.alpha = 0
         shoutButton.alpha = 0
+        burnButton.alpha = 0
+        pushButton.alpha = 0
+        if self.user?.score ?? 0 >= 10 {
+            applyAbilityButton.isHidden = false
+            applyAbilityButton.isUserInteractionEnabled = true
+        } else {
+            applyAbilityButton.isHidden = true
+            applyAbilityButton.isUserInteractionEnabled = false
+        }
 //        abilitiesStackView.transform = CGAffineTransform(scaleX: 0, y: 0)
 //        applyAbilityButton.transform = CGAffineTransform(scaleX: 0, y: 0)
 //        pushButton.transform = CGAffineTransform(scaleX: 0, y: 0)
@@ -687,9 +715,9 @@ class ViewController: UIViewController {
                 self.abilitiesBackgroundView.alpha = 1
                 self.abilitiesStackView.alpha = 1
                 self.applyAbilityButton.alpha = 1
-                self.pushButton.alpha = 1.0
+                self.shoutButton.alpha = 1.0
                 self.burnButton.alpha = 0.4
-                self.shoutButton.alpha = 0.4
+                self.pushButton.alpha = 0.4
 //                self.abilitiesStackView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
 //                self.applyAbilityButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
 //                self.pushButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
@@ -700,9 +728,9 @@ class ViewController: UIViewController {
                     self.abilitiesBackgroundView.transform = .identity
                     self.abilitiesStackView.transform = .identity
                     self.applyAbilityButton.transform = .identity
-                    self.pushButton.transform = .identity
-                    self.burnButton.transform = .identity
                     self.shoutButton.transform = .identity
+                    self.burnButton.transform = .identity
+                    self.pushButton.transform = .identity
                 }, completion: nil)
             })
         }
@@ -713,23 +741,20 @@ class ViewController: UIViewController {
         abilitiesStackView.isHidden = false
         abilitiesStackView.isUserInteractionEnabled = true
         
-        applyAbilityButton.isHidden = false
-        applyAbilityButton.isUserInteractionEnabled = true
-        
         if currentMode == "groups" {
-            pushButton.alpha = 0.4
+            shoutButton.alpha = 0.4
             burnButton.alpha = 0.4
-            shoutButton.alpha = 1.0
+            pushButton.alpha = 1.0
             currentAbilityTitle.text = "Shout"
             currentAbility = "shout"
             currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
         } else {
-            pushButton.alpha = 1.0
+            shoutButton.alpha = 1.0
             burnButton.alpha = 0.4
-            shoutButton.alpha = 0.4
-            currentAbilityTitle.text = "Push"
-            currentAbility = "push"
-            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma, and you have \(self.user?.score ??  0)."
+            pushButton.alpha = 0.4
+            currentAbilityTitle.text = "Shout"
+            currentAbility = "shout"
+            currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
         }
         
         let indexPath = self.tableView.indexPath(for: cell)!
@@ -958,33 +983,40 @@ class ViewController: UIViewController {
     }
     
     // MARK: Abilities
-    @objc func pushButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
-        pushButton.alpha = 1.0
-        burnButton.alpha = 0.4
-        shoutButton.alpha = 0.4
-        currentAbilityTitle.text = "Push"
-        applyAbilityButton.alpha = 1.0
-        applyAbilityButton.isUserInteractionEnabled = true
-        applyAbilityButton.image = UIImage(named: "push-button")
-        currentAbility = "push"
-        if currentMode != "groups" {
-            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
-            applyAbilityButton.isHidden = false
-        } else {
-            currentAbilityDescription.text = "Pushing a post isn't allowed in private groups yet. Go ahead and try it in Grapevine!"
-            applyAbilityButton.isHidden = true
-        }
-    }
-    @objc func burnButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
-        burnButton.alpha = 1.0
+    @objc func shoutButtonPressed (tapGestureRecognizer: UITapGestureRecognizer){
         pushButton.alpha = 0.4
+        burnButton.alpha = 0.4
+        shoutButton.alpha = 1.0
+        applyAbilityButton.alpha = 1.0
+        if self.user?.score ?? 0 >= 10 {
+            applyAbilityButton.isHidden = false
+            applyAbilityButton.isUserInteractionEnabled = true
+        } else {
+            applyAbilityButton.isHidden = true
+            applyAbilityButton.isUserInteractionEnabled = false
+        }
+        applyAbilityButton.isUserInteractionEnabled = true
+        currentAbilityTitle.text = "Shout"
+        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
+        applyAbilityButton.image = UIImage(named: "shout-button")
+        currentAbility = "shout"
+    }
+    @objc func burnButtonPressed (tapGestureRecognizer: UITapGestureRecognizer){
+        burnButton.alpha = 1.0
         shoutButton.alpha = 0.4
+        pushButton.alpha = 0.4
         currentAbilityTitle.text = "Burn"
         applyAbilityButton.image = UIImage(named: "burn-button")
         currentAbility = "burn"
-        if (selectedPost!.votes < -3 && selectedPost!.poster != self.user!.user){
+        if (selectedPost!.votes <= -3 && selectedPost!.poster != self.user!.user){
             currentAbilityDescription.text = "Delete this post and ban the creator for 12 hours. Only for posts with <= -3 votes. Costs 10 karma; you have \(self.user?.score ?? 0)."
-            applyAbilityButton.isHidden = false
+            if self.user?.score ?? 0 >= 10 {
+                applyAbilityButton.isHidden = false
+                applyAbilityButton.isUserInteractionEnabled = true
+            } else {
+                applyAbilityButton.isHidden = true
+                applyAbilityButton.isUserInteractionEnabled = false
+            }
             burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
         } else {
             currentAbilityDescription.text = "This post needs to have <= -3 votes to be burnt. Burning deletes the post and bans the creator for 12 hours."
@@ -992,17 +1024,28 @@ class ViewController: UIViewController {
             burnButton.image = #imageLiteral(resourceName: "burn-disabled-square-icon")
         }
     }
-    @objc func shoutButtonTapped (tapGestureRecognizer: UITapGestureRecognizer){
-        shoutButton.alpha = 1.0
+    @objc func pushButtonPressed (tapGestureRecognizer: UITapGestureRecognizer){
+        shoutButton.alpha = 0.4
         burnButton.alpha = 0.4
-        pushButton.alpha = 0.4
+        pushButton.alpha = 1.0
+        currentAbilityTitle.text = "Push"
         applyAbilityButton.alpha = 1.0
-        applyAbilityButton.isHidden = false
-        applyAbilityButton.isUserInteractionEnabled = true
-        currentAbilityTitle.text = "Shout"
-        currentAbilityDescription.text = "Make this post pop out amongst the rest with special golden styling for 6 hours. Costs 10 karma; you have \(self.user?.score ?? 0)."
-        applyAbilityButton.image = UIImage(named: "shout-button")
-        currentAbility = "shout"
+        if self.user?.score ?? 0 >= 50 {
+            applyAbilityButton.isHidden = false
+            applyAbilityButton.isUserInteractionEnabled = true
+        } else {
+            applyAbilityButton.isHidden = true
+            applyAbilityButton.isUserInteractionEnabled = false
+        }
+        applyAbilityButton.image = UIImage(named: "push-button")
+        currentAbility = "push"
+        if currentMode != "groups" {
+            currentAbilityDescription.text = "Send a notification to everyone within 3 miles of you with the contents of this post. Costs 50 karma; you have \(self.user?.score ?? 0)."
+        } else {
+            currentAbilityDescription.text = "Pushing a post isn't allowed in private groups yet. Go ahead and try it in Grapevine!"
+            applyAbilityButton.isHidden = true
+            applyAbilityButton.isUserInteractionEnabled = false
+        }
     }
 
     // For detecting when user wants to exit
@@ -1022,6 +1065,8 @@ class ViewController: UIViewController {
                 let postToBeDeleted = self.selectedPost!.postId
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
                 tableView.reloadRows(at: [selectedIndex!], with: .automatic)
+                self.user?.score -= 10
+                self.karmaAmountLabel.text = String(self.user?.score ?? 0)
             } else {
                 confirmMessage = "Unable to burn..."
                 alertMessage = "Not enough karma!"
@@ -1038,6 +1083,8 @@ class ViewController: UIViewController {
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
                 overrideShout = true
                 postsManager.fetchSinglePost(postID: self.selectedPost!.postId)
+                self.user?.score -= 10
+                self.karmaAmountLabel.text = String(self.user?.score ?? 0)
             } else {
                 confirmMessage = "Unable to shout..."
                 alertMessage = "Not enough karma!"
@@ -1053,6 +1100,8 @@ class ViewController: UIViewController {
                 let postToBePushed = self.selectedPost!.postId
                 self.userManager.pushPost(poster: creator, postID: postToBePushed, lat: self.lat, lon: self.lon, groupID: Globals.ViewSettings.groupID)
                 tableView.reloadRows(at: [selectedIndex!], with: .automatic)
+                self.user?.score -= 50
+                self.karmaAmountLabel.text = String(self.user?.score ?? 0)
             } else {
                 confirmMessage = "Unable to push..."
                 alertMessage = "Not enough karma!"
