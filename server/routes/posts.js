@@ -61,7 +61,7 @@ async function getPosts(req, res, next) {
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
-					.where("geohash", "<=", search_box.upper)
+          .where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('votes', 'desc')
       }
@@ -78,7 +78,7 @@ async function getPosts(req, res, next) {
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
-					.where("geohash", "<=", search_box.upper)
+          .where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('date', 'desc')
       }
@@ -87,12 +87,14 @@ async function getPosts(req, res, next) {
     if (activityFilter == "top"){
       if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
+          .orderBy('votes', 'desc')
           .where("banned", "==", false)
           .where("type", "==", typeFilter)
-          .orderBy('votes', 'desc')
+          .where('visibility', '==', 'Global')
       } else {
         query = db.collection('posts')
           .where("banned", "==", false)
+          .where("visibility", "==", "Global")
           .orderBy('votes', 'desc')
       }
     } else {
@@ -100,10 +102,12 @@ async function getPosts(req, res, next) {
         query = db.collection('posts')
         .where("banned", "==", false)
         .where("type", "==", typeFilter)
+        .where("visibility", "==", "Global")
         .orderBy('date', 'desc')
       } else {
         query = db.collection('posts')
         .where("banned", "==", false)
+        .where("visibility", "==", "Global")
         .orderBy('date', 'desc')
       }
     }
@@ -190,7 +194,10 @@ Output: None
 */
 async function createPost(req, res, next) {
 	var db = req.app.get('db');  
-	console.log("createPost request of type: " + req.body.type + " and req.body.userID: " + req.body.userID)
+  console.log("createPost request of type: " + req.body.type + " and req.body.userID: " + req.body.userID)
+  if(req.body.visibility == undefined){
+    req.body.visibility = "Local"
+  }
 	// Text post creation logic
 	if (req.body.type == 'text') {
     let text = req.body.text
@@ -223,6 +230,7 @@ async function createPost(req, res, next) {
           type : req.body.type,
           lat : req.body.latitude,
           lon : req.body.longitude,
+          visibility : req.body.visibility,
           numFlags : numberOfFlags,
           geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
           interactions: {},
@@ -244,7 +252,8 @@ async function createPost(req, res, next) {
 			date : req.body.date,
 			type : req.body.type,
 			lat : req.body.latitude,
-			lon : req.body.longitude,
+      lon : req.body.longitude,
+      visibility : req.body.visibility,
 			numFlags : 0,
 			geohash: utils.getGeohash(req.body.latitude, req.body.longitude),
 			interactions: {},
@@ -326,7 +335,7 @@ async function morePosts(req, res, next) {
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
-					.where("geohash", "<=", search_box.upper)
+          .where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('votes', 'desc')
       }
@@ -343,7 +352,7 @@ async function morePosts(req, res, next) {
         query = db.collection('posts')
 					.where("banned", "==", false)
 					.where("geohash", ">=", search_box.lower)
-					.where("geohash", "<=", search_box.upper)
+          .where("geohash", "<=", search_box.upper)
 					.orderBy("geohash")
 					.orderBy('date', 'desc')
       }
@@ -354,10 +363,12 @@ async function morePosts(req, res, next) {
         query = db.collection('posts')
           .where("banned", "==", false)
           .where("type", "==", typeFilter)
+          // .where("visibility", "==", "Global")
           .orderBy('votes', 'desc')
       } else {
         query = db.collection('posts')
           .where("banned", "==", false)
+          // .where("visibility", "==", "Local")
           .orderBy('votes', 'desc')
       }
     } else {
@@ -365,10 +376,12 @@ async function morePosts(req, res, next) {
         query = db.collection('posts')
         .where("banned", "==", false)
         .where("type", "==", typeFilter)
+        .where("visibility", "==", "Global")
         .orderBy('date', 'desc')
       } else {
         query = db.collection('posts')
         .where("banned", "==", false)
+        .where("visibility", "==", "Global")
         .orderBy('date', 'desc')
       }
     }
