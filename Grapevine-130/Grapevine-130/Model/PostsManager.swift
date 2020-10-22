@@ -187,7 +187,7 @@ struct PostsManager {
                     let httpResponse = response as! HTTPURLResponse
                     if httpResponse.statusCode == 404 || httpResponse.statusCode == 400 {
                         print("Post not found or bad request")
-                        self.delegate?.didGetSinglePost(self, post: Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, shoutExpiration: 0))
+                        self.delegate?.didGetSinglePost(self, post: Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, shoutExpiration: 0, visibility: ""))
                     } else {
                         if let safeData = data {
                             print("Request returned")
@@ -212,11 +212,11 @@ struct PostsManager {
         - longitude: Longitude of the post creator
         - postType: The type of post that is being sent
     */
-    func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String, groupID: String = "Grapevine") {
+    func performPOSTRequest(contentText: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, postType: String, groupID: String = "Grapevine", visibility: String = "Local") {
         // Get most up to date notification token
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let pushNotificationToken = appDelegate.pushNotificationToken
-        
+        print(visibility)
         let json: [String: Any] = [
             "text": contentText,
             "userID": Constants.userID,
@@ -226,6 +226,7 @@ struct PostsManager {
             "latitude": latitude,
             "longitude": longitude,
             "groupID": groupID,
+            "visibility": visibility
         ]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -349,7 +350,7 @@ struct PostsManager {
     
     func parseSinglePostJSON(_ data: Data) -> Post? {
         let decoder = JSONDecoder()
-        var post = Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, groupID: "", shoutExpiration: 0)
+        var post = Post(content: "", votes: 0, date: 0, voteStatus: 0, postId: "", poster: "", type: "", lat: 0, lon: 0, numFlags: 0, flagStatus: 0, comments: 0, groupID: "", shoutExpiration: 0, visibility: "")
         do {
             post = try decoder.decode(Post.self, from: data)
         } catch {

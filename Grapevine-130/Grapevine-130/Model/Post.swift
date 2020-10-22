@@ -58,4 +58,6 @@ struct Post : Decodable {
      Timestamp of when the "shout" expires
      */
     var shoutExpiration: Double?
+    
+    let visibility: String?
 }

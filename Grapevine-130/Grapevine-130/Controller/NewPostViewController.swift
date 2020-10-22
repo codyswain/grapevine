@@ -36,9 +36,13 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var AddButtonContainingView: UIView!
     @IBOutlet var newPostView: UIView!
     
+    @IBOutlet weak var GlobalSlider: UISegmentedControl!
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
     }
+    
+    var visibility = "Local"
     
     /**
      Intializes the new post screen.
@@ -51,6 +55,11 @@ class NewPostViewController: UIViewController {
             backTextView.text = "What's actually on your mind?"
         } else {
             backTextView.text = "Post to \(Globals.ViewSettings.groupName)"
+        }
+        
+        if UIDevice.current.deviceType == .iPhones_5_5s_5c_SE {
+            let font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        GlobalSlider.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         }
         
         // Set dark/light mode from persistent storage
@@ -205,6 +214,15 @@ class NewPostViewController: UIViewController {
         drawingCanvasView.changeColor()
     }
     
+    @IBAction func GlobalSliderChanged(_ sender: Any) {
+        /// selectedIndex of 0 = Post Locally, selectedIndex of 1 = Post Globally and Locally
+        // Default Selected index is 0
+        /// This function does nothing for now, since we are just using the selectedIndex to determine the visibility of the post
+        /// Logic for post visibility is implemented server-side
+        /// Attribute for post visibility is a property given to the Post data structure
+    }
+    
+    
     // Move comment input box up when keyboard opens
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
@@ -241,6 +259,12 @@ class NewPostViewController: UIViewController {
      - Parameter sender: Button pressed to activate this function
      */
     @objc func addPostButton() {
+        //Set post visibility
+        if GlobalSlider.selectedSegmentIndex == 0 {
+            visibility = "Local"
+        } else {
+            visibility = "Global"
+        }
 
         // Change button color to make it feel responsive
         AddButtonContainingView.backgroundColor = Constants.Colors.lightPurple
@@ -285,7 +309,7 @@ class NewPostViewController: UIViewController {
                 }
                 let image = imData!.pngData()
                 let base64 = image!.base64EncodedString()
-                postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image", groupID: self.groupID)
+                postsManager.performPOSTRequest(contentText: String(base64), latitude: lat, longitude: lon, postType: "image", groupID: self.groupID, visibility: visibility)
             } else {
                 backButton(self)
             }
@@ -357,7 +381,7 @@ extension NewPostViewController: PostsManagerDelegate {
                     if self.setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                         return
                     }
-                    self.postsManager.performPOSTRequest(contentText: self.textFieldBody!, latitude: self.lat, longitude: self.lon, postType: "text", groupID: self.groupID)
+                    self.postsManager.performPOSTRequest(contentText: self.textFieldBody!, latitude: self.lat, longitude: self.lon, postType: "text", groupID: self.groupID, visibility: self.visibility)
                 }
                 alert.addAction(action2)
                 alert.addAction(action1)
@@ -370,7 +394,7 @@ extension NewPostViewController: PostsManagerDelegate {
                 if self.setTimeStamp() { //Show alert and return to main screen if user is spanmming also closes view after completion
                     return
                 }
-                self.postsManager.performPOSTRequest(contentText: self.textFieldBody!, latitude: self.lat, longitude: self.lon, postType: "text", groupID: self.groupID)
+                self.postsManager.performPOSTRequest(contentText: self.textFieldBody!, latitude: self.lat, longitude: self.lon, postType: "text", groupID: self.groupID, visibility: self.visibility)
             }
         }
     }

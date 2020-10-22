@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var MyPostsButton: UIButton!
     @IBOutlet weak var RulesButton: UIButton!
     @IBOutlet weak var ContactButton: UIButton!
+    @IBOutlet weak var FeedbackButton: UIButton!
     
     @IBOutlet weak var karmaWidth: NSLayoutConstraint!
     @IBOutlet weak var karmaHeight: NSLayoutConstraint!
@@ -44,7 +45,13 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var rulesHeight: NSLayoutConstraint!
     @IBOutlet weak var contactWidth: NSLayoutConstraint!
     @IBOutlet weak var contactHeight: NSLayoutConstraint!
-
+    @IBOutlet weak var feedbackWidth: NSLayoutConstraint!
+    @IBOutlet weak var feedbackHeight: NSLayoutConstraint!
+        
+    @IBOutlet weak var YourGrapevineLabel: UILabel!
+    @IBOutlet weak var leadingToKarmaConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leadingToCommentsConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leadingToContactConstraint: NSLayoutConstraint!
     /// Intializes the score screen.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,17 +75,33 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         self.view = styleButton(button: MyCommentsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
         self.view = styleButton(button: RulesButton, view: self.view, color1: Constants.Colors.darkPink, color2: Constants.Colors.yellow)
         self.view = styleButton(button: ContactButton, view: self.view, color1: Constants.Colors.darkPink, color2: Constants.Colors.yellow)
+        self.view = styleButton(button: FeedbackButton, view: self.view, color1:  #colorLiteral(red: 0.9764705882, green: 0.5960784314, blue: 0.3647058824, alpha: 1), color2: Constants.Colors.yellow)
     }
     
     func resizeButtonsBasedOnPhoneSize(){
-        let buttonWidths: [NSLayoutConstraint] = [self.karmaWidth, self.postsWidth, self.commentsWidth, self.rulesWidth, self.contactWidth]
-        let buttonHeights: [NSLayoutConstraint] = [self.karmaHeight, self.postsHeight, self.commentsHeight, self.rulesHeight, self.contactHeight]
-
+        let buttonWidths: [NSLayoutConstraint] = [self.karmaWidth, self.postsWidth, self.commentsWidth, self.rulesWidth, self.contactWidth, self.feedbackWidth]
+        let buttonHeights: [NSLayoutConstraint] = [self.karmaHeight, self.postsHeight, self.commentsHeight, self.rulesHeight, self.contactHeight, self.feedbackHeight]
+        
+        let iPhoneSESize:CGFloat = 135
         let iPhoneXSize:CGFloat = 159
         let iPhone11Size:CGFloat = 179
         if UIDevice.current.deviceType == .iPhone11 || UIDevice.current.deviceType == .iPhones_6Plus_6sPlus_7Plus_8Plus || UIDevice.current.deviceType == .iPhone11ProMax{
             for w in buttonWidths { w.constant = iPhone11Size }
             for h in buttonHeights { h.constant = iPhone11Size }
+        } else if UIDevice.current.deviceType == .iPhones_5_5s_5c_SE {
+            for w in buttonWidths { w.constant = iPhoneSESize }
+            for h in buttonHeights { h.constant = iPhoneSESize }
+            YourGrapevineLabel.font = .systemFont(ofSize: 24, weight: .bold)
+            MyKarmaButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+            MyPostsButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+            MyCommentsButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+            RulesButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+            ContactButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+            FeedbackButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+            leadingToKarmaConstraint.constant = 18
+            leadingToContactConstraint.constant = 18
+            leadingToCommentsConstraint.constant = 18
+
         } else {
             for w in buttonWidths { w.constant = iPhoneXSize }
             for h in buttonHeights { h.constant = iPhoneXSize }
@@ -170,7 +193,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "Email") { (action) in
             let url = NSURL(string: "mailto:teamgrapevineofficial@gmail.com")
-            UIApplication.shared.openURL(url! as URL)
+            if UIApplication.shared.canOpenURL(url! as URL) {
+                UIApplication.shared.open(url! as URL, completionHandler: nil)
+            }
         })
         alert.addAction(MDCAlertAction(title: "Instagram") { (action) in
             let appURL = URL(string: "instagram://user?username=teamgrapevine")!
@@ -180,6 +205,19 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
             } else {
                 let webURL = URL(string: "https://instagram.com/teamgrapevine")!
                 application.open(webURL)
+            }
+        })
+        makePopup(alert: alert, image: "viewfinder.circle.fill")
+        self.present(alert, animated: true)
+    }
+    
+    @IBAction func FeedbackButtonPressed(_ sender: Any) {
+        let alert = MDCAlertController(title: "Feedback", message: "We love to hear what you think about our app. If you'd like to give us some feeback, fill ou this google form.")
+        alert.addAction(MDCAlertAction(title: "Cancel"))
+        alert.addAction(MDCAlertAction(title: "Feedback") { (action) in
+            let url = NSURL(string: "https://docs.google.com/forms/d/e/1FAIpQLSd57KPx9llPdMWau2WPkNvesaYJq6FPtmoKZuPiY-sudjw4Sg/viewform?usp=sf_link")
+            if UIApplication.shared.canOpenURL(url! as URL) {
+                UIApplication.shared.open(url! as URL, completionHandler: nil)
             }
         })
         makePopup(alert: alert, image: "viewfinder.circle.fill")
