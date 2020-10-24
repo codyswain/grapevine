@@ -20,6 +20,6 @@ struct User : Decodable {
     /// Date of the device ban if applicable.
     var banDate: Double
     
-    /// User's total upvotes from posts.
+    /// User's total upvotes from posts and comments.
     var score: Int
 }

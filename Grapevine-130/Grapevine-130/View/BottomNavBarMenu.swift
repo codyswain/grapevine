@@ -19,7 +19,7 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: UITabBar, tab: 
     bottomNavBar.frame = bottomNavBarFrame
 
     let postTab = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)
-    let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton")?.withRenderingMode(.alwaysOriginal), tag: 1)
+    let createTab = UITabBarItem(title: "", image:UIImage(named: "newPostButton")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor(named: "GrapevinePurple")!), tag: 1)
     let meTab = UITabBarItem(title: "", image: UIImage(systemName: "person.crop.circle.fill"), tag: 2) // old icon: person.circle.fill
     bottomNavBar.items = [postTab, createTab, meTab]
     if (tab == "Posts") {
@@ -38,28 +38,18 @@ func bottomNavBarStyling(bottomNavBar: UITabBar) -> UITabBar {
 //    bottomNavBar.backgroundColor = UIColor.systemBackground.withAlphaComponent(1)
     bottomNavBar.backgroundColor = .none
     bottomNavBar.isTranslucent = false
-    var topBorder = getGradient( color1: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1), color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
-    var layer = getGradient(color1: UIColor(named: "GrapevinePurple")!, color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
     if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
         if (curTheme == "dark") {
             bottomNavBar.unselectedItemTintColor = UIColor.systemGray5
             bottomNavBar.tintColor = UIColor.systemGray2
-            layer = getGradient( color1: UIColor(named: "GrapevinePurple")!, color2: .purple)
-            topBorder = getGradient( color1: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1), color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
         } else {
             bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey
             bottomNavBar.tintColor = .black
-            layer = getGradient(color1: UIColor(named: "GrapevinePurple")!, color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1))
-            topBorder = getGradient( color1: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1), color2: #colorLiteral(red: 0.6235294118, green: 0.2666666667, blue: 0.8980392157, alpha: 1) )
         }
     } else {
         bottomNavBar.unselectedItemTintColor = Constants.Colors.veryDarkGrey
         bottomNavBar.tintColor = .black
     }
-    layer.frame = bottomNavBar.frame
-    bottomNavBar.layer.addSublayer(layer)
-    topBorder.frame = CGRect(x: 0.0, y: -2, width: bottomNavBar.frame.size.width, height: 2)
-    //bottomNavBar.layer.addSublayer(topBorder)
 
     return bottomNavBar
 }

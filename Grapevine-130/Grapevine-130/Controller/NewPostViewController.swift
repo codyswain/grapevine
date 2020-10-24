@@ -37,6 +37,8 @@ class NewPostViewController: UIViewController {
     @IBOutlet var newPostView: UIView!
     
     @IBOutlet weak var GlobalSlider: UISegmentedControl!
+    @IBOutlet weak var GlobalSliderContainingView: UIView!
+    @IBOutlet weak var GlobalSliderTopToTextviewConstraint: NSLayoutConstraint!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return setStatusBarStyle()
@@ -68,7 +70,6 @@ class NewPostViewController: UIViewController {
         postsManager.delegate = self
         locationManager.delegate = self
 
-        
         newPostTextBackground.layer.cornerRadius = 10.0
         newPostTextBackground.backgroundColor = UIColor.systemGray6
         backTextView.textColor = UIColor.lightGray
@@ -140,7 +141,10 @@ class NewPostViewController: UIViewController {
     
     /// Changes the current screen to show a textbox.
     func changeViewToText(){
-        drawingCanvasView.isHidden = true
+        if drawingCanvasView.isHidden == false {
+            GlobalSliderTopToTextviewConstraint.constant += 25
+            drawingCanvasView.isHidden = true
+        }
         clearButtonVar.isHidden = true
         ColorButtonVar.isHidden = true
         frontTextView.isHidden = false
@@ -150,9 +154,12 @@ class NewPostViewController: UIViewController {
     
     /// Changes the current screen to show a drawing canvas.
     func changeViewToDrawing(){
+        if newPostTextBackground.isHidden == false {
+            GlobalSliderTopToTextviewConstraint.constant -= 25
+            newPostTextBackground.isHidden = true
+        }
         frontTextView.isHidden = true
         backTextView.isHidden = true
-        newPostTextBackground.isHidden = true
         drawingCanvasView.isHidden = false
         clearButtonVar.isHidden = false
         ColorButtonVar.isHidden = false
