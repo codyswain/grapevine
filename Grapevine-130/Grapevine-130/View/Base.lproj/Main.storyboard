@@ -536,13 +536,13 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="53Q-ai-bOu">
-                                <rect key="frame" x="20" y="421" width="374" height="52"/>
+                                <rect key="frame" x="20" y="444" width="374" height="52"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dAK-r8-Glc">
                                         <rect key="frame" x="0.0" y="10.5" width="374" height="32"/>
                                         <segments>
                                             <segment title="Post Locally Only"/>
-                                            <segment title="Post to Global and Local"/>
+                                            <segment title="Post Globally and Locally"/>
                                         </segments>
                                         <color key="tintColor" name="GrapevinePurple"/>
                                         <color key="selectedSegmentTintColor" name="GrapevinePurple"/>
@@ -563,6 +563,7 @@
                         <viewLayoutGuide key="safeArea" id="RRa-hw-J26"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="53Q-ai-bOu" firstAttribute="top" secondItem="8mm-5g-REP" secondAttribute="bottom" constant="5" id="07f-cX-sn4"/>
                             <constraint firstItem="vi9-gC-7xm" firstAttribute="trailing" secondItem="8mm-5g-REP" secondAttribute="trailing" constant="-10" id="0gm-R9-G4F"/>
                             <constraint firstItem="tMd-Qr-s9B" firstAttribute="centerX" secondItem="xnG-NU-0nQ" secondAttribute="centerX" id="1Ri-Rt-ilR"/>
                             <constraint firstItem="53Q-ai-bOu" firstAttribute="centerX" secondItem="g2f-LD-GPN" secondAttribute="centerX" id="5mS-Z4-fSU"/>
@@ -571,7 +572,6 @@
                             <constraint firstItem="bNg-aw-9hH" firstAttribute="top" secondItem="mGj-2o-pn6" secondAttribute="bottom" constant="7.5" id="Bia-0c-4Rf"/>
                             <constraint firstItem="bNg-aw-9hH" firstAttribute="leading" secondItem="mGj-2o-pn6" secondAttribute="leading" id="Fhx-0F-xMW"/>
                             <constraint firstItem="ApM-He-BtP" firstAttribute="leading" secondItem="8mm-5g-REP" secondAttribute="leading" constant="10" id="G9j-Fz-iB5"/>
-                            <constraint firstItem="53Q-ai-bOu" firstAttribute="top" secondItem="g2f-LD-GPN" secondAttribute="bottom" constant="8" symbolic="YES" id="M8J-Ev-kqn"/>
                             <constraint firstItem="8mm-5g-REP" firstAttribute="leading" secondItem="RRa-hw-J26" secondAttribute="leading" constant="20" id="RXK-rp-hVi"/>
                             <constraint firstItem="mGj-2o-pn6" firstAttribute="top" secondItem="RRa-hw-J26" secondAttribute="top" constant="7" id="SYt-iY-eUE"/>
                             <constraint firstItem="53Q-ai-bOu" firstAttribute="trailing" secondItem="g2f-LD-GPN" secondAttribute="trailing" id="VH5-cs-lke"/>
@@ -598,6 +598,8 @@
                         <outlet property="AddButtonContainingViewConstraint" destination="mjC-bZ-cAe" id="rvW-vx-ZO5"/>
                         <outlet property="ColorButtonVar" destination="lVs-Bt-fIb" id="6tU-uw-8WX"/>
                         <outlet property="GlobalSlider" destination="dAK-r8-Glc" id="FB8-1h-1k9"/>
+                        <outlet property="GlobalSliderContainingView" destination="53Q-ai-bOu" id="AlH-0a-OMx"/>
+                        <outlet property="GlobalSliderTopToTextviewConstraint" destination="07f-cX-sn4" id="Gw0-nl-bdG"/>
                         <outlet property="backTextView" destination="vi9-gC-7xm" id="PVu-2b-YOX"/>
                         <outlet property="clearButtonVar" destination="Jf2-V5-mqB" id="qIH-h5-lIt"/>
                         <outlet property="createDrawingButtonVar" destination="dtE-6y-hyd" id="Kj3-eS-r6m"/>
@@ -1285,7 +1287,7 @@
         <segue reference="ekl-9A-j9Q"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="NSO-o6-THf"/>
-        <segue reference="cef-IB-uFx"/>
+        <segue reference="YJd-nw-Ils"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>

@@ -70,9 +70,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     override func viewDidAppear(_ animated: Bool) {
         
         // Button styling
-        self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple!, color2: Constants.Colors.mediumPink)
-        self.view = styleButton(button: MyPostsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
-        self.view = styleButton(button: MyCommentsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: Constants.Colors.darkPink)
+        self.view = styleButton(button: MyKarmaButton, view: self.view, color1: Constants.Colors.darkPurple!, color2: #colorLiteral(red: 0.8745098039, green: 0.2980392157, blue: 0.6588235294, alpha: 1))
+        self.view = styleButton(button: MyPostsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: #colorLiteral(red: 0.9843137255, green: 0.4980392157, blue: 0.4196078431, alpha: 1))
+        self.view = styleButton(button: MyCommentsButton, view: self.view, color1: Constants.Colors.mediumPink, color2: #colorLiteral(red: 0.9843137255, green: 0.4980392157, blue: 0.4196078431, alpha: 1))
         self.view = styleButton(button: RulesButton, view: self.view, color1: Constants.Colors.darkPink, color2: Constants.Colors.yellow)
         self.view = styleButton(button: ContactButton, view: self.view, color1: Constants.Colors.darkPink, color2: Constants.Colors.yellow)
         self.view = styleButton(button: FeedbackButton, view: self.view, color1:  #colorLiteral(red: 0.9764705882, green: 0.5960784314, blue: 0.3647058824, alpha: 1), color2: Constants.Colors.yellow)
