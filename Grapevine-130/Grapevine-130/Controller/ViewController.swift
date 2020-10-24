@@ -552,30 +552,32 @@ class ViewController: UIViewController {
         - segue: New screen to transition to
         - sender: Segue initiator */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToNewPosts" {
+        switch segue.identifier {
+        case "goToNewPosts":
             let destinationVC = segue.destination as! NewPostViewController
             destinationVC.lat = self.lat
             destinationVC.lon = self.lon
             destinationVC.groupName = self.groupName
             destinationVC.groupID = self.groupID
             destinationVC.delegate = self
-        }
-        if segue.identifier == "mainViewToScoreView" {
+        case "mainViewToScoreView":
             let destinationVC = segue.destination as! ScoreViewController
             destinationVC.range = range
-        }
-        if segue.identifier == "goToComments" {
+        case "goToComments":
             let destinationVC = segue.destination as! CommentViewController
             destinationVC.expandedCellHeight = self.expandedCellHeight
             destinationVC.mainPost = self.selectedPost
             destinationVC.mainPostScreenshot = self.selectedPostScreenshot
             destinationVC.delegate = self
-        }
-        if segue.identifier == "goToGroups" {
+        case "goToGroups":
             let destinationVC = segue.destination as! GroupsViewController
             destinationVC.delegate = self
             destinationVC.selectedGroup = self.groupName
             destinationVC.selectedGroupID = self.groupID
+        case .none:
+            print("Unidentified Segue")
+        case .some(_):
+            print("Segue: " + String(describing: segue.identifier))
         }
     }
     
@@ -604,7 +606,7 @@ class ViewController: UIViewController {
 
         // Reset selected buttons
         burnButton.image = #imageLiteral(resourceName: "burn-square-icon")
-        applyAbilityButton.image = UIImage(named: "push-button")
+        applyAbilityButton.image = UIImage(named: "shout-button")
         applyAbilityButton.alpha = 1.0
         
         abilitiesBackgroundView.isHidden = true
@@ -1064,7 +1066,9 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBeDeleted = self.selectedPost!.postId
                 self.userManager.banUser(poster: creator, postID: postToBeDeleted, groupID: Globals.ViewSettings.groupID)
-                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
+                let row = selectedIndex!.row
+                self.posts.remove(at: row)
+                UIView.animate(withDuration: 0.5, animations: {self.tableView.deleteRows(at: [self.selectedIndex!], with: .fade)}) //Should make this look like the post is burning
                 self.user?.score -= 10
                 self.karmaAmountLabel.text = String(self.user?.score ?? 0)
             } else {
@@ -1081,6 +1085,7 @@ class ViewController: UIViewController {
                 let creator = self.selectedPost!.poster
                 let postToBeShoutOut = self.selectedPost!.postId
                 self.userManager.shoutPost(poster: creator, postID: postToBeShoutOut, groupID: Globals.ViewSettings.groupID)
+                tableView.reloadRows(at: [selectedIndex!], with: .automatic)
                 overrideShout = true
                 postsManager.fetchSinglePost(postID: self.selectedPost!.postId)
                 self.user?.score -= 10
