@@ -212,7 +212,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     }
     
     @IBAction func FeedbackButtonPressed(_ sender: Any) {
-        let alert = MDCAlertController(title: "Feedback", message: "We love to hear what you think about our app. If you'd like to give us some feeback, fill ou this google form.")
+        let alert = MDCAlertController(title: "Feedback", message: "We love to hear what you think about our app. If you'd like to give us some feeback, fill out this google form.")
         alert.addAction(MDCAlertAction(title: "Cancel"))
         alert.addAction(MDCAlertAction(title: "Feedback") { (action) in
             let url = NSURL(string: "https://docs.google.com/forms/d/e/1FAIpQLSd57KPx9llPdMWau2WPkNvesaYJq6FPtmoKZuPiY-sudjw4Sg/viewform?usp=sf_link")

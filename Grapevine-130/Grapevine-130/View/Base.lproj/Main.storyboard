@@ -251,7 +251,7 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="86    🙁" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="V22-wk-fgU">
-                                <rect key="frame" x="10" y="49.666666666666671" width="75" height="25.999999999999993"/>
+                                <rect key="frame" x="10" y="49.666666666666664" width="75" height="25.999999999999993"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="r5c-2P-lTp"/>
                                 </constraints>
