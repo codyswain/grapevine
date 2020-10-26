@@ -14,16 +14,16 @@
 
 #import "MDCButtonTypographyThemer.h"
 
-@implementation MDCButtonTypographyThemer
-
-+ (void)applyTypographyScheme:(nonnull id<MDCTypographyScheming>)typographyScheme
-                     toButton:(nonnull MDCButton *)button {
-  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
-                                 UIControlStateHighlighted | UIControlStateDisabled;
-  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
-    [button setTitleFont:nil forState:state];
-  }
-  [button setTitleFont:typographyScheme.button forState:UIControlStateNormal];
-}
-
-@end
+//@implementation MDCButtonTypographyThemer
+//
+//+ (void)applyTypographyScheme:(nonnull id<MDCTypographyScheming>)typographyScheme
+//                     toButton:(nonnull MDCButton *)button {
+//  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+//                                 UIControlStateHighlighted | UIControlStateDisabled;
+//  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+//    [button setTitleFont:nil forState:state];
+//  }
+//  [button setTitleFont:typographyScheme.button forState:UIControlStateNormal];
+//}
+//
+//@end

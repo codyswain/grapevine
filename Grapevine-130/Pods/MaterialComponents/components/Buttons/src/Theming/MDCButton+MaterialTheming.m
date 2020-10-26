@@ -28,7 +28,7 @@
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
-    [self applyContainedThemeWithShapeScheme:shapeScheme];
+//    [self applyContainedThemeWithShapeScheme:shapeScheme];
   } else {
     self.layer.cornerRadius = (CGFloat)4;
   }
@@ -64,9 +64,9 @@
   }
 }
 
-- (void)applyContainedThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
-  [MDCButtonShapeThemer applyShapeScheme:shapeScheme toButton:self];
-}
+//- (void)applyContainedThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
+//  [MDCButtonShapeThemer applyShapeScheme:shapeScheme toButton:self];
+//}
 
 #pragma mark - Outlined Button Themers
 
@@ -76,7 +76,7 @@
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
-    [self applyOutlinedThemeWithShapeScheme:shapeScheme];
+//    [self applyOutlinedThemeWithShapeScheme:shapeScheme];
   } else {
     self.layer.cornerRadius = (CGFloat)4;
   }
@@ -114,9 +114,9 @@
   }
 }
 
-- (void)applyOutlinedThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
-  [MDCButtonShapeThemer applyShapeScheme:shapeScheme toButton:self];
-}
+//- (void)applyOutlinedThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
+//  [MDCButtonShapeThemer applyShapeScheme:shapeScheme toButton:self];
+//}
 
 #pragma mark - Text Button Themers
 
@@ -126,7 +126,7 @@
 
   id<MDCShapeScheming> shapeScheme = scheme.shapeScheme;
   if (shapeScheme) {
-    [self applyTextThemeWithShapeScheme:shapeScheme];
+//    [self applyTextThemeWithShapeScheme:shapeScheme];
   } else {
     self.layer.cornerRadius = (CGFloat)4.0;
   }
@@ -163,9 +163,9 @@
   }
 }
 
-- (void)applyTextThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
-  [MDCButtonShapeThemer applyShapeScheme:shapeScheme toButton:self];
-}
+//- (void)applyTextThemeWithShapeScheme:(id<MDCShapeScheming>)shapeScheme {
+//  [MDCButtonShapeThemer applyShapeScheme:shapeScheme toButton:self];
+//}
 
 #pragma mark - General helpers
 

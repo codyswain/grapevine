@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "MaterialButtons.h"
+#import <MaterialButtons.h>
 // TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
 // longer import delegates as transitive dependencies.
-#import "MDCAlertControllerDelegate.h"
-#import "MaterialElevation.h"
-#import "MaterialShadowElevations.h"
+#import <MDCAlertControllerDelegate.h>
+#import <MaterialElevation.h>
+#import <MaterialShadowElevations.h>
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
