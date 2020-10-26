@@ -22,9 +22,12 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var postContentLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inputTextContainerView: UIView!
+    @IBOutlet weak var InputTextContainerTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var commentInput: UITextView!
+    @IBOutlet weak var commentInputTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var InputContainerConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageVar: UIImageView!
     @IBOutlet weak var actionBar: UIView!
     @IBOutlet weak var startApostrophe: UIImageView!
@@ -79,6 +82,14 @@ class CommentViewController: UIViewController {
         
         // Set dark/light mode from persistent storage
         setTheme(curView: self)
+        
+        //For tiny phones
+        if UIDevice.current.deviceType == .iPhones_5_5s_5c_SE {
+            dateLabel.font = .systemFont(ofSize: 10)
+            actionsButtonVar.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
+            shareButtonVar.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
+            postContentLabel.font = .systemFont(ofSize: 13, weight: .bold)
+        }
         
         // Show loading symbol
         activityIndicator()
