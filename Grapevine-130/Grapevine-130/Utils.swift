@@ -14,7 +14,7 @@ func SHA256(data: String) -> String {
     var sha256String = ""
     if let strData = data.data(using: String.Encoding.utf8) {
         var digest = [UInt8](repeating: 0, count:Int(CC_SHA256_DIGEST_LENGTH))
-        strData.withUnsafeBytes {
+        _ = strData.withUnsafeBytes{
             CC_SHA256($0.baseAddress, UInt32(strData.count), &digest)
         }
         
@@ -40,7 +40,9 @@ func makePopup(alert: MDCAlertController, image: String) {
     alert.titleIconTintColor = Globals.ViewSettings.labelColor
     alert.titleFont = UIFont.boldSystemFont(ofSize: 20)
     alert.messageFont = UIFont.systemFont(ofSize: 17)
-    alert.buttonFont = UIFont.boldSystemFont(ofSize: 13)
+    for action in alert.actions {
+        alert.button(for: action)?.setTitleFont(UIFont.boldSystemFont(ofSize: 13), for: .normal)
+    }
     alert.cornerRadius = 10
     
     alert.backgroundColor = Globals.ViewSettings.backgroundColor

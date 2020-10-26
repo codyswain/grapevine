@@ -94,7 +94,7 @@ class KarmaAbilitiesViewerViewController: UIViewController {
         
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             // do something when item was selected
-            let selectedCell = indexPath.row
+//            let selectedCell = indexPath.row
             self.alertUseInFeed()
         }
         

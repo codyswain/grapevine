@@ -14,12 +14,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MaterialAvailability.h"
+#import <MaterialAvailability.h>
 // TODO(b/151929968): Delete import of MDCBottomNavigationBarDelegate.h when client code has been
 // migrated to no longer import MDCBottomNavigationBarDelegate as a transitive dependency.
-#import "MDCBottomNavigationBarDelegate.h"
-#import "MaterialElevation.h"
-#import "MaterialShadowElevations.h"
+#import <MDCBottomNavigationBarDelegate.h>
+#import <MaterialElevation.h>
+#import <MaterialShadowElevations.h>
 
 @protocol MDCBottomNavigationBarDelegate;
 

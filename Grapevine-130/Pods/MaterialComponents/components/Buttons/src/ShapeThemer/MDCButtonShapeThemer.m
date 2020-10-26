@@ -14,16 +14,16 @@
 
 #import "MDCButtonShapeThemer.h"
 
-@implementation MDCButtonShapeThemer
-
-+ (void)applyShapeScheme:(nonnull id<MDCShapeScheming>)shapeScheme
-                toButton:(nonnull MDCButton *)button {
-  MDCRectangleShapeGenerator *rectangleShape = [[MDCRectangleShapeGenerator alloc] init];
-  rectangleShape.topLeftCorner = shapeScheme.smallComponentShape.topLeftCorner;
-  rectangleShape.topRightCorner = shapeScheme.smallComponentShape.topRightCorner;
-  rectangleShape.bottomLeftCorner = shapeScheme.smallComponentShape.bottomLeftCorner;
-  rectangleShape.bottomRightCorner = shapeScheme.smallComponentShape.bottomRightCorner;
-  button.shapeGenerator = rectangleShape;
-}
-
-@end
+//@implementation MDCButtonShapeThemer
+//
+//+ (void)applyShapeScheme:(nonnull id<MDCShapeScheming>)shapeScheme
+//                toButton:(nonnull MDCButton *)button {
+//  MDCRectangleShapeGenerator *rectangleShape = [[MDCRectangleShapeGenerator alloc] init];
+//  rectangleShape.topLeftCorner = shapeScheme.smallComponentShape.topLeftCorner;
+//  rectangleShape.topRightCorner = shapeScheme.smallComponentShape.topRightCorner;
+//  rectangleShape.bottomLeftCorner = shapeScheme.smallComponentShape.bottomLeftCorner;
+//  rectangleShape.bottomRightCorner = shapeScheme.smallComponentShape.bottomRightCorner;
+//  button.shapeGenerator = rectangleShape;
+//}
+//
+//@end

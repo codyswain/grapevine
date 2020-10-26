@@ -14,28 +14,28 @@
 
 #import "MDCOutlinedButtonColorThemer.h"
 
-@implementation MDCOutlinedButtonColorThemer
-
-+ (void)applySemanticColorScheme:(nonnull id<MDCColorScheming>)colorScheme
-                        toButton:(nonnull MDCButton *)button {
-  [self resetUIControlStatesForButtonTheming:button];
-  [button setBackgroundColor:UIColor.clearColor forState:UIControlStateNormal];
-  [button setTitleColor:colorScheme.primaryColor forState:UIControlStateNormal];
-  [button setTitleColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
-               forState:UIControlStateDisabled];
-  button.disabledAlpha = 1;
-  button.inkColor = [colorScheme.primaryColor colorWithAlphaComponent:(CGFloat)0.16];
-  UIColor *borderColor = [colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.12];
-  [button setBorderColor:borderColor forState:UIControlStateNormal];
-}
-
-+ (void)resetUIControlStatesForButtonTheming:(nonnull MDCButton *)button {
-  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
-                                 UIControlStateHighlighted | UIControlStateDisabled;
-  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
-    [button setBackgroundColor:nil forState:state];
-    [button setTitleColor:nil forState:state];
-    [button setBorderColor:nil forState:state];
-  }
-}
-@end
+//@implementation MDCOutlinedButtonColorThemer
+//
+//+ (void)applySemanticColorScheme:(nonnull id<MDCColorScheming>)colorScheme
+//                        toButton:(nonnull MDCButton *)button {
+//  [self resetUIControlStatesForButtonTheming:button];
+//  [button setBackgroundColor:UIColor.clearColor forState:UIControlStateNormal];
+//  [button setTitleColor:colorScheme.primaryColor forState:UIControlStateNormal];
+//  [button setTitleColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+//               forState:UIControlStateDisabled];
+//  button.disabledAlpha = 1;
+//  button.inkColor = [colorScheme.primaryColor colorWithAlphaComponent:(CGFloat)0.16];
+//  UIColor *borderColor = [colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.12];
+//  [button setBorderColor:borderColor forState:UIControlStateNormal];
+//}
+//
+//+ (void)resetUIControlStatesForButtonTheming:(nonnull MDCButton *)button {
+//  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+//                                 UIControlStateHighlighted | UIControlStateDisabled;
+//  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+//    [button setBackgroundColor:nil forState:state];
+//    [button setTitleColor:nil forState:state];
+//    [button setBorderColor:nil forState:state];
+//  }
+//}
+//@end

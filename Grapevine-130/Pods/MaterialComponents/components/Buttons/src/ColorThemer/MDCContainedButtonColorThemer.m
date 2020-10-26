@@ -14,32 +14,32 @@
 
 #import "MDCContainedButtonColorThemer.h"
 
-@implementation MDCContainedButtonColorThemer
-
-+ (void)applySemanticColorScheme:(nonnull id<MDCColorScheming>)colorScheme
-                        toButton:(nonnull MDCButton *)button {
-  [self resetUIControlStatesForButtonTheming:button];
-  [button setBackgroundColor:colorScheme.primaryColor forState:UIControlStateNormal];
-  [button setBackgroundColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.12]
-                    forState:UIControlStateDisabled];
-  [button setTitleColor:colorScheme.onPrimaryColor forState:UIControlStateNormal];
-  [button setTitleColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
-               forState:UIControlStateDisabled];
-  [button setImageTintColor:colorScheme.onPrimaryColor forState:UIControlStateNormal];
-  [button setImageTintColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
-                   forState:UIControlStateDisabled];
-  button.disabledAlpha = 1;
-  button.inkColor = [colorScheme.onPrimaryColor colorWithAlphaComponent:(CGFloat)0.32];
-}
-
-+ (void)resetUIControlStatesForButtonTheming:(nonnull MDCButton *)button {
-  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
-                                 UIControlStateHighlighted | UIControlStateDisabled;
-  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
-    [button setBackgroundColor:nil forState:state];
-    [button setTitleColor:nil forState:state];
-    [button setImageTintColor:nil forState:state];
-  }
-}
-
-@end
+//@implementation MDCContainedButtonColorThemer
+//
+//+ (void)applySemanticColorScheme:(nonnull id<MDCColorScheming>)colorScheme
+//                        toButton:(nonnull MDCButton *)button {
+//  [self resetUIControlStatesForButtonTheming:button];
+//  [button setBackgroundColor:colorScheme.primaryColor forState:UIControlStateNormal];
+//  [button setBackgroundColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.12]
+//                    forState:UIControlStateDisabled];
+//  [button setTitleColor:colorScheme.onPrimaryColor forState:UIControlStateNormal];
+//  [button setTitleColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+//               forState:UIControlStateDisabled];
+//  [button setImageTintColor:colorScheme.onPrimaryColor forState:UIControlStateNormal];
+//  [button setImageTintColor:[colorScheme.onSurfaceColor colorWithAlphaComponent:(CGFloat)0.38]
+//                   forState:UIControlStateDisabled];
+//  button.disabledAlpha = 1;
+//  button.inkColor = [colorScheme.onPrimaryColor colorWithAlphaComponent:(CGFloat)0.32];
+//}
+//
+//+ (void)resetUIControlStatesForButtonTheming:(nonnull MDCButton *)button {
+//  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+//                                 UIControlStateHighlighted | UIControlStateDisabled;
+//  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+//    [button setBackgroundColor:nil forState:state];
+//    [button setTitleColor:nil forState:state];
+//    [button setImageTintColor:nil forState:state];
+//  }
+//}
+//
+//@end
