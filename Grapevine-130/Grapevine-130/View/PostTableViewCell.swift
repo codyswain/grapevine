@@ -75,6 +75,7 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var ViewPostLabel: UILabel!
     ///Post Expansion
     var isExpanded: Bool = false
+    var expandConstant: CGFloat = 96
     
     ///Deleteable
     var isDeleteable = false
@@ -109,6 +110,8 @@ class PostTableViewCell: UITableViewCell {
             commentButton.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
             shareButtonVar.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
             moreOptionsButton.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
+            label.font = .systemFont(ofSize: 14, weight: .semibold)
+            expandConstant = 116
         }
         
         // Add radius to abilities view
@@ -510,7 +513,6 @@ class PostTableViewCell: UITableViewCell {
         self.expandButton.tintColor = UIColor(named: "GrapevinePurple")
         self.imageVar.image = nil
         self.moreOptionsButton.tintColor = UIColor.systemGray2
-        self.label.font = self.label.font.withSize(16)
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 self.commentAreaView.backgroundColor = .systemGray6
@@ -616,13 +618,13 @@ class PostTableViewCell: UITableViewCell {
     @IBAction func expandButtonPressed(_ sender: Any) {
         if self.isExpanded == false {
             //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + 96)
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.label.totalNumberOfLines()) * self.label.font.lineHeight + expandConstant)
                 self.expandButton.tintColor = .systemGray3
             //}, completion: nil )
             
         } else {
             //UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
-                self.delegate?.expandCell(self, cellHeight: CGFloat(self.maxLines) * self.label.font.lineHeight + 96)
+                self.delegate?.expandCell(self, cellHeight: CGFloat(self.maxLines) * self.label.font.lineHeight + expandConstant)
                 self.expandButton.tintColor = .systemGray3
             //}, completion: nil)
         }

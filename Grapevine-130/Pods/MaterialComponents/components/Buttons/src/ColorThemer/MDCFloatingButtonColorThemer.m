@@ -14,25 +14,25 @@
 
 #import "MDCFloatingButtonColorThemer.h"
 
-@implementation MDCFloatingButtonColorThemer
-
-+ (void)applySemanticColorScheme:(nonnull id<MDCColorScheming>)colorScheme
-                        toButton:(nonnull MDCFloatingButton *)button {
-  [self resetUIControlStatesForButtonTheming:button];
-  [button setBackgroundColor:colorScheme.secondaryColor forState:UIControlStateNormal];
-  [button setTitleColor:colorScheme.onSecondaryColor forState:UIControlStateNormal];
-  [button setImageTintColor:colorScheme.onSecondaryColor forState:UIControlStateNormal];
-
-  button.disabledAlpha = 1;
-}
-
-+ (void)resetUIControlStatesForButtonTheming:(nonnull MDCButton *)button {
-  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
-                                 UIControlStateHighlighted | UIControlStateDisabled;
-  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
-    [button setBackgroundColor:nil forState:state];
-    [button setTitleColor:nil forState:state];
-  }
-}
-
-@end
+//@implementation MDCFloatingButtonColorThemer
+//
+//+ (void)applySemanticColorScheme:(nonnull id<MDCColorScheming>)colorScheme
+//                        toButton:(nonnull MDCFloatingButton *)button {
+//  [self resetUIControlStatesForButtonTheming:button];
+//  [button setBackgroundColor:colorScheme.secondaryColor forState:UIControlStateNormal];
+//  [button setTitleColor:colorScheme.onSecondaryColor forState:UIControlStateNormal];
+//  [button setImageTintColor:colorScheme.onSecondaryColor forState:UIControlStateNormal];
+//
+//  button.disabledAlpha = 1;
+//}
+//
+//+ (void)resetUIControlStatesForButtonTheming:(nonnull MDCButton *)button {
+//  NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
+//                                 UIControlStateHighlighted | UIControlStateDisabled;
+//  for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
+//    [button setBackgroundColor:nil forState:state];
+//    [button setTitleColor:nil forState:state];
+//  }
+//}
+//
+//@end

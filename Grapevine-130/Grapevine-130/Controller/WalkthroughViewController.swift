@@ -125,7 +125,7 @@ extension WalkthroughViewController: WalkthroughPageCellDelegate {
     }
     
     func firstTimeUserRulesAlert(){
-        let alert = MDCAlertController(title: "Rules", message: "You must agree to our rules. If you see content that doesn't belong, press and hold to report!\n\n1. Posting bullying, threats, terrorism, harrassment, or stalking will not be allowed and may force law enforcement to be involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason. ")
+        let alert = MDCAlertController(title: "Rules", message: "You must agree to our rules. If you see content that doesn't belong, tap the options icon on the post and flag it for review!\n\n1. Posting bullying, threats, terrorism, harrassment, or stalking will not be allowed and may cause law enforcement to become involved.\n\n2. Using names of individual people (non-public figures) is not allowed.\n\n3. Anonymity is a privilege, not a right. You can be banned at any time for any reason. ")
         alert.addAction(MDCAlertAction(title: "I agree, let me in!") { (action) in
             let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as UIViewController
             viewController.modalPresentationStyle = .fullScreen

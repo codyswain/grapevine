@@ -232,17 +232,17 @@ class NewPostViewController: UIViewController {
     
     // Move comment input box up when keyboard opens
     @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-        {
-            /* Don't move the submit post button
-            if (UIScreen.main.bounds.size.height < 736.0){
-                AddButtonContainingViewConstraint.constant = keyboardSize.height + 10
-            } else {
-                AddButtonContainingViewConstraint.constant = keyboardSize.height - 20
-            }
-            view.setNeedsLayout()
-             */
-        }
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+//        {
+//            /* Don't move the submit post button
+//            if (UIScreen.main.bounds.size.height < 736.0){
+//                AddButtonContainingViewConstraint.constant = keyboardSize.height + 10
+//            } else {
+//                AddButtonContainingViewConstraint.constant = keyboardSize.height - 20
+//            }
+//            view.setNeedsLayout()
+//             */
+//        }
 
     }
 
@@ -284,7 +284,7 @@ class NewPostViewController: UIViewController {
         spinnerView?.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         let ai = UIActivityIndicatorView.init(style: .large)
         ai.startAnimating()
-        ai.center = spinnerView?.center as! CGPoint
+        ai.center = (spinnerView?.center)!
         spinnerView?.addSubview(ai)
         self.view.addSubview(spinnerView!)
         

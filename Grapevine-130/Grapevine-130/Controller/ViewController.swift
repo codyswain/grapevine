@@ -302,14 +302,14 @@ class ViewController: UIViewController {
     }
     
     // Display notification alert. Location alert is handled by location manager callback function
-    // https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
-    override func viewDidAppear(_ animated: Bool) {
-        if Globals.ViewSettings.showNotificationAlert {
-            displayNotificationAlert()
-            Globals.ViewSettings.showNotificationAlert = false
-            return
-        }
-    }
+//    // https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
+//    override func viewDidAppear(_ animated: Bool) {
+//        if Globals.ViewSettings.showNotificationAlert {
+//            displayNotificationAlert()
+//            Globals.ViewSettings.showNotificationAlert = false
+//            return
+//        }
+//    }
     
     // MARK: View Utilities
     func displayNotificationAlert() {
@@ -342,6 +342,7 @@ class ViewController: UIViewController {
                     self.dismiss(animated: true, completion: {
                         if Globals.ViewSettings.showNotificationAlert {
                             self.displayNotificationAlert()
+                            Globals.ViewSettings.showNotificationAlert = false
                         }
                     })
                 })
