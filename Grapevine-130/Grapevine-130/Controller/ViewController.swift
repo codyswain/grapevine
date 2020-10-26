@@ -135,7 +135,7 @@ class ViewController: UIViewController {
     var goStraightToKarma = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return setStatusBarStyle()
+        return .lightContent
     }
     
     // For observing when app enters foreground (for notifications)
@@ -845,7 +845,7 @@ class ViewController: UIViewController {
     
     // MARK: View Modes
     func changeAppearanceBasedOnMode(){
-        self.karmaAmountLabel.text = String(self.user?.score ?? 0)
+        self.setKarmaAmountLabelText()
         //Prepare view for groups mode
         if Globals.ViewSettings.groupID != "Grapevine"  && currentMode == "default" {
             // Should only switch between default and groups because we don't want to set currentmode to groups in mycomments view or myposts view
@@ -1071,7 +1071,7 @@ class ViewController: UIViewController {
                 self.posts.remove(at: row)
                 UIView.animate(withDuration: 0.5, animations: {self.tableView.deleteRows(at: [self.selectedIndex!], with: .fade)}) //Should make this look like the post is burning
                 self.user?.score -= 10
-                self.karmaAmountLabel.text = String(self.user?.score ?? 0)
+                self.setKarmaAmountLabelText()
             } else {
                 confirmMessage = "Unable to burn..."
                 alertMessage = "Not enough karma!"
@@ -1637,6 +1637,10 @@ extension ViewController: PostTableViewCellDelegate {
         }
     }
     
+    func setKarmaAmountLabelText(){
+        self.karmaAmountLabel.text = String(self.user?.score ?? 0) + "  " + scoreManager.getEmoji(score:self.user?.score ?? 0)
+    }
+    
     func viewComments(_ cell: PostTableViewCell, cellHeight: CGFloat) {}
     
     /** Updates votes view on a post.
@@ -1716,7 +1720,7 @@ extension ViewController: UserManagerDelegate {
                 self.performSegue(withIdentifier: "banScreen", sender: self)
             }
             self.user = user
-            self.karmaAmountLabel.text = String((self.user?.score ?? 0))
+            self.setKarmaAmountLabelText()
         }
     }
     
