@@ -135,7 +135,7 @@ class CommentViewController: UIViewController {
     }
     /// Displays a loading icon while posts load.
     func activityIndicator() {
-        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 175, y: 350, width: 40, height: 40))
         indicator.style = UIActivityIndicatorView.Style.medium
         indicator.center.y = self.tableView.center.y
         indicator.center.x = self.view.center.x
