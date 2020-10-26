@@ -176,20 +176,20 @@ class ViewController: UIViewController {
         activityIndicator()
         indicator.startAnimating()
         
-        var layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
+//        var layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
         
         if let curTheme = UserDefaults.standard.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 indicator.backgroundColor = .black
                 //bufferView.backgroundColor = .black
                 //self.view.backgroundColor = .black
-                layer = getGradient(color1: .purple, color2: UIColor(named: "GrapevinePurple")!)
+//                layer = getGradient(color1: .purple, color2: UIColor(named: "GrapevinePurple")!)
             }
             else {
                 indicator.backgroundColor = .systemGray6
                 //bufferView.backgroundColor = .systemGray6
                 //self.view.backgroundColor = .systemGray6
-                layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
+//                layer = getGradient(color1: #colorLiteral(red: 0.963324368, green: 0.4132775664, blue: 0.9391091466, alpha: 1), color2: UIColor(named: "GrapevinePurple")!)
             }
         }
 //        layer.cornerRadius = 5
