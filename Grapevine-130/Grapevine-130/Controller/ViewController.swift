@@ -135,7 +135,7 @@ class ViewController: UIViewController {
     var goStraightToKarma = false
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return setStatusBarStyle()
+        return .lightContent
     }
     
     // For observing when app enters foreground (for notifications)
