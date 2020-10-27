@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     
     // MARK: Properties
     @IBOutlet weak var DarkModeSwitch: UISwitch!
-    @IBOutlet weak var DarkModeLabel: UILabel!
+    @IBOutlet weak var DarkModeImage: UIImageView!
     
     @IBOutlet weak var MyKarmaButton: UIButton!
     @IBOutlet weak var MyCommentsButton: UIButton!
@@ -113,23 +113,26 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         if let curTheme = defaults.string(forKey: Globals.userDefaults.themeKey){
             if (curTheme == "dark") {
                 DarkModeSwitch.setOn(true, animated: true)
-                DarkModeLabel.text = "🌚"
                 Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
                 Globals.ViewSettings.labelColor = .white
+                DarkModeImage.image = UIImage(systemName: "moon.fill")
+                DarkModeImage.setImageColor(color: Globals.ViewSettings.labelColor)
                 super.overrideUserInterfaceStyle = .dark
             } else {
                 DarkModeSwitch.setOn(false, animated: true)
-                DarkModeLabel.text = "🌝"
                 Globals.ViewSettings.backgroundColor = .white
                 Globals.ViewSettings.labelColor = .black
+                DarkModeImage.image = UIImage(systemName: "sun.max.fill")
+                DarkModeImage.setImageColor(color: Globals.ViewSettings.labelColor)
                 super.overrideUserInterfaceStyle = .light
             }
         }
         else {
             DarkModeSwitch.setOn(false, animated: true)
-            DarkModeLabel.text = "🌝"
             Globals.ViewSettings.backgroundColor = .white
             Globals.ViewSettings.labelColor = .black
+            DarkModeImage.image = UIImage(systemName: "sun.max.fill")
+            DarkModeImage.setImageColor(color: Globals.ViewSettings.labelColor)
             super.overrideUserInterfaceStyle = .light
         }
     }
@@ -141,22 +144,35 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBAction func DarkModeSwitchPressed(_ sender: Any) {
         //Changes UI to dark or light mode
         if DarkModeSwitch.isOn{
-            DarkModeLabel.text = "🌚"
             super.overrideUserInterfaceStyle = .dark
             Globals.ViewSettings.backgroundColor = Constants.Colors.extremelyDarkGrey
             Globals.ViewSettings.labelColor = .white
+            UIView.transition(with: self.DarkModeImage,
+                              duration: 1.0,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                self.DarkModeImage.image = UIImage(systemName: "moon.fill")
+            }, completion: nil)
             let defaults = UserDefaults.standard
             defaults.set("dark", forKey: Globals.userDefaults.themeKey)
+            DarkModeImage.setImageColor(color: Globals.ViewSettings.labelColor)
             UIView.animate(withDuration: 1.0) {
                 super.setNeedsStatusBarAppearanceUpdate()
                 self.bottomNavBar = bottomNavBarStyling(bottomNavBar: self.bottomNavBar)
             }
         }
         else{
-            DarkModeLabel.text = "🌝"
             super.overrideUserInterfaceStyle = .light
             Globals.ViewSettings.backgroundColor = .white
             Globals.ViewSettings.labelColor = .black
+            UIView.transition(with: self.DarkModeImage,
+                              duration: 1.0,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                self.DarkModeImage.image = UIImage(systemName: "sun.max.fill")
+            }, completion: nil)
+            DarkModeImage.image = UIImage(systemName: "sun.max.fill")
+            DarkModeImage.setImageColor(color: Globals.ViewSettings.labelColor)
             let defaults = UserDefaults.standard
             defaults.set("light", forKey: Globals.userDefaults.themeKey)
             UIView.animate(withDuration: 1.0) {
