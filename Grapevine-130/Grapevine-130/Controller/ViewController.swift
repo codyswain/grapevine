@@ -1211,8 +1211,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as! PostTableViewCell
-        cell.abilitiesView.isHidden = true
-        cell.abilitiesBackgroundView.isHidden = true
+//        cell.abilitiesView.isHidden = true
+//        cell.abilitiesBackgroundView.isHidden = true
         cell.user = self.user
         
         cell.makeBasicCell(post: posts[indexPath.row])
