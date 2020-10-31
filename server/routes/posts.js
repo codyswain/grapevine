@@ -83,7 +83,7 @@ async function getPosts(req, res, next) {
 					.orderBy('date', 'desc')
       }
     }
-	} else {
+	} else { // Global
     if (activityFilter == "top"){
       if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
@@ -357,18 +357,18 @@ async function morePosts(req, res, next) {
 					.orderBy('date', 'desc')
       }
     }
-	} else {
+	} else { // Global
     if (activityFilter == "top"){
       if (typeFilter == "image" || typeFilter == "text"){
         query = db.collection('posts')
           .where("banned", "==", false)
           .where("type", "==", typeFilter)
-          // .where("visibility", "==", "Global")
+          .where("visibility", "==", "Global")
           .orderBy('votes', 'desc')
       } else {
         query = db.collection('posts')
           .where("banned", "==", false)
-          // .where("visibility", "==", "Local")
+          .where("visibility", "==", "Global")
           .orderBy('votes', 'desc')
       }
     } else {

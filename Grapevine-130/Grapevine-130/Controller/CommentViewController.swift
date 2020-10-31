@@ -133,8 +133,7 @@ class CommentViewController: UIViewController {
         commentsManager.delegate = self
         
         // Close keyboard when tapping anywhere
-        let tap = UITapGestureRecognizer(target: self.view,
-                                         action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         commentsManager.fetchComments(postID: postID, userID: Constants.userID)
             
