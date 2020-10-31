@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,7 +24,7 @@
                         <subviews>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UoD-ZJ-Kvy">
                                 <rect key="frame" x="271" y="16" width="20" height="19"/>
-                                <color key="tintColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGray3Color"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -84,7 +86,6 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="tHq-ic-ovY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PeC-oc-3jp"/>
-                    <constraint firstAttribute="bottom" secondItem="tHq-ic-ovY" secondAttribute="bottom" id="dXB-Q9-bIQ"/>
                     <constraint firstItem="tHq-ic-ovY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="fDb-Sa-7zP"/>
                     <constraint firstAttribute="trailing" secondItem="tHq-ic-ovY" secondAttribute="trailing" constant="10" id="fW1-Xi-2pk"/>
                     <constraint firstItem="tHq-ic-ovY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="qeb-PX-Y9p"/>
@@ -104,10 +105,13 @@
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="GrapevinePurple">
-            <color red="0.68400001525878906" green="0.27500000596046448" blue="0.85399997234344482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.57899999618530273" green="0.289000004529953" blue="0.86699998378753662" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="PostColors">
             <color red="0.97000002861022949" green="0.95999997854232788" blue="0.97000002861022949" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

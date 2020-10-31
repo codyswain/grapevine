@@ -41,14 +41,14 @@ class PostTableViewCell: UITableViewCell {
     
     // Abilities
     var abilitiesToggleIsActive: Bool = false
-    @IBOutlet weak var abilitiesView: UIView!
-    @IBOutlet weak var abilitiesBackgroundView: UIView!
-    @IBOutlet weak var burnButtonView: UIImageView!
+//    @IBOutlet weak var abilitiesView: UIView!
+//    @IBOutlet weak var abilitiesBackgroundView: UIView!
+//    @IBOutlet weak var burnButtonView: UIImageView!
     @IBOutlet weak var abilitiesButton: UIButton!
-    @IBOutlet weak var burnBlockedView: UIImageView!
-    @IBOutlet weak var shoutButtonView: UIImageView!
-    @IBOutlet weak var pushButtonView: UIImageView!
-    @IBOutlet weak var shareButtonView: UIImageView!
+//    @IBOutlet weak var burnBlockedView: UIImageView!
+//    @IBOutlet weak var shoutButtonView: UIImageView!
+//    @IBOutlet weak var pushButtonView: UIImageView!
+//    @IBOutlet weak var shareButtonView: UIImageView!
     
     /// Specify which abilites may be activated
     var flammable: Bool = false
@@ -103,7 +103,7 @@ class PostTableViewCell: UITableViewCell {
         // Abilities tap gesture setup
         
         abilitiesButton.isUserInteractionEnabled = true
-        shareButtonView.isUserInteractionEnabled = true
+//        shareButtonView.isUserInteractionEnabled = true
         
         if UIDevice.current.deviceType == .iPhones_5_5s_5c_SE {
             abilitiesButton.titleLabel?.font = .systemFont(ofSize: 8.5, weight: .bold)
@@ -115,15 +115,15 @@ class PostTableViewCell: UITableViewCell {
         }
         
         // Add radius to abilities view
-        DispatchQueue.main.async {
-            let path = UIBezierPath(roundedRect:self.abilitiesBackgroundView.bounds,
-                                    byRoundingCorners:[.topLeft, .topRight],
-                                    cornerRadii: CGSize(width: 10, height:  10))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            self.abilitiesBackgroundView.layer.mask = maskLayer
-            self.abilitiesBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        }
+//        DispatchQueue.main.async {
+//            let path = UIBezierPath(roundedRect:self.abilitiesBackgroundView.bounds,
+//                                    byRoundingCorners:[.topLeft, .topRight],
+//                                    cornerRadii: CGSize(width: 10, height:  10))
+//            let maskLayer = CAShapeLayer()
+//            maskLayer.path = path.cgPath
+//            self.abilitiesBackgroundView.layer.mask = maskLayer
+//            self.abilitiesBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+//        }
     }
     
     /** Update the client view of a post. */
@@ -375,12 +375,12 @@ class PostTableViewCell: UITableViewCell {
     
     func toggleAbilities(){
         if (abilitiesToggleIsActive){
-            abilitiesView.isHidden = true
-            abilitiesBackgroundView.isHidden = true
+//            abilitiesView.isHidden = true
+//            abilitiesBackgroundView.isHidden = true
             abilitiesToggleIsActive = false
         } else {
-            abilitiesView.isHidden = false
-            abilitiesBackgroundView.isHidden = false
+//            abilitiesView.isHidden = false
+//            abilitiesBackgroundView.isHidden = false
             abilitiesToggleIsActive = true
             print(abilitiesToggleIsActive)
         }
@@ -565,15 +565,15 @@ class PostTableViewCell: UITableViewCell {
             self.commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         }
         /// Cell is flammable
-        if (post.votes < -3 && post.poster != self.user!.user){
-            print("Post is flammable/bannable")
-            burnBlockedView.isUserInteractionEnabled = false
-            burnBlockedView.isHidden = true
-        } else {
-            print("Post is not flammable/bannable")
-            burnBlockedView.isUserInteractionEnabled = true
-            burnBlockedView.isHidden = false
-        }
+//        if (post.votes < -3 && post.poster != self.user!.user){
+//            print("Post is flammable/bannable")
+//           burnBlockedView.isUserInteractionEnabled = false
+//            burnBlockedView.isHidden = true
+//        } else {
+//            print("Post is not flammable/bannable")
+//            burnBlockedView.isUserInteractionEnabled = true
+//            burnBlockedView.isHidden = false
+//        }
         
         // Collapse Cell
         label.numberOfLines = maxLines

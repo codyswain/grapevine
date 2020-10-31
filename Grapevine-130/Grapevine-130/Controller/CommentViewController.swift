@@ -110,7 +110,6 @@ class CommentViewController: UIViewController {
         commentInput.isEditable = true
         commentInput.layer.cornerRadius = 10
         commentInput.clipsToBounds = true
-        commentInput.translatesAutoresizingMaskIntoConstraints = true
         
         if (mainPost?.type == "text"){
             postContentLabel.text = mainPost!.content
