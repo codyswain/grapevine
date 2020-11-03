@@ -312,6 +312,10 @@ class ViewController: UIViewController {
 //    }
     
     // MARK: View Utilities
+    @IBAction func createNewPost(_ sender: Any) {
+        self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+    }
+    
     func displayNotificationAlert() {
         let alert = MDCAlertController(title: "Enable Notification Services", message: "Notifications are a critical part of the usefulness of Grapevine so that you know what people are saying around you. The app itself will never give you notifications for spam or promotions, only when actual people communicate to you through the app. Please hit this button to go to settings to turn them on.")
         alert.addAction(MDCAlertAction(title: "Enable Push Notifications") { (action) in
@@ -1791,14 +1795,9 @@ extension ViewController: UITabBarDelegate {
                 self.present(freshViewController, animated: true, completion: nil)
             }
         } else if item.tag == 1 {
-            if currentMode == "default" {
-                bottomNavBar.selectedItem = bottomNavBar.items?[0]
-            } else { // myPosts or myComments
-                bottomNavBar.selectedItem = bottomNavBar.items?[2]
-            }
-            self.performSegue(withIdentifier: "goToNewPosts", sender: self)
-        } else if item.tag == 2 {
             bottomNavBar.selectedItem = bottomNavBar.items?[1]
+        } else if item.tag == 2 {
+            bottomNavBar.selectedItem = bottomNavBar.items?[2]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)
         }
     }

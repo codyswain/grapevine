@@ -262,8 +262,7 @@ extension ProfileViewController: UITabBarDelegate {
             bottomNavBar.selectedItem = bottomNavBar.items?[0]
             self.performSegue(withIdentifier: "profileToPosts", sender: self)
         } else if item.tag == 1 {
-            bottomNavBar.selectedItem = bottomNavBar.items?[2]
-            self.performSegue(withIdentifier: "profileToCreatePost", sender: self)
+            bottomNavBar.selectedItem = bottomNavBar.items?[1]
         } else {
             bottomNavBar.selectedItem = bottomNavBar.items?[2]
         }
