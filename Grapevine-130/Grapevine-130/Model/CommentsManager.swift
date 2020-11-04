@@ -12,6 +12,7 @@ protocol CommentsManagerDelegate {
     func didUpdateComments(_ commentManager: CommentsManager, comments: [Comment])
     func didFailWithError(error: Error)
     func didCreateComment()
+    func contentNotPermitted()
 }
 
 struct CommentsManager {
@@ -126,7 +127,14 @@ struct CommentsManager {
             }
             if let safeData = data {
                 print("Comment POST req returned: \(safeData)")
-                self.delegate?.didCreateComment()
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        self.delegate?.didCreateComment()
+                    }
+                    else {
+                        self.delegate?.contentNotPermitted()
+                    }
+                }
                 return
             }
         }
