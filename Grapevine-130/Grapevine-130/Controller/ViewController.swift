@@ -1530,6 +1530,7 @@ extension ViewController: CLLocationManagerDelegate {
 extension ViewController: PostTableViewCellDelegate {
     func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController) {
         setTheme(curView: alert)
+        alert.tweakProblemWidthConstraints()
         self.present(alert, animated: true)
     }
     
@@ -1834,5 +1835,23 @@ extension ViewController: GroupsViewControllerDelegate {
 extension ViewController: NewPostViewControllerDelegate {
     func postCreated() { //Only called if addPost tapped from ViewController
         self.refresh()
+    }
+}
+
+// https://stackoverflow.com/questions/55653187/swift-default-alertviewcontroller-breaking-constraints
+extension UIAlertController {
+    func tweakProblemWidthConstraints() {
+        for subView in self.view.subviews {
+            for constraint in subView.constraints {
+                // Identify the problem constraint
+                // Check that it's priority 1000 - which is the cause of the conflict.
+                if constraint.firstAttribute == .width &&
+                    constraint.constant == -16 &&
+                    constraint.priority.rawValue == 1000 {
+                    // Let the framework know it's okay to break this constraint
+                    constraint.priority = UILayoutPriority(rawValue: 999)
+                }
+            }
+        }
     }
 }
