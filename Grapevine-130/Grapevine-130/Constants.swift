@@ -11,7 +11,7 @@ struct Constants {
     static let numberOfPostsPerBatch = 20
     static let numberOfCharactersPerPost = 280
     static let userID = SHA256(data:UIDevice.current.identifierForVendor!.uuidString)
-    static let serverURL = "https://grapevineapp.herokuapp.com/"
+    static let serverURL = "https://gvserverlb-205099786.teamgrapevine.com/"
     static let testServerURL = "http://localhost:3000/"
     static let numStrikesToBeBanned = 3
     static let banLengthInSeconds = 43200.0 // 12 hours in seconds
