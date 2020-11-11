@@ -46,8 +46,8 @@ struct PostsManager {
         performRequest(with: urlString)
     }
     
-    func fetchSinglePost(postID: String, groupID: String = "Grapevine") {
-        let url = "\(fetchSinglePostURL)&postID=\(postID)&groupID=\(groupID)"
+    func fetchSinglePost(postID: String, groupID: String = "Grapevine", userID: String = Constants.userID) {
+        let url = "\(fetchSinglePostURL)&postID=\(postID)&groupID=\(groupID)&userID=\(userID)"
         performSinglePostRequest(with: url)
     }
     
