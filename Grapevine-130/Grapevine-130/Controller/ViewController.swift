@@ -264,20 +264,10 @@ class ViewController: UIViewController {
         self.tableView.addGestureRecognizer(longPressGesture)
         
         // ViewController is used as the homepage but also the MyPosts page, so the appearance changes based on that
+        // TODO: Refactor this
         changeAppearanceBasedOnMode()
         
-//        // If user launches app via notification, open comment view controller
-//        let defaults = UserDefaults.standard
-//
-//        if let notificationPostID = defaults.string(forKey: "notificationPostID") {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as! PostTableViewCell
-//            let cellImage = cell.createTableCellImage()
-//            self.selectedPostScreenshot = cellImage
-//            defaults.removeObject(forKey: "notificationPostID")
-//            self.postsManager.fetchSinglePost(postID: notificationPostID, groupID: "Grapevine")
-//        }
         openNotificationPost()
-        
         observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
                 openNotificationPost()
         }
@@ -295,12 +285,6 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func karmaLabelTapped(tapGestureRecognizer: UITapGestureRecognizer){
-        goStraightToKarma = true
-        performSegue(withIdentifier: "mainViewToScoreView", sender: self)
-        
-    }
-    
     // Display notification alert. Location alert is handled by location manager callback function
 //    // https://stackoverflow.com/questions/48796561/how-to-ask-notifications-permissions-if-denied
 //    override func viewDidAppear(_ animated: Bool) {
@@ -314,6 +298,12 @@ class ViewController: UIViewController {
     // MARK: View Utilities
     @IBAction func createNewPost(_ sender: Any) {
         self.performSegue(withIdentifier: "goToNewPosts", sender: self)
+    }
+    
+    @objc func karmaLabelTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        goStraightToKarma = true
+        performSegue(withIdentifier: "mainViewToScoreView", sender: self)
+        
     }
     
     func displayNotificationAlert() {
@@ -464,17 +454,6 @@ class ViewController: UIViewController {
         tableView.estimatedRowHeight = 120
         tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 50, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
-    }
-        
-    func prepareFloatingAddButton(){
-        addButton.accessibilityLabel = "Create"
-        addButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        addButton.setImageTintColor(.label, for: .normal)
-        addButton.enableRippleBehavior = true
-        addButton.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.9)
-        addButton.frame = CGRect(x: view.frame.width - 55 - 20, y: view.frame.height - 80 - 60 - 20, width: 60, height: 60)
-        self.addButton.addTarget(self, action: #selector(addButtonPressed(_:)), for: UIControl.Event.touchUpInside)
-        self.view.addSubview(addButton)
     }
     
     /// Displays a loading icon while posts load.
@@ -1134,10 +1113,6 @@ class ViewController: UIViewController {
         self.tableView.refreshControl?.beginRefreshing()
         applyFilter(reset: false)
     }
-    
-    @IBAction func addButtonPressed(_ sender: UIButton){
-        self.performSegue(withIdentifier: "goToNewPosts", sender: self)
-    }
 }
 
 //MARK: Table View Control
@@ -1530,7 +1505,7 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
-/// Update post data.
+// MARK: Post Table Cell Delegate
 extension ViewController: PostTableViewCellDelegate {
     func moreOptionsTapped(_ cell: PostTableViewCell, alert: UIAlertController) {
         setTheme(curView: alert)
@@ -1778,6 +1753,7 @@ extension ViewController: CommentViewControllerDelegate {
     }
 }
 
+//MARK: Tab Navigation Segues
 extension ViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 0 {
@@ -1796,6 +1772,7 @@ extension ViewController: UITabBarDelegate {
             }
         } else if item.tag == 1 {
             bottomNavBar.selectedItem = bottomNavBar.items?[1]
+            self.performSegue(withIdentifier: "mainToActivity", sender: self)
         } else if item.tag == 2 {
             bottomNavBar.selectedItem = bottomNavBar.items?[2]
             self.performSegue(withIdentifier: "mainToProfile", sender: self)

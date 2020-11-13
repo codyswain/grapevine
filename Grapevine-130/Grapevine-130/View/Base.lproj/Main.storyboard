@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yQS-kG-YSu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-210.1449275362319" y="-1345.3125"/>
+            <point key="canvasLocation" x="-1320" y="-1307"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -413,6 +413,7 @@
                         <segue destination="u9k-vM-A2m" kind="show" identifier="mainViewToScoreView" animates="NO" id="nj9-4R-WLt"/>
                         <segue destination="nLL-ph-GD5" kind="presentation" identifier="goToComments" id="RYw-X8-5tY"/>
                         <segue destination="Prc-Cd-d7O" kind="show" identifier="mainToProfile" animates="NO" id="ekl-9A-j9Q"/>
+                        <segue destination="EK9-VH-hVN" kind="show" identifier="mainToActivity" animates="NO" id="i10-ht-Sff"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -627,7 +628,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9LD-VA-jbl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="698.55072463768124" y="-589.28571428571422"/>
+            <point key="canvasLocation" x="770" y="-1307"/>
         </scene>
         <!--Score View Controller-->
         <scene sceneID="Nxh-7k-zKW">
@@ -727,7 +728,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1r-Rh-zGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1644.9275362318842" y="137.94642857142856"/>
+            <point key="canvasLocation" x="770" y="-589"/>
         </scene>
         <!--Ban Chamber-->
         <scene sceneID="V89-fe-fuR">
@@ -778,7 +779,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wuL-O4-EHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1645" y="948"/>
+            <point key="canvasLocation" x="1654" y="204"/>
         </scene>
         <!--Ban Screen-->
         <scene sceneID="0wW-yY-ylv">
@@ -824,7 +825,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYB-WN-roc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-236" y="138"/>
+            <point key="canvasLocation" x="-236" y="-1307"/>
         </scene>
         <!--CommentInput-->
         <scene sceneID="agx-wJ-GiS">
@@ -1042,7 +1043,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xl7-SH-pte" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1320.289855072464" y="137.94642857142856"/>
+            <point key="canvasLocation" x="-1320" y="-589"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="gVe-b1-jeL">
@@ -1223,11 +1224,12 @@
                         <segue destination="JOP-em-yKC" kind="presentation" identifier="profileToCreatePost" modalPresentationStyle="fullScreen" id="UNp-xP-gzv"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToMyPosts" id="fBJ-JY-2Sp"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="profileToMyComments" id="ZgP-gY-piW"/>
+                        <segue destination="EK9-VH-hVN" kind="show" identifier="profileToActivity" animates="NO" id="Urd-x7-5YB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xBQ-Cl-HK9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1644.9275362318842" y="-589.28571428571422"/>
+            <point key="canvasLocation" x="803" y="236"/>
         </scene>
         <!--Shout Chamber-->
         <scene sceneID="bSA-bp-Yrk">
@@ -1301,14 +1303,68 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4w-jz-bTe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2562" y="948"/>
+            <point key="canvasLocation" x="1654" y="-589"/>
+        </scene>
+        <!--Activity View Controller-->
+        <scene sceneID="nXt-Zz-cDB">
+            <objects>
+                <viewController storyboardIdentifier="NotificationViewController" modalPresentationStyle="fullScreen" id="EK9-VH-hVN" customClass="ActivityViewController" customModule="Grapevine" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jOs-1t-t4M">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOe-Rw-K22">
+                                <rect key="frame" x="20" y="51" width="100.5" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ME1-bG-gvd">
+                                <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VTn-ob-cce">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="796"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="VTn-ob-cce" secondAttribute="bottom" id="3PE-Hj-GBK"/>
+                                    <constraint firstAttribute="trailing" secondItem="VTn-ob-cce" secondAttribute="trailing" id="aU2-GN-bW8"/>
+                                    <constraint firstItem="VTn-ob-cce" firstAttribute="leading" secondItem="ME1-bG-gvd" secondAttribute="leading" id="ciI-VO-Apk"/>
+                                    <constraint firstItem="VTn-ob-cce" firstAttribute="top" secondItem="ME1-bG-gvd" secondAttribute="top" id="ieO-0q-V3r"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hSF-Jl-W9l"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ME1-bG-gvd" firstAttribute="leading" secondItem="hSF-Jl-W9l" secondAttribute="leading" id="BoF-1w-aed"/>
+                            <constraint firstItem="MOe-Rw-K22" firstAttribute="leading" secondItem="hSF-Jl-W9l" secondAttribute="leading" constant="20" id="CW8-q5-Lf7"/>
+                            <constraint firstItem="ME1-bG-gvd" firstAttribute="top" secondItem="MOe-Rw-K22" secondAttribute="bottom" constant="15" id="H7G-iM-oYG"/>
+                            <constraint firstAttribute="bottom" secondItem="ME1-bG-gvd" secondAttribute="bottom" id="Oha-NC-I0Q"/>
+                            <constraint firstItem="MOe-Rw-K22" firstAttribute="top" secondItem="hSF-Jl-W9l" secondAttribute="top" constant="7" id="Qjz-kJ-TvA"/>
+                            <constraint firstItem="hSF-Jl-W9l" firstAttribute="trailing" secondItem="ME1-bG-gvd" secondAttribute="trailing" id="nkn-ah-iX2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="E8F-2u-UVt"/>
+                    <connections>
+                        <outlet property="tableView" destination="VTn-ob-cce" id="Udh-eB-boE"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="activityToPosts" animates="NO" id="8L2-Hc-4AI"/>
+                        <segue destination="Prc-Cd-d7O" kind="show" identifier="activityToProfile" animates="NO" id="baW-O0-4ng"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OJO-EV-q7J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-236" y="236"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ekl-9A-j9Q"/>
+        <segue reference="i10-ht-Sff"/>
+        <segue reference="baW-O0-4ng"/>
         <segue reference="nj9-4R-WLt"/>
         <segue reference="NSO-o6-THf"/>
-        <segue reference="YJd-nw-Ils"/>
+        <segue reference="8L2-Hc-4AI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="End Apostrophe" width="150" height="150"/>

@@ -25,13 +25,10 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: UITabBar, tab: 
         title: "",
         image: UIImage(systemName: "house.fill"),
         tag: 0)
-    // Create post button in bottom navbar
-    /*
-    let createTab = UITabBarItem(
-        title: "",
-        image:UIImage(named: "newPostButton")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor(named: "GrapevinePurple")!),
-        tag: 1)
-     */
+//    let createTab = UITabBarItem(
+//        title: "",
+//        image:UIImage(named: "newPostButton")?.withRenderingMode(.alwaysOriginal).withTintColor(UIColor(named: "GrapevinePurple")!),
+//        tag: 1)
     let notificationTab = UITabBarItem(
         title: "",
         image: UIImage(systemName: "bell.fill"),
@@ -44,10 +41,10 @@ func prepareBottomNavBar(sender: UIViewController, bottomNavBar: UITabBar, tab: 
     
     if (tab == "Posts") {
         bottomNavBar.selectedItem = postTab
+    } else if (tab == "Activity"){
+        bottomNavBar.selectedItem = notificationTab
     } else if (tab == "Profile"){
         bottomNavBar.selectedItem = meTab
-    } else if (tab == "Notifications"){
-        bottomNavBar.selectedItem = notificationTab;
     }
     
     bottomNavBar.delegate = (sender as! UITabBarDelegate)
