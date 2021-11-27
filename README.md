@@ -3,7 +3,8 @@ Grapevine is an anonymous, proximity-based sharing application that allows users
 It’s useful and fun to see what people exclusively in your area actually think. As our generation has gotten so conditioned to have all of our activity associated with our profile online, a space to be genuine with no repercussions is needed. People want a place to be themselves without judgement. We will provide an open space for young people (especially at universities and companies) to communicate without worrying about their reputation. While we try to avoid using romantic language, an implementation that succeeds in providing this type of environment will be a liberating break from what we have become used to. 
 
 ## Directory Structure
-The client code is within 'Grapevine-130' folder. To see the actual code, go [repo]/Grapevine-130/Grapevine-130. To see the unit test code, go [repo]/Grapevine-130/Grapevine-130Tests. To see the UI test code, go to [repo]/Grapevine-130/Grapevine-130UITests.
+The client code is within 'Grapevine' folder. 
+
 The server code is within 'server' folder. The main 'startup' file that acts like main is app.js, and posts.js and users.js control their eponymous endpoints. Most of the rest is auto-generated from the Node starter project.  
 
 ## Installation/Run instructions
@@ -21,6 +22,5 @@ To run the client code, make sure you're using the latest version of Xcode, and 
 
 ## Relevant Links 
 grapevineapp.herokuapp.com
-cs130-w20.github.io/team-A6/
 
 
