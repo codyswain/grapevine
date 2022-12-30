@@ -17,7 +17,7 @@
     "html": "^1.0.0",
     "http-errors": "~1.6.3",
     "jsdoc": "^3.6.3",
-    "mocha": "^7.0.1",
+    "mocha": "^10.2.0",
     "ngeohash": "^0.6.3",
     "perspective-api-client": "^3.1.0"
   },
